@@ -43,12 +43,12 @@ public class ApplicationController {
     }
     
     
-    @RequestMapping(value = "/hi_collaborator", method = RequestMethod.GET)
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) 
 			throws Exception {
 
-		ModelAndView model = new ModelAndView("HelloWorldPage");
-		model.addObject("msg", "hello world");
+		ModelAndView model = new ModelAndView("hello");
+		model.addObject("msg", "hello collaborators, welcome to the party!");
 
 		return model;
 	}
