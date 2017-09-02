@@ -5,9 +5,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.DefaultBindingErrorProcessor;
 import org.springframework.validation.FieldError;
 
-import com.pennmutual.preference.format.DateFormatterException;
+import edu.psu.sweng500.emrms.format.DateFormatterException;
 
-public class PreferenceBindingErrorProcessor extends DefaultBindingErrorProcessor {
+public class EMRMSBindingErrorProcessor extends DefaultBindingErrorProcessor {
     @Override
     public void processPropertyAccessException(PropertyAccessException ex, BindingResult bindingResult) {
         Throwable cause = ex.getMostSpecificCause();

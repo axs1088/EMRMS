@@ -1,4 +1,4 @@
-package com.pennmutual.preference.messagesource;
+package edu.psu.sweng500.emrms.messagesource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
  * Preference message source.  Handles formatting some JSR-303 messages automatically in
  * the Preference style.
  */
-public class PreferenceMessageSource implements MessageSource {
+public class EMRMSMessageSource implements MessageSource {
     /** The message source. */
     private ReloadableResourceBundleMessageSource messageSource;
 
@@ -25,7 +25,7 @@ public class PreferenceMessageSource implements MessageSource {
     /**
      * Instantiates a new Preference message source.
      */
-    public PreferenceMessageSource() {
+    public EMRMSMessageSource() {
         this.messageSource = new ReloadableResourceBundleMessageSource();
     }
 
