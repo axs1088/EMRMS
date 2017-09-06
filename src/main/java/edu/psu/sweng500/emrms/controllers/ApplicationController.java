@@ -1,27 +1,21 @@
 package edu.psu.sweng500.emrms.controllers;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Properties;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.psu.sweng500.emrms.model.HPerson;
+import edu.psu.sweng500.emrms.service.UserService;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 
 /**
@@ -31,6 +25,10 @@ import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 public class ApplicationController {
 
 
+	@Autowired
+	private UserService userService;
+
+	
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
      * 
@@ -47,10 +45,20 @@ public class ApplicationController {
 	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) 
 			throws Exception {
 
+    	HPerson person = userService.getUserDetails();
+    	
 		ModelAndView model = new ModelAndView("hello");
-		model.addObject("msg", "hello collaborators, welcome to the party!");
+		model.addObject("msg", person.getPersonId()+" "+person.getGender());
+		
+		HPerson person1 = new HPerson();
+		person1.setPersonId(3);
+		person1.setUserId("TestUser");
+		person1.setGender(1);
+		person1.setRace("Asian");
+		
+		userService.insertUserDetails(person1);
 
 		return model;
 	}
-
+    
 }
