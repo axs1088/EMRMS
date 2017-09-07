@@ -4,6 +4,15 @@
 -- Server version: 5.7.19-log
 --
 
+-- Delete all data before inserting sample data
+  
+DELETE FROM h_person;
+DELETE FROM h_name;
+DELETE FROM h_patient;
+DELETE FROM h_staff;
+DELETE FROM h_bed;
+DELETE FROM h_encounter;
+
 -------------------------- INSERT INTO h_person--------------------------------------------------
 
 INSERT INTO h_person(HPersonID,UserId,CreationDateTime,Gender,BirthDate,Race) 
@@ -21,10 +30,18 @@ INSERT INTO h_name(HNameID,UserId,CreationDateTime,FirstName,MiddleName,LastName
 
 --------------------------- INSERT INTO h_patient ------------------------------------------------
 INSERT INTO h_patient(HPatientID,UserId,CreationDateTime,MPINo,OrganDonor,DeceasedInd,IsPatientUnidentified,PrimaryLang,MedHistoryConcent,HPersonID)
-  VALUES();
+  VALUES(1,'jd101','2002-12-14 09:11:00','M101','Richie',0,0,'English',0,1);
 
+---------------------------- INSERT INTO h_staff--------------------------------------------------
+-- 1:Physician 2:Nurse for Type
+INSERT INTO h_staff(HStaffID,UserID,CreationDateTime,Type,Active) 
+  VALUES(1,'lg22','2005-06-19 09:55:00',1,1);
+
+---------------------------- INSERT INTO h_bed----------------------------------------------------
+INSERT INTO h_bed(BedId,UserId,CreationDateTime,BedName,BedStatus,Active,LocationID)
+  VALUES(1,'lg22','2004-03-18 12:55:00','Bed101',1,1,1);
 
 --------------------------- INSERT INTO h_encounter ----------------------------------------------
 INSERT INTO h_encounter(HEncounterID,UserId,CreationDateTime,EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName
   ,EncounterLocation_ObjectID,EncounterID,EncType,BedName,Patient_ObjectID,AttendingPhysician_ObjectID,Bed_ObjectID)
-  VALUES()
+  VALUES(1,'lg22','2006-02-14 19:55:00','2006-02-14 21:55:00','2006-02-14 22:55:00',1,'Exton',1,1,'Out Patient','Bed101',1,1,1);
