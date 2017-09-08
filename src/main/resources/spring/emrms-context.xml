@@ -46,7 +46,7 @@
     <property name="basename" value="classpath:/messages"/>
   </bean>
     
-  <!--
+  <!-- will be used if needed
   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
     <property name="host" value="${email.host}"/>
   </bean>
