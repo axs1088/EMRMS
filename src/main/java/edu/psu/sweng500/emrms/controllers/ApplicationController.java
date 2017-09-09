@@ -48,7 +48,9 @@ public class ApplicationController {
     	HPerson person = userService.getUserDetails();
     	
 		ModelAndView model = new ModelAndView("hello");
-		model.addObject("msg", person.getPersonId()+" "+person.getGender());
+		if (person != null) {
+			model.addObject("msg", person.getPersonId() + " " + person.getGender());
+		}
 		
 		HPerson person1 = new HPerson();
 		person1.setPersonId(3);
