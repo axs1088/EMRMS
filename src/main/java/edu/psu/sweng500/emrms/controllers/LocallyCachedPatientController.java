@@ -1,7 +1,7 @@
 package edu.psu.sweng500.emrms.controllers;
 
 import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
-import edu.psu.sweng500.emrms.models.HPatient;
+import edu.psu.sweng500.emrms.model.HPatient;
 
 import java.util.ArrayList;
 import java.util.List;
