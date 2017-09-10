@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
-
+import edu.psu.sweng500.emrms.model.User;
 public interface ApplicationMapper {
 		
 	@Select("SELECT HPERSONID as personId, USERID as userId, "
@@ -23,7 +23,8 @@ public interface ApplicationMapper {
 	public void insertPersonDetails(HPerson person);
 
 	@Select("SELECT LoginId as LoginId, UserType as UserType, "
-			+ " HPersonID as HPersonID FROM h_User ")
-	public boolean validateUser();
+			+ " HPersonID as HPersonID FROM h_User "
+            + " where loginid = #{loginID}")
+	public User validateUser(String loginID);
 }
 

@@ -52,10 +52,10 @@ public class LoginController {
     public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
       ModelAndView mav = null;
       user.setLoginId(user.getUsername());
-      Boolean isValidUser = userService.validateUser(user.getLoginId());
-      if (isValidUser) {
+      User userFromDb = userService.validateUser(user.getLoginId());
+      if (userFromDb != null) {
       mav = new ModelAndView("welcome");
-      mav.addObject("firstname", user.getUserId());
+      mav.addObject("firstname", userFromDb.getLoginId());
       } else {
       mav = new ModelAndView("login");
       mav.addObject("message", "Username or Password is wrong!!");

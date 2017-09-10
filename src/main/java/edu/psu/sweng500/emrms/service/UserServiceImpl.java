@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import edu.psu.sweng500.emrms.mappers.ApplicationMapper;
 import edu.psu.sweng500.emrms.model.HPerson;
+import edu.psu.sweng500.emrms.model.User;
 
 @Service("userService")
 public class UserServiceImpl implements  UserService {
@@ -19,8 +20,8 @@ public class UserServiceImpl implements  UserService {
 		return personList;
 	}
 
-	public boolean validateUser(String loginId)  {
-		return applicationMapper.validateUser();
+	public User validateUser(String loginId)  {
+		return applicationMapper.validateUser(loginId);
 	}
 	
 	public void insertUserDetails(HPerson person) {
