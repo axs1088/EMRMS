@@ -1,4 +1,4 @@
-package edu.psu.sweng500.emrms.models;
+package edu.psu.sweng500.emrms.model;
 
 //Added by Atul Singh 09/01/2017
 public class HPatient {
