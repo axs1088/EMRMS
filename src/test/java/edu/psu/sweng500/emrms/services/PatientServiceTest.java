@@ -18,7 +18,7 @@ public class PatientServiceTest {
     @Qualifier("patientService")
     private PatientService thisService;
 
-    // @Test
+    @Test
     public void testSpringAnnotations() {
         //assert correct type/impl
         assertThat(thisService, instanceOf(PatientService.class));
