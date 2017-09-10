@@ -18,6 +18,10 @@ public class UserServiceImpl implements  UserService {
 		List<HPerson> personList = (List<HPerson>) applicationMapper.getPersonDetails();
 		return personList;
 	}
+
+	public boolean validateUser(String loginId)  {
+		return applicationMapper.validateUser();
+	}
 	
 	public void insertUserDetails(HPerson person) {
 		applicationMapper.insertPersonDetails(person);

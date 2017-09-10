@@ -21,6 +21,9 @@ public interface ApplicationMapper {
 			+ "#{birthDate}, #{race})")
 	//@Options(useGeneratedKeys=true, keyProperty="id", flushCache=true, keyColumn="id")
 	public void insertPersonDetails(HPerson person);
-	
+
+	@Select("SELECT LoginId as LoginId, UserType as UserType, "
+			+ " HPersonID as HPersonID FROM h_User ")
+	public boolean validateUser();
 }
 

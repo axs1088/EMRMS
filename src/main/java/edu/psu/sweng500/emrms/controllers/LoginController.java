@@ -51,14 +51,15 @@ public class LoginController {
     @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
     public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
       ModelAndView mav = null;
-      /*HUser user1 = userService.validateUser(user);
-      if (null != user) {*/
+      user.setLoginId(user.getUsername());
+      Boolean isValidUser = userService.validateUser(user.getLoginId());
+      if (isValidUser) {
       mav = new ModelAndView("welcome");
       mav.addObject("firstname", user.getUserId());
-      //} else {
-      //mav = new ModelAndView("login");
-      //mav.addObject("message", "Username or Password is wrong!!");
-      //}
+      } else {
+      mav = new ModelAndView("login");
+      mav.addObject("message", "Username or Password is wrong!!");
+      }
       return mav;
     }
 

@@ -7,6 +7,6 @@ import edu.psu.sweng500.emrms.model.HPerson;
 public interface UserService {
 	
   public List<HPerson> getUserDetails() throws Exception;
-  
+  public boolean validateUser(String loginID);
   public void insertUserDetails(HPerson person);
 }
