@@ -15,7 +15,7 @@
   <display-name>${displayName}</display-name>
 
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>home.htm</welcome-file>
   </welcome-file-list>
   
   <!-- Ensure that the EMRMS session expires after inactivity of 60 seconds. -->

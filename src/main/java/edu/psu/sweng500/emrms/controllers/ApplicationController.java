@@ -3,9 +3,12 @@ package edu.psu.sweng500.emrms.controllers;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -45,11 +48,11 @@ public class ApplicationController {
 	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) 
 			throws Exception {
 
-    	HPerson person = userService.getUserDetails();
+    	List<HPerson> personList = userService.getUserDetails();
     	
 		ModelAndView model = new ModelAndView("hello");
-		if (person != null) {
-			model.addObject("msg", person.getPersonId() + " " + person.getGender());
+		if (CollectionUtils.isNotEmpty(personList)) {
+			model.addObject("msg", personList.get(0).getPersonId() + " " + personList.get(0).getGender());
 		}
 		
 		HPerson person1 = new HPerson();
