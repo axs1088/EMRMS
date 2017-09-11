@@ -10,10 +10,23 @@ import java.util.List;
 @Service("patientService")
 public class PatientServiceImpl implements PatientService {
     @Autowired
-    PatientMapper mapper;
+    PatientMapper patientMapper;
+
 
     @Override
     public List<HPatient> readAll() {
-        return mapper.readAll();
+        return patientMapper.readAll();
+    }
+
+    @Override
+    public void deleteAll() {
+//        idService.deleteAll();
+        patientMapper.deleteAll();
+    }
+
+    @Override
+    public HPatient createNew() {
+//        idService.createNew();
+        return null;
     }
 }

@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface PatientService {
     List<HPatient> readAll();
+
+    void deleteAll();
+
+    HPatient createNew();
 }
