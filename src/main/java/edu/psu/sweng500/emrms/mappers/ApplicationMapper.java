@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.mappers;
 
+import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.HPerson;
 
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.mapping.StatementType;
+
 import edu.psu.sweng500.emrms.model.User;
 public interface ApplicationMapper {
 		
@@ -26,5 +29,10 @@ public interface ApplicationMapper {
 			+ " HPersonID as HPersonID FROM h_User "
             + " where loginid = #{loginID}")
 	public User validateUser(String loginID);
+	
+	//user object id
+	@Select(value= "{ CALL  Emrms_GetPhyciainCensusList(#{userObjectID, mode=IN, jdbcType=INTEGER})}")
+	@Options(statementType = StatementType.CALLABLE)
+	public List<HCensus> getPhysicianCensus(Integer userObjectID);
 }
 

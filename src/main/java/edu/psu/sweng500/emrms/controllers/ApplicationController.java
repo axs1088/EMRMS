@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.HPerson;
 import edu.psu.sweng500.emrms.service.UserService;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
@@ -48,6 +49,7 @@ public class ApplicationController {
 	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) 
 			throws Exception {
 
+    	/*
     	List<HPerson> personList = userService.getUserDetails();
     	
 		ModelAndView model = new ModelAndView("hello");
@@ -61,7 +63,15 @@ public class ApplicationController {
 		person1.setGender(1);
 		person1.setRace("Asian");
 		
-		userService.insertUserDetails(person1);
+		userService.insertUserDetails(person1);*/
+		
+		List<HCensus> hCensusList = userService.getPhysicianCensus(1);
+		
+		ModelAndView model = new ModelAndView("hello");
+		
+		if (CollectionUtils.isNotEmpty(hCensusList)) {
+			model.addObject("msg", "Welcome : " + hCensusList.get(0).getFirstName() + " " + hCensusList.get(0).getLastName());
+		}
 
 		return model;
 	}

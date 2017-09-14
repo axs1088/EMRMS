@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.psu.sweng500.emrms.mappers.ApplicationMapper;
+import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.HPerson;
 import edu.psu.sweng500.emrms.model.User;
 
@@ -27,6 +28,9 @@ public class UserServiceImpl implements  UserService {
 	public void insertUserDetails(HPerson person) {
 		applicationMapper.insertPersonDetails(person);
 	}
-  
+	
+	public List<HCensus> getPhysicianCensus(Integer userObjectID) {
+		return applicationMapper.getPhysicianCensus(userObjectID);
+	}
   
 }
