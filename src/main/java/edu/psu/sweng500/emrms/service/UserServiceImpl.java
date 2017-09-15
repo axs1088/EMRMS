@@ -1,9 +1,7 @@
 package edu.psu.sweng500.emrms.service;
 
 import edu.psu.sweng500.emrms.mappers.PersonMapper;
-import edu.psu.sweng500.emrms.mappers.PhysicianCensusMapper;
 import edu.psu.sweng500.emrms.mappers.UserMapper;
-import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.HPerson;
 import edu.psu.sweng500.emrms.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +14,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PersonMapper personMapper;
-
-    @Autowired
-    private PhysicianCensusMapper censusMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -43,9 +38,4 @@ public class UserServiceImpl implements UserService {
     public void insertUserDetails(HPerson person) {
         personMapper.insertPersonDetails(person);
     }
-
-    public List<HCensus> getPhysicianCensus(Integer userObjectID) {
-        return censusMapper.getPhysicianCensus(userObjectID);
-    }
-
 }
