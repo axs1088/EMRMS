@@ -20,13 +20,11 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void deleteAll() {
-//        idService.deleteAll();
         patientMapper.deleteAll();
     }
 
     @Override
     public HPatient createNew() {
-//        idService.createNew();
         return null;
     }
 }
