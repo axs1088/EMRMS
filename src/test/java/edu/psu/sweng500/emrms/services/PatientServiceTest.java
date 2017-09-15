@@ -40,6 +40,6 @@ public class PatientServiceTest {
     @Test
     public void testReadAll() {
         List<HPatient> patientList = service.readAll();
-        assertEquals(1, patientList.size());
+        assertEquals(2, patientList.size());
     }
 }
