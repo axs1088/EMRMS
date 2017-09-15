@@ -1,7 +1,7 @@
   Use EMRMS;
 
 DELIMITER $$
-  CREATE PROCEDURE Emrms_GetPhyciainCensusList (IN UserObjectID INT)
+  CCREATE PROCEDURE Emrms_GetPhyciainCensusList (IN UserObjectID INT)
 
   BEGIN
 
@@ -9,7 +9,9 @@ DELIMITER $$
 
 
   DECLARE staffid INT;
-  SELECT hs.HStaffID into staffid from h_staff hs ;
+  DECLARE personID INT;
+  Select HPersonID into personID from h_user where HUserID = UserObjectID;
+  SELECT hs.HStaffID into staffid from h_staff hs where hs.HStaffID = personID and type = 1;
 
   Select hn.LastName, hn.FirstName, hp.Birthdate, hp.Gender, hpat.MPINo, henc.EncStartdateTime, henc.encStatus
   from h_name hn INNER JOIN h_person hp on hn.HpersonID= hp.HPersonID

@@ -316,7 +316,7 @@ ROW_FORMAT = DYNAMIC;
 --
 -- Definition for table h_encounter
 --
-CREATE TABLE IF NOT EXISTS h_encounter (
+CREATE TABLE emrms.h_encounter (
   HEncounterID BIGINT(20) NOT NULL AUTO_INCREMENT,
   UserId VARCHAR(20) DEFAULT NULL,
   CreationDateTime DATETIME DEFAULT NULL,
@@ -332,13 +332,13 @@ CREATE TABLE IF NOT EXISTS h_encounter (
   AttendingPhysician_ObjectID BIGINT(20) DEFAULT NULL,
   Bed_ObjectID BIGINT(20) DEFAULT NULL,
   PRIMARY KEY (HEncounterID),
-  UNIQUE INDEX UK_h_encounter_EncounterLocation_ObjectID (EncounterLocation_ObjectID),
+  INDEX UK_h_encounter_EncounterLocation_ObjectID (EncounterLocation_ObjectID),
   CONSTRAINT FK_h_encounter_attending_physi FOREIGN KEY (AttendingPhysician_ObjectID)
-    REFERENCES h_staff(HStaffID) ON DELETE CASCADE ON UPDATE CASCADE,
+    REFERENCES emrms.h_staff(HStaffID) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FK_h_encounter_h_bed FOREIGN KEY (Bed_ObjectID)
-    REFERENCES h_bed(BedId) ON DELETE CASCADE ON UPDATE CASCADE,
+    REFERENCES emrms.h_bed(BedId) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FK_h_encounter_h_patient_Patie FOREIGN KEY (Patient_ObjectID)
-    REFERENCES h_patient(HPatientID) ON DELETE CASCADE ON UPDATE CASCADE
+    REFERENCES emrms.h_patient(HPatientID) ON DELETE CASCADE ON UPDATE CASCADE
 )
 ENGINE = INNODB
 AUTO_INCREMENT = 2
