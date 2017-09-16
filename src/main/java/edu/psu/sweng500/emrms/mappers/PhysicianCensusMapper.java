@@ -10,7 +10,7 @@ import java.util.List;
 public interface PhysicianCensusMapper {
 
     //user object id
-    @Select(value = "{ CALL  Emrms_GetPhyciainCensusList(#{userObjectID, mode=IN, jdbcType=INTEGER})}")
+    @Select(value = "{ CALL Emrms_GetPhyciainCensusList(#{userObjectID, mode=IN, jdbcType=INTEGER})}")
     @Options(statementType = StatementType.CALLABLE)
     public List<HCensus> getPhysicianCensus(Integer userObjectID);
 }

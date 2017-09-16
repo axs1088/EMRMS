@@ -12,7 +12,7 @@ public class HCensus {
     private String firstName;
     private String lastName;
     private Date birthdate;
-    private long gender;
+    private String gender;
     private String mPINo;
     private Date encStartdateTime;
     private String encStatus;
@@ -41,11 +41,11 @@ public class HCensus {
         this.birthdate = birthdate;
     }
 
-    public long getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(long gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
