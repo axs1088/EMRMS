@@ -9,9 +9,17 @@
 			body {
 				background-color: #E0F2F7;
 			}
+
+			table, th, td {
+    			border-collapse: collapse;
+    			padding: 10px;
+    			text-align: left;
+			}
         </style>
         </head>
         <body>
+            <div style='float: right;'><a href="home.htm">Home</a></div> 
+            </br> </br>
             <form:form id="loginForm" modelAttribute="user" action="loginProcess" method="post">
                 <table align="center">
                     <tr>
@@ -37,11 +45,6 @@
                         </td>
                     </tr>
                     <tr></tr>
-                    <tr>
-                        <td></td>
-                        <td><a href="home.htm">Home</a>
-                        </td>
-                    </tr>
                 </table>
             </form:form>
             <table align="center">

@@ -8,6 +8,7 @@ public class HPatientId {
     private String idType;
     private String idIssuerName;
     private long idIssuerId;
+    private long patientId;
 
     public long gethPatientId() {
         return hPatientId;
@@ -72,8 +73,4 @@ public class HPatientId {
     public void setPatientId(long patientId) {
         this.patientId = patientId;
     }
-
-    private long patientId;
-
-
 }

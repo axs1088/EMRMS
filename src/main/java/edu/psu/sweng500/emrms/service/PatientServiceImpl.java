@@ -12,7 +12,6 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     PatientMapper patientMapper;
 
-
     @Override
     public List<HPatient> readAll() {
         return patientMapper.readAll();

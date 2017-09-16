@@ -1,7 +1,7 @@
   Use EMRMS;
 
 DELIMITER $$
-  CCREATE PROCEDURE Emrms_GetPhyciainCensusList (IN UserObjectID INT)
+  CREATE PROCEDURE Emrms_GetPhyciainCensusList (IN UserObjectID INT)
 
   BEGIN
 

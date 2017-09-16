@@ -1,8 +1,13 @@
 package edu.psu.sweng500.emrms.controllers;
 
+import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.User;
+import edu.psu.sweng500.emrms.service.PhysicianCensusService;
 import edu.psu.sweng500.emrms.service.UserService;
+import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -12,18 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @author vkumar
  * The Class ApplicationController.
  */
 @Controller
 public class LoginController {
-    public static final String INVALID_USER_MESSAGE = "Username or Password is wrong!!";
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private PhysicianCensusService physicianCensusService;
 
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -52,7 +62,7 @@ public class LoginController {
         return mav;
     }
 
-    @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
     public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
         ModelAndView mav = null;
         user.setLoginId(user.getUsername());
@@ -63,6 +73,27 @@ public class LoginController {
         } else {
             mav = new ModelAndView("login");
             mav.addObject("message", INVALID_USER_MESSAGE);
+        }
+        return mav;
+    }*/
+    
+    @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
+    public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
+        ModelAndView mav = null;
+        user.setLoginId(user.getUsername());
+        User userFromDb = userService.validateUser(user.getLoginId());
+        if (userFromDb != null) {
+            mav = new ModelAndView("welcome");
+            
+            List<HCensus> hCensusList = physicianCensusService.getPhysicianCensus((int)userFromDb.getUserId());
+
+            if (CollectionUtils.isNotEmpty(hCensusList)) {
+            	mav.addObject("hCensusList", hCensusList);
+            }
+            
+        } else {
+            mav = new ModelAndView("login");
+            mav.addObject("message", Constants.INVALID_USER_MESSAGE);
         }
         return mav;
     }
