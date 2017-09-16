@@ -44,8 +44,8 @@ public class HCensusTest {
 
     @Test
     public void testGender() {
-        census.setGender(expectedLong);
-        assertEquals(expectedLong, census.getGender());
+        census.setGender(expectedString);
+        assertEquals(expectedString, census.getGender());
 
     }
 
