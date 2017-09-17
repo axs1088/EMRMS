@@ -52,7 +52,7 @@
         <property name="url"
                   value="jdbc:mysql://localhost:3306/emrms?autoReconnect=true&amp;createDatabaseIfNotExist=true&amp;useSSL=false"/>
         <property name="username" value="root"/>
-        <property name="password" value="Start@123"/>
+        <property name="password" value="emrms2017"/>
     </bean>
 
     <!-- MyBatis-Spring -->

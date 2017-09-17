@@ -18,8 +18,11 @@
     </head>
     <body>
         <h>EMRMS</h>
-        <div style='float: right;'><a href="home.htm">Home</a></div>   
-        </br></br></br></br>
+        <div style='float: right;'><a href="patientLocator.htm">Patient Locator</a></div>
+        <br>
+        <div style='float: right;'><a href="home.htm">Home</a></div>
+
+        <h>Physician Census</h>
         <table cellpadding="10">
 		    <tr style="border-bottom:1pt solid black;border-top:1pt solid black;">
 		        <th>Name</th>

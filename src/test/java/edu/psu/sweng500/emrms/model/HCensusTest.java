@@ -13,7 +13,7 @@ public class HCensusTest {
     private HCensus census;
     private String expectedString;
     private Date expectedDate;
-    private long expectedLong;
+    private int expectedInt;
 
 
     @Before
@@ -21,7 +21,7 @@ public class HCensusTest {
         census = new HCensus();
         expectedDate = TestingUtilities.createRandomSqlDate();
         expectedString = TestingUtilities.createRandomString(5);
-        expectedLong = (new Random()).nextLong();
+        expectedInt = (new Random()).nextInt();
     }
 
     @Test
@@ -44,8 +44,8 @@ public class HCensusTest {
 
     @Test
     public void testGender() {
-        census.setGender(expectedLong);
-        assertEquals(expectedLong, census.getGender());
+        census.setGender(expectedInt);
+        assertEquals(expectedInt, census.getGender());
 
     }
 

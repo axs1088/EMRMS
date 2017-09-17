@@ -1,7 +1,11 @@
 package edu.psu.sweng500.emrms.controllers;
 
+import edu.psu.sweng500.emrms.mappers.FindPatientMapper;
 import edu.psu.sweng500.emrms.model.HCensus;
+import edu.psu.sweng500.emrms.model.HPatient;
+import edu.psu.sweng500.emrms.model.HPerson;
 import edu.psu.sweng500.emrms.model.User;
+import edu.psu.sweng500.emrms.service.FindPatientService;
 import edu.psu.sweng500.emrms.service.PhysicianCensusService;
 import edu.psu.sweng500.emrms.service.UserService;
 import edu.psu.sweng500.emrms.util.Constants;
@@ -34,6 +38,7 @@ public class LoginController {
     
     @Autowired
     private PhysicianCensusService physicianCensusService;
+    private FindPatientService findPatientService;
 
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -98,5 +103,20 @@ public class LoginController {
         return mav;
     }
 
+    @RequestMapping(value = "/patientLocator", method = RequestMethod.GET)
+    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("lName") String lName,@ModelAttribute("fName") String fName, @ModelAttribute("gender") Integer gender) {
+        ModelAndView mav = null;
+
+        mav = new ModelAndView("patientLocator");
+
+        List<HCensus> hFindPatientList = findPatientService.getPatientListByDemogrpahics(lName, fName, gender);
+
+        if (CollectionUtils.isNotEmpty(hFindPatientList)) {
+            mav.addObject("hFindPatientLiist", hFindPatientList);
+        }
+
+
+        return mav;
+    }
 
 }
