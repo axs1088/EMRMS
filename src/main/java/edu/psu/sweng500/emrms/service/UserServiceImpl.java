@@ -27,8 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<HPerson> getUserDetails() throws Exception {
-        List<HPerson> personList = (List<HPerson>) personMapper.getPersonDetails();
-        return personList;
+        return personMapper.getPersonDetails();
     }
 
     public User validateUser(String loginId) {
