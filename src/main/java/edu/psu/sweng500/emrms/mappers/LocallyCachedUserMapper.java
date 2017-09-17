@@ -16,7 +16,7 @@ public class LocallyCachedUserMapper implements UserMapper {
     }
 
     @Override
-    public User validateUser(String loginID) {
+    public User validateUser(String loginID, String password) {
         for (User thisUser : userList) {
             if (thisUser.getLoginId().equals(loginID)) {
                 return thisUser;

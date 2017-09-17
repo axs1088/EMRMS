@@ -84,7 +84,7 @@ public class LoginController {
     public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
         ModelAndView mav = null;
         user.setLoginId(user.getUsername());
-        User userFromDb = userService.validateUser(user.getLoginId());
+        User userFromDb = userService.validateUser(user.getLoginId(), user.getPassword());
         if (userFromDb != null) {
             mav = new ModelAndView("welcome");
 

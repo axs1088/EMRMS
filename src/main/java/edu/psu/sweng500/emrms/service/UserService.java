@@ -9,7 +9,7 @@ public interface UserService {
 
     public List<HPerson> getUserDetails() throws Exception;
 
-    public User validateUser(String loginID);
+    public User validateUser(String loginID, String password);
 
     public void insertUserDetails(HPerson person);
 }

@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
         return personMapper.getPersonDetails();
     }
 
-    public User validateUser(String loginId) {
-        return userMapper.validateUser(loginId);
+    public User validateUser(String loginId, String password) {
+        return userMapper.validateUser(loginId,password);
     }
 
     public void insertUserDetails(HPerson person) {
