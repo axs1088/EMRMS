@@ -3,19 +3,37 @@
     <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>EMRMS</h1></title>
-        <style>
-			body {
-				background-color: #E0F2F7;
-			}
-        </style>
+        <title>EMRMS</title>
+       <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" >
     </head>
-    <body>
-    	<h1>Electronic Medical Record Management System</h1>
-        <table align="center">
-            <tr><a href="login">Login</a></tr>
-            </br></br>
-            <tr><a href="register">Register Patient</a></tr>
-        </table>
+    <body class="body">
+	<div id="header">
+		<h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
+		<div>
+		<ul id="navigation">
+			<li>
+				<a href="/emrms/login">Login</a>
+			</li>
+			<li>
+				<a href="/emrms/home">Register Patient</a>
+			</li>
+		</ul>
+		</div>
+	</div>
+	<div id="footer">
+		<div>
+			<span>Malvern Clinic, PA - 19355 | 222-222-2222</span>
+			<p>
+				&copy; 2017 by EMRMS TEAM &amp; SWENG-500 - Penn State University. All rights reserved.
+			</p>
+		</div>
+		<div id="connect">
+			<a href="https://freewebsitetemplates.com/go/facebook/" id="facebook" target="_blank">Facebook</a>
+			<a href="https://freewebsitetemplates.com/go/twitter/" id="twitter" target="_blank">Twitter</a>
+			<a href="https://freewebsitetemplates.com/go/googleplus/" id="googleplus" target="_blank">Google&#43;</a>
+			<a href="https://freewebsitetemplates.com/go/pinterest/" id="pinterest" target="_blank">Pinterest</a>
+		</div>
+
+	</div>
     </body>
     </html>

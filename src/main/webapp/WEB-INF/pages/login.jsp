@@ -4,27 +4,40 @@
         <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+			<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" >
+			<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
             <title>Login</title>
          <style>
-			body {
-				background-color: #E0F2F7;
-			}
 
-			table, th, td {
+			table, th {
+				background :#F8F8FF;
     			border-collapse: collapse;
     			padding: 10px;
     			text-align: left;
 			}
+			table,td{
+				padding: 10px;
+    			text-align: left;
+			}
         </style>
+		<div id="header">
+		<h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
+		<ul id="navigation">
+			<li class="current">
+				<a href="/emrms/home">Home</a>
+			</li>
+		</ul>
+		</div>
         </head>
-        <body>
-            <div style='float: right;'><a href="home.htm">Home</a></div> 
+        <body align="center" class="body">
             </br> </br>
             <form:form id="loginForm" modelAttribute="user" action="loginProcess" method="post">
                 <table align="center">
+					<tr><td class="w3-container w3-green">Login </td> </td>
+					</tr>
                     <tr>
                         <td>
-                            <form:label path="username">Username: </form:label>
+                           <form:label path="username">Username: </form:label>
                         </td>
                         <td>
                             <form:input path="username" name="username" id="username" />
@@ -39,7 +52,7 @@
                         </td>
                     </tr></tr>
                     <tr>
-                        <td></td>
+                        <td>        </td>
                         <td align="left">
                             <form:button id="login" name="login">Login</form:button>
                         </td>
@@ -52,5 +65,20 @@
                     <td style="font-style: italic; color: red;">${message}</td>
                 </tr>
             </table>
+			<div id="footer">
+				<div>
+					<span>Malvern Clinic, PA - 19355 | 222-222-2222</span>
+					<p>
+						&copy; 2017 by EMRMS TEAM &amp; SWENG-500 - Penn State University. All rights reserved.
+					</p>
+				</div>
+				<div id="connect">
+			<a href="https://freewebsitetemplates.com/go/facebook/" id="facebook" target="_blank">Facebook</a>
+			<a href="https://freewebsitetemplates.com/go/twitter/" id="twitter" target="_blank">Twitter</a>
+			<a href="https://freewebsitetemplates.com/go/googleplus/" id="googleplus" target="_blank">Google&#43;</a>
+			<a href="https://freewebsitetemplates.com/go/pinterest/" id="pinterest" target="_blank">Pinterest</a>
+		</div>
+
+			</div>
         </body>
         </html>
