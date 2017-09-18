@@ -27,6 +27,10 @@ public class ApplicationController {
 
     @Autowired
     private CensusService censusService;
+    
+    public void setCensusService(CensusService censusService) {
+    	this.censusService = censusService;
+    }
 
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
