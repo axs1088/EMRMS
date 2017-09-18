@@ -68,13 +68,13 @@
         		        <th>MRN</th>
         		        <th>Encounter</th>
         		    </tr>
-        		    <c:forEach items="${hFindPatientList}" var="findPatient" varStatus="status">
+        		    <c:forEach items="${hPatientList}" var="patient" varStatus="status">
         		        <tr>
-        		            <td width="130">${findPatient.lastName}, ${findPatient.firstName}</td>
-        		            <td width="100">${findPatient.birthdate}</td>
+        		            <td width="130">${patient.lastName}, ${patient.firstName}</td>
+        		            <td width="100">${patient.birthdate}</td>
         		            <td width="100">
         			            <c:choose>
-        				            <c:when test="${findPatient.gender == '1'}">
+        				            <c:when test="${patient.gender == '1'}">
         							  Male
         							</c:when>
         							<c:otherwise>
@@ -83,10 +83,10 @@
         						</c:choose>
         					</td>
         		            <td width="100"></td>
-        		            <td width="100">${findPatient.mPINo}</td>
+        		            <td width="100">${patient.mPINo}</td>
         		            <td width="100">
         			            <c:choose>
-        				            <c:when test="${findPatient.encStatus == '1'}">
+        				            <c:when test="${patient.encStatus == '1'}">
         							  	Active
         							</c:when>
         							<c:otherwise>

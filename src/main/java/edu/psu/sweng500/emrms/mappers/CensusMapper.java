@@ -7,10 +7,14 @@ import org.apache.ibatis.mapping.StatementType;
 
 import java.util.List;
 
-public interface PhysicianCensusMapper {
+public interface CensusMapper {
 
-    //user object id
     @Select(value = "{ CALL Emrms_GetPhyciainCensusList(#{userObjectID, mode=IN, jdbcType=INTEGER})}")
     @Options(statementType = StatementType.CALLABLE)
     public List<HCensus> getPhysicianCensus(Integer userObjectID);
+    
+    @Select(value = "{ CALL Emrms_GetNurseCensusList(#{locationObjectID, mode=IN, jdbcType=INTEGER})}")
+    @Options(statementType = StatementType.CALLABLE)
+    public List<HCensus> getNurseCensus(Integer locationObjectID);
+
 }

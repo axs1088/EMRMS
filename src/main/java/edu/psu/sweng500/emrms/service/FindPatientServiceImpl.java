@@ -1,9 +1,7 @@
 package edu.psu.sweng500.emrms.service;
 
 import edu.psu.sweng500.emrms.mappers.FindPatientMapper;
-import edu.psu.sweng500.emrms.mappers.PhysicianCensusMapper;
 import edu.psu.sweng500.emrms.model.HCensus;
-import edu.psu.sweng500.emrms.model.HPatient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
