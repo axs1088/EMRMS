@@ -1,22 +1,26 @@
 package edu.psu.sweng500.emrms.service;
 
-import edu.psu.sweng500.emrms.mappers.PhysicianCensusMapper;
+import edu.psu.sweng500.emrms.mappers.CensusMapper;
 import edu.psu.sweng500.emrms.model.HCensus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("physicianCensusService")
-public class PhysicianCensusServiceImpl implements PhysicianCensusService {
+@Service("censusService")
+public class CensusServiceImpl implements CensusService {
     @Autowired
-    private PhysicianCensusMapper censusMapper;
+    private CensusMapper censusMapper;
 
-    public void setCensusMapper(PhysicianCensusMapper censusMapper) {
+    public void setCensusMapper(CensusMapper censusMapper) {
         this.censusMapper = censusMapper;
     }
 
     public List<HCensus> getPhysicianCensus(Integer userObjectID) {
         return censusMapper.getPhysicianCensus(userObjectID);
+    }
+    
+    public List<HCensus> getNurseCensus(Integer locationObjectID) {
+    	return censusMapper.getNurseCensus(locationObjectID);
     }
 }

@@ -5,8 +5,8 @@ import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.HPatient;
 import edu.psu.sweng500.emrms.model.HPerson;
 import edu.psu.sweng500.emrms.model.User;
+import edu.psu.sweng500.emrms.service.CensusService;
 import edu.psu.sweng500.emrms.service.FindPatientService;
-import edu.psu.sweng500.emrms.service.PhysicianCensusService;
 import edu.psu.sweng500.emrms.service.UserService;
 import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
@@ -35,7 +35,7 @@ public class LoginController {
     private UserService userService;
 
     @Autowired
-    private PhysicianCensusService physicianCensusService;
+    private CensusService censusService;
     private FindPatientService findPatientService;
 
     public void setUserService(UserService userService) {
@@ -65,21 +65,6 @@ public class LoginController {
         return mav;
     }
 
-    /*@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-    public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
-        ModelAndView mav = null;
-        user.setLoginId(user.getUsername());
-        User userFromDb = userService.validateUser(user.getLoginId());
-        if (userFromDb != null) {
-            mav = new ModelAndView("welcome");
-            mav.addObject("firstname", userFromDb.getLoginId());
-        } else {
-            mav = new ModelAndView("login");
-            mav.addObject("message", INVALID_USER_MESSAGE);
-        }
-        return mav;
-    }*/
-
     @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
     public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
         ModelAndView mav = null;
@@ -88,7 +73,7 @@ public class LoginController {
         if (userFromDb != null) {
             mav = new ModelAndView("welcome");
 
-            List<HCensus> hCensusList = physicianCensusService.getPhysicianCensus((int) userFromDb.getUserId());
+            List<HCensus> hCensusList = censusService.getPhysicianCensus((int) userFromDb.getUserId());
 
             if (CollectionUtils.isNotEmpty(hCensusList)) {
                 mav.addObject("hCensusList", hCensusList);
@@ -107,10 +92,10 @@ public class LoginController {
 
         mav = new ModelAndView("patientLocator");
 
-        List<HCensus> hFindPatientList = findPatientService.getPatientListByDemogrpahics(lName, fName, gender);
+        List<HCensus> hPatientList = findPatientService.getPatientListByDemogrpahics(lName, fName, gender);
 
-        if (CollectionUtils.isNotEmpty(hFindPatientList)) {
-            mav.addObject("hFindPatientLiist", hFindPatientList);
+        if (CollectionUtils.isNotEmpty(hPatientList)) {
+            mav.addObject("hPatientList", hPatientList);
         }
 
 

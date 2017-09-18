@@ -1,8 +1,8 @@
 package edu.psu.sweng500.emrms.controllers;
 
-import edu.psu.sweng500.emrms.mappers.LocallyCachedPhysicianCensusMapper;
+import edu.psu.sweng500.emrms.mappers.LocallyCachedCensusMapper;
 import edu.psu.sweng500.emrms.model.HCensus;
-import edu.psu.sweng500.emrms.service.PhysicianCensusServiceImpl;
+import edu.psu.sweng500.emrms.service.CensusServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,23 +11,23 @@ import static org.junit.Assert.assertEquals;
 
 public class ApplicationControllerTest {
     private ApplicationController applicationController;
-    private PhysicianCensusServiceImpl censusService;
-    private LocallyCachedPhysicianCensusMapper censusMapper;
+    private CensusServiceImpl censusService;
+    private LocallyCachedCensusMapper censusMapper;
     private HCensus validCensus;
 
     @Before
     public void setUp() {
         applicationController = new ApplicationController();
-        censusService = new PhysicianCensusServiceImpl();
-        censusMapper = new LocallyCachedPhysicianCensusMapper();
+        censusService = new CensusServiceImpl();
+        censusMapper = new LocallyCachedCensusMapper();
 
         validCensus = new HCensus();
         validCensus.setFirstName("Valid");
         validCensus.setLastName("User");
 
-        censusMapper.addCensus(validCensus);
+        censusMapper.addPhysicianCensus(validCensus);
         censusService.setCensusMapper(censusMapper);
-        applicationController.setPhysicianCensusService(censusService);
+        applicationController.setCensusService(censusService);
     }
 
     @Test
