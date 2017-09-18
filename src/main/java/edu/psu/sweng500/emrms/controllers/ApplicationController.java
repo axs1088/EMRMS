@@ -1,7 +1,7 @@
 package edu.psu.sweng500.emrms.controllers;
 
 import edu.psu.sweng500.emrms.model.HCensus;
-import edu.psu.sweng500.emrms.service.PhysicianCensusService;
+import edu.psu.sweng500.emrms.service.CensusService;
 import edu.psu.sweng500.emrms.service.UserService;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import org.apache.commons.collections.CollectionUtils;
@@ -26,11 +26,7 @@ public class ApplicationController {
     private UserService userService;
 
     @Autowired
-    private PhysicianCensusService physicianCensusService;
-
-    public void setPhysicianCensusService(PhysicianCensusService physicianCensusService) {
-        this.physicianCensusService = physicianCensusService;
-    }
+    private CensusService censusService;
 
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
@@ -63,7 +59,7 @@ public class ApplicationController {
 		
 		userService.insertUserDetails(person1);*/
 
-        List<HCensus> hCensusList = physicianCensusService.getPhysicianCensus(1);
+        List<HCensus> hCensusList = censusService.getPhysicianCensus(1);
 
         ModelAndView model = new ModelAndView("hello");
 
