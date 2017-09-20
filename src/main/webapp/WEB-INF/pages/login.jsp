@@ -28,6 +28,11 @@
 			</li>
 		</ul>
 		</div>
+		<script type="text/javascript">
+			function validateData(){
+				alert("Hello");
+			}
+		</script>
         </head>
         <body align="center" class="body">
             </br> </br>
@@ -54,7 +59,7 @@
                     <tr>
                         <td>        </td>
                         <td align="left">
-                            <form:button id="login" name="login">Login</form:button>
+                            <form:button id="login" name="login" onclick="validateData()">Login</form:button>
                         </td>
                     </tr>
                     <tr></tr>
