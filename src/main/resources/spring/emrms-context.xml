@@ -43,7 +43,7 @@
 
     <!-- will be used if needed
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-      <property name="host" value="${email.host}"/>
+      <property name="host" keysSeparatedByComma="${email.host}"/>
     </bean>
     -->
 
@@ -80,12 +80,12 @@
 
     <!-- 
     <bean id="applicationMetdataMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-      <property name="mapperInterface" value="edu.psu.sweng500.emrms.mappers.PersonMapper      <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+      <property name="mapperInterface" keysSeparatedByComma="edu.psu.sweng500.emrms.mappers.PersonMapper      <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
     -->
 
-	<mvc:resources mapping="/resources/**" location="/resources/theme1/" cache-period="31556926"/>
+    <mvc:resources mapping="/resources/**" location="/resources/theme1/" cache-period="31556926"/>
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
 
 </beans>
