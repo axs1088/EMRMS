@@ -1,7 +1,7 @@
   Use EMRMS;
 
 DELIMITER $$
-  CREATE PROCEDURE Emrms_GetUserType (IN UserObjectID INT, OUT UserType INT)
+  CREATE PROCEDURE Emrms_GetUserTypeTest (IN UserObjectID INT)
 
   BEGIN
 
@@ -10,8 +10,9 @@ DELIMITER $$
 
    DECLARE personID INT;
    DECLARE staffid INT;
+   DECLARE UserType INT DEFAULT 0;
 
-   Select HPersonID into personID from h_user where HPersonID = UserObjectID;
+   Select HPersonID into personID from h_user where HUserID = UserObjectID;
 
    /*Physician*/
   SELECT hs.HStaffID into staffid from h_staff hs where hs.HStaffID = personID and type = 1;
@@ -33,6 +34,8 @@ DELIMITER $$
   THEN
     SET UserType = 3;
   END IF;
+
+  SELECT UserType;
 
   END
   $$
