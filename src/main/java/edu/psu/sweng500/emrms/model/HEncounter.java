@@ -14,6 +14,8 @@ public class HEncounter {
     private String encounterType;
     private String bedName;
     private int patient_ObjectID;
+    private int attendingPhysician_ObjectID;
+    private int bed_ObjectID;
 
     public int getPatient_ObjectID() {
         return patient_ObjectID;
@@ -39,8 +41,6 @@ public class HEncounter {
         this.bed_ObjectID = bed_ObjectID;
     }
 
-    private int attendingPhysician_ObjectID;
-    private int bed_ObjectID;
 
     public int gethEncounterID() {
         return hEncounterID;

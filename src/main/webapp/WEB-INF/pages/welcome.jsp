@@ -31,7 +31,7 @@
 			<li class="current">
 				<a href="/emrms/home">Home</a>
 				<a href="/emrms/PatientLocator">Patient Locator</a>
-				<h3><a href="#">Physician Census</a></h3>
+				<h3><a href="#">${census}</a></h3>
 			</li>
 		</ul>
 		

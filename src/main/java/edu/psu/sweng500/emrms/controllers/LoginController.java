@@ -1,12 +1,9 @@
 package edu.psu.sweng500.emrms.controllers;
 
-import edu.psu.sweng500.emrms.mappers.FindPatientMapper;
 import edu.psu.sweng500.emrms.model.HCensus;
-import edu.psu.sweng500.emrms.model.HPatient;
-import edu.psu.sweng500.emrms.model.HPerson;
 import edu.psu.sweng500.emrms.model.User;
 import edu.psu.sweng500.emrms.service.CensusService;
-import edu.psu.sweng500.emrms.service.FindPatientService;
+import edu.psu.sweng500.emrms.service.CensusServiceImpl;
 import edu.psu.sweng500.emrms.service.UserService;
 import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
@@ -36,7 +33,6 @@ public class LoginController {
 
     @Autowired
     private CensusService censusService;
-    private FindPatientService findPatientService;
 
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -64,20 +60,32 @@ public class LoginController {
         mav.addObject("user", new User());
         return mav;
     }
-
+    
     @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
     public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
         ModelAndView mav = null;
+        List<HCensus> hCensusList = null;
+        String census = null;
         user.setLoginId(user.getUsername());
         User userFromDb = userService.validateUser(user.getLoginId(), user.getPassword());
         if (userFromDb != null) {
             mav = new ModelAndView("welcome");
-
-            List<HCensus> hCensusList = censusService.getPhysicianCensus((int) userFromDb.getUserId());
+            long userType = userFromDb.getUserType();
+            
+            if(Constants.USER_TYPE_ADMIN == userType) {
+            	hCensusList = censusService.getPhysicianCensus((int) userFromDb.getUserId());
+            	census = Constants.CENSUS_TYPE_PHYSICIAN;
+            } else if(Constants.USER_TYPE_NURSE == userType) {
+            	hCensusList = censusService.getNurseCensus(1); //TODO: hard coded to 1 but will be replaced with variable
+            	census = Constants.CENSUS_TYPE_NURSE;
+            } else {
+            	//TODO - need to put logic for patient
+            }
 
             if (CollectionUtils.isNotEmpty(hCensusList)) {
                 mav.addObject("hCensusList", hCensusList);
             }
+            mav.addObject(Constants.CENSUS, census);
 
         } else {
             mav = new ModelAndView("login");
@@ -87,12 +95,14 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/patientLocator", method = RequestMethod.GET)
-    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("lName") String lName,@ModelAttribute("fName") String fName, @ModelAttribute("gender") Integer gender) {
+    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response,
+                                    @ModelAttribute("lName") String lName, @ModelAttribute("fName") String fName,
+                                    @ModelAttribute("gender") Integer gender) {
         ModelAndView mav = null;
 
         mav = new ModelAndView("patientLocator");
 
-        List<HCensus> hPatientList = findPatientService.getPatientListByDemogrpahics(lName, fName, gender);
+        List<HCensus> hPatientList = censusService.getPatientListByDemographics(lName, fName, gender);
 
         if (CollectionUtils.isNotEmpty(hPatientList)) {
             mav.addObject("hPatientList", hPatientList);
@@ -102,4 +112,7 @@ public class LoginController {
         return mav;
     }
 
+    public void setCensusService(CensusServiceImpl censusService) {
+        this.censusService = censusService;
+    }
 }
