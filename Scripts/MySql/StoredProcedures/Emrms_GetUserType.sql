@@ -1,7 +1,7 @@
   Use EMRMS;
 
 DELIMITER $$
-  CREATE PROCEDURE Emrms_GetUserTypeTest (IN UserObjectID INT)
+  CREATE PROCEDURE Emrms_GetUserType (IN UserObjectID INT)
 
   BEGIN
 
