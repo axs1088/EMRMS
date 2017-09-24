@@ -60,20 +60,29 @@ public class LoginController {
         mav.addObject("user", new User());
         return mav;
     }
-
+    
     @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
     public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
         ModelAndView mav = null;
+        List<HCensus> hCensusList = null;
         user.setLoginId(user.getUsername());
         User userFromDb = userService.validateUser(user.getLoginId(), user.getPassword());
         if (userFromDb != null) {
             mav = new ModelAndView("welcome");
+            long userType = userFromDb.getUserType();
+            
+            if(Constants.USER_TYPE_ADMIN == userType) {
+            	hCensusList = censusService.getPhysicianCensus((int) userFromDb.getUserId());
+            } else if(Constants.USER_TYPE_NURSE == userType) {
+            	hCensusList = censusService.getNurseCensus(1); //TODO: hard coded to 1 but will be replaced with variable
+            } else {
+            	//TODO - need to put logic for patient
+            }
 
-            List<HCensus> hCensusList = censusService.getPhysicianCensus((int) userFromDb.getUserId());
-
-            if (!hCensusList.isEmpty()) {
+            if (CollectionUtils.isNotEmpty(hCensusList)) {
                 mav.addObject("hCensusList", hCensusList);
             }
+
         } else {
             mav = new ModelAndView("login");
             mav.addObject("message", Constants.INVALID_USER_MESSAGE);
