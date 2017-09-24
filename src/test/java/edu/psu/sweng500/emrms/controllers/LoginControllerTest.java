@@ -21,10 +21,13 @@ public class LoginControllerTest {
     private LocallyCachedUserMapper userMapper;
     private User validAdminUser;
     private User invalidUser;
+    private User validNurseUser;
     private CensusServiceImpl censusService;
     private LocallyCachedCensusMapper censusMapper;
     private HCensus physicianCensusReturned;
     private HCensus patientCensusReturned;
+    private HCensus nurseCensusReturned;
+
 
     @Before
     public void setUp() {
@@ -37,6 +40,12 @@ public class LoginControllerTest {
         validAdminUser.setUsername("Tester_McTesting");
         validAdminUser.setUserType(Constants.USER_TYPE_ADMIN);
         userMapper.addUser(validAdminUser);
+
+        validNurseUser = new User();
+        validNurseUser.setLoginId("TestNurse");
+        validNurseUser.setUsername("Test_Nurse");
+        validNurseUser.setUserType(Constants.USER_TYPE_NURSE);
+        userMapper.addUser(validNurseUser);
 
         invalidUser = new User();
         invalidUser.setLoginId("invalid");
@@ -51,6 +60,10 @@ public class LoginControllerTest {
         physicianCensusReturned = new HCensus();
         physicianCensusReturned.setLastName("physician");
         censusMapper.addPhysicianCensus(physicianCensusReturned);
+
+        nurseCensusReturned = new HCensus();
+        nurseCensusReturned.setLastName("nurse");
+        censusMapper.addNurseCensus(nurseCensusReturned);
 
         patientCensusReturned = new HCensus();
         patientCensusReturned.setLastName("patient");
@@ -75,6 +88,12 @@ public class LoginControllerTest {
     }
 
     @Test
+    public void testLoginProcessWithInvalidUser() throws Exception {
+        ModelAndView modelAndView = controller.loginProcess(null, null, invalidUser);
+        assertEquals(Constants.INVALID_USER_MESSAGE, modelAndView.getModel().get("message"));
+    }
+
+    @Test
     public void testLoginProcessWithAdmin() throws Exception {
         ModelAndView modelAndView = controller.loginProcess(null, null, validAdminUser);
         List<HCensus> hCensusList = (List<HCensus>) modelAndView.getModel().get("hCensusList");
@@ -83,9 +102,11 @@ public class LoginControllerTest {
     }
 
     @Test
-    public void testLoginProcessWithInvalidUser() throws Exception {
-        ModelAndView modelAndView = controller.loginProcess(null, null, invalidUser);
-        assertEquals(Constants.INVALID_USER_MESSAGE, modelAndView.getModel().get("message"));
+    public void testLoginProcessWithNurse() throws Exception {
+        ModelAndView modelAndView = controller.loginProcess(null, null, validNurseUser);
+        List<HCensus> hCensusList = (List<HCensus>) modelAndView.getModel().get("hCensusList");
+        assertFalse(hCensusList.isEmpty());
+        assertEquals(nurseCensusReturned.getLastName(), hCensusList.get(0).getLastName());
     }
 
     @Test
