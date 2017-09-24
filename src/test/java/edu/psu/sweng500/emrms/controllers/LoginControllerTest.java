@@ -19,7 +19,7 @@ public class LoginControllerTest {
     private LoginController controller;
     private UserServiceImpl userService;
     private LocallyCachedUserMapper userMapper;
-    private User validUser;
+    private User validAdminUser;
     private User invalidUser;
     private CensusServiceImpl censusService;
     private LocallyCachedCensusMapper censusMapper;
@@ -32,10 +32,11 @@ public class LoginControllerTest {
         userService = new UserServiceImpl();
         userMapper = new LocallyCachedUserMapper();
 
-        validUser = new User();
-        validUser.setLoginId("Tester_McTesting");
-        validUser.setUsername("Tester_McTesting");
-        userMapper.addUser(validUser);
+        validAdminUser = new User();
+        validAdminUser.setLoginId("Tester_McTesting");
+        validAdminUser.setUsername("Tester_McTesting");
+        validAdminUser.setUserType(Constants.USER_TYPE_ADMIN);
+        userMapper.addUser(validAdminUser);
 
         invalidUser = new User();
         invalidUser.setLoginId("invalid");
@@ -74,8 +75,8 @@ public class LoginControllerTest {
     }
 
     @Test
-    public void testLoginProcessWithValidUser() throws Exception {
-        ModelAndView modelAndView = controller.loginProcess(null, null, validUser);
+    public void testLoginProcessWithAdmin() throws Exception {
+        ModelAndView modelAndView = controller.loginProcess(null, null, validAdminUser);
         List<HCensus> hCensusList = (List<HCensus>) modelAndView.getModel().get("hCensusList");
         assertFalse(hCensusList.isEmpty());
         assertEquals(physicianCensusReturned.getLastName(), hCensusList.get(0).getLastName());
