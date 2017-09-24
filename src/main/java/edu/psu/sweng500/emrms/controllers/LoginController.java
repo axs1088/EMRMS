@@ -65,6 +65,7 @@ public class LoginController {
     public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
         ModelAndView mav = null;
         List<HCensus> hCensusList = null;
+        String census = null;
         user.setLoginId(user.getUsername());
         User userFromDb = userService.validateUser(user.getLoginId(), user.getPassword());
         if (userFromDb != null) {
@@ -73,8 +74,10 @@ public class LoginController {
             
             if(Constants.USER_TYPE_ADMIN == userType) {
             	hCensusList = censusService.getPhysicianCensus((int) userFromDb.getUserId());
+            	census = Constants.CENSUS_TYPE_PHYSICIAN;
             } else if(Constants.USER_TYPE_NURSE == userType) {
             	hCensusList = censusService.getNurseCensus(1); //TODO: hard coded to 1 but will be replaced with variable
+            	census = Constants.CENSUS_TYPE_NURSE;
             } else {
             	//TODO - need to put logic for patient
             }
@@ -82,6 +85,7 @@ public class LoginController {
             if (CollectionUtils.isNotEmpty(hCensusList)) {
                 mav.addObject("hCensusList", hCensusList);
             }
+            mav.addObject(Constants.CENSUS, census);
 
         } else {
             mav = new ModelAndView("login");
