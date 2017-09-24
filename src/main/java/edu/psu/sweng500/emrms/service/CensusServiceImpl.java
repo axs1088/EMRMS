@@ -16,11 +16,18 @@ public class CensusServiceImpl implements CensusService {
         this.censusMapper = censusMapper;
     }
 
+    @Override
     public List<HCensus> getPhysicianCensus(Integer userObjectID) {
         return censusMapper.getPhysicianCensus(userObjectID);
     }
-    
+
+    @Override
     public List<HCensus> getNurseCensus(Integer locationObjectID) {
-    	return censusMapper.getNurseCensus(locationObjectID);
+        return censusMapper.getNurseCensus(locationObjectID);
+    }
+
+    @Override
+    public List<HCensus> getPatientListByDemographics(String lName, String fName, Integer gender) {
+        return censusMapper.getPatientListByDemographics(lName, fName, gender);
     }
 }
