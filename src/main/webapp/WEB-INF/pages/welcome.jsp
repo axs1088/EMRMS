@@ -7,7 +7,7 @@
             <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 			<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" >
 			<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-            <title>Login</title>
+            <title>Welcome</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Welcome</title>
         <style>
@@ -30,8 +30,7 @@
 		<ul id="navigation">
 			<li class="current">
 				<a href="/emrms/home">Home</a>
-				<a href="/emrms/PatientLocator">Patient Locator</a>
-				<h3><a href="#">${census}</a></h3>
+				<a href="/emrms/patientLocator?lName=Doe&fName=John&gender=1">Patient Locator</a>
 			</li>
 		</ul>
 		

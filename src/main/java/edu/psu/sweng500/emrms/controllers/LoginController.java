@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -95,13 +96,14 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/patientLocator", method = RequestMethod.GET)
-    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response,
-                                    @ModelAttribute("lName") String lName, @ModelAttribute("fName") String fName,
-                                    @ModelAttribute("gender") Integer gender) {
+    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response 
+    		, @RequestParam("lName") String lName 
+    		, @RequestParam("fName") String fName 
+    		, @RequestParam("gender") Integer gender) {
         ModelAndView mav = null;
 
         mav = new ModelAndView("patientLocator");
-
+     
         List<HCensus> hPatientList = censusService.getPatientListByDemographics(lName, fName, gender);
 
         if (CollectionUtils.isNotEmpty(hPatientList)) {

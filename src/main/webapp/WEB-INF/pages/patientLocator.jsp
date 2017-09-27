@@ -3,21 +3,37 @@
     <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
     <html>
     <head>
+		 
+            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+			<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" >
+			<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+            <title>Welcome</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Patient Locator</title>
+        <title>Welcome</title>
         <style>
-			body {
-				background-color: #E0F2F7;
-			}
+			
 			table, th, td {
+				background:black;
+				color:white;
+				font-family: 'latoregular';
+				font-size: 14px;
     			border-collapse: collapse;
     			padding: 15px;
     			text-align: left;
+				border-bottom:2pt solid white;border-top:2pt solid white;
 			}
         </style>
     </head>
+	<div id="header">
+		<h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
+		<ul id="navigation">
+			<li class="current">
+				<a href="/emrms/home">Home</a>
+			</li>
+		</ul>
+		
+	</div>
     <body>
-        <h>Patient Locator</h>
         <div style='float: right;'><a href="home.htm">Home</a></div>
         <form:form id="patientLocator" modelAttribute="patient" action="patientLocator" method="post">
             <table align="center">
@@ -58,8 +74,10 @@
         </form:form>
 
         </br></br>
-        <h>Patient Locator Results</h>
-        <table cellpadding="10">
+		<div id="header" align="center" class="header">
+		<h1><a href="#"><span>Patient Locator</span></a></h1>
+		</div>
+        <table cellpadding="10" align="center">
         		    <tr style="border-bottom:1pt solid black;border-top:1pt solid black;">
         		        <th>Name</th>
         		        <th>DOB</th>
