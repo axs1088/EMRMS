@@ -43,7 +43,7 @@ public class SaveEncounterServiceTest {
     public void testSaveEncounter() {
         HPatient hPatient = new HPatient();
         HEncounter hEncounter = new HEncounter();
-        hEncounter.sethEncounterID(1001);
+        //hEncounter.sethEncounterID(1002);
         hEncounter.setUserID("admin");
         hEncounter.setCreationDateTime("2017-09-23 21:55:00");
         hEncounter.setEncStartDateTime("2017-09-14 11:55:00");
