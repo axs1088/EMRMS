@@ -47,9 +47,9 @@
 		    </tr>
 		    <c:forEach items="${hCensusList}" var="physicianCensus" varStatus="status">
 		        <tr>
-		            <td width="130">${physicianCensus.lastName}, ${physicianCensus.firstName}</td>
-		            <td width="100">${physicianCensus.birthdate}</td>
-		            <td width="100">
+					<td width="130"><a href="http://www.psu.edu">${physicianCensus.lastName}, ${physicianCensus.firstName}</a></td>
+		            <td width="150">${physicianCensus.birthdate}</td>
+		            <td width="150">
 			            <c:choose>
 				            <c:when test="${physicianCensus.gender == '1'}">
 							  Male
