@@ -3,6 +3,7 @@ package edu.psu.sweng500.emrms.services;
 import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.model.HPatient;
 import edu.psu.sweng500.emrms.service.SaveEncounterService;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import static edu.psu.sweng500.emrms.util.Constants.ENCOUNTER_STATUS_ACTIVE;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -44,11 +46,10 @@ public class SaveEncounterServiceTest {
     public void testSaveEncounter() {
         HPatient hPatient = new HPatient();
         HEncounter hEncounter = new HEncounter();
-        //hEncounter.sethEncounterID(1002);
         hEncounter.setUserID("admin");
         hEncounter.setCreationDateTime("2017-09-23 21:55:00");
         hEncounter.setEncStartDateTime("2017-09-14 11:55:00");
-        hEncounter.setEncStatus(1);
+        hEncounter.setEncStatus(ENCOUNTER_STATUS_ACTIVE);
         hEncounter.setEncLocationName("Exton Clinic");
         hEncounter.setEncounterType("OP");
         hEncounter.setEncounterID("Acc1001");
