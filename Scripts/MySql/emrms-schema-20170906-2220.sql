@@ -51,15 +51,17 @@ ROW_FORMAT = DYNAMIC;
 --
 -- Definition for table h_audit_record
 --
-CREATE TABLE IF NOT EXISTS h_audit_record (
-  AuditRecordID BIGINT(20) DEFAULT NULL,
+CREATE TABLE emrms.h_audit_record (
+  AuditRecordID BIGINT(20) NOT NULL AUTO_INCREMENT,
   UserId VARCHAR(20) DEFAULT NULL,
   CreationDateTime DATETIME DEFAULT NULL,
   PolicyId INT(11) DEFAULT NULL,
   Patient_ObjectID BIGINT(20) DEFAULT NULL,
   Encounter_ObjectID BIGINT(20) DEFAULT NULL,
   PatientName VARCHAR(120) DEFAULT NULL,
-  EncounterID VARCHAR(20) DEFAULT NULL
+  EncounterID VARCHAR(20) DEFAULT NULL,
+  EventName VARCHAR(255) NOT NULL,
+  PRIMARY KEY (AuditRecordID)
 )
 ENGINE = INNODB
 CHARACTER SET utf8
@@ -157,7 +159,7 @@ ROW_FORMAT = DYNAMIC;
 -- Definition for table healthcare_organization
 --
 CREATE TABLE IF NOT EXISTS healthcare_organization (
-  HealthcareOrganizationID BIGINT(20) NOT NULL,
+  HealthcareOrganizationID BIGINT(20) NOT NULL AUTO_INCREMENT,
   UserId VARCHAR(20) DEFAULT NULL,
   CreationDateTime DATETIME DEFAULT NULL,
   Name VARCHAR(30) DEFAULT NULL,
@@ -208,7 +210,7 @@ ROW_FORMAT = DYNAMIC;
 -- Definition for table h_name
 --
 CREATE TABLE IF NOT EXISTS h_name (
-  HNameID BIGINT(20) NOT NULL,
+  HNameID BIGINT(20) NOT NULL AUTO_INCREMENT,
   UserId VARCHAR(20) DEFAULT NULL,
   CreationDateTime DATETIME DEFAULT NULL,
   FirstName VARCHAR(30) DEFAULT NULL,
@@ -216,7 +218,7 @@ CREATE TABLE IF NOT EXISTS h_name (
   LastName VARCHAR(30) DEFAULT NULL,
   Active TINYINT(1) DEFAULT NULL,
   HPersonID BIGINT(20) NOT NULL,
-  PRIMARY KEY (HPersonID),
+  PRIMARY KEY (HNameID),
   CONSTRAINT FK_h_name_hperson FOREIGN KEY (HPersonID)
     REFERENCES h_person(HPersonID) ON DELETE CASCADE ON UPDATE CASCADE
 )
@@ -230,7 +232,7 @@ ROW_FORMAT = DYNAMIC;
 -- Definition for table h_patient
 --
 CREATE TABLE IF NOT EXISTS h_patient (
-  HPatientID BIGINT(20) NOT NULL,
+  HPatientID BIGINT(20) NOT NULL AUTO_INCREMENT,
   UserId VARCHAR(20) DEFAULT NULL,
   CreationDateTime DATETIME DEFAULT NULL,
   MPINo VARCHAR(20) DEFAULT NULL,
@@ -254,7 +256,7 @@ ROW_FORMAT = DYNAMIC;
 -- Definition for table h_staff_to_unit_association
 --
 CREATE TABLE IF NOT EXISTS h_staff_to_unit_association (
-  HStaffToUnitAssID VARCHAR(255) NOT NULL,
+  HStaffToUnitAssID BIGINT(20)  NOT NULL AUTO_INCREMENT,
   UserId VARCHAR(30) DEFAULT NULL,
   CreationDateTime DATETIME DEFAULT NULL,
   StaffID BIGINT(20) DEFAULT NULL,
@@ -351,7 +353,7 @@ ROW_FORMAT = DYNAMIC;
 -- Definition for table h_next_of_kin
 --
 CREATE TABLE IF NOT EXISTS h_next_of_kin (
-  HNextOfKinID BIGINT(20) NOT NULL,
+  HNextOfKinID BIGINT(20) NOT NULL AUTO_INCREMENT,
   UserId VARCHAR(20) DEFAULT NULL,
   CreationDateTime DATETIME DEFAULT NULL,
   Relation VARCHAR(64) DEFAULT NULL,
@@ -445,7 +447,7 @@ ROW_FORMAT = DYNAMIC;
 -- Definition for table h_problem_list
 --
 CREATE TABLE IF NOT EXISTS h_problem_list (
-  HProblemID BIGINT(20) NOT NULL,
+  HProblemID BIGINT(20) NOT NULL AUTO_INCREMENT,
   UserId VARCHAR(255) DEFAULT NULL,
   CreationDateTime DATETIME DEFAULT NULL,
   ProblemDesc VARCHAR(255) DEFAULT NULL,

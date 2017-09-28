@@ -1,10 +1,9 @@
 package edu.psu.sweng500.emrms.controllers;
 
+import edu.psu.sweng500.emrms.model.HAuditRecord;
 import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.User;
-import edu.psu.sweng500.emrms.service.CensusService;
-import edu.psu.sweng500.emrms.service.CensusServiceImpl;
-import edu.psu.sweng500.emrms.service.UserService;
+import edu.psu.sweng500.emrms.service.*;
 import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import org.apache.commons.collections.CollectionUtils;
@@ -20,7 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author vkumar
@@ -28,17 +31,24 @@ import java.util.List;
  */
 @Controller
 public class LoginController {
-
     @Autowired
     private UserService userService;
 
     @Autowired
     private CensusService censusService;
 
+    @Autowired
+    private AuditEventService auditEventService;
+
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-
+    public void setCensusService(CensusServiceImpl censusService) {
+        this.censusService = censusService;
+    }
+    public void setAuditEventService(AuditEventServiceImpl auditEventService){
+        this.auditEventService = auditEventService;
+    }
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
      *
@@ -67,6 +77,9 @@ public class LoginController {
         ModelAndView mav = null;
         List<HCensus> hCensusList = null;
         String census = null;
+        HAuditRecord auditRecord = new HAuditRecord();
+
+
         user.setLoginId(user.getUsername());
         User userFromDb = userService.validateUser(user.getLoginId(), user.getPassword());
         if (userFromDb != null) {
@@ -87,6 +100,18 @@ public class LoginController {
                 mav.addObject("hCensusList", hCensusList);
             }
             mav.addObject(Constants.CENSUS, census);
+
+            //Audit Login Event
+            auditRecord.setEventName("Login");
+            auditRecord.setPolicyId(1);
+            auditRecord.setUserId(user.getLoginId());
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+
+            auditRecord.setCreationDateTime(dateFormat.format(date));
+
+            int returnValue = auditEventService.auditEvent(auditRecord);
 
         } else {
             mav = new ModelAndView("login");
@@ -114,7 +139,5 @@ public class LoginController {
         return mav;
     }
 
-    public void setCensusService(CensusServiceImpl censusService) {
-        this.censusService = censusService;
-    }
+
 }

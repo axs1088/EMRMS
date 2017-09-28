@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 @WebAppConfiguration
@@ -57,8 +58,9 @@ public class SaveEncounterServiceTest {
 
 
         // ToDo
-//        int returnValue = service.SaveEncounter(hPatient, hEncounter);
-//        assertEquals(0,returnValue);
+       int returnValue = service.SaveEncounter(hPatient, hEncounter);
+       assertEquals(0,returnValue);
+
     }
 
 
