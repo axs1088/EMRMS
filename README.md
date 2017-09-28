@@ -18,4 +18,4 @@ Instructions to install and deploy project on local system:
 Instructions to run the project on local system:
 	1. Make sure tomcat server is running
 	2. Type following url in browser and hit enter
-		http://localhost:8080/emrms/hello
+		http://localhost:8080/EMRMS/login
