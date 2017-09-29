@@ -20,11 +20,11 @@ public class CallSchemaScript {
 
         ranAlready = true;
 
-        String aSQLScriptFilePath = "Scripts\\MySql\\emrms-schema-20170906-2220.sql";
+        String aSQLScriptFilePath = "Scripts\\MySql\\test_database_schema.sql";
 
         // Seefried: We should change this, having the hard-coded username and password is bad
         Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/emrms", "root", "emrms2017");
+                "jdbc:mysql://localhost:3306/emrms_test", "root", "emrms2017");
         ScriptRunner sr = new ScriptRunner(connection);
 
         Reader reader = new BufferedReader(

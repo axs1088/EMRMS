@@ -19,7 +19,7 @@ import static org.junit.Assert.assertThat;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/spring/emrms-context.xml"})
+@ContextConfiguration(locations = {"classpath:/spring/test-emrms-context.xml"})
 public class CensusMapperTest {
     @Autowired
     @Qualifier("censusMapper")
