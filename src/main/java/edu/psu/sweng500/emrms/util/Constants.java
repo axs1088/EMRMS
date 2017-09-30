@@ -10,6 +10,7 @@ public final class Constants {
 	public static final String CENSUS_TYPE_NURSE = "NURSE CENSUS";
 	public static final String CENSUS_TYPE_PATIENT = "PATIENT CENSUS";
 	public static final String CENSUS = "census";
+	public static final String APPLICATION_USER = "applicationUser";
 
 	public static final int ENCOUNTER_STATUS_ACTIVE = 1;
 	public static final int ENCOUNTER_STATUS_CLOSED = 2;
@@ -22,6 +23,8 @@ public final class Constants {
 	public static final int BED_STATUS_VACANT = 1;
 	public static final int BED_STATUS_OCCUPIED = 2;
 	public static final int BED_STATUS_HOUSEKEEPING = 3;
+	
+	
 
 
     

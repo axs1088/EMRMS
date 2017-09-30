@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.controllers;
 
+import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.model.HAuditRecord;
 import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.User;
@@ -19,11 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import javax.servlet.http.HttpSession;
+
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author vkumar
@@ -39,6 +38,9 @@ public class LoginController {
 
     @Autowired
     private AuditEventService auditEventService;
+    
+    @Autowired
+    private ApplicationAuditHelper applicationAuditHelper;
 
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -78,11 +80,13 @@ public class LoginController {
         List<HCensus> hCensusList = null;
         String census = null;
         HAuditRecord auditRecord = new HAuditRecord();
-
+        HttpSession session = request.getSession(false);
 
         user.setLoginId(user.getUsername());
         User userFromDb = userService.validateUser(user.getLoginId(), user.getPassword());
         if (userFromDb != null) {
+    		session.setAttribute(Constants.APPLICATION_USER, user.getLoginId());
+        	
             mav = new ModelAndView("welcome");
             long userType = userFromDb.getUserType();
             
@@ -101,17 +105,7 @@ public class LoginController {
             }
             mav.addObject(Constants.CENSUS, census);
 
-            //Audit Login Event
-            auditRecord.setEventName("Login");
-            auditRecord.setPolicyId(1);
-            auditRecord.setUserId(user.getLoginId());
-
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-
-            auditRecord.setCreationDateTime(dateFormat.format(date));
-
-            int returnValue = auditEventService.auditEvent(auditRecord);
+            applicationAuditHelper.auditEvent(session, "Login", 1);
 
         } else {
             mav = new ModelAndView("login");
