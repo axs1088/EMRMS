@@ -1,6 +1,5 @@
 USE EMRMS;
 
-DELIMITER $$
 CREATE PROCEDURE Emrms_GetPhysicianCensusList(IN UserObjectID INT)
 
   BEGIN
@@ -32,7 +31,6 @@ CREATE PROCEDURE Emrms_GetPhysicianCensusList(IN UserObjectID INT)
       LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
     WHERE henc.encStatus = 1 AND henc.AttendingPhysician_ObjectID = staffid;
 
-  END
-$$
+  END;
 
 

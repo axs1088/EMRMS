@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("auditEventService")
-
 public class AuditEventServiceImpl implements AuditEventService {
     @Autowired
     private AuditMapper auditMapper;
 
     @Override
-    public int auditEvent(HAuditRecord auditRecord){
+    public int auditEvent(HAuditRecord auditRecord) {
         auditMapper.insertAuditRecord(auditRecord);
         return 0;
     }

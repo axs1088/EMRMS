@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.mappers;
 
+import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.testdrivers.CallSchemaScript;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -12,10 +13,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,20 +39,20 @@ public class CensusMapperTest {
     }
 
     @BeforeClass
-    public static void callSchemaScript() throws SQLException, FileNotFoundException {
+    public static void callSchemaScript() throws SQLException, IOException {
         CallSchemaScript.execute();
     }
 
     @Test
     public void testThatSchemaScriptClearsAllTables() {
-        // Seefried: These are currently throwing exceptions because they can't find the stored procedures
-//        List<HCensus> emptyList = mapper.getPhysicianCensus(0);
-//        assertTrue(emptyList.isEmpty());
-//
-//        emptyList = mapper.getNurseCensus(-1);
-//        assertTrue(emptyList.isEmpty());
-//
-//        emptyList = mapper.getPatientListByDemographics("Does_Not", "Exist", -1);
-//        assertTrue(emptyList.isEmpty());
+        // Seefried: Unfortunately, we can't test this until the stored procedures scripts are executed properly
+        List<HCensus> emptyList = mapper.getPhysicianCensus(0);
+        assertTrue(emptyList.isEmpty());
+
+        emptyList = mapper.getNurseCensus(-1);
+        assertTrue(emptyList.isEmpty());
+
+        emptyList = mapper.getPatientListByDemographics("Does_Not", "Exist", -1);
+        assertTrue(emptyList.isEmpty());
     }
 }

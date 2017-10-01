@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -27,7 +27,7 @@ public class UserMapperTest {
     UserMapper mapper;
 
     @BeforeClass
-    public static void callSchemaScript() throws FileNotFoundException, SQLException {
+    public static void callSchemaScript() throws IOException, SQLException {
         CallSchemaScript.execute();
     }
 
