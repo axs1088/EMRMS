@@ -3,6 +3,7 @@ package edu.psu.sweng500.emrms.controllers;
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.model.HAuditRecord;
 import edu.psu.sweng500.emrms.model.HCensus;
+import edu.psu.sweng500.emrms.model.PatientRegistrationModel;
 import edu.psu.sweng500.emrms.model.User;
 import edu.psu.sweng500.emrms.service.*;
 import edu.psu.sweng500.emrms.util.Constants;
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.util.List;
 
 /**
@@ -34,7 +34,7 @@ public class LoginController {
 
     @Autowired
     private AuditEventService auditEventService;
-    
+
     @Autowired
     private ApplicationAuditHelper applicationAuditHelper;
 
@@ -84,8 +84,8 @@ public class LoginController {
         user.setLoginId(user.getUsername());
         User userFromDb = userService.validateUser(user.getLoginId(), user.getPassword());
         if (userFromDb != null) {
-    		session.setAttribute(Constants.APPLICATION_USER, user.getLoginId());
-        	
+            session.setAttribute(Constants.APPLICATION_USER, user.getLoginId());
+
             mav = new ModelAndView("welcome");
             long userType = userFromDb.getUserType();
 
@@ -132,5 +132,17 @@ public class LoginController {
         return mav;
     }
 
+    @RequestMapping(value = "/patientRegistration", method = RequestMethod.GET)
+    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("patientRegistration");
+        mav.addObject("patientRegistrationModel", new PatientRegistrationModel());
+        return mav;
+    }
 
+    @RequestMapping(value = "/addPatient", method = RequestMethod.POST)
+    public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response,
+                                   @ModelAttribute("patientRegistrationModel") PatientRegistrationModel patientRegistrationModel) {
+        ModelAndView mav = new ModelAndView("addPatient");
+        return mav;
+    }
 }

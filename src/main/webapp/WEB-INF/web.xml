@@ -1,79 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
 <web-app xmlns:xsi="w3.org/2001/XMLSchema-instance"
- xmlns="java.sun.com/xml/ns/javaee" 
- xmlns:web="java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
- xsi:schemaLocation="java.sun.com/xml/ns/javaee java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
- id="WebApp_ID" version="3.0">
+         xmlns="java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="java.sun.com/xml/ns/javaee java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
 
-  <!--
-  -
-  - Global configuration
-  -
-  -->
-    
-  <display-name>${displayName}</display-name>
+    <!--
+    -
+    - Global configuration
+    -
+    -->
 
-  <welcome-file-list>
-    <welcome-file>home.htm</welcome-file>
-  </welcome-file-list>
-  
-  <!-- Ensure that the EMRMS session expires after inactivity of 60 seconds. -->
-  <session-config>
-  	<session-timeout>60</session-timeout>
-  	<tracking-mode>COOKIE</tracking-mode>
-  </session-config>
-  
-  <!-- Error pages -->
-  <error-page>
-    <!-- Forbidden directory listing -->
-    <error-code>403</error-code>
-    <location>/not_authorized.jsp</location>
-  </error-page>
-  <error-page>
-    <!-- Internal server error -->
-    <error-code>500</error-code>
-    <location>/internal_server_error.jsp</location>
-  </error-page>
-  <error-page>
-    <!-- Resource not found directory listing -->
-    <error-code>404</error-code>
-    <location>/resource_not_found.jsp</location>
-  </error-page>
+    <display-name>${displayName}</display-name>
+
+    <welcome-file-list>
+        <welcome-file>home.htm</welcome-file>
+    </welcome-file-list>
+
+    <!-- Ensure that the EMRMS session expires after inactivity of 60 seconds. -->
+    <session-config>
+        <session-timeout>60</session-timeout>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+    <!-- Error pages -->
+    <error-page>
+        <!-- Forbidden directory listing -->
+        <error-code>403</error-code>
+        <location>/not_authorized.jsp</location>
+    </error-page>
+    <error-page>
+        <!-- Internal server error -->
+        <error-code>500</error-code>
+        <location>/internal_server_error.jsp</location>
+    </error-page>
+    <error-page>
+        <!-- Resource not found directory listing -->
+        <error-code>404</error-code>
+        <location>/resource_not_found.jsp</location>
+    </error-page>
 
 
-  <!-- Context listener for filters -->
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:/spring/emrms-context.xml</param-value>
-  </context-param>
+    <!-- Context listener for filters -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:/spring/emrms-context.xml</param-value>
+    </context-param>
 
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  
-  <!--
-  -
-  - Preference configuration
-  -
-  -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-  <!-- Spring-MVC dispatcher servlet for Preference. -->
-  <servlet>
-    <servlet-name>emrmsServlet</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>classpath*:/spring/emrms-context.xml</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>emrmsServlet</servlet-name>
-    <url-pattern>*.html</url-pattern>
-    <url-pattern>/</url-pattern>
-    <url-pattern>*.htm</url-pattern>
-  </servlet-mapping>
-  
+    <!--
+    -
+    - Preference configuration
+    -
+    -->
+
+    <!-- Spring-MVC dispatcher servlet for Preference. -->
+    <servlet>
+        <servlet-name>emrmsServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath*:/spring/emrms-context.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>emrmsServlet</servlet-name>
+        <url-pattern>*.html</url-pattern>
+        <url-pattern>/</url-pattern>
+        <url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/spring</taglib-uri>
+            <taglib-location>/WEB-INF/tld/spring-form.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
 </web-app>
