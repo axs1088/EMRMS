@@ -29,34 +29,34 @@ public interface PatientMapper {
     @Insert("INSERT INTO h_patient")
     void create();
     
-    @Insert("INSERT INTO h_encounter(HEncounterID,UserId,CreationDateTime," +
+    @Insert("INSERT INTO h_encounter(HEncounterID,UserId," +
             "EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName," +
             "EncounterLocation_ObjectID,EncounterID,EncType,BedName," +
             "Patient_ObjectID,AttendingPhysician_ObjectID, Bed_ObjectID) VALUES" +
-            "(#{hEncounterID}, #{userID}, #{creationDateTime}, " +
+            "(#{hEncounterID}, #{userID}," +
             "#{encStartDateTime},#{encEndDateTime}, #{encStatus}, #{encLocationName}," +
             "#{encounterLocation_ObjectID}, #{encounterID}, #{encounterType},#{bedName}," +
             "#{patient_ObjectID}, #{attendingPhysician_ObjectID}, #{bed_ObjectID})")
     //@Options(useGeneratedKeys=true, keyProperty="id", flushCache=true, keyColumn="id")
     public void insertEncounterDetails(HEncounter hEncounter);
     
-    @Insert("INSERT INTO h_person(UserId, CreationDateTime, Gender, BirthDate) " +
-    		"VALUES (#{userId}, #{creationDateTime}, #{gender},#{birthDate, typeHandler=edu.psu.sweng500.emrms.database.RatifiedDateTypeHandler, jdbcType=DATE})")
+    @Insert("INSERT INTO h_person(UserId, Gender, BirthDate) " +
+    		"VALUES (#{userId}, #{gender},#{birthDate, typeHandler=edu.psu.sweng500.emrms.database.RatifiedDateTypeHandler, jdbcType=DATE})")
     public void insertPerson(HPatient patient);
 
-    @Insert("INSERT INTO h_name(UserId, CreationDateTime, FirstName, MiddleName, LastName, HPersonID) " +
-    		"VALUES (#{patient.userId}, #{patient.creationDateTime}, #{patient.name.first}, #{patient.name.middle}, #{patient.name.last}, #{personId})")
+    @Insert("INSERT INTO h_name(UserId, FirstName, MiddleName, LastName, HPersonID) " +
+    		"VALUES (#{patient.userId}, #{patient.name.first}, #{patient.name.middle}, #{patient.name.last}, #{personId})")
 	@SelectKey(statement="SELECT max(HPersonID) as personId FROM h_person", keyProperty="personId", before=true, resultType=int.class)
     public void insertPatientName(@Param("patient") HPatient patient);
     
-    @Insert("INSERT INTO h_patient(UserId, CreationDateTime, OrganDonor, HPersonID) " +
-    		"VALUES (#{userId}, #{creationDateTime}, #{organDonor}, #{personId})")
+    @Insert("INSERT INTO h_patient(UserId, OrganDonor, HPersonID) " +
+    		"VALUES (#{userId}, #{organDonor}, #{personId})")
 	@SelectKey(statement="SELECT max(HPersonID) as personId FROM h_person", keyProperty="personId", before=true, resultType=int.class)
     public void insertPatient(HPatient patient);
     
-    @Insert("INSERT INTO h_address(UserId, CreationDateTime, StrAddress, City, State, Zip, Country, " +
+    @Insert("INSERT INTO h_address(UserId, StrAddress, City, State, Zip, Country, " +
     		"HomePhoneNo, CellPhoneNo, EmailAddress, HPersonID) " +
-    		"VALUES (#{patient.userId}, #{patient.creationDateTime}, #{patient.address.line1}, #{patient.address.city}, #{patient.address.state}, #{patient.address.zip}, #{patient.address.country}, " +
+    		"VALUES (#{patient.userId}, #{patient.address.line1}, #{patient.address.city}, #{patient.address.state}, #{patient.address.zip}, #{patient.address.country}, " +
     		"#{patient.cellPhone.number}, #{patient.homePhone.number}, #{patient.email}, #{personId})")
 	@SelectKey(statement="SELECT max(HPersonID) as personId FROM h_person", keyProperty="personId", before=true, resultType=int.class)
     public void insertPatientAddress(@Param("patient") HPatient patient);

@@ -6,8 +6,6 @@
 
 -- Delete all data before inserting sample data
 
-set @currentDate='2013-01-17 00:00:00';
-
 DELETE FROM h_name;
 DELETE FROM h_staff;
 DELETE FROM h_password;
@@ -20,74 +18,74 @@ DELETE FROM h_bed;
 
 -------------------------- INSERT INTO h_person--------------------------------------------------
 
-INSERT INTO h_person(HPersonID,UserId,CreationDateTime,Gender,BirthDate,Race)
-  VALUES (1,'jd101',@currentDate,1,'1983-08-23 08:15:10','American');
+INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
+  VALUES (1,'jd101',1,'1983-08-23 08:15:10','American');
 
-INSERT INTO h_person(HPersonID,UserId,CreationDateTime,Gender,BirthDate,Race)
-  VALUES (2,'lg22',@currentDate,2,'1982-03-03 04:15:10','Asian');
+INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
+  VALUES (2,'lg22',2,'1982-03-03 04:15:10','Asian');
 
- INSERT INTO h_person(HPersonID,UserId,CreationDateTime,Gender,BirthDate,Race)
-  VALUES (3,'lg22',@currentDate,1,'1981-03-03 04:15:10','African American');
+ INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
+  VALUES (3,'lg22',1,'1981-03-03 04:15:10','African American');
 
-  INSERT INTO h_person(HPersonID,UserId,CreationDateTime,Gender,BirthDate,Race)
-  VALUES (4,'lg22',@currentDate,2,'1981-03-03 04:15:10','African American');
+  INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
+  VALUES (4,'lg22',2,'1981-03-03 04:15:10','African American');
 
 ---------------------------- INSERT INTO h_name---------------------------------------------------
-INSERT INTO h_name(HNameID,UserId,CreationDateTime,FirstName,MiddleName,LastName,Active,HPersonID)
-  VALUES(1,'lg22',@currentDate,'Louis','Ho','MD',1,2);
+INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Active,HPersonID)
+  VALUES(1,'lg22','Louis','Ho','MD',1,2);
 
-INSERT INTO h_name(HNameID,UserId,CreationDateTime,FirstName,MiddleName,LastName,Active,HPersonID)
-  VALUES(2,'jd101',@currentDate,'Jane','Jeff','RN',1,1);
+INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Active,HPersonID)
+  VALUES(2,'jd101','Jane','Jeff','RN',1,1);
 
- INSERT INTO h_name(HNameID,UserId,CreationDateTime,FirstName,MiddleName,LastName,Active,HPersonID)
-  VALUES(3,'jd101',@currentDate,'John','Jeff','Doe',1,3);
+ INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Active,HPersonID)
+  VALUES(3,'jd101','John','Jeff','Doe',1,3);
 
-   INSERT INTO h_name(HNameID,UserId,CreationDateTime,FirstName,MiddleName,LastName,Active,HPersonID)
-  VALUES(4,'jd101',@currentDate,'Mary','Jeff','Davis',1,4);
+   INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Active,HPersonID)
+  VALUES(4,'jd101','Mary','Jeff','Davis',1,4);
 
 --------------------------- INSERT INTO h_patient ------------------------------------------------
-INSERT INTO h_patient(HPatientID,UserId,CreationDateTime,MPINo,OrganDonor,DeceasedInd,IsPatientUnidentified,PrimaryLang,MedHistoryConcent,HPersonID)
-  VALUES(3,'jd101',@currentDate,'M101','Richie',0,0,'English',0,3);
+INSERT INTO h_patient(HPatientID,UserId,MPINo,OrganDonor,DeceasedInd,IsPatientUnidentified,PrimaryLang,MedHistoryConcent,HPersonID)
+  VALUES(3,'jd101','M101','Richie',0,0,'English',0,3);
 
-INSERT INTO h_patient(HPatientID,UserId,CreationDateTime,MPINo,OrganDonor,DeceasedInd,IsPatientUnidentified,PrimaryLang,MedHistoryConcent,HPersonID)
-  VALUES(4,'jd101',@currentDate,'M102','Richie',0,0,'English',0,4);
+INSERT INTO h_patient(HPatientID,UserId,MPINo,OrganDonor,DeceasedInd,IsPatientUnidentified,PrimaryLang,MedHistoryConcent,HPersonID)
+  VALUES(4,'jd101','M102','Richie',0,0,'English',0,4);
 ---------------------------- INSERT INTO h_staff--------------------------------------------------
 -- 1:Physician 2:Nurse for Type
-INSERT INTO h_staff(HStaffID,UserID,CreationDateTime,Type,Active)
-  VALUES(1,'lg22',@currentDate,1,1);
+INSERT INTO h_staff(HStaffID,UserID,Type,Active)
+  VALUES(1,'lg22',1,1);
 
   -- 1:Physician 2:Nurse for Type
-INSERT INTO h_staff(HStaffID,UserID,CreationDateTime,Type,Active)
-  VALUES(2,'lg22',@currentDate,2,1);
+INSERT INTO h_staff(HStaffID,UserID,Type,Active)
+  VALUES(2,'lg22',2,1);
 
 ---------------------------- INSERT INTO h_password--------------------------------------------------
 -- 1:Physician 2:Nurse for Type
-INSERT INTO h_password(HPasswordId,CreationDateTime,UserId,OldPassword,Password)
-  VALUES(1,@currentDate,'lg22',null,'emrms');
+INSERT INTO h_password(HPasswordId,UserId,OldPassword,Password)
+  VALUES(1,'lg22',null,'emrms');
 ---------------------------- INSERT INTO h_user--------------------------------------------------
 -- 1:Physician 2:Nurse for Type
-INSERT INTO h_user(HUserID,CreationDateTime,LoginID,UserType,HPersonID,HPasswordID)
-  VALUES(1,@currentDate,'admin',1,1,1);
+INSERT INTO h_user(HUserID,LoginID,UserType,HPersonID,HPasswordID)
+  VALUES(1,'admin',1,1,1);
 
- INSERT INTO h_user(HUserID,CreationDateTime,LoginID,UserType,HPersonID,HPasswordID)
-  VALUES(3,@currentDate,'nurse01',2,2,1);
+ INSERT INTO h_user(HUserID,LoginID,UserType,HPersonID,HPasswordID)
+  VALUES(3,'nurse01',2,2,1);
 
-  INSERT INTO h_user(HUserID,CreationDateTime,LoginID,UserType,HPersonID,HPasswordID)
-  VALUES(4,@currentDate,'pat01',3,3,1);
+  INSERT INTO h_user(HUserID,LoginID,UserType,HPersonID,HPasswordID)
+  VALUES(4,'pat01',3,3,1);
 
-  INSERT INTO h_user(HUserID,CreationDateTime,LoginID,UserType,HPersonID,HPasswordID)
-  VALUES(5,@currentDate,'pat02',3,4,1);
+  INSERT INTO h_user(HUserID,LoginID,UserType,HPersonID,HPasswordID)
+  VALUES(5,'pat02',3,4,1);
 
 
 ---------------------------- INSERT INTO h_bed----------------------------------------------------
-INSERT INTO h_bed(BedId,UserId,CreationDateTime,BedName,BedStatus,Active,LocationID)
-  VALUES(1,'lg22',@currentDate,'Bed101',1,1,1);
+INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
+  VALUES(1,'lg22','Bed101',1,1,1);
 
 --------------------------- INSERT INTO h_encounter ----------------------------------------------
-INSERT INTO h_encounter(HEncounterID,UserId,CreationDateTime,EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName
+INSERT INTO h_encounter(HEncounterID,UserId,EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName
   ,EncounterLocation_ObjectID,EncounterID,EncType,BedName,Patient_ObjectID,AttendingPhysician_ObjectID,Bed_ObjectID)
-  VALUES(1,'lg22',@currentDate,'2006-02-14 21:55:00',NULL,1,'Exton',1,1,'Out Patient','Bed101',3,1,1);
+  VALUES(1,'lg22','2006-02-14 21:55:00',NULL,1,'Exton',1,1,'Out Patient','Bed101',3,1,1);
 
-INSERT INTO h_encounter(HEncounterID,UserId,CreationDateTime,EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName
+INSERT INTO h_encounter(HEncounterID,UserId,EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName
   ,EncounterLocation_ObjectID,EncounterID,EncType,BedName,Patient_ObjectID,AttendingPhysician_ObjectID,Bed_ObjectID)
-  VALUES(2,'lg22',@currentDate,'2008-04-04 11:55:00',NULL,1,'Exton',1,2,'Out Patient','',4,1,null);
+  VALUES(2,'lg22','2008-04-04 11:55:00',NULL,1,'Exton',1,2,'Out Patient','',4,1,null);

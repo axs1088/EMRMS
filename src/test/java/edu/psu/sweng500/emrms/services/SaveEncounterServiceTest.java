@@ -47,7 +47,6 @@ public class SaveEncounterServiceTest {
         HPatient hPatient = new HPatient();
         HEncounter hEncounter = new HEncounter();
         hEncounter.setUserID("admin");
-        hEncounter.setCreationDateTime("2017-09-23 21:55:00");
         hEncounter.setEncStartDateTime("2017-09-14 11:55:00");
         hEncounter.setEncStatus(ENCOUNTER_STATUS_ACTIVE);
         hEncounter.setEncLocationName("Exton Clinic");
