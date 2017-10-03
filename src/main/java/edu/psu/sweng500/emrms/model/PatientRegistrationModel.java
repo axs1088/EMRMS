@@ -1,6 +1,7 @@
 package edu.psu.sweng500.emrms.model;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 public class PatientRegistrationModel {
     private String lastName;

@@ -48,19 +48,19 @@ public class User {
         this.userType = userType;
     }
 
-    public long gethPersonId() {
+    public long getHPersonId() {
         return hPersonId;
     }
 
-    public void sethPersonId(long hPersonId) {
+    public void setHPersonId(long hPersonId) {
         this.hPersonId = hPersonId;
     }
 
-    public long gethPasswordId() {
+    public long getHPasswordId() {
         return hPasswordId;
     }
 
-    public void sethPasswordId(long hPasswordId) {
+    public void setHPasswordId(long hPasswordId) {
         this.hPasswordId = hPasswordId;
     }
 

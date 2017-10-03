@@ -49,11 +49,11 @@ public class HCensus {
         this.gender = gender;
     }
 
-    public String getmPINo() {
+    public String getMPINo() {
         return mPINo;
     }
 
-    public void setmPINo(String mPINo) {
+    public void setMPINo(String mPINo) {
         this.mPINo = mPINo;
     }
 

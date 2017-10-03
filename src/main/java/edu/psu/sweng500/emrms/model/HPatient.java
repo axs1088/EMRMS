@@ -1,10 +1,10 @@
 package edu.psu.sweng500.emrms.model;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
-
 import edu.psu.sweng500.emrms.util.RatifiedDate;
 import edu.psu.sweng500.emrms.validators.annotations.EmailFormat;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 //Added by Atul Singh 09/01/2017
 public class HPatient {
@@ -20,24 +20,26 @@ public class HPatient {
     private RatifiedDate birthDate;
     private long gender;
     private int personId;
-    
-	@Valid
-	private ComplexName name;
-	
-	@Valid
-	private Address address;
-	
-	@Valid
-	private Phone cellPhone;
-	
-	@Valid
-	private Phone homePhone;
 
-	
-	/** The email. */
-	@Size(max=60)
-	@EmailFormat
-	private String email;  
+    @Valid
+    private ComplexName name;
+
+    @Valid
+    private Address address;
+
+    @Valid
+    private Phone cellPhone;
+
+    @Valid
+    private Phone homePhone;
+
+
+    /**
+     * The email.
+     */
+    @Size(max = 60)
+    @EmailFormat
+    private String email;
 
     public int getObjectID() {
         return ObjectID;
@@ -63,11 +65,11 @@ public class HPatient {
         this.creationDateTime = creationDateTime;
     }
 
-    public String getmPINumber() {
+    public String getMPINumber() {
         return mPINumber;
     }
 
-    public void setmPINumber(String mPINumber) {
+    public void setMPINumber(String mPINumber) {
         this.mPINumber = mPINumber;
     }
 
@@ -111,78 +113,77 @@ public class HPatient {
         this.medHistoryConsent = medHistoryConsent;
     }
 
-	public Boolean getIsPatientUndentified() {
-		return isPatientUndentified;
-	}
+    public Boolean getIsPatientUndentified() {
+        return isPatientUndentified;
+    }
 
-	public void setIsPatientUndentified(Boolean isPatientUndentified) {
-		this.isPatientUndentified = isPatientUndentified;
-	}
+    public void setIsPatientUndentified(Boolean isPatientUndentified) {
+        this.isPatientUndentified = isPatientUndentified;
+    }
 
-	public RatifiedDate getBirthDate() {
-		return birthDate;
-	}
+    public RatifiedDate getBirthDate() {
+        return birthDate;
+    }
 
-	public void setBirthDate(RatifiedDate birthDate) {
-		this.birthDate = birthDate;
-	}
+    public void setBirthDate(RatifiedDate birthDate) {
+        this.birthDate = birthDate;
+    }
 
-	public long getGender() {
-		return gender;
-	}
+    public long getGender() {
+        return gender;
+    }
 
-	public void setGender(long gender) {
-		this.gender = gender;
-	}
+    public void setGender(long gender) {
+        this.gender = gender;
+    }
 
-	public ComplexName getName() {
-		return name;
-	}
+    public ComplexName getName() {
+        return name;
+    }
 
-	public void setName(ComplexName name) {
-		this.name = name;
-	}
+    public void setName(ComplexName name) {
+        this.name = name;
+    }
 
-	public Address getAddress() {
-		return address;
-	}
+    public Address getAddress() {
+        return address;
+    }
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
-	public Phone getCellPhone() {
-		return cellPhone;
-	}
+    public Phone getCellPhone() {
+        return cellPhone;
+    }
 
-	public void setCellPhone(Phone cellPhone) {
-		this.cellPhone = cellPhone;
-	}
+    public void setCellPhone(Phone cellPhone) {
+        this.cellPhone = cellPhone;
+    }
 
-	public Phone getHomePhone() {
-		return homePhone;
-	}
+    public Phone getHomePhone() {
+        return homePhone;
+    }
 
-	public void setHomePhone(Phone homePhone) {
-		this.homePhone = homePhone;
-	}
+    public void setHomePhone(Phone homePhone) {
+        this.homePhone = homePhone;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public int getPersonId() {
-		return personId;
-	}
+    public int getPersonId() {
+        return personId;
+    }
 
-	public void setPersonId(int personId) {
-		this.personId = personId;
-	}
-    
-	
-    
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
+
 }

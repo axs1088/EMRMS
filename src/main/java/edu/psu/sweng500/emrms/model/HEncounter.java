@@ -42,11 +42,11 @@ public class HEncounter {
     }
 
 
-    public int gethEncounterID() {
+    public int getHEncounterID() {
         return hEncounterID;
     }
 
-    public void sethEncounterID(int hEncounterID) {
+    public void setHEncounterID(int hEncounterID) {
         this.hEncounterID = hEncounterID;
     }
 

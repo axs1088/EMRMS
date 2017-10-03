@@ -10,7 +10,7 @@ public class HPatientId {
     private long idIssuerId;
     private long patientId;
 
-    public long gethPatientId() {
+    public long getHPatientId() {
         return hPatientId;
     }
 
@@ -42,7 +42,7 @@ public class HPatientId {
         return patientId;
     }
 
-    public void sethPatientId(long hPatientId) {
+    public void setHPatientId(long hPatientId) {
         this.hPatientId = hPatientId;
     }
 
