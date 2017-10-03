@@ -29,8 +29,8 @@
 		<h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
 		<ul id="navigation">
 			<li class="current">
-				<a href="/emrms/home">Home</a>
-				<a href="/emrms/patientLocator?lName=Doe&fName=John&gender=1">Patient Locator</a>
+				<a href="/EMRMS/home">Home</a>
+				<a href="/EMRMS/patientLocator">Patient Locator</a>
 			</li>
 		</ul>
 		

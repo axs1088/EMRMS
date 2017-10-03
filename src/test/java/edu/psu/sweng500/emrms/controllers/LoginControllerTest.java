@@ -8,6 +8,7 @@ import edu.psu.sweng500.emrms.service.CensusServiceImpl;
 import edu.psu.sweng500.emrms.service.UserServiceImpl;
 import edu.psu.sweng500.emrms.util.Constants;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -109,10 +110,14 @@ public class LoginControllerTest {
         assertEquals(nurseCensusReturned.getLastName(), hCensusList.get(0).getLastName());
     }
 
-    @Test
-    public void testFindPatient() {
-        ModelAndView modelAndView = controller.findPatient(null, null, "last", "first", 3);
 
+    @Test
+    public void testShowPatientLocator() {
+        ModelAndView modelAndView = controller.showPatientLocator(null,null);
+        assertNotNull(modelAndView);
+
+        HCensus census = (HCensus) modelAndView.getModel().get("census");
+        assertNotNull(census);
     }
 
     @Test

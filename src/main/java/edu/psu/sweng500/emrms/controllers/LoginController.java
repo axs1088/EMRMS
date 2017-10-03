@@ -1,10 +1,7 @@
 package edu.psu.sweng500.emrms.controllers;
 
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
-import edu.psu.sweng500.emrms.model.HAuditRecord;
-import edu.psu.sweng500.emrms.model.HCensus;
-import edu.psu.sweng500.emrms.model.PatientRegistrationModel;
-import edu.psu.sweng500.emrms.model.User;
+import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.*;
 import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
@@ -105,6 +102,7 @@ public class LoginController {
             mav.addObject(Constants.CENSUS, census);
 
             applicationAuditHelper.auditEvent(session, "Login", 1);
+            applicationAuditHelper.auditEvent(session, "View Census", 3);
 
         } else {
             mav = new ModelAndView("login");
@@ -114,21 +112,26 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/patientLocator", method = RequestMethod.GET)
-    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response
-            , @RequestParam("lName") String lName
-            , @RequestParam("fName") String fName
-            , @RequestParam("gender") Integer gender) {
+    public ModelAndView showPatientLocator(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("patientLocator");
+        mav.addObject("census", new HCensus());
+        return mav;
+    }
+
+    @RequestMapping(value = "/patientLocatorProcess", method = RequestMethod.POST)
+    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response,
+            @ModelAttribute("census") HCensus patient) {
         ModelAndView mav = null;
+        HttpSession session = request.getSession(false);
 
         mav = new ModelAndView("patientLocator");
 
-        List<HCensus> hPatientList = censusService.getPatientListByDemographics(lName, fName, gender);
+        List<HCensus> hPatientList = censusService.getPatientListByDemographics(patient.getLastName(), patient.getFirstName(), patient.getGender());
 
         if (CollectionUtils.isNotEmpty(hPatientList)) {
             mav.addObject("hPatientList", hPatientList);
         }
-
-
+        applicationAuditHelper.auditEvent(session, "Patient Locator", 4);
         return mav;
     }
 
