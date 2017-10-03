@@ -52,17 +52,17 @@
 </div>
 
 <body>
-<form:form method="POST" action="/emrms/addPatient" modelAttribute="patientRegistrationModel">
+<form:form id="addPatientForm" method="post" action="addPatient" modelAttribute="patient">
     <h3> Patient Information</h3>
     <div>
-        <form:label path="lastName">Last Name: </form:label>
-        <form:input path="lastName"/>
-        <form:label path="firstName">First Name: </form:label>
-        <form:input path="firstName"/>
+        <form:label path="name.last">Last Name: </form:label>
+        <form:input path="name.last"/>
+        <form:label path="name.first">First Name: </form:label>
+        <form:input path="name.first"/>
     </div>
     <div>
-        <form:label path="middleName">Middle Name: </form:label>
-        <form:input path="middleName"/>
+        <form:label path="name.middle">Middle Name: </form:label>
+        <form:input path="name.middle"/>
         <form:label path="gender">Gender: </form:label>
         <form:select path="gender">
             <form:option value="1" label="Male"/>
@@ -76,21 +76,20 @@
     </div>
     <h3> Address</h3>
     <div>
-        <form:label path="streetAddress">Street Address: </form:label>
-        <form:input path="streetAddress"/>
-        <form:checkbox path="mailingMatchesStreet" label="Mailing?                             "/>
+        <form:label path="address.line1">Street Address: </form:label>
+        <form:input path="address.line1"/>
     </div>
     <div>
-        <form:label path="city">City/State/Zip: </form:label>
-        <form:input path="city"/>
-        <form:input path="state"/>
-        <form:input path="zip"/>
+        <form:label path="address.city">City/State/Zip: </form:label>
+        <form:input path="address.city"/>
+        <form:input path="address.state"/>
+        <form:input path="address.zip"/>
     </div>
     <div>
-        <form:label path="cellPhone">Cell Phone: </form:label>
-        <form:input path="cellPhone"/>
-        <form:label path="homePhone">Home Phone: </form:label>
-        <form:input path="homePhone"/>
+        <form:label path="cellPhone.number">Cell Phone: </form:label>
+        <form:input path="cellPhone.number"/>
+        <form:label path="homePhone.number">Home Phone: </form:label>
+        <form:input path="homePhone.number"/>
     </div>
     <div>
         <form:label path="email">Email: </form:label>

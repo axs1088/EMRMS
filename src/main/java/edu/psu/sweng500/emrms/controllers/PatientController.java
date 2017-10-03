@@ -9,6 +9,7 @@ import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,24 +49,14 @@ public class PatientController {
         binder.setBindingErrorProcessor(new EMRMSBindingErrorProcessor());
     }
     
-    @RequestMapping(value = "/patientRegistration", method = RequestMethod.POST)
-    public ModelAndView registerPatient(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("patient") HPatient patient) {
+    @RequestMapping(value = "/patientRegistration", method = RequestMethod.GET)
+    public ModelAndView registerPatient(HttpServletRequest request, HttpServletResponse response) {
     	applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registation", 1);
     	ModelAndView mav = new ModelAndView("patientRegistration");
         mav.addObject("patientRegistrationModel", new PatientRegistrationModel());
+        HPatient patient = new HPatient();
+        mav.addObject("patient", patient);
         
-        //TODO: Need to integrate this with UI
-        //patientService.registerPatient(patient);
-
-        return mav;
-    }
-    
-    
-    
-    @RequestMapping(value = "/patientRegistration", method = RequestMethod.GET)
-    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = new ModelAndView("patientRegistration");
-        mav.addObject("patientRegistrationModel", new PatientRegistrationModel());
         return mav;
     }
     
@@ -94,9 +85,12 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/addPatient", method = RequestMethod.POST)
-    public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response,
-                                   @ModelAttribute("patientRegistrationModel") PatientRegistrationModel patientRegistrationModel) {
-        ModelAndView mav = new ModelAndView("addPatient");
+    public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response, 
+    		@ModelAttribute("patient") HPatient patient, BindingResult bindingResult) {
+        ModelAndView mav = new ModelAndView("patientRegistration");
+        
+        patientService.registerPatient(patient);
+        
         return mav;
     }
 
