@@ -111,24 +111,7 @@ public class LoginControllerTest {
     }
 
 
-    @Test
-    public void testShowPatientLocator() {
-        ModelAndView modelAndView = controller.showPatientLocator(null,null);
-        assertNotNull(modelAndView);
 
-        HCensus census = (HCensus) modelAndView.getModel().get("census");
-        assertNotNull(census);
-    }
 
-    @Test
-    public void testFindPatientWithAllParameters() {
-        List<HCensus> patientList = censusService.getPatientListByDemographics("D", "J", 1);
-        assertEquals(1, patientList.size());
-    }
 
-    @Test
-    public void testFindPatientWithLastNameAndAllGender() {
-        List<HCensus> patientList = censusService.getPatientListByDemographics("D", "", 3);
-        assertEquals(1, patientList.size());
-    }
 }

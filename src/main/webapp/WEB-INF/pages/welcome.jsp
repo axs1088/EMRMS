@@ -60,7 +60,7 @@
 						</c:choose>
 					</td>
 		            <td width="100"></td>
-		            <td width="100">${physicianCensus.mPINo}</td>
+		            <td width="100">${physicianCensus.MPINo}</td>
 		            <td width="100">
 			            <c:choose>
 				            <c:when test="${physicianCensus.encStatus == '1'}">

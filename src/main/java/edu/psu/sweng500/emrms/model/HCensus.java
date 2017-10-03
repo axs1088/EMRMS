@@ -13,7 +13,7 @@ public class HCensus {
     private String lastName;
     private Date birthdate;
     private int gender;
-    private String mPINo;
+    private String MPINo;
     private Date encStartdateTime;
     private String encStatus;
 
@@ -50,11 +50,11 @@ public class HCensus {
     }
 
     public String getMPINo() {
-        return mPINo;
+        return MPINo;
     }
 
-    public void setMPINo(String mPINo) {
-        this.mPINo = mPINo;
+    public void setMPINo(String MPINo) {
+        this.MPINo = MPINo;
     }
 
     public Date getEncStartdateTime() {

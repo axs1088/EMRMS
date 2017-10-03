@@ -1,6 +1,7 @@
 package edu.psu.sweng500.emrms.model;
 
 import edu.psu.sweng500.emrms.testdrivers.GenericModelTester;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestAllModels {
