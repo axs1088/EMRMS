@@ -19,7 +19,7 @@ CREATE PROCEDURE Emrms_FindPatientByDemographics(IN lName  VARCHAR(30),
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         INNER JOIN H_Patient hpat ON hpat.HPatientID = hp.HPersonID
         LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
-      WHERE henc.encStatus = 1 AND hn.LastName LIKE CONCAT(lName, '%') AND hn.FirstName LIKE CONCAT(fName, '%') AND
+      WHERE  hn.LastName LIKE CONCAT(lName, '%') AND hn.FirstName LIKE CONCAT(fName, '%') AND
             hp.Gender = gender;
     END IF;
 
@@ -37,7 +37,7 @@ CREATE PROCEDURE Emrms_FindPatientByDemographics(IN lName  VARCHAR(30),
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         INNER JOIN H_Patient hpat ON hpat.HPatientID = hp.HPersonID
         LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
-      WHERE henc.encStatus = 1 AND hn.LastName LIKE CONCAT(lName, '%') AND hn.FirstName LIKE CONCAT(fName, '%');
+      WHERE hn.LastName LIKE CONCAT(lName, '%') AND hn.FirstName LIKE CONCAT(fName, '%');
     END IF;
 
     /*Return All patients*/
@@ -54,7 +54,7 @@ CREATE PROCEDURE Emrms_FindPatientByDemographics(IN lName  VARCHAR(30),
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         INNER JOIN H_Patient hpat ON hpat.HPatientID = hp.HPersonID
         LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
-      WHERE henc.encStatus = 1 AND hn.LastName LIKE CONCAT(lName, '%');
+      WHERE hn.LastName LIKE CONCAT(lName, '%');
     END IF;
 
   END;
