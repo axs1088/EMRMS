@@ -46,10 +46,10 @@
 </head>
 
 <div id="header">
-    <h1><a href="/EMRMS/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
+    <h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
     <ul id="navigation">
         <li class="current">
-            <a href="/EMRMS/home">Home</a>
+            <a href="/emrms/home">Home</a>
         </li>
     </ul>
 </div>

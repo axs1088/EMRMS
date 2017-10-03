@@ -8,14 +8,14 @@
 </head>
 <body class="body">
 <div id="header">
-    <h1><a href="/EMRMS/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
+    <h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
     <div>
         <ul id="navigation">
             <li>
-                <a href="/EMRMS/login">Login</a>
+                <a href="/emrms/login">Login</a>
             </li>
             <li>
-                <a href="/EMRMS/patientRegistration">Register Patient</a>
+                <a href="/emrms/patientRegistration">Register Patient</a>
             </li>
         </ul>
     </div>

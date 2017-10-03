@@ -11,14 +11,14 @@ import static org.junit.Assert.assertEquals;
 public class HPatientTest {
     private HPatient patient;
     private String expectedString;
-    private long expectedLong;
+    private int expectedLong;
     private boolean expectedBoolean;
 
     @Before
     public void setUp() {
         patient = new HPatient();
         expectedString = TestingUtilities.createRandomString(5);
-        expectedLong = (new Random()).nextLong();
+        expectedLong = (new Random()).nextInt();
         expectedBoolean = new Random().nextBoolean();
     }
 

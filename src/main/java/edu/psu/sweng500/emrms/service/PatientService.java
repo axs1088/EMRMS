@@ -10,4 +10,8 @@ public interface PatientService {
     void deleteAll();
 
     HPatient createNew();
+    
+    public void registerPatient(HPatient patient);
+
+    
 }

@@ -13,14 +13,14 @@ public class HPersonTest {
     private HPerson person;
     private String expectedString;
     private Date expectedDate;
-    private long expectedLong;
+    private int expectedLong;
 
     @Before
     public void testUp() {
         person = new HPerson();
         expectedDate = TestingUtilities.createRandomSqlDate();
         expectedString = TestingUtilities.createRandomString(5);
-        expectedLong = (new Random()).nextLong();
+        expectedLong = (new Random()).nextInt();
     }
 
     @Test

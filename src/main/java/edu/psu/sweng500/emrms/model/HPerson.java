@@ -7,18 +7,18 @@ import java.sql.Date;
  */
 public class HPerson {
 
-    private long personId;
+    private int personId;
     private String userId;
     private Date creationDateTime;
-    private long gender;
+    private int gender;
     private Date birthDate;
     private String race;
 
-    public long getPersonId() {
+    public int getPersonId() {
         return personId;
     }
 
-    public void setPersonId(long personId) {
+    public void setPersonId(int personId) {
         this.personId = personId;
     }
 
@@ -38,11 +38,11 @@ public class HPerson {
         this.creationDateTime = creationDateTime;
     }
 
-    public long getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(long gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 

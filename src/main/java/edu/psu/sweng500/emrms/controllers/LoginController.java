@@ -111,41 +111,4 @@ public class LoginController {
         return mav;
     }
 
-    @RequestMapping(value = "/patientLocator", method = RequestMethod.GET)
-    public ModelAndView showPatientLocator(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = new ModelAndView("patientLocator");
-        mav.addObject("census", new HCensus());
-        return mav;
-    }
-
-    @RequestMapping(value = "/patientLocatorProcess", method = RequestMethod.POST)
-    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response,
-            @ModelAttribute("census") HCensus patient) {
-        ModelAndView mav = null;
-        HttpSession session = request.getSession(false);
-
-        mav = new ModelAndView("patientLocator");
-
-        List<HCensus> hPatientList = censusService.getPatientListByDemographics(patient.getLastName(), patient.getFirstName(), patient.getGender());
-
-        if (CollectionUtils.isNotEmpty(hPatientList)) {
-            mav.addObject("hPatientList", hPatientList);
-        }
-        applicationAuditHelper.auditEvent(session, "Patient Locator", 4);
-        return mav;
-    }
-
-    @RequestMapping(value = "/patientRegistration", method = RequestMethod.GET)
-    public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = new ModelAndView("patientRegistration");
-        mav.addObject("patientRegistrationModel", new PatientRegistrationModel());
-        return mav;
-    }
-
-    @RequestMapping(value = "/addPatient", method = RequestMethod.POST)
-    public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response,
-                                   @ModelAttribute("patientRegistrationModel") PatientRegistrationModel patientRegistrationModel) {
-        ModelAndView mav = new ModelAndView("addPatient");
-        return mav;
-    }
 }
