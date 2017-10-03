@@ -9,6 +9,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Register Patient</title>
     <style>
+        table{
+            color:black;
+        }
         input {
             background: #fffdd7;
             color: black;
@@ -81,7 +84,7 @@
 <div id="header" align="center" class="header">
     <h3><span>Patient Locator Search Results</span></h3>
 </div>
-<table cellpadding="10" align="center">
+<table border="1" align="center">
     <tr>
         <th>Name</th>
         <th>DOB</th>
