@@ -30,7 +30,6 @@
 		</div>
 		<script type="text/javascript">
 			function validateData(){
-				alert("Hello");
 			}
 		</script>
         </head>
