@@ -31,6 +31,8 @@ public class Address implements Serializable {
 	private String country;
 
 	private String addressType;
+	
+	private String mailingAddrSameAsStreetAddr;
 
 	public Address() {
 		this.country = Constants.COUNTRY_USA;
@@ -47,6 +49,7 @@ public class Address implements Serializable {
 			   StringUtils.isEmpty(city) &&
 			   StringUtils.isEmpty(state) &&
 			   StringUtils.isEmpty(zip) &&
+			   StringUtils.isEmpty(mailingAddrSameAsStreetAddr) &&
 			   (StringUtils.isEmpty(country) || (ignoreCountryUS && Constants.COUNTRY_USA.equals(country)));
 	}
 
@@ -63,6 +66,7 @@ public class Address implements Serializable {
 				+ ((specialHandlingText == null) ? 0 : specialHandlingText.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
+		result = prime * result + ((mailingAddrSameAsStreetAddr == null) ? 0 : mailingAddrSameAsStreetAddr.hashCode());
 		return result;
 	}
 
@@ -125,6 +129,13 @@ public class Address implements Serializable {
 				return false;
 			}
 		} else if(!zip.equals(other.zip)) {
+			return false;
+		}
+		if(mailingAddrSameAsStreetAddr == null) {
+			if(other.mailingAddrSameAsStreetAddr != null) {
+				return false;
+			}
+		} else if(!mailingAddrSameAsStreetAddr.equals(other.mailingAddrSameAsStreetAddr)) {
 			return false;
 		}
 		return true;
@@ -190,9 +201,9 @@ public class Address implements Serializable {
 	public String toString() {
 		return "Address [specialHandlingText=" + specialHandlingText + ", line1=" + line1
 				+ ", line2=" + line2 + ", city=" + city + ", state=" + state + ", zip=" + zip
-				+ ", country=" + country + ", addressType=" + addressType + "]";
+				+ ", mailingAddrSameAsStreetAddr=" + mailingAddrSameAsStreetAddr + ", country=" + country + ", addressType=" + addressType + "]";
 	}
-
+	
 	public String getAddressType() {
 		return addressType;
 	}
@@ -200,4 +211,13 @@ public class Address implements Serializable {
 	public void setAddressType(String addressType) {
 		this.addressType = addressType;
 	}
+
+	public String getMailingAddrSameAsStreetAddr() {
+		return mailingAddrSameAsStreetAddr;
+	}
+
+	public void setMailingAddrSameAsStreetAddr(String mailingAddrSameAsStreetAddr) {
+		this.mailingAddrSameAsStreetAddr = mailingAddrSameAsStreetAddr;
+	}
+	
 }

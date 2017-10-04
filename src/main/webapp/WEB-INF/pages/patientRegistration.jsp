@@ -78,6 +78,7 @@
     <div>
         <form:label path="address.line1">Street Address: </form:label>
         <form:input path="address.line1"/>
+        <form:checkbox path="address.mailingAddrSameAsStreetAddr" value="address.mailingAddrSameAsStreetAddr" label="Mailing?                             "/>
     </div>
     <div>
         <form:label path="address.city">City/State/Zip: </form:label>
