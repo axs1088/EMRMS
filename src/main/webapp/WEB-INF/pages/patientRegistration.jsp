@@ -152,6 +152,16 @@
         <form:button type="submit" value="Submit">Add Patient</form:button>
     </div>
 </form:form>
+
+<script type="text/javascript">
+    var saveMessage = "${message}".toString();
+    var m = "Save Successful";
+    if(saveMessage.valueOf()== m.valueOf())
+    {
+        window.alert("Save Successful");
+    } //end of if
+</script>
+
 <div id="footer">
 				<div>
 					<span>Malvern Clinic, PA - 19355 | 222-222-2222</span>

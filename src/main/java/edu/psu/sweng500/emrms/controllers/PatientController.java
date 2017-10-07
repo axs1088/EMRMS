@@ -5,6 +5,7 @@ import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.HPatient;
 import edu.psu.sweng500.emrms.model.PatientRegistrationModel;
 import edu.psu.sweng500.emrms.service.*;
+import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,8 @@ public class PatientController {
         ModelAndView mav = new ModelAndView("patientRegistration");
         
         patientService.registerPatient(patient);
+
+        mav.addObject("message", Constants.SAVE_SUCESSFUL);
         
         return mav;
     }

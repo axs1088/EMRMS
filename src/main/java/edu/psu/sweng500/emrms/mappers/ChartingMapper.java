@@ -1,8 +1,6 @@
 package edu.psu.sweng500.emrms.mappers;
 
 import edu.psu.sweng500.emrms.model.HDiagnosis;
-import edu.psu.sweng500.emrms.model.HEncounter;
-import edu.psu.sweng500.emrms.model.HPatient;
 import org.apache.ibatis.annotations.*;
 
 public interface ChartingMapper {

@@ -24,6 +24,8 @@ public final class Constants {
 	public static final int BED_STATUS_VACANT = 1;
 	public static final int BED_STATUS_OCCUPIED = 2;
 	public static final int BED_STATUS_HOUSEKEEPING = 3;
+
+	public static final String SAVE_SUCESSFUL = "Save Successful";
 	
 	
 
