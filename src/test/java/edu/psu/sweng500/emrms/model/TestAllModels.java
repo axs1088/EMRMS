@@ -1,7 +1,6 @@
 package edu.psu.sweng500.emrms.model;
 
 import edu.psu.sweng500.emrms.testdrivers.GenericModelTester;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestAllModels {
@@ -48,11 +47,6 @@ public class TestAllModels {
     @Test
     public void testHPerson() throws Exception {
         GenericModelTester.testAllGettersAndSetters(HPerson.class);
-    }
-
-    @Test
-    public void testPatientRegistrationModel() throws Exception {
-        GenericModelTester.testAllGettersAndSetters(PatientRegistrationModel.class);
     }
 
     @Test

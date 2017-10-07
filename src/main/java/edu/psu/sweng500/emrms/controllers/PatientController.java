@@ -3,8 +3,8 @@ package edu.psu.sweng500.emrms.controllers;
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.HPatient;
-import edu.psu.sweng500.emrms.model.PatientRegistrationModel;
-import edu.psu.sweng500.emrms.service.*;
+import edu.psu.sweng500.emrms.service.CensusService;
+import edu.psu.sweng500.emrms.service.PatientService;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.util.List;
 
 /**
@@ -29,13 +28,13 @@ import java.util.List;
  */
 @Controller
 public class PatientController {
-	
+
     @Autowired
     private PatientService patientService;
 
     @Autowired
     private CensusService censusService;
-    
+
     @Autowired
     private ApplicationAuditHelper applicationAuditHelper;
 
@@ -48,18 +47,17 @@ public class PatientController {
     public void initBinder(WebDataBinder binder) {
         binder.setBindingErrorProcessor(new EMRMSBindingErrorProcessor());
     }
-    
+
     @RequestMapping(value = "/patientRegistration", method = RequestMethod.GET)
     public ModelAndView registerPatient(HttpServletRequest request, HttpServletResponse response) {
-    	applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registation", 1);
-    	ModelAndView mav = new ModelAndView("patientRegistration");
-        mav.addObject("patientRegistrationModel", new PatientRegistrationModel());
+        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registation", 1);
+        ModelAndView mav = new ModelAndView("patientRegistration");
         HPatient patient = new HPatient();
         mav.addObject("patient", patient);
-        
+
         return mav;
     }
-    
+
     @RequestMapping(value = "/patientLocator", method = RequestMethod.GET)
     public ModelAndView showPatientLocator(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("patientLocator");
@@ -69,7 +67,7 @@ public class PatientController {
 
     @RequestMapping(value = "/patientLocatorProcess", method = RequestMethod.POST)
     public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response,
-            @ModelAttribute("census") HCensus patient) {
+                                    @ModelAttribute("census") HCensus patient) {
         ModelAndView mav = null;
         HttpSession session = request.getSession(false);
 
@@ -85,12 +83,12 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/addPatient", method = RequestMethod.POST)
-    public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response, 
-    		@ModelAttribute("patient") HPatient patient, BindingResult bindingResult) {
+    public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response,
+                                   @ModelAttribute("patient") HPatient patient, BindingResult bindingResult) {
         ModelAndView mav = new ModelAndView("patientRegistration");
-        
+
         patientService.registerPatient(patient);
-        
+
         return mav;
     }
 
