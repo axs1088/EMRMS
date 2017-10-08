@@ -51,11 +51,6 @@ public class TestAllModels {
     }
 
     @Test
-    public void testPatientRegistrationModel() throws Exception {
-        GenericModelTester.testAllGettersAndSetters(PatientRegistrationModel.class);
-    }
-
-    @Test
     public void testPhone() throws Exception {
         GenericModelTester.testAllGettersAndSetters(Phone.class);
     }
