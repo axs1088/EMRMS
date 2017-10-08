@@ -114,9 +114,12 @@
                     <c:when test="${patient.encStatus == '1'}">
                         Active
                     </c:when>
-                    <c:otherwise>
+                    <c:when test="${patient.encStatus == '2'}">
                         Closed
-                    </c:otherwise>
+                    </c:when>
+                    <c:when test="${patient.encStatus == '2'}">
+                        Scheduled
+                    </c:when>
                 </c:choose>
             </td>
         </tr>
