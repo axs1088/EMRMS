@@ -2,6 +2,7 @@ package edu.psu.sweng500.emrms.model;
 
 import edu.psu.sweng500.emrms.util.RatifiedDate;
 import edu.psu.sweng500.emrms.validators.annotations.EmailFormat;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
@@ -17,6 +18,8 @@ public class HPatient {
     private Boolean isPatientUndentified;
     private String primarylang;
     private Boolean medHistoryConsent;
+
+    @NotEmpty(message = "Must specify birth date")
     private RatifiedDate birthDate;
     private long gender;
     private int personId;
