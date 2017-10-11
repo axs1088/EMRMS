@@ -5,10 +5,9 @@
 --
 
 -- Delete all data before inserting sample data
-DELETE FROM healthcare_organization;
+
 DELETE FROM h_name;
 DELETE FROM h_address;
-DELETE FROM h_staff;
 DELETE FROM h_password;
 DELETE FROM h_user;
 DELETE FROM h_encounter;
@@ -16,6 +15,8 @@ DELETE FROM h_patient_ids;
 DELETE FROM h_patient;
 DELETE FROM h_person;
 DELETE FROM h_bed;
+DELETE FROM h_staff;
+DELETE FROM healthcare_organization;
 
 -------------------------- INSERT INTO h_person--------------------------------------------------
 

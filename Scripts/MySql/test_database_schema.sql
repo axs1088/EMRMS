@@ -383,12 +383,12 @@ CREATE TABLE  h_patient_ids (
   IdType VARCHAR(64) DEFAULT NULL,
   IdIssuerName VARCHAR(30) DEFAULT NULL,
   IdIssuerID BIGINT(20) DEFAULT NULL,
-  PatientID BIGINT(20) DEFAULT NULL,
+  PatientID BIGINT(20) NOT NULL,
   PRIMARY KEY (HPatientId),
   CONSTRAINT FK_h_patient_ids_hpatient FOREIGN KEY (PatientID)
     REFERENCES h_patient(HPatientID) ON DELETE NO ACTION ON UPDATE RESTRICT,
   CONSTRAINT FK_h_patient_ids_issuer_id FOREIGN KEY (IdIssuerID)
-    REFERENCES healthcare_organization(IdIssuer) ON DELETE CASCADE ON UPDATE CASCADE
+    REFERENCES healthcare_organization(HealthcareOrganizationID) ON DELETE NO ACTION ON UPDATE NO ACTION
 )
 ENGINE = INNODB
 AUTO_INCREMENT = 1
