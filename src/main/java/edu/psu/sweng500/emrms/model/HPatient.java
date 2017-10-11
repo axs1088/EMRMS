@@ -15,7 +15,7 @@ public class HPatient {
     private String mPINumber;
     private Boolean organDonor;
     private Boolean deceasedIndicator;
-    private Boolean isPatientUndentified;
+    private Boolean isPatientUnidentified;
     private String primarylang;
     private Boolean medHistoryConsent;
 
@@ -93,11 +93,11 @@ public class HPatient {
     }
 
     public Boolean getPatientUndentified() {
-        return isPatientUndentified;
+        return isPatientUnidentified;
     }
 
     public void setPatientUndentified(Boolean patientUndentified) {
-        isPatientUndentified = patientUndentified;
+        isPatientUnidentified = patientUndentified;
     }
 
     public String getPrimarylang() {
@@ -116,12 +116,12 @@ public class HPatient {
         this.medHistoryConsent = medHistoryConsent;
     }
 
-    public Boolean getIsPatientUndentified() {
-        return isPatientUndentified;
+    public Boolean getIsPatientUnidentified() {
+        return isPatientUnidentified;
     }
 
-    public void setIsPatientUndentified(Boolean isPatientUndentified) {
-        this.isPatientUndentified = isPatientUndentified;
+    public void setIsPatientUnidentified(Boolean isPatientUnidentified) {
+        this.isPatientUnidentified = isPatientUnidentified;
     }
 
     public RatifiedDate getBirthDate() {

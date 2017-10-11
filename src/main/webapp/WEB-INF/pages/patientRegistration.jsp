@@ -73,7 +73,7 @@
                 validate = false;
             }
             var validate = null;
-            if (lastName == "" || lastName == null || firstName == "" || firstName == null || cellphone == "" || cellphone == null) {
+            if (lastName == "" || lastName == null || firstName == "" || firstName == null) {
                 alert("Please enter values in mandatory fields marked by *");
                 validate = false;
             } else {

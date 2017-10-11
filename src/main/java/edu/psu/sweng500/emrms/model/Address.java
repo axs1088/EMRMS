@@ -10,6 +10,9 @@ import edu.psu.sweng500.emrms.util.Constants;
 
 public class Address implements Serializable {
 
+
+	private int addressId;
+
 	@Size(max=60)
 	private String specialHandlingText;
 
@@ -139,6 +142,14 @@ public class Address implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	public int getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
 	}
 
 	public String getSpecialHandlingText() {

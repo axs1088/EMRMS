@@ -169,7 +169,7 @@ CREATE TABLE  healthcare_organization (
   IdIssuer BIGINT(20) DEFAULT NULL,
   IsIdIssuer TINYINT(1) DEFAULT NULL,
   PRIMARY KEY (HealthcareOrganizationID),
-  UNIQUE INDEX UK_healthcare_organization_IdIssuer (IdIssuer)
+  INDEX UK_healthcare_organization_IdIssuer (IdIssuer)
 )
 ENGINE = INNODB
 CHARACTER SET utf8
@@ -218,6 +218,8 @@ CREATE TABLE h_name (
   LastName VARCHAR(30) DEFAULT NULL,
   Active TINYINT(1) DEFAULT NULL,
   HPersonID BIGINT(20) NOT NULL,
+  Title VARCHAR(30) DEFAULT NULL,
+  GenQualifier VARCHAR(10) DEFAULT NULL,
   PRIMARY KEY (HNameID),
   CONSTRAINT FK_h_name_hperson FOREIGN KEY (HPersonID)
     REFERENCES h_person(HPersonID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -386,7 +388,7 @@ CREATE TABLE  h_patient_ids (
   CONSTRAINT FK_h_patient_ids_hpatient FOREIGN KEY (PatientID)
     REFERENCES h_patient(HPatientID) ON DELETE NO ACTION ON UPDATE RESTRICT,
   CONSTRAINT FK_h_patient_ids_issuer_id FOREIGN KEY (IdIssuerID)
-    REFERENCES healthcare_organization(IdIssuer) ON DELETE CASCADE ON UPDATE CASCADE
+    REFERENCES healthcare_organization(HealthcareOrganizationID) ON DELETE NO ACTION ON UPDATE NO ACTION
 )
 ENGINE = INNODB
 AUTO_INCREMENT = 1
