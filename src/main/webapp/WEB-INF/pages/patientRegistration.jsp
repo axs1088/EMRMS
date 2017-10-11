@@ -66,19 +66,24 @@
         function validateInput() {
             var lastName = document.getElementById("lastNameTxt").value;
             var firstName = document.getElementById("firstNameTxt").value;
-            var cellphone = document.getElementById("cellphoneTxt").value;
+            var birthDate = document.getElementById("birthDateTxt").value;
             var email = document.getElementById("emailTxt").value;
+            var gender = document.getElementById("genderTxt").value;
+            var validate = true;
+
             if (email.indexOf('@') < 0 && email != "") {
                 alert("Invalid email format");
                 validate = false;
             }
-            var validate = null;
-            if (lastName == "" || lastName == null || firstName == "" || firstName == null) {
+
+            if (lastName == "" || lastName == null
+                || firstName == "" || firstName == null
+                || birthDate == "" || birthDate == null
+                || gender == "" || gender == null) {
                 alert("Please enter values in mandatory fields marked by *");
                 validate = false;
-            } else {
-                validate = true;
             }
+
             return validate;
         }
     </script>
@@ -116,7 +121,7 @@
         <form:label path="gender">Gender:
             <mandatory>*</mandatory>
         </form:label>
-        <form:select path="gender">
+        <form:select path="gender" id="genderTxt">
             <form:option value="1" label="Male"/>
             <form:option value="2" label="Female"/>
             <form:option value="3" label="Other"/>
@@ -127,7 +132,7 @@
         <form:label path="birthDate">Birth Date:
             <mandatory>*</mandatory>
         </form:label>
-        <form:input type="date" path="birthDate"/>
+        <form:input type="date" path="birthDate" id="birthDateTxt"/>
     </div>
 
     <h4> Address</h4>
