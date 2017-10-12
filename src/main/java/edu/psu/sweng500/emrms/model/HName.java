@@ -84,11 +84,11 @@ public class HName {
         this.genQualifier = genQualifier;
     }
 
-    public int gethPersonId() {
+    public int getHPersonId() {
         return hPersonId;
     }
 
-    public void sethPersonId(int hPersonId) {
+    public void setHPersonId(int hPersonId) {
         this.hPersonId = hPersonId;
     }
 }
