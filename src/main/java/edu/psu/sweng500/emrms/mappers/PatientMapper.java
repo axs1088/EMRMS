@@ -4,10 +4,9 @@ import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.model.HPatient;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
-
 import java.util.List;
 
 public interface PatientMapper {
@@ -42,24 +41,23 @@ public interface PatientMapper {
     
     @Insert("INSERT INTO h_person(UserId, Gender, BirthDate) " +
     		"VALUES (#{userId}, #{gender},#{birthDate, typeHandler=edu.psu.sweng500.emrms.database.RatifiedDateTypeHandler, jdbcType=DATE})")
+    @Options(useGeneratedKeys=true, keyProperty="personId", keyColumn="HPersonID")
     public void insertPerson(HPatient patient);
 
     @Insert("INSERT INTO h_name(UserId, FirstName, MiddleName, LastName, HPersonID) " +
-    		"VALUES (#{patient.userId}, #{patient.name.first}, #{patient.name.middle}, #{patient.name.last}, #{personId})")
-	@SelectKey(statement="SELECT max(HPersonID) as personId FROM h_person", keyProperty="personId", before=true, resultType=int.class)
-    public void insertPatientName(@Param("patient") HPatient patient);
+    		"VALUES (#{patient.userId}, #{patient.name.first}, #{patient.name.middle}, #{patient.name.last}, #{patient.personId})")
+	public void insertPatientName(@Param("patient") HPatient patient);
     
     @Insert("INSERT INTO h_patient(UserId, OrganDonor, HPersonID) " +
     		"VALUES (#{userId}, #{organDonor}, #{personId})")
-	@SelectKey(statement="SELECT max(HPersonID) as personId FROM h_person", keyProperty="personId", before=true, resultType=int.class)
+	@Options(useGeneratedKeys=true, keyProperty="objectID", keyColumn="HPatientID")
     public void insertPatient(HPatient patient);
     
     @Insert("INSERT INTO h_address(UserId, StrAddress, City, State, Zip, Country, " +
     		"HomePhoneNo, CellPhoneNo, EmailAddress, HPersonID) " +
     		"VALUES (#{patient.userId}, #{patient.address.line1}, #{patient.address.city}, #{patient.address.state}, #{patient.address.zip}, #{patient.address.country}, " +
-    		"#{patient.cellPhone.number}, #{patient.homePhone.number}, #{patient.email}, #{personId})")
-	@SelectKey(statement="SELECT max(HPersonID) as personId FROM h_person", keyProperty="personId", before=true, resultType=int.class)
-    public void insertPatientAddress(@Param("patient") HPatient patient);
+    		"#{patient.cellPhone.number}, #{patient.homePhone.number}, #{patient.email}, #{patient.personId})")
+	public void insertPatientAddress(@Param("patient") HPatient patient);
     
     
 }

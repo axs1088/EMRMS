@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 //Added by Atul Singh 09/01/2017
 public class HPatient {
-    private int ObjectID;
+    private int objectID;
     private String userId;
     private String creationDateTime;
     private String mPINumber;
@@ -45,11 +45,11 @@ public class HPatient {
     private String email;
 
     public int getObjectID() {
-        return ObjectID;
+        return objectID;
     }
 
     public void setObjectID(int objectID) {
-        ObjectID = objectID;
+        this.objectID = objectID;
     }
 
     public String getUserId() {
