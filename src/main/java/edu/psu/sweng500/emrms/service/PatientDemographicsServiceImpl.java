@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service("getPatientDemographics")
-public class GetPatientDemographicsServiceImpl implements GetPatientDemographicsService {
+public class PatientDemographicsServiceImpl implements PatientDemographicsService {
 
     @Autowired
     PatientDemographicsMapper patientDemographicsMapper;

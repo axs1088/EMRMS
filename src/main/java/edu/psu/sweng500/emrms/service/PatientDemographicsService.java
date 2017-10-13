@@ -4,7 +4,7 @@ import edu.psu.sweng500.emrms.model.*;
 
 import java.util.List;
 
-public interface GetPatientDemographicsService {
+public interface PatientDemographicsService {
 
     public int getPersonId(int patientObjectId);
 

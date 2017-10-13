@@ -1,11 +1,10 @@
 package edu.psu.sweng500.emrms.controllers;
 
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
-import edu.psu.sweng500.emrms.model.HCensus;
-import edu.psu.sweng500.emrms.model.HPatient;
+import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.CensusService;
+import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
-import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,9 @@ public class PatientController {
 
     @Autowired
     private CensusService censusService;
+
+    @Autowired
+    private PatientDemographicsService patientDemographicsService;
 
     @Autowired
     private ApplicationAuditHelper applicationAuditHelper;
@@ -92,6 +94,21 @@ public class PatientController {
 
         patientService.registerPatient(patient);
         mav.addObject("message", SAVE_SUCESSFUL);
+
+        int personId = patientDemographicsService.getPersonId(patient.getObjectID());
+        HPatient patientFromDB = patientDemographicsService.getPatientDemographics(patient.getObjectID());
+        HPerson personFromDB = patientDemographicsService.getPersonDetails(personId);
+        HName nameFromDB = patientDemographicsService.getPersonName(personId);
+        Address addressFromDB = patientDemographicsService.getPersonAddress(personId);
+        List<HPatientId> patientIds = patientDemographicsService.getPatientIdentifiers(patient.getObjectID());
+        List <HEncounter> encounters= patientDemographicsService.getPatientEncounters(patient.getObjectID());
+
+        mav.addObject("person",patientFromDB);
+        mav.addObject("patientname",nameFromDB);
+        mav.addObject("patientaddress",addressFromDB);
+        mav.addObject("patientids",patientIds);
+        mav.addObject("encounters",encounters);
+
         return mav;
     }
 

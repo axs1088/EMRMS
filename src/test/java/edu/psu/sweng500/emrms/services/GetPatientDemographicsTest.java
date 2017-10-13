@@ -1,7 +1,7 @@
 package edu.psu.sweng500.emrms.services;
 
 import edu.psu.sweng500.emrms.model.*;
-import edu.psu.sweng500.emrms.service.GetPatientDemographicsService;
+import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class GetPatientDemographicsTest {
 
     @Autowired
     @Qualifier("getPatientDemographics")
-    private GetPatientDemographicsService demographicsService;
+    private PatientDemographicsService demographicsService;
 
     @Before
     public void setUp() {
@@ -40,7 +40,7 @@ public class GetPatientDemographicsTest {
     }
 
     public void verifySpringAnnotations() {
-        assertThat(demographicsService, instanceOf(GetPatientDemographicsService.class));
+        assertThat(demographicsService, instanceOf(PatientDemographicsService.class));
     }
 
     @Test
