@@ -202,7 +202,7 @@
 
     <div>
         <form:label path="address.line1">Mailing Address: </form:label>
-        <form:checkbox path="address.mailingAddrSameAsHomeAddr" value="1" label="Same as home address"/>
+        <form:checkbox path="address.mailingAddrSameAsHomeAddr" value="1" label="Same as home"/>
     </div>
 
     <div>
