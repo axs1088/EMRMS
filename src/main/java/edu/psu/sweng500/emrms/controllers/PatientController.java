@@ -1,6 +1,7 @@
 package edu.psu.sweng500.emrms.controllers;
 
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
+import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
 import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.CensusService;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
@@ -51,6 +52,7 @@ public class PatientController {
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.setBindingErrorProcessor(new EMRMSBindingErrorProcessor());
+        binder.registerCustomEditor(Integer.class, new EMRMSCustomEditor());
     }
 
     @RequestMapping(value = "/patientRegistration", method = RequestMethod.GET)

@@ -199,6 +199,11 @@
         </form:select>
         <form:input id="zipInput" path="address.zip"/>
     </div>
+    
+    <div>
+        <form:label path="address.line1">Mailing Address: </form:label>
+        <form:checkbox path="address.mailingAddrSameAsHomeAddr" value="1" label="Same as home address"/>
+    </div>
 
     <div>
         <form:label path="cellPhone.number">Cell Phone: </form:label>

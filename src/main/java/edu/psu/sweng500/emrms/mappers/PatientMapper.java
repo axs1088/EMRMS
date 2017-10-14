@@ -48,15 +48,15 @@ public interface PatientMapper {
     		"VALUES (#{patient.userId}, #{patient.name.first}, #{patient.name.middle}, #{patient.name.last}, #{patient.personId})")
 	public void insertPatientName(@Param("patient") HPatient patient);
     
-    @Insert("INSERT INTO h_patient(UserId, OrganDonor, HPersonID) " +
-    		"VALUES (#{userId}, #{organDonor}, #{personId})")
+    @Insert("INSERT INTO h_patient(UserId, MPINo, OrganDonor, HPersonID) " +
+    		"VALUES (#{userId}, #{mPINumber}, #{organDonor}, #{personId})")
 	@Options(useGeneratedKeys=true, keyProperty="objectID", keyColumn="HPatientID")
     public void insertPatient(HPatient patient);
     
-    @Insert("INSERT INTO h_address(UserId, StrAddress, City, State, Zip, Country, " +
+    @Insert("INSERT INTO h_address(UserId, StrAddress, City, State, Zip, Country, MailingAddressInd, " +
     		"HomePhoneNo, CellPhoneNo, EmailAddress, HPersonID) " +
-    		"VALUES (#{patient.userId}, #{patient.address.line1}, #{patient.address.city}, #{patient.address.state}, #{patient.address.zip}, #{patient.address.country}, " +
-    		"#{patient.cellPhone.number}, #{patient.homePhone.number}, #{patient.email}, #{patient.personId})")
+    		"VALUES (#{patient.userId}, #{patient.address.line1}, #{patient.address.city}, #{patient.address.state}, #{patient.address.zip}, " +
+    		"#{patient.address.country}, #{patient.address.mailingAddrSameAsHomeAddr}, #{patient.cellPhone.number}, #{patient.homePhone.number}, #{patient.email}, #{patient.personId})")
 	public void insertPatientAddress(@Param("patient") HPatient patient);
     
     
