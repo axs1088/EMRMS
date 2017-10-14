@@ -15,9 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,7 +23,7 @@ import static org.junit.Assert.assertThat;
 public class GetPatientDemographicsTest {
 
     @Autowired
-    @Qualifier("getPatientDemographics")
+    @Qualifier("getPatientDemographicsService")
     private PatientDemographicsService demographicsService;
 
     @Before
@@ -46,19 +44,19 @@ public class GetPatientDemographicsTest {
     @Test
     public void testPatientDemograhicsService() {
         int personId = demographicsService.getPersonId(3);
-        assertEquals(3,personId);
+        assertEquals(3, personId);
         HPatient patientFromDB = demographicsService.getPatientDemographics(3);
         assertNotNull(patientFromDB);
-        HPerson personFromDB =demographicsService.getPersonDetails(personId);
+        HPerson personFromDB = demographicsService.getPersonDetails(personId);
         assertNotNull(personFromDB);
         HName nameFromDB = demographicsService.getPersonName(personId);
         assertNotNull(nameFromDB);
         Address addressFromDB = demographicsService.getPersonAddress(personId);
         assertNotNull(addressFromDB);
         List<HPatientId> patientIds = demographicsService.getPatientIdentifiers(3);
-        assertEquals(1,patientIds.size());
-        List <HEncounter> encounters= demographicsService.getPatientEncounters(3);
-        assertEquals(1,encounters.size());
+        assertEquals(1, patientIds.size());
+        List<HEncounter> encounters = demographicsService.getPatientEncounters(3);
+        assertEquals(1, encounters.size());
 
     }
 

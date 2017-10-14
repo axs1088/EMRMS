@@ -6,51 +6,52 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service("getPatientDemographics")
+
+@Service("getPatientDemographicsService")
 public class PatientDemographicsServiceImpl implements PatientDemographicsService {
 
     @Autowired
     PatientDemographicsMapper patientDemographicsMapper;
 
     @Override
-    public int getPersonId(int patientObjectId){
-        HPatient patient =  patientDemographicsMapper.getPatientDetails(patientObjectId);
+    public int getPersonId(int patientObjectId) {
+        HPatient patient = patientDemographicsMapper.getPatientDetails(patientObjectId);
         int personId = patient.getPersonId();
         return personId;
     }
 
     @Override
-    public HPatient getPatientDemographics(int patientObjectId){
-        HPatient patient =  patientDemographicsMapper.getPatientDetails(patientObjectId);
+    public HPatient getPatientDemographics(int patientObjectId) {
+        HPatient patient = patientDemographicsMapper.getPatientDetails(patientObjectId);
         return patient;
     }
 
     @Override
-    public HPerson getPersonDetails(int personId){
+    public HPerson getPersonDetails(int personId) {
         HPerson person = patientDemographicsMapper.getPersonDetails(personId);
-        return  person;
+        return person;
     }
 
     @Override
-    public HName getPersonName(int personId){
+    public HName getPersonName(int personId) {
         HName personName = patientDemographicsMapper.getPersonName(personId);
         return personName;
     }
 
     @Override
-    public Address getPersonAddress(int personId){
+    public Address getPersonAddress(int personId) {
         Address personAddress = patientDemographicsMapper.getPersonAddress(personId);
         return personAddress;
     }
 
     @Override
-    public List<HPatientId> getPatientIdentifiers(int patientObjectId){
+    public List<HPatientId> getPatientIdentifiers(int patientObjectId) {
         List<HPatientId> patientIds = patientDemographicsMapper.getPatientIdentifiers(patientObjectId);
         return patientIds;
     }
 
     @Override
-    public List<HEncounter> getPatientEncounters(int patientObjectId){
+    public List<HEncounter> getPatientEncounters(int patientObjectId) {
         List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientObjectId);
         return encounters;
     }

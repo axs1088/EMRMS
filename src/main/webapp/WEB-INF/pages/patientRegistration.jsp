@@ -98,7 +98,7 @@
     </ul>
 </div>
 
-<body align="center">
+<body>
 <h3>Patient Registration</h3>
 <form:form id="addPatientForm" method="post" action="addPatient" modelAttribute="patient"
            onsubmit="return validateInput()">
@@ -199,7 +199,7 @@
         </form:select>
         <form:input id="zipInput" path="address.zip"/>
     </div>
-    
+
     <div>
         <form:label path="address.line1">Mailing Address: </form:label>
         <form:checkbox path="address.mailingAddrSameAsHomeAddr" value="1" label="Same as home address"/>
