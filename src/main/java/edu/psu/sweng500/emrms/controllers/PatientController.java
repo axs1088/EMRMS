@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-import static edu.psu.sweng500.emrms.util.Constants.*;
+import static edu.psu.sweng500.emrms.util.Constants.SAVE_SUCESSFUL;
 
 /**
  * @author vkumar
@@ -57,7 +57,7 @@ public class PatientController {
 
     @RequestMapping(value = "/patientRegistration", method = RequestMethod.GET)
     public ModelAndView registerPatient(HttpServletRequest request, HttpServletResponse response) {
-        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registation", 1);
+        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registration", 1);
         ModelAndView mav = new ModelAndView("patientRegistration");
         HPatient patient = new HPatient();
         mav.addObject("patient", patient);
@@ -103,15 +103,30 @@ public class PatientController {
         HName nameFromDB = patientDemographicsService.getPersonName(personId);
         Address addressFromDB = patientDemographicsService.getPersonAddress(personId);
         List<HPatientId> patientIds = patientDemographicsService.getPatientIdentifiers(patient.getObjectID());
-        List <HEncounter> encounters= patientDemographicsService.getPatientEncounters(patient.getObjectID());
+        List<HEncounter> encounters = patientDemographicsService.getPatientEncounters(patient.getObjectID());
 
-        mav.addObject("person",patientFromDB);
-        mav.addObject("patientname",nameFromDB);
-        mav.addObject("patientaddress",addressFromDB);
-        mav.addObject("patientids",patientIds);
-        mav.addObject("encounters",encounters);
+        mav.addObject("person", patientFromDB);
+        mav.addObject("patientname", nameFromDB);
+        mav.addObject("patientaddress", addressFromDB);
+        mav.addObject("patientids", patientIds);
+        mav.addObject("encounters", encounters);
 
         return mav;
     }
 
+    public void setPatientService(PatientService patientService) {
+        this.patientService = patientService;
+    }
+
+    public void setCensusService(CensusService censusService) {
+        this.censusService = censusService;
+    }
+
+    public void setPatientDemographicsService(PatientDemographicsService patientDemographicsService) {
+        this.patientDemographicsService = patientDemographicsService;
+    }
+
+    public void setApplicationAuditHelper(ApplicationAuditHelper applicationAuditHelper) {
+        this.applicationAuditHelper = applicationAuditHelper;
+    }
 }

@@ -11,7 +11,13 @@ import java.util.List;
 public class PatientDemographicsServiceImpl implements PatientDemographicsService {
 
     @Autowired
+    private
     PatientDemographicsMapper patientDemographicsMapper;
+
+
+    public void setPatientDemographicsMapper(PatientDemographicsMapper patientDemographicsMapper) {
+        this.patientDemographicsMapper = patientDemographicsMapper;
+    }
 
     @Override
     public int getPersonId(int patientObjectId) {
@@ -55,6 +61,7 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
         List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientObjectId);
         return encounters;
     }
+
 
      /*
     @Override

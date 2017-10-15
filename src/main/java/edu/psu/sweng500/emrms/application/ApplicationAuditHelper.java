@@ -1,16 +1,16 @@
 package edu.psu.sweng500.emrms.application;
 
+import edu.psu.sweng500.emrms.model.HAuditRecord;
+import edu.psu.sweng500.emrms.service.AuditEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import edu.psu.sweng500.emrms.model.HAuditRecord;
-import edu.psu.sweng500.emrms.service.AuditEventService;
-import javax.servlet.http.HttpSession;
 
+import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
 
 /**
  * Methods for auditing the application.
@@ -18,28 +18,37 @@ import java.util.*;
 @Component
 public class ApplicationAuditHelper {
 
-	/** The log. */
-	private Logger log = LoggerFactory.getLogger(getClass());
-	
-	@Autowired
+    /**
+     * The log.
+     */
+    private Logger log = LoggerFactory.getLogger(getClass());
+
+    @Autowired
     private ApplicationSessionHelper applicationSessionHelper;
-	
+
     @Autowired
     private AuditEventService auditEventService;
 
-	public void auditEvent(HttpSession session, String eventName, int policyId) {
-		HAuditRecord auditRecord = new HAuditRecord();
+    public void auditEvent(HttpSession session, String eventName, int policyId) {
+        HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName(eventName);
         auditRecord.setPolicyId(policyId);
         auditRecord.setUserId(applicationSessionHelper.getApplicationUser(session));
         auditRecord.setCreationDateTime(getCurrentDateTime());
         auditEventService.auditEvent(auditRecord);
-	}
-	
-	public String getCurrentDateTime() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    }
+
+    public String getCurrentDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         return dateFormat.format(date);
-	}
-	
+    }
+
+    public void setApplicationSessionHelper(ApplicationSessionHelper applicationSessionHelper) {
+        this.applicationSessionHelper = applicationSessionHelper;
+    }
+
+    public void setAuditEventService(AuditEventService auditEventService) {
+        this.auditEventService = auditEventService;
+    }
 }

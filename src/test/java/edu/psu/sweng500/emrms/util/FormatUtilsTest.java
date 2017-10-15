@@ -3,6 +3,7 @@ package edu.psu.sweng500.emrms.util;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,12 +26,20 @@ public class FormatUtilsTest {
         input.put("c", "3");
 
         assertEquals(expected, FormatUtils.sortedMapString(input));
-
         assertEquals("null", FormatUtils.sortedMapString(null));
     }
 
     @Test
     public void sortedSetString() throws Exception {
+        String expected = "{a, b, c}";
+
+        HashSet<String> input = new HashSet<>();
+        input.add("b");
+        input.add("a");
+        input.add("c");
+
+        assertEquals(expected, FormatUtils.sortedSetString(input));
+        assertEquals("null", FormatUtils.sortedSetString(null));
     }
 
 }

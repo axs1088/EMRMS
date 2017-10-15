@@ -13,6 +13,10 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     PatientMapper patientMapper;
 
+    public void setPatientMapper(PatientMapper patientMapper) {
+        this.patientMapper = patientMapper;
+    }
+
     @Override
     public List<HPatient> readAll() {
         return patientMapper.readAll();
@@ -27,14 +31,14 @@ public class PatientServiceImpl implements PatientService {
     public HPatient createNew() {
         return null;
     }
-    
+
     @Override
     @Transactional
     public void registerPatient(HPatient patient) {
-    	patientMapper.insertPerson(patient);
-    	patientMapper.insertPatient(patient);
-    	patientMapper.insertPatientName(patient);
-    	patientMapper.insertPatientAddress(patient);
+        patientMapper.insertPerson(patient);
+        patientMapper.insertPatient(patient);
+        patientMapper.insertPatientName(patient);
+        patientMapper.insertPatientAddress(patient);
     }
 
 }

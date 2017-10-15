@@ -10,6 +10,10 @@ public class AuditEventServiceImpl implements AuditEventService {
     @Autowired
     private AuditMapper auditMapper;
 
+    public void setAuditMapper(AuditMapper auditMapper) {
+        this.auditMapper = auditMapper;
+    }
+
     @Override
     public int auditEvent(HAuditRecord auditRecord) {
         auditMapper.insertAuditRecord(auditRecord);
