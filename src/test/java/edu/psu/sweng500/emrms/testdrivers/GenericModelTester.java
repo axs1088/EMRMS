@@ -23,7 +23,7 @@ public class GenericModelTester {
 
             Object randomObjectFromClass = TestingUtilities.createRandomObjectFromClass(returnType);
             setterMethod.invoke(objectInstance, randomObjectFromClass);
-            Object getterResult = getterMethod.invoke(objectInstance, new Class[]{});
+            Object getterResult = getterMethod.invoke(objectInstance);
 
             assertEquals(randomObjectFromClass, getterResult);
         }
