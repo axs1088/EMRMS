@@ -9,46 +9,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Register Patient</title>
     <style>
-        input {
-            background: #fffdd7;
-            color: black;
-        }
-
-        select {
-            background: #fffdd7;
-            color: black;
-        }
-
-        h3 {
-            font-weight: bold;
-            color: white;
-        }
-
-        h4 {
-            color: white;
-        }
-
-        label {
-            display: inline-block;
-            width: 150px;
-            text-align: right;
-            color: white;
-        }
-
-        text {
-            color: white;
-            font: Arial;
-        }
-
-        body {
-            margin-left: 50px;
-        }
-
-        div {
-            padding-top: 2px;
-            padding-bottom: 2px;
-        }
-
+        <%@include file="/css/formCommon.css"%>
+        
         #addressInput {
             width: 300px;
         }
@@ -56,11 +18,6 @@
         #zipInput {
             width: 75px;
         }
-
-        mandatory {
-            color: red;
-        }
-
     </style>
     <script type="text/javascript">
         function validateInput() {

@@ -1,0 +1,43 @@
+input {
+    background: #fffdd7;
+    color: black;
+}
+
+select {
+    background: #fffdd7;
+    color: black;
+}
+
+h3 {
+    font-weight: bold;
+    color: white;
+}
+
+h4 {
+    color: white;
+}
+
+label {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+    color: white;
+}
+
+text {
+    color: white;
+    font: Arial;
+}
+
+body {
+    margin-left: 50px;
+}
+
+div {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+mandatory {
+    color: red;
+}
