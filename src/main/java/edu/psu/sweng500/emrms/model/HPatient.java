@@ -92,14 +92,6 @@ public class HPatient {
         this.deceasedIndicator = deceasedIndicator;
     }
 
-    public Boolean getPatientUndentified() {
-        return isPatientUnidentified;
-    }
-
-    public void setPatientUndentified(Boolean patientUndentified) {
-        isPatientUnidentified = patientUndentified;
-    }
-
     public String getPrimarylang() {
         return primarylang;
     }
