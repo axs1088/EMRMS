@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,6 +63,40 @@ public class PatientController {
         HPatient patient = new HPatient();
         mav.addObject("patient", patient);
 
+        return mav;
+    }
+
+
+    @RequestMapping(value = "/patientDetails", method = RequestMethod.GET)
+    public ModelAndView patientDetilas(HttpServletRequest request,@RequestParam("hPatientID") int hPatientID) {
+        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registration", 1);
+        
+        int personId = patientDemographicsService.getPersonId(hPatientID);
+        HPatient patientFromDB = patientDemographicsService.getPatientDemographics(hPatientID);
+        HName nameFromDB = patientDemographicsService.getPersonName(personId);
+        Address addressFromDB = patientDemographicsService.getPersonAddress(personId);
+        String gender = null;
+        
+        ModelAndView mav = new ModelAndView("patientDetails");
+  
+        mav.addObject("firstName", nameFromDB.getFirstName());
+        mav.addObject("lastName", nameFromDB.getLastName());
+        mav.addObject("middleName", nameFromDB.getMiddleName());
+        if(patientFromDB.getGender()==1) {
+        	gender = "Male";
+        }else if(patientFromDB.getGender()==2) {
+        	gender = "Female";
+        }
+        mav.addObject("gender", gender);
+        mav.addObject("dateOfBirth", patientFromDB.getBirthDate());
+        mav.addObject("streetAddressLine1", addressFromDB.getLine1());
+        mav.addObject("streetAddressLine2", addressFromDB.getLine2());
+        mav.addObject("city", addressFromDB.getCity());
+        mav.addObject("state", addressFromDB.getState());
+        mav.addObject("zip", addressFromDB.getZip());
+        mav.addObject("cellphone", patientFromDB.getCellPhone());
+        mav.addObject("email", patientFromDB.getEmail());
+        
         return mav;
     }
 

@@ -105,7 +105,6 @@
 	<td colspan="2" align="center"> <div>
         <form:button id="findPatient" name="findPatient">Find Patient</form:button>
     </div></td>
-
 	</tr>
 	</table>
 </form:form>
@@ -123,7 +122,7 @@
     </tr>
     <c:forEach items="${hPatientList}" var="patient" varStatus="status">
         <tr>
-            <td width="130"><text>${patient.lastName}, ${patient.firstName}</text></td>
+            <td width="130"><text><a href="/emrms/patientDetails?hPatientID=${patient.hPatientID}">${patient.lastName}, ${patient.firstName}</a></text></td>
             <td width="150"><text>${patient.birthdate}</text></td>
             <td width="100"><text>
                 <c:choose>

@@ -1,14 +1,13 @@
-USE EMRMS;
-
-CREATE PROCEDURE Emrms_FindPatientByDemographics(IN lName  VARCHAR(30),
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE emrms.Emrms_FindPatientByDemographics(IN lName  VARCHAR(30),
                                                  IN fName  VARCHAR(30),
                                                  IN gender INT)
-
-  BEGIN
+BEGIN
 
     IF lName <> '' AND fName <> '' AND gender <> '' AND gender <> 3
     THEN
       SELECT
+        hpat.HPatientID,
         hn.LastName,
         hn.FirstName,
         hp.Birthdate,
@@ -27,6 +26,8 @@ CREATE PROCEDURE Emrms_FindPatientByDemographics(IN lName  VARCHAR(30),
     IF lName <> '' AND fName <> '' AND gender = 3
     THEN
       SELECT
+        hpat.HPatientID,
+        hn.HpersonID,
         hn.LastName,
         hn.FirstName,
         hp.Birthdate,
@@ -44,6 +45,7 @@ CREATE PROCEDURE Emrms_FindPatientByDemographics(IN lName  VARCHAR(30),
     IF lName <> '' AND fName = '' AND gender = 3
     THEN
       SELECT
+        hpat.HPatientID,
         hn.LastName,
         hn.FirstName,
         hp.Birthdate,
@@ -57,4 +59,4 @@ CREATE PROCEDURE Emrms_FindPatientByDemographics(IN lName  VARCHAR(30),
       WHERE hn.LastName LIKE CONCAT(lName, '%');
     END IF;
 
-  END;
+  END

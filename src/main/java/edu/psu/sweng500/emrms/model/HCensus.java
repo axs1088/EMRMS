@@ -9,6 +9,7 @@ import java.sql.Date;
  * @author vkumar
  */
 public class HCensus {
+	private int hPatientID;
     private String firstName;
     private String lastName;
     private Date birthdate;
@@ -17,6 +18,12 @@ public class HCensus {
     private Date encStartdateTime;
     private String encStatus;
 
+    public int gethPatientID() {
+    	return hPatientID;
+    }
+    public void sethPatientID(int hPatientID) {
+    	this.hPatientID = hPatientID;
+    }
     public String getFirstName() {
         return firstName;
     }
