@@ -1,6 +1,7 @@
 package edu.psu.sweng500.emrms.controllers;
 
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
+import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.*;
 import edu.psu.sweng500.emrms.util.Constants;
@@ -34,6 +35,9 @@ public class LoginController {
 
     @Autowired
     private ApplicationAuditHelper applicationAuditHelper;
+    
+	@Autowired
+    private ApplicationSessionHelper applicationSessionHelper;
 
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -69,25 +73,51 @@ public class LoginController {
         mav.addObject("user", new User());
         return mav;
     }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("login");
+        mav.addObject("user", new User());
+        HttpSession session = request.getSession(false);
+        if(session != null)
+        	applicationSessionHelper.clearAllSessionAttributes(session);
+            session.invalidate();
+        return mav;
+    }
 
-    @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginProcess", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user) {
-        ModelAndView mav = null;
+        ModelAndView mav = new ModelAndView("login");
         List<HCensus> hCensusList = null;
         String census = null;
-        HAuditRecord auditRecord = new HAuditRecord();
         HttpSession session = request.getSession(false);
-
         user.setLoginId(user.getUsername());
-        User userFromDb = userService.validateUser(user.getLoginId(), user.getPassword());
-        if (userFromDb != null) {
-            session.setAttribute(Constants.APPLICATION_USER, user.getLoginId());
-
-            mav = new ModelAndView("welcome");
-            long userType = userFromDb.getUserType();
-
+        
+        Integer userId = null;
+        Long userType = null;
+        
+        if(applicationSessionHelper.getApplicationUserId(session) != null || 
+        		applicationSessionHelper.getApplicationUserType(session) != null) {
+        	mav = new ModelAndView("welcome");
+        	userId = applicationSessionHelper.getApplicationUserId(session);
+        	userType = applicationSessionHelper.getApplicationUserType(session);
+        } else {
+	        User userFromDb = userService.validateUser(user.getLoginId(), user.getPassword());
+	        if (userFromDb != null) {
+	            session.setAttribute(Constants.APP_USER_LOGIN_ID, user.getLoginId());
+	            mav = new ModelAndView("welcome");
+	            userType = userFromDb.getUserType();
+	            userId = (int) userFromDb.getUserId();
+	            session.setAttribute(Constants.APP_USER_ID, userId);
+	            session.setAttribute(Constants.APP_USER_TYPE, userType);
+	        } else {
+	            mav.addObject("message", Constants.INVALID_USER_MESSAGE);
+	        }
+        }
+            
+        if(userId != null && userType != null) {
             if (Constants.USER_TYPE_ADMIN == userType) {
-                hCensusList = censusService.getPhysicianCensus((int) userFromDb.getUserId());
+                hCensusList = censusService.getPhysicianCensus(userId);
                 census = Constants.CENSUS_TYPE_PHYSICIAN;
             } else if (Constants.USER_TYPE_NURSE == userType) {
                 hCensusList = censusService.getNurseCensus(1); //TODO: hard coded to 1 but will be replaced with variable
@@ -103,11 +133,9 @@ public class LoginController {
 
             applicationAuditHelper.auditEvent(session, "Login", 1);
             applicationAuditHelper.auditEvent(session, "View Census", 3);
-
-        } else {
-            mav = new ModelAndView("login");
-            mav.addObject("message", Constants.INVALID_USER_MESSAGE);
         }
+
+
         return mav;
     }
 

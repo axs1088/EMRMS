@@ -7,6 +7,8 @@ import edu.psu.sweng500.emrms.service.CensusService;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
+import edu.psu.sweng500.emrms.validators.PatientValidator;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +46,9 @@ public class PatientController {
 
     @Autowired
     private ApplicationAuditHelper applicationAuditHelper;
+    
+    @Autowired
+    private PatientValidator patientValidator;
 
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
@@ -128,9 +133,17 @@ public class PatientController {
     public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response,
                                    @ModelAttribute("patient") HPatient patient, BindingResult bindingResult) {
         ModelAndView mav = new ModelAndView("patientRegistration");
+        
+        List<String> validationErrors = patientValidator.validate(patient);
+        
+        if(CollectionUtils.isNotEmpty(validationErrors)) {
+        	mav.addObject("errorOnPage", true);
+        	mav.addObject("validationErrors", validationErrors);
+            return mav;
+        }
 
         patientService.registerPatient(patient);
-        mav.addObject("message", SAVE_SUCESSFUL);
+        mav.addObject("saveSuccess", true);
 
         int personId = patientDemographicsService.getPersonId(patient.getObjectID());
         HPatient patientFromDB = patientDemographicsService.getPatientDemographics(patient.getObjectID());
