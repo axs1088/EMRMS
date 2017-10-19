@@ -22,14 +22,33 @@
     			text-align: left;
 				border-bottom:2pt solid white;border-top:2pt solid white;
 			}
+			
+			.topcorner {
+			   position:absolute;
+			   top:0;
+			   right:0;
+			 }
+			 
+			 .linkColor {
+			    color: white;
+			 } 
+			
         </style>
     </head>
+    
     <body class="body" align="center">
+    
+    <div class="topcorner">
+    	<a href="/emrms/logout" class="linkColor">Logout</a>
+    </div>
+    
 	<div id="header">
 		<h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
 		<ul id="navigation">
+            <li>
+                <a href="/emrms/patientRegistration">Register Patient</a>
+            </li>
 			<li class="current">
-				<a href="/emrms/home">Home</a>
 				<a href="/emrms/patientLocator">Patient Locator</a>
 			</li>
 		</ul>

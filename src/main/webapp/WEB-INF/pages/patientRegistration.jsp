@@ -138,7 +138,16 @@
 		    from {opacity: 0} 
 		    to {opacity: 1}
 		}
+		
+		.topcorner {
+		   position:absolute;
+		   top:0;
+		   right:0;
+		 }
 
+		.linkColor {
+		    color: white;
+		 } 
 
     </style>
     <script type="text/javascript">
@@ -170,11 +179,11 @@
 
 <div id="header">
     <h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
-    <ul id="navigation">
-        <li class="current">
-            <a href="/emrms/home">Home</a>
-        </li>
-    </ul>
+</div>
+
+<div class="topcorner">
+	<a href="/emrms/loginProcess" class="linkColor">Home</a>&nbsp;&nbsp;
+	<a href="/emrms/logout" class="linkColor">Logout</a>
 </div>
 
 <body align="center">

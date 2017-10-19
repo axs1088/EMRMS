@@ -14,7 +14,7 @@
     <display-name>${displayName}</display-name>
 
     <welcome-file-list>
-        <welcome-file>home.htm</welcome-file>
+        <welcome-file>login.htm</welcome-file>
     </welcome-file-list>
 
     <!-- Ensure that the EMRMS session expires after inactivity of 60 seconds. -->
