@@ -2,19 +2,20 @@ package edu.psu.sweng500.emrms.model;
 
 public class HDiagnosis {
 
-    private int hDiagnosisId;
+    private int diagnosisObjectId;
     private String userId;
     private  String code;
     private  String description;
     private int encounterID;
     private int patientID;
+    private int priority;
 
-    public int gethDiagnosisId() {
-        return hDiagnosisId;
+    public int getDiagnosisObjectId() {
+        return diagnosisObjectId;
     }
 
-    public void sethDiagnosisId(int hDiagnosisId) {
-        this.hDiagnosisId = hDiagnosisId;
+    public void setDiagnosisObjectId(int diagnosisObjectId) {
+        this.diagnosisObjectId = diagnosisObjectId;
     }
 
     public String getUserId() {
@@ -55,6 +56,14 @@ public class HDiagnosis {
 
     public void setPatientID(int patientID) {
         this.patientID = patientID;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }
 

@@ -68,6 +68,12 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
         return allergies;
     }
 
+    @Override
+    public List<HDiagnosis> getPatientDiagnoses(int patientObjectId) {
+        List<HDiagnosis> diagnoses = patientDemographicsMapper.getPatientDiagnoses(patientObjectId);
+        return diagnoses;
+    }
+
 
      /*
     @Override

@@ -408,6 +408,7 @@ CREATE TABLE  h_diagnosis (
   Description VARCHAR(255) DEFAULT NULL,
   EncounterID BIGINT(20) DEFAULT NULL,
   PatientID BIGINT(20) DEFAULT NULL,
+  Priority INT(11) DEFAULT 2,
   PRIMARY KEY (HDiagnosisID),
   CONSTRAINT FK_h_diagnosis_h_encounter FOREIGN KEY (EncounterID)
     REFERENCES h_encounter(HEncounterID) ON DELETE NO ACTION ON UPDATE NO ACTION,

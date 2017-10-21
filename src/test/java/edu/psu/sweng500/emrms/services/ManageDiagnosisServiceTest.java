@@ -61,10 +61,11 @@ public class ManageDiagnosisServiceTest {
     @Test
     public void testReviseDiagnosis() throws Exception {
         HDiagnosis diagnosis = new HDiagnosis();
-        diagnosis.sethDiagnosisId(1);
+        diagnosis.setDiagnosisObjectId(1);
         diagnosis.setUserId("admin");
         diagnosis.setCode("520.124567");
         diagnosis.setDescription("Foot Fracture Test Revised");
+        diagnosis.setPriority(1);
         diagnosis.setEncounterID(1);
         diagnosis.setPatientID(3);
 
@@ -77,7 +78,7 @@ public class ManageDiagnosisServiceTest {
     @Test
     public void testDeleteDiagnosis() throws Exception {
         HDiagnosis diagnosis = new HDiagnosis();
-        diagnosis.sethDiagnosisId(2);
+        diagnosis.setDiagnosisObjectId(2);
 
         // ToDo
         int returnValue = service.DeleteDiagnosis(diagnosis);

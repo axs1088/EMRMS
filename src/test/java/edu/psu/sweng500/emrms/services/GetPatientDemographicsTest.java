@@ -57,6 +57,10 @@ public class GetPatientDemographicsTest {
         assertEquals(1, patientIds.size());
         List<HEncounter> encounters = demographicsService.getPatientEncounters(3);
         assertEquals(1, encounters.size());
+        List<HDiagnosis> diagnoses = demographicsService.getPatientDiagnoses(3);
+        assertEquals(2, diagnoses.size());
+        assertEquals(1,diagnoses.get(0).getPriority());
+        assertEquals(2,diagnoses.get(1).getPriority());
         List<HAllergy> allergies = demographicsService.getPatientAllergies(3);
         assertEquals(2, allergies.size());
     }

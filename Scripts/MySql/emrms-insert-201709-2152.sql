@@ -109,6 +109,7 @@ INSERT INTO h_allergy(HAllergyID,UserID,AllergyName,AllergyCode,AllergyType,Seve
 INSERT INTO h_allergy(HAllergyID,UserID,AllergyName,AllergyCode,AllergyType,Severity,PatientID)
   VALUES(2,'lg22','Latex','LAT',2,'Medium',3);
 
+
 --------------------------- INSERT INTO h_encounter ----------------------------------------------
 INSERT INTO h_encounter(HEncounterID,UserId,EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName
   ,EncounterLocation_ObjectID,EncounterID,EncType,BedName,Patient_ObjectID,AttendingPhysician_ObjectID,Bed_ObjectID)
@@ -117,3 +118,10 @@ INSERT INTO h_encounter(HEncounterID,UserId,EncStartDateTime,ENCEndDateTime,ENCS
 INSERT INTO h_encounter(HEncounterID,UserId,EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName
   ,EncounterLocation_ObjectID,EncounterID,EncType,BedName,Patient_ObjectID,AttendingPhysician_ObjectID,Bed_ObjectID)
   VALUES(2,'lg22','2008-04-04 11:55:00',NULL,1,'Exton',1,2,'Out Patient','',4,1,null);
+
+---------------------------- INSERT INTO h_Diagnosis----------------------------------------------------
+INSERT INTO h_diagnosis(HDiagnosisID,UserID,Code,Description,EncounterID,PatientID,Priority)
+  VALUES(1,'lg22','123.456','Diabetes',1,3,1);
+
+INSERT INTO h_diagnosis(HDiagnosisID,UserID,Code,Description,EncounterID,PatientID,Priority)
+  VALUES(2,'lg22','ABC.DEF','Diabetes',1,3,2);

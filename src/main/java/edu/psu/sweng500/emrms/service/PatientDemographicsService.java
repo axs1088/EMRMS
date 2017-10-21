@@ -22,4 +22,6 @@ public interface PatientDemographicsService {
 
     public List<HAllergy> getPatientAllergies(int patientObjectId);
 
+    public List<HDiagnosis> getPatientDiagnoses(int patientObjectId);
+
 }
