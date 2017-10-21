@@ -9,45 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Register Patient</title>
     <style>
-        input {
-            background: #fffdd7;
-            color: black;
-        }
-
-        select {
-            background: #fffdd7;
-            color: black;
-        }
-
-        h3 {
-            font-weight: bold;
-            color: white;
-        }
-
-        h4 {
-            color: white;
-        }
-
-        label {
-            display: inline-block;
-            width: 150px;
-            text-align: right;
-            color: white;
-        }
-
-        text {
-            color: white;
-            font: Arial;
-        }
-
-        body {
-            margin-left: 50px;
-        }
-
-        div {
-            padding-top: 2px;
-            padding-bottom: 2px;
-        }
+        <%@include file="/css/formCommon.css"%>
 
         #addressInput {
             width: 300px;
@@ -57,97 +19,116 @@
             width: 75px;
         }
 
-        mandatory {
-            color: red;
-        }
-        
         .error {
-	        color: red; font-weight: bold;
-	    }
-	    
-	    /* The Modal (background) */
-		.modal {
-		    display: none; /* Hidden by default */
-		    position: fixed; /* Stay in place */
-		    z-index: 1; /* Sit on top */
-		    left: 0;
-		    top: 0;
-		    width: 100%; /* Full width */
-		    height: 100%; /* Full height */
-		    overflow: auto; /* Enable scroll if needed */
-		    background-color: rgb(0,0,0); /* Fallback color */
-		    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-		    -webkit-animation-name: fadeIn; /* Fade in the background */
-		    -webkit-animation-duration: 0.4s;
-		    animation-name: fadeIn;
-		    animation-duration: 0.4s
-		}
-		
-		/* Modal Content */
-		.modal-content {
-		    position: fixed;
-		    bottom: 0;
-		    background-color: #fefefe;
-		    width: 800px;
-		    -webkit-animation-name: slideIn;
-		    -webkit-animation-duration: 0.4s;
-		    animation-name: slideIn;
-		    animation-duration: 0.4s
-		}
-		
-		/* The Close Button */
-		.close {
-		    color: white;
-		    float: right;
-		    font-size: 28px;
-		    font-weight: bold;
-		}
-		
-		.close:hover,
-		.close:focus {
-		    color: #000;
-		    text-decoration: none;
-		    cursor: pointer;
-		}
-		
-		.modal-header {
-		    padding: 2px 16px;
-		    background-color: #808080;
-		    color: white;
-		}
-		
-		.modal-body {padding: 2px 16px;}
-		
-		/* Add Animation */
-		@-webkit-keyframes slideIn {
-		    from {bottom: -300px; opacity: 0} 
-		    to {bottom: 0; opacity: 1}
-		}
-		
-		@keyframes slideIn {
-		    from {bottom: -300px; opacity: 0}
-		    to {bottom: 0; opacity: 1}
-		}
-		
-		@-webkit-keyframes fadeIn {
-		    from {opacity: 0} 
-		    to {opacity: 1}
-		}
-		
-		@keyframes fadeIn {
-		    from {opacity: 0} 
-		    to {opacity: 1}
-		}
-		
-		.topcorner {
-		   position:absolute;
-		   top:0;
-		   right:0;
-		 }
+            color: red;
+            font-weight: bold;
+        }
 
-		.linkColor {
-		    color: white;
-		 } 
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            -webkit-animation-name: fadeIn; /* Fade in the background */
+            -webkit-animation-duration: 0.4s;
+            animation-name: fadeIn;
+            animation-duration: 0.4s
+        }
+
+        /* Modal Content */
+        .modal-content {
+            position: fixed;
+            bottom: 0;
+            background-color: #fefefe;
+            width: 800px;
+            -webkit-animation-name: slideIn;
+            -webkit-animation-duration: 0.4s;
+            animation-name: slideIn;
+            animation-duration: 0.4s
+        }
+
+        /* The Close Button */
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            padding: 2px 16px;
+            background-color: #808080;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes slideIn {
+            from {
+                bottom: -300px;
+                opacity: 0
+            }
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                bottom: -300px;
+                opacity: 0
+            }
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .topcorner {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .linkColor {
+            color: white;
+        }
 
     </style>
     <script type="text/javascript">
@@ -182,8 +163,8 @@
 </div>
 
 <div class="topcorner">
-	<a href="/emrms/loginProcess" class="linkColor">Home</a>&nbsp;&nbsp;
-	<a href="/emrms/logout" class="linkColor">Logout</a>
+    <a href="/emrms/loginProcess" class="linkColor">Home</a>&nbsp;&nbsp;
+    <a href="/emrms/logout" class="linkColor">Logout</a>
 </div>
 
 <body>
@@ -322,42 +303,43 @@
     <div>
         <form:button type="submit" value="Submit">Add Patient</form:button>
     </div>
-	
-	<c:if test="${not empty validationErrors}">
-		<div id="myModal" class="modal">
-		  <div class="modal-content">
-		    <div class="modal-header" align="left">
-		      <span class="close">&times;</span>
-		      <p style="font-size:18px;">Please fix following errors before proceeding with patient registration</p>
-		    </div>
-		    <div class="modal-body" align="left">
-		      <c:forEach var="validationError" items="${validationErrors}" varStatus="loop">
-    			<p style="color:red;">${validationError}</p>
-    		  </c:forEach>	      
-		    </div>
-		  </div>	
-		</div>
-	</c:if>
-    
+
+    <c:if test="${not empty validationErrors}">
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header" align="left">
+                    <span class="close">&times;</span>
+                    <p style="font-size:18px;">Please fix following errors before proceeding with patient
+                        registration</p>
+                </div>
+                <div class="modal-body" align="left">
+                    <c:forEach var="validationError" items="${validationErrors}" varStatus="loop">
+                        <p style="color:red;">${validationError}</p>
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
 </form:form>
 
 <script type="text/javascript">
-	//Execute below if there is success
+    //Execute below if there is success
     var saveSuccess = "${saveSuccess}";
     if (saveSuccess) {
-        window.alert("Save Successful");        
+        window.alert("Save Successful");
     }
-    
+
     //Execute below if there is error on the page
     var errorOnPage = "${errorOnPage}";
     if (errorOnPage) {
         var modal = document.getElementById('myModal');
         var span = document.getElementsByClassName("close")[0];
         modal.style.display = "block";
-        span.onclick = function() {
+        span.onclick = function () {
             modal.style.display = "none";
         }
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }

@@ -41,3 +41,15 @@ div {
 mandatory {
     color: red;
 }
+
+table, th, td {
+    background: black;
+    color: white;
+    font-family: 'latoregular';
+    font-size: 14px;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2pt solid white;
+    border-top: 2pt solid white;
+}
