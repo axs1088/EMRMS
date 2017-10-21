@@ -10,6 +10,7 @@ DELETE FROM h_name;
 DELETE FROM h_address;
 DELETE FROM h_password;
 DELETE FROM h_user;
+DELETE FROM h_diagnosis;
 DELETE FROM h_encounter;
 DELETE FROM h_patient_ids;
 DELETE FROM h_patient;
@@ -100,6 +101,13 @@ INSERT INTO h_user(HUserID,LoginID,UserType,HPersonID,HPasswordID)
 ---------------------------- INSERT INTO h_bed----------------------------------------------------
 INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
   VALUES(1,'lg22','Bed101',1,1,1);
+
+---------------------------- INSERT INTO h_Allergy----------------------------------------------------
+INSERT INTO h_allergy(HAllergyID,UserID,AllergyName,AllergyCode,AllergyType,Severity,PatientID)
+  VALUES(1,'lg22','PeaNut','PN',1,'High',3);
+
+INSERT INTO h_allergy(HAllergyID,UserID,AllergyName,AllergyCode,AllergyType,Severity,PatientID)
+  VALUES(2,'lg22','Latex','LAT',2,'Medium',3);
 
 --------------------------- INSERT INTO h_encounter ----------------------------------------------
 INSERT INTO h_encounter(HEncounterID,UserId,EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName

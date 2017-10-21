@@ -39,6 +39,7 @@ public class PatientServiceImpl implements PatientService {
         patientMapper.insertPatient(patient);
         patientMapper.insertPatientName(patient);
         patientMapper.insertPatientAddress(patient);
+        patientMapper.insertPatientIdentifiers(patient);
     }
 
 }

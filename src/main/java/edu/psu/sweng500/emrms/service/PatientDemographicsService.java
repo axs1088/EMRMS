@@ -18,6 +18,8 @@ public interface PatientDemographicsService {
 
     public List<HPatientId> getPatientIdentifiers(int patientObjectId);
 
-    public List<HEncounter> getPatientEncounters(int patinetObjectId);
+    public List<HEncounter> getPatientEncounters(int patientObjectId);
+
+    public List<HAllergy> getPatientAllergies(int patientObjectId);
 
 }

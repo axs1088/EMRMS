@@ -57,5 +57,11 @@ public class LocallyCachedPatientMapper implements PatientMapper {
 
     }
 
+    @Override
+    public void insertPatientIdentifiers(HPatient patient) {
+        // TODO Auto-generated method stub
+
+    }
+
 
 }

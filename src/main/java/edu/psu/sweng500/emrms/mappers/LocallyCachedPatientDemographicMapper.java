@@ -36,4 +36,9 @@ public class LocallyCachedPatientDemographicMapper implements PatientDemographic
     public List<HEncounter> getPatientEncounters(int patientId) {
         return new ArrayList<>();
     }
+
+    @Override
+    public List<HAllergy> getPatientAllergies(int patientId) {
+        return new ArrayList<>();
+    }
 }

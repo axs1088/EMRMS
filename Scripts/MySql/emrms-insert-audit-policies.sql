@@ -17,8 +17,10 @@ INSERT INTO h_policy(PolicyName,PolicyID)
 INSERT INTO h_policy(PolicyName,PolicyID)
   VALUES ('View Patient Charts',9);
 INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('Add an Allergy',10);
+  VALUES ('Add Allergy',10);
+ INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Delete Allergy',11);
 INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('Add an Assessment',11);
+  VALUES ('Add an Assessment',12);
 INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('Add a Problem',12);
+  VALUES ('Add a Problem',13);

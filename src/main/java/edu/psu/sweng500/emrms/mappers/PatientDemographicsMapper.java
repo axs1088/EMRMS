@@ -42,4 +42,10 @@ public interface PatientDemographicsMapper {
             + "AttendingPhysician_ObjectID as attendingPhysician_ObjectID, Bed_ObjectID as bed_ObjectID FROM h_encounter"
             + " where Patient_ObjectID = #{patientId} order by EncStartDateTime desc")
     public List<HEncounter> getPatientEncounters(int patientId);
+
+    @Select("SELECT HAllergyID as allergyID,  "
+            + "AllergyName as allergyName, AllergyCode as allergyCode, AllergyType as allergyType, Severity as severity, "
+            + "PatientID as patientId FROM h_Allergy "
+            + " where PatientID = #{patientId} order by severity desc")
+    public List<HAllergy> getPatientAllergies(int patientId);
 }

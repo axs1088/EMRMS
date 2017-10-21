@@ -62,6 +62,12 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
         return encounters;
     }
 
+    @Override
+    public List<HAllergy> getPatientAllergies(int patientObjectId) {
+        List<HAllergy> allergies = patientDemographicsMapper.getPatientAllergies(patientObjectId);
+        return allergies;
+    }
+
 
      /*
     @Override
