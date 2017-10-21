@@ -82,7 +82,7 @@ public class PatientControllerTest {
 
         String userName = "username";
         HttpSession session = mock(HttpSession.class);
-        when(session.getAttribute(Constants.APPLICATION_USER)).thenReturn(userName);
+        when(session.getAttribute(Constants.APP_USER_ID)).thenReturn(userName);
         mockedRequest = mock(HttpServletRequest.class);
         when(mockedRequest.getSession(false)).thenReturn(session);
 
