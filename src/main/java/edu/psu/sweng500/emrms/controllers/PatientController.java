@@ -8,25 +8,19 @@ import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import edu.psu.sweng500.emrms.validators.PatientValidator;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
-
-import static edu.psu.sweng500.emrms.util.Constants.SAVE_SUCESSFUL;
 
 /**
  * @author vkumar
@@ -46,7 +40,7 @@ public class PatientController {
 
     @Autowired
     private ApplicationAuditHelper applicationAuditHelper;
-    
+
     @Autowired
     private PatientValidator patientValidator;
 
@@ -61,36 +55,78 @@ public class PatientController {
         binder.registerCustomEditor(Integer.class, new EMRMSCustomEditor());
     }
 
+    @ModelAttribute("severeAllergyList")
+    public List<String> getSevereAllergyList() {
+        ArrayList<String> returnList = new ArrayList<>();
+        returnList.add("Latex");
+        returnList.add("Tree Nuts");
+        returnList.add("Peanuts");
+        return returnList;
+    }
+
+    @ModelAttribute("primaryDiagnosisList")
+    public List<String> getPrimaryDiagnosisList() {
+        ArrayList<String> returnList = new ArrayList<>();
+        returnList.add("Hypertension");
+        returnList.add("Anxiety");
+        returnList.add("Allergic rhinitis");
+        return returnList;
+    }
+
+    @ModelAttribute("physicianName")
+    public String getPhysicianName() {
+        return "John Smith, MD";
+    }
+
+    @ModelAttribute("clinicName")
+    public String getClinicName() {
+        return "Exton Clinic";
+    }
+
     @RequestMapping(value = "/patientRegistration", method = RequestMethod.GET)
     public ModelAndView registerPatient(HttpServletRequest request, HttpServletResponse response) {
         applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registration", 1);
         ModelAndView mav = new ModelAndView("patientRegistration");
         HPatient patient = new HPatient();
+        SiteHeader siteHeader = new SiteHeader();
+
+        siteHeader.setAttending("Dr. Example");
+        siteHeader.setBirthDate("07/12/34");
+        siteHeader.setEncounterNumber("12345");
+        siteHeader.setEncounterStatus("Active");
+        siteHeader.setEncounterStartDate("2 hours ago");
+        siteHeader.setMrNumber("54321");
+        siteHeader.setNameLastCommaFirst("Rogers, Steve A");
+        siteHeader.setEncounterType("Routine Checkup");
+        siteHeader.setPhysicianName("John Smith, MD");
+        siteHeader.setClinicName("Exton Clinic");
+
         mav.addObject("patient", patient);
+        mav.addObject("siteHeader", siteHeader);
 
         return mav;
     }
 
 
     @RequestMapping(value = "/patientDetails", method = RequestMethod.GET)
-    public ModelAndView patientDetilas(HttpServletRequest request,@RequestParam("hPatientID") int hPatientID) {
+    public ModelAndView patientDetilas(HttpServletRequest request, @RequestParam("hPatientID") int hPatientID) {
         applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registration", 1);
-        
+
         int personId = patientDemographicsService.getPersonId(hPatientID);
         HPatient patientFromDB = patientDemographicsService.getPatientDemographics(hPatientID);
         HName nameFromDB = patientDemographicsService.getPersonName(personId);
         Address addressFromDB = patientDemographicsService.getPersonAddress(personId);
         String gender = null;
-        
+
         ModelAndView mav = new ModelAndView("patientDetails");
-  
+
         mav.addObject("firstName", nameFromDB.getFirstName());
         mav.addObject("lastName", nameFromDB.getLastName());
         mav.addObject("middleName", nameFromDB.getMiddleName());
-        if(patientFromDB.getGender()==1) {
-        	gender = "Male";
-        }else if(patientFromDB.getGender()==2) {
-        	gender = "Female";
+        if (patientFromDB.getGender() == 1) {
+            gender = "Male";
+        } else if (patientFromDB.getGender() == 2) {
+            gender = "Female";
         }
         mav.addObject("gender", gender);
         mav.addObject("dateOfBirth", patientFromDB.getBirthDate());
@@ -101,7 +137,7 @@ public class PatientController {
         mav.addObject("zip", addressFromDB.getZip());
         mav.addObject("cellphone", patientFromDB.getCellPhone());
         mav.addObject("email", patientFromDB.getEmail());
-        
+
         return mav;
     }
 
@@ -133,12 +169,12 @@ public class PatientController {
     public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response,
                                    @ModelAttribute("patient") HPatient patient, BindingResult bindingResult) {
         ModelAndView mav = new ModelAndView("patientRegistration");
-        
+
         List<String> validationErrors = patientValidator.validate(patient);
-        
-        if(CollectionUtils.isNotEmpty(validationErrors)) {
-        	mav.addObject("errorOnPage", true);
-        	mav.addObject("validationErrors", validationErrors);
+
+        if (CollectionUtils.isNotEmpty(validationErrors)) {
+            mav.addObject("errorOnPage", true);
+            mav.addObject("validationErrors", validationErrors);
             return mav;
         }
 
