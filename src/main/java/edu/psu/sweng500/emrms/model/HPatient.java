@@ -37,6 +37,11 @@ public class HPatient {
     private Phone homePhone;
 
 
+
+    @Valid
+    private HPatientId patientIds;
+
+
     /**
      * The email.
      */
@@ -180,5 +185,12 @@ public class HPatient {
         this.personId = personId;
     }
 
+    public HPatientId getPatientIds() {
+        return patientIds;
+    }
+
+    public void setPatientIds(HPatientId patientIds) {
+        this.patientIds = patientIds;
+    }
 
 }

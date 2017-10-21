@@ -1,9 +1,6 @@
 package edu.psu.sweng500.emrms.services;
 
-import edu.psu.sweng500.emrms.model.Address;
-import edu.psu.sweng500.emrms.model.ComplexName;
-import edu.psu.sweng500.emrms.model.HPatient;
-import edu.psu.sweng500.emrms.model.Phone;
+import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.PatientService;
 import edu.psu.sweng500.emrms.util.RatifiedDate;
 
@@ -81,6 +78,14 @@ public class PatientServiceTest {
     	phone.setNumber("1234567890");
     	patient.setEmail("test@psu.edu");
     	patient.setCellPhone(phone);
+
+        HPatientId patientId = new HPatientId();
+        patientId.setIdValue("MRN-Test");
+        patientId.setIdType("MRN");
+        patientId.setIdIssuerName("MLH");
+        patientId.setIdIssuerId(1);
+        patient.setPatientIds(patientId);
+
         service.registerPatient(patient);
     }
     

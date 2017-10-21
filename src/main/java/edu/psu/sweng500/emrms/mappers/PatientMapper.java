@@ -52,6 +52,11 @@ public interface PatientMapper {
     		"VALUES (#{userId}, #{mPINumber}, #{organDonor}, #{personId})")
 	@Options(useGeneratedKeys=true, keyProperty="objectID", keyColumn="HPatientID")
     public void insertPatient(HPatient patient);
+
+    @Insert("INSERT INTO h_patient_Ids(UserId, IDValue, IdType, IdIssuerName, IdIssuerID, PatientID) " +
+            "VALUES (#{patient.userId}, #{patient.patientIds.idValue}, #{patient.patientIds.idType}, #{patient.patientIds.idIssuerName}," +
+            " #{patient.patientIds.idIssuerId}, #{patient.objectID})")
+    public void insertPatientIdentifiers(@Param("patient") HPatient patient);
     
     @Insert("INSERT INTO h_address(UserId, StrAddress, City, State, Zip, Country, MailingAddressInd, " +
     		"HomePhoneNo, CellPhoneNo, EmailAddress, HPersonID) " +
