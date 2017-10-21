@@ -62,6 +62,7 @@ public class ManageAllergyServiceTest {
     public void testDeleteAllergy()throws Exception{
         HAllergy allergy=new HAllergy();
         allergy.setAllergyID(1);
+        allergy.setPatientID(3);
 
         //ToDo
         int returnValue=service.DeleteAllergy(allergy);
