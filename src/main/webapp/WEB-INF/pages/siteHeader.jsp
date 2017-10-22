@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ include file="/WEB-INF/pages/include.jsp" %>
 
+<style>
+    .topcorner {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: 50px;
+    }
+</style>
+<div class="topcorner">
+    <a href="/emrms/loginProcess" class="linkColor">Home</a>&nbsp;&nbsp;
+    <a href="/emrms/patientLocator" class="linkColor">Patient Locator</a>&nbsp;&nbsp
+    <a href="/emrms/logout" class="linkColor">Logout</a>
+</div>
+
 <form:form modelAttribute="siteHeader">
     <div>
         <style>

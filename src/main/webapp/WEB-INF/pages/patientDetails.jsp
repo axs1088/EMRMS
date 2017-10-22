@@ -158,35 +158,29 @@
     </script>
 </head>
 
-<div id="header">
-    <h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
-</div>
-
-<div class="topcorner">
-    <a href="/emrms/loginProcess" class="linkColor">Home</a>&nbsp;&nbsp;
-    <a href="/emrms/logout" class="linkColor">Logout</a>
-</div>
-
 <body>
-<h3>Patient Registration</h3>
+<div class="content">
+    <h3>Patient Registration</h3>
     <h4> Patient Information</h4>
 
     <div>
         <label>First Name: </label>
         <mandatory>*</mandatory>
         <input type="text" value="${firstName}">
-		
-		<label>Last Name: </label>
+
+        <label>Last Name: </label>
         <mandatory>*</mandatory>
         <input type="text" value="${lastName}">
-		</br>
+        </br>
     </div>
 
     <div>
         <label>Middle Name:</label>
         &nbsp;&nbsp;&nbsp;<input type="text" value="${middleName}">
-		<label> Gender <mandatory>*</mandatory></label>
-		&nbsp;&nbsp;
+        <label> Gender
+            <mandatory>*</mandatory>
+        </label>
+        &nbsp;&nbsp;
         <select id="genderTxt" value="${gender}">
             <option value="1" label="Male"/>
             <option value="2" label="Female"/>
@@ -195,10 +189,10 @@
     </div>
 
     <div>
-       <label>Birth Date: </label>
+        <label>Birth Date: </label>
         <mandatory>*</mandatory>
         <input type="text" value="${dateOfBirth}">
-		</br>
+        </br>
     </div>
 
     <h4> Address</h4>
@@ -206,7 +200,7 @@
     <div>
         <label>Street Address:</label>
         <input id="addressInput" type="text" value="${streetAddressLine1}"/>
-		<br/>
+        <br/>
     </div>
 
     <div>
@@ -265,12 +259,13 @@
             <option value="Wyoming"/>
         </select>
         <input id="zipInput" type="text" value="${zip}">
-		<br/>
+        <br/>
     </div>
 
     <div>
         <label>Mailing Address:</label>
-        <checkbox value="1"/> <label>Same as home</label>
+        <checkbox value="1"/>
+        <label>Same as home</label>
     </div>
 
     <div>
@@ -278,18 +273,18 @@
         <input id="cellphoneTxt" vaue="${cellPhone}"/>
         <label>Home Phone: </label>
         <input type="text" value="${homePhone}"/>
-		</br>
+        </br>
     </div>
 
     <div>
-         <label>Email:</label>
+        <label>Email:</label>
         <input id="emailTxt" vaue="${email}"/>
         </br>
     </div>
 
     <h4> Miscellaneous</h4>
     <div>
-         <label>MPI Number: </label>
+        <label>MPI Number: </label>
         <input id="mpiTxt" vaue="${mpiNo}"/>
         </br>
     </div>
@@ -305,6 +300,7 @@
     <div>
         <a href="/emrms/patientLocator" class="linkColor">Back</a>&nbsp;&nbsp>
     </div>
+</div>
 <script type="text/javascript">
     //Execute below if there is success
     var saveSuccess = "${saveSuccess}";
@@ -329,21 +325,7 @@
     }
 </script>
 
-<div id="footer">
-    <div>
-        <span>Malvern Clinic, PA - 19355 | 222-222-2222</span>
-        <p>
-            &copy; 2017 by EMRMS TEAM &amp; SWENG-500 - Penn State University. All rights reserved.
-        </p>
-    </div>
-    <div id="connect">
-        <a href="https://freewebsitetemplates.com/go/facebook/" id="facebook" target="_blank">Facebook</a>
-        <a href="https://freewebsitetemplates.com/go/twitter/" id="twitter" target="_blank">Twitter</a>
-        <a href="https://freewebsitetemplates.com/go/googleplus/" id="googleplus" target="_blank">Google&#43;</a>
-        <a href="https://freewebsitetemplates.com/go/pinterest/" id="pinterest" target="_blank">Pinterest</a>
-    </div>
+<%@include file="siteFooter.jsp" %>
 
-</div>
 </body>
-
 </html>

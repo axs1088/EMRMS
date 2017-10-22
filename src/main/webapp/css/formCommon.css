@@ -49,6 +49,8 @@ body {
     margin-top: 50px;
     margin-left: 50px;
     margin-right: 50px;
+    display: flex;
+    flex-direction: column;
 }
 
 div {
@@ -70,4 +72,12 @@ table, th, td {
     text-align: center;
     border-bottom: 2pt solid white;
     border-top: 2pt solid white;
+}
+
+html, body {
+    height: 100%;
+}
+
+.content {
+    flex: 1 0 auto;
 }
