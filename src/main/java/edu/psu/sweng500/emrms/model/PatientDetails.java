@@ -11,9 +11,10 @@ public class PatientDetails {
 	private String city;
 	private String state;
 	private String zip;
-	private Phone cellphone;
-	private String email;
+	private Phone cellPhone;
 	
+	private String email;
+		
 	public String getfirstName() {
 		return firstName;
 	}	
@@ -70,10 +71,10 @@ public class PatientDetails {
 		this.zip = zip;
 	}
 	public Phone getCellphone() {
-		return cellphone;
+		return cellPhone;
 	}
 	public void setCellphone(Phone cellphone) {
-		this.cellphone = cellphone;
+		this.cellPhone = cellphone;
 	}
 	public String getEmail() {
 		return email;

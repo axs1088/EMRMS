@@ -109,38 +109,35 @@ public class PatientController {
 
 
     @RequestMapping(value = "/patientDetails", method = RequestMethod.GET)
-    public ModelAndView patientDetilas(HttpServletRequest request, @RequestParam("hPatientID") int hPatientID) {
-        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registration", 1);
-
+    public ModelAndView patientDetilas(HttpServletRequest request,@RequestParam("hPatientID") int hPatientID) {
+        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Details", 1);
+        
         int personId = patientDemographicsService.getPersonId(hPatientID);
         HPatient patientFromDB = patientDemographicsService.getPatientDemographics(hPatientID);
         HName nameFromDB = patientDemographicsService.getPersonName(personId);
         Address addressFromDB = patientDemographicsService.getPersonAddress(personId);
-        String gender = null;
-
+              
         ModelAndView mav = new ModelAndView("patientDetails");
-
+  
         mav.addObject("firstName", nameFromDB.getFirstName());
         mav.addObject("lastName", nameFromDB.getLastName());
         mav.addObject("middleName", nameFromDB.getMiddleName());
-        if (patientFromDB.getGender() == 1) {
-            gender = "Male";
-        } else if (patientFromDB.getGender() == 2) {
-            gender = "Female";
-        }
-        mav.addObject("gender", gender);
+        mav.addObject("gender", patientFromDB.getGender());
         mav.addObject("dateOfBirth", patientFromDB.getBirthDate());
         mav.addObject("streetAddressLine1", addressFromDB.getLine1());
         mav.addObject("streetAddressLine2", addressFromDB.getLine2());
         mav.addObject("city", addressFromDB.getCity());
         mav.addObject("state", addressFromDB.getState());
         mav.addObject("zip", addressFromDB.getZip());
-        mav.addObject("cellphone", patientFromDB.getCellPhone());
+        mav.addObject("cellPhone", patientFromDB.getCellPhone());
+        mav.addObject("homePhone",patientFromDB.getHomePhone());
+        mav.addObject("mpiNo",patientFromDB.getMPINumber());
+        mav.addObject("organDonor",patientFromDB.getOrganDonor()); 
         mav.addObject("email", patientFromDB.getEmail());
-
+        
+                
         return mav;
     }
-
     @RequestMapping(value = "/patientLocator", method = RequestMethod.GET)
     public ModelAndView showPatientLocator(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("patientLocator");
