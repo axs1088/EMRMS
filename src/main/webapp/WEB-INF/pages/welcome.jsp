@@ -11,6 +11,7 @@
     <title>Welcome</title>
     <style>
         <%@include file="/css/formCommon.css"%>
+
         table, th, td {
             background: black;
             color: white;
@@ -32,7 +33,7 @@
 
 <%@include file="siteHeader.jsp" %>
 
-<body class="body" align="center">
+<body class="body" align="left">
 <div class="content">
     <table cellpadding="10" border="1" align="center">
         <tr style=>
