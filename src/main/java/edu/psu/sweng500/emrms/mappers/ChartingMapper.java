@@ -20,8 +20,8 @@ public interface ChartingMapper {
     @Delete(DELETE_HDIAGNOSIS) @Options(keyProperty = "hDiagnosisId" )
     public int deleteDiagnosis(HDiagnosis diagnosis) throws Exception;
 
-    @Insert("INSERT INTO h_Allergy(UserId, AllergyName, AllergyCode, Priority, AllergyType, PatientID, Severity  ) " +
-            "VALUES (#{userId}, #{allergyName},#{allergyCode}, #{priority},#{allergyType}, #{patientID}, #{severity})")
+    @Insert("INSERT INTO h_Allergy(UserId, AllergyName, AllergyCode, AllergyType, PatientID, Severity  ) " +
+            "VALUES (#{userId}, #{allergyName},#{allergyCode}, #{allergyType}, #{patientID}, #{severity})")
     public void addAllergy(HAllergy allergy);
 
     @Delete(DELETE_HALLERGY) @Options(keyProperty = "allergyID" )
