@@ -116,6 +116,7 @@ public class PatientController {
         mav.addObject("mpiNo", patientFromDB.getMPINumber());
         mav.addObject("organDonor", patientFromDB.getOrganDonor());
         mav.addObject("email", patientFromDB.getEmail());
+   
 
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 

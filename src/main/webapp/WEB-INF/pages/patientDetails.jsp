@@ -157,7 +157,7 @@
         }
     </script>
 </head>
-
+<%@include file="siteHeader.jsp" %>
 <body>
 <div class="content">
     <h3>Patient Registration</h3>
@@ -176,11 +176,10 @@
 
     <div>
         <label>Middle Name:</label>
-        &nbsp;&nbsp;&nbsp;<input type="text" value="${middleName}">
-        <label> Gender
+        &nbsp;&nbsp;&nbsp;<input type="text" value="${middleName}">&nbsp;&nbsp;&nbsp;
+        <label> Gender:
             <mandatory>*</mandatory>
         </label>
-        &nbsp;&nbsp;
         <select id="genderTxt" value="${gender}">
             <option value="1" label="Male"/>
             <option value="2" label="Female"/>
@@ -191,7 +190,7 @@
     <div>
         <label>Birth Date: </label>
         <mandatory>*</mandatory>
-        <input type="text" value="${dateOfBirth}">
+        <input type="date" value="${dateOfBirth}">
         </br>
     </div>
 
@@ -264,7 +263,7 @@
 
     <div>
         <label>Mailing Address:</label>
-        <checkbox value="1"/>
+        <input type="checkbox" value="1"/>
         <label>Same as home</label>
     </div>
 
