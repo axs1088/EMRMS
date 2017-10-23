@@ -1,6 +1,7 @@
 package edu.psu.sweng500.emrms.controllers;
 
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
+import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
 import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.CensusService;
@@ -19,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +44,9 @@ public class PatientController {
     @Autowired
     private PatientValidator patientValidator;
 
+    @Autowired
+    private ApplicationSessionHelper sessionHelper;
+
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
      *
@@ -57,30 +60,22 @@ public class PatientController {
 
     @ModelAttribute("severeAllergyList")
     public List<String> getSevereAllergyList() {
-        ArrayList<String> returnList = new ArrayList<>();
-        returnList.add("Latex");
-        returnList.add("Tree Nuts");
-        returnList.add("Peanuts");
-        return returnList;
+        return sessionHelper.getSevereAllergyList();
     }
 
     @ModelAttribute("primaryDiagnosisList")
     public List<String> getPrimaryDiagnosisList() {
-        ArrayList<String> returnList = new ArrayList<>();
-        returnList.add("Hypertension");
-        returnList.add("Anxiety");
-        returnList.add("Allergic rhinitis");
-        return returnList;
+        return sessionHelper.getPrimaryDiagnosisList();
     }
 
     @ModelAttribute("physicianName")
     public String getPhysicianName() {
-        return "John Smith, MD";
+        return sessionHelper.getPhysicianName();
     }
 
     @ModelAttribute("clinicName")
     public String getClinicName() {
-        return "Exton Clinic";
+        return sessionHelper.getClinicName();
     }
 
     @RequestMapping(value = "/patientRegistration", method = RequestMethod.GET)
@@ -88,37 +83,24 @@ public class PatientController {
         applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registration", 1);
         ModelAndView mav = new ModelAndView("patientRegistration");
         HPatient patient = new HPatient();
-        SiteHeader siteHeader = new SiteHeader();
-
-        siteHeader.setAttending("Dr. Example");
-        siteHeader.setBirthDate("07/12/34");
-        siteHeader.setEncounterNumber("12345");
-        siteHeader.setEncounterStatus("Active");
-        siteHeader.setEncounterStartDate("2 hours ago");
-        siteHeader.setMrNumber("54321");
-        siteHeader.setNameLastCommaFirst("Rogers, Steve A");
-        siteHeader.setEncounterType("Routine Checkup");
-        siteHeader.setPhysicianName("John Smith, MD");
-        siteHeader.setClinicName("Exton Clinic");
 
         mav.addObject("patient", patient);
-        mav.addObject("siteHeader", siteHeader);
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         return mav;
     }
 
-
     @RequestMapping(value = "/patientDetails", method = RequestMethod.GET)
-    public ModelAndView patientDetilas(HttpServletRequest request,@RequestParam("hPatientID") int hPatientID) {
+    public ModelAndView patientDetilas(HttpServletRequest request, @RequestParam("hPatientID") int hPatientID) {
         applicationAuditHelper.auditEvent(request.getSession(false), "Patient Details", 1);
-        
+
         int personId = patientDemographicsService.getPersonId(hPatientID);
         HPatient patientFromDB = patientDemographicsService.getPatientDemographics(hPatientID);
         HName nameFromDB = patientDemographicsService.getPersonName(personId);
         Address addressFromDB = patientDemographicsService.getPersonAddress(personId);
-              
+
         ModelAndView mav = new ModelAndView("patientDetails");
-  
+
         mav.addObject("firstName", nameFromDB.getFirstName());
         mav.addObject("lastName", nameFromDB.getLastName());
         mav.addObject("middleName", nameFromDB.getMiddleName());
@@ -130,18 +112,23 @@ public class PatientController {
         mav.addObject("state", addressFromDB.getState());
         mav.addObject("zip", addressFromDB.getZip());
         mav.addObject("cellPhone", patientFromDB.getCellPhone());
-        mav.addObject("homePhone",patientFromDB.getHomePhone());
-        mav.addObject("mpiNo",patientFromDB.getMPINumber());
-        mav.addObject("organDonor",patientFromDB.getOrganDonor()); 
+        mav.addObject("homePhone", patientFromDB.getHomePhone());
+        mav.addObject("mpiNo", patientFromDB.getMPINumber());
+        mav.addObject("organDonor", patientFromDB.getOrganDonor());
         mav.addObject("email", patientFromDB.getEmail());
-        
-                
+
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+
         return mav;
     }
+
     @RequestMapping(value = "/patientLocator", method = RequestMethod.GET)
     public ModelAndView showPatientLocator(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("patientLocator");
         mav.addObject("census", new HCensus());
+
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+
         return mav;
     }
 
@@ -159,6 +146,9 @@ public class PatientController {
             mav.addObject("hPatientList", hPatientList);
         }
         applicationAuditHelper.auditEvent(session, "Patient Locator", 4);
+
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+
         return mav;
     }
 
@@ -191,6 +181,8 @@ public class PatientController {
         mav.addObject("patientaddress", addressFromDB);
         mav.addObject("patientids", patientIds);
         mav.addObject("encounters", encounters);
+
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         return mav;
     }

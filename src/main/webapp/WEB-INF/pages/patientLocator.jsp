@@ -24,12 +24,6 @@
     <style>
         <%@include file="/css/formCommon.css"%>
 
-        .topcorner {
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-
         .linkColor {
             color: white;
         }
@@ -37,18 +31,12 @@
     </style>
 </head>
 
-<div id="header">
-    <h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
-</div>
-
-<div class="topcorner">
-    <a href="/emrms/loginProcess" class="linkColor">Home</a>&nbsp;&nbsp;
-    <a href="/emrms/logout" class="linkColor">Logout</a>
-</div>
+<%@include file="siteHeader.jsp" %>
 
 <body>
-<form:form id="patientLocatorForm" method="post" action="patientLocatorProcess" modelAttribute="census"
-           onsubmit="return validateInput()">
+<div class="content">
+    <form:form id="patientLocatorForm" method="post" action="patientLocatorProcess" modelAttribute="census"
+               onsubmit="return validateInput()">
     <table border="1" cellpadding="5" align="center">
         <th colspan="2"><h3> Patient Information</h3></th>
         <tr>
@@ -64,26 +52,26 @@
             </td>
             <td><form:input id="firstNameTxt" path="firstName"/></td>
         </tr>
+</div>
+<tr>
+    <div>
+        <td><form:label path="gender">Gender: </form:label></td>
+        <td><form:select path="gender">
+            <form:option value="1" label="Male"/>
+            <form:option value="2" label="Female"/>
+            <form:option value="3" label="Other"/>
+        </form:select></td>
+    </div>
+</tr>
+<br>
+<tr>
+    <td colspan="2" align="center">
+        <div>
+            <form:button id="findPatient" name="findPatient">Find Patient</form:button>
         </div>
-        <tr>
-            <div>
-                <td><form:label path="gender">Gender: </form:label></td>
-                <td><form:select path="gender">
-                    <form:option value="1" label="Male"/>
-                    <form:option value="2" label="Female"/>
-                    <form:option value="3" label="Other"/>
-                </form:select></td>
-            </div>
-        </tr>
-        <br>
-        <tr>
-            <td colspan="2" align="center">
-                <div>
-                    <form:button id="findPatient" name="findPatient">Find Patient</form:button>
-                </div>
-            </td>
-        </tr>
-    </table>
+    </td>
+</tr>
+</table>
 </form:form>
 <div id="header" align="center" class="header">
     <h3><span>Patient Locator Search Results</span></h3>
@@ -153,25 +141,9 @@
         </tr>
     </c:forEach>
 </table>
-
-<div id="footer">
-    <div>
-        <span>Malvern Clinic, PA - 19355 | 222-222-2222</span>
-        <p>
-            &copy; 2017 by EMRMS TEAM &amp; SWENG-500 - Penn State University. All rights reserved.
-        </p>
-    </div>
-    <div id="connect">
-        <a href="https://freewebsitetemplates.com/go/facebook/" id="facebook" target="_blank">Facebook</a>
-        <a href="https://freewebsitetemplates.com/go/twitter/" id="twitter" target="_blank">Twitter</a>
-        <a href="https://freewebsitetemplates.com/go/googleplus/" id="googleplus" target="_blank">Google&#43;</a>
-        <a href="https://freewebsitetemplates.com/go/pinterest/" id="pinterest" target="_blank">Pinterest</a>
-    </div>
-
 </div>
 
+<%@include file="siteFooter.jsp" %>
 
-</br></br>
 </body>
-
 </html>

@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ include file="/WEB-INF/pages/include.jsp" %>
 
+<style>
+    .topcorner {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: 50px;
+    }
+</style>
+<div class="topcorner">
+    <a href="/emrms/loginProcess" class="linkColor">Home</a>&nbsp;&nbsp;
+    <a href="/emrms/patientLocator" class="linkColor">Patient Locator</a>&nbsp;&nbsp
+    <a href="/emrms/logout" class="linkColor">Logout</a>
+</div>
+
 <form:form modelAttribute="siteHeader">
     <div>
         <style>
@@ -24,11 +38,11 @@
 
         <style>
             #birthLabel {
-                width: 100px;
+                width: 110px;
             }
 
             #birthInput {
-                width: 83px;
+                width: 93px;
             }
         </style>
         <form:label id="birthLabel" path="birthDate">DOB: </form:label>
@@ -36,11 +50,11 @@
 
         <style>
             #attendingLabel {
-                width: 130px;
+                width: 140px;
             }
 
             #attendingInput {
-                width: 100px;
+                width: 110px;
             }
         </style>
         <form:label id="attendingLabel" path="attending">Attending: </form:label>
@@ -48,11 +62,11 @@
 
         <style>
             #mrNumberLabel {
-                width: 63px;
+                width: 73px;
             }
 
             #mrNumberInput {
-                width: 100px;
+                width: 110px;
             }
         </style>
         <form:label id="mrNumberLabel" path="mrNumber">MR #: </form:label>
@@ -60,7 +74,7 @@
 
         <style>
             #allergiesLabel {
-                width: 97px;
+                width: 107px;
             }
 
             #allergiesInput {
@@ -84,11 +98,11 @@
 
         <style>
             #statusLabel {
-                width: 100px;
+                width: 110px;
             }
 
             #statusInput {
-                width: 83px;
+                width: 93px;
             }
         </style>
         <form:label id="statusLabel" path="encounterStatus">Enc Status: </form:label>
@@ -96,11 +110,11 @@
 
         <style>
             #startDateLabel {
-                width: 130px;
+                width: 140px;
             }
 
             #startDateInput {
-                width: 100px;
+                width: 110px;
             }
         </style>
         <form:label id="startDateLabel" path="encounterStartDate">Enc Start Date: </form:label>
@@ -109,11 +123,11 @@
 
         <style>
             #encNumberLabel {
-                width: 63px;
+                width: 73px;
             }
 
             #encNumberInput {
-                width: 100px;
+                width: 110px;
             }
         </style>
         <form:label id="encNumberLabel" path="encounterNumber">Enc #: </form:label>
@@ -121,7 +135,7 @@
 
         <style>
             #diagnosesLabel {
-                width: 97px;
+                width: 107px;
             }
 
             #diagnosesInput {

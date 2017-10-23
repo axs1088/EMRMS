@@ -8,7 +8,6 @@ import edu.psu.sweng500.emrms.service.CensusServiceImpl;
 import edu.psu.sweng500.emrms.service.UserServiceImpl;
 import edu.psu.sweng500.emrms.util.Constants;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -109,9 +108,6 @@ public class LoginControllerTest {
         assertFalse(hCensusList.isEmpty());
         assertEquals(nurseCensusReturned.getLastName(), hCensusList.get(0).getLastName());
     }
-
-
-
 
 
 }
