@@ -58,14 +58,15 @@ public class PatientController {
         binder.registerCustomEditor(Integer.class, new EMRMSCustomEditor());
     }
 
+    // I needed allergies, diagnoses, physician, and clinic to be separate attributes
     @ModelAttribute("severeAllergyList")
     public List<String> getSevereAllergyList() {
-        return sessionHelper.getSevereAllergyList();
+        return sessionHelper.getSevereAllergies();
     }
 
     @ModelAttribute("primaryDiagnosisList")
     public List<String> getPrimaryDiagnosisList() {
-        return sessionHelper.getPrimaryDiagnosisList();
+        return sessionHelper.getPrimaryDiagnoses();
     }
 
     @ModelAttribute("physicianName")
@@ -116,8 +117,8 @@ public class PatientController {
         mav.addObject("mpiNo", patientFromDB.getMPINumber());
         mav.addObject("organDonor", patientFromDB.getOrganDonor());
         mav.addObject("email", patientFromDB.getEmail());
-   
 
+        sessionHelper.setActivePatient(hPatientID);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         return mav;
@@ -145,6 +146,7 @@ public class PatientController {
 
         if (CollectionUtils.isNotEmpty(hPatientList)) {
             mav.addObject("hPatientList", hPatientList);
+            sessionHelper.setActivePatient(hPatientList.get(0).gethPatientID());
         }
         applicationAuditHelper.auditEvent(session, "Patient Locator", 4);
 
@@ -183,6 +185,7 @@ public class PatientController {
         mav.addObject("patientids", patientIds);
         mav.addObject("encounters", encounters);
 
+        sessionHelper.setActivePatient(patientFromDB.getObjectID());
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         return mav;

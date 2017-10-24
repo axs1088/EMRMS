@@ -45,12 +45,12 @@ public class LoginController {
 
     @ModelAttribute("severeAllergyList")
     public List<String> getSevereAllergyList() {
-        return sessionHelper.getSevereAllergyList();
+        return sessionHelper.getSevereAllergies();
     }
 
     @ModelAttribute("primaryDiagnosisList")
     public List<String> getPrimaryDiagnosisList() {
-        return sessionHelper.getPrimaryDiagnosisList();
+        return sessionHelper.getPrimaryDiagnoses();
     }
 
     @ModelAttribute("physicianName")

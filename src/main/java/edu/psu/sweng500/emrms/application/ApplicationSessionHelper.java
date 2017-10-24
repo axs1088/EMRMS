@@ -1,6 +1,9 @@
 package edu.psu.sweng500.emrms.application;
 
 import edu.psu.sweng500.emrms.controllers.annotation.ApplicationFormController;
+import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
+import edu.psu.sweng500.emrms.model.HEncounter;
+import edu.psu.sweng500.emrms.model.HName;
 import edu.psu.sweng500.emrms.model.SiteHeader;
 import edu.psu.sweng500.emrms.util.Constants;
 import org.slf4j.Logger;
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Methods for synching the session with an application.
@@ -46,7 +50,10 @@ public class ApplicationSessionHelper {
     @Autowired
     private MessageSource messageSource;
 
-    private SiteHeader siteHeader;
+    @Autowired
+    private PatientDemographicsMapper patientDemographicsMapper;
+
+    private Integer patientId;
 
     /**
      * Gets the session attributes for all application controllers.
@@ -151,50 +158,139 @@ public class ApplicationSessionHelper {
         session.removeAttribute(Constants.APP_USER_LOGIN_ID);
         session.removeAttribute(Constants.APP_USER_TYPE);
         session.removeAttribute(Constants.AUTHORIZED_FOR_EMRMS);
+
+        patientId = null;
+    }
+
+    public void setActivePatient(Integer patientId) {
+        this.patientId = patientId;
     }
 
     public SiteHeader getSiteHeader() {
         SiteHeader siteHeader = new SiteHeader();
 
-        siteHeader.setAttending("Dr. Example");
-        siteHeader.setBirthDate("07/12/34");
-        siteHeader.setEncounterNumber("12345");
-        siteHeader.setEncounterStatus("Active");
-        siteHeader.setEncounterStartDate("2 hours ago");
-        siteHeader.setMrNumber("54321");
-        siteHeader.setNameLastCommaFirst("Rogers, Steve A");
-        siteHeader.setEncounterType("Routine Checkup");
-        siteHeader.setPhysicianName("John Smith, MD");
-        siteHeader.setClinicName("Exton Clinic");
+        if (patientId == null) {
+            return siteHeader;
+        }
+
+        List<String> severeAllergies = getSevereAllergies();
+        if (severeAllergies.isEmpty()) {
+            siteHeader.setIgnoredSelectedAllergy("");
+        } else {
+            siteHeader.setIgnoredSelectedAllergy(severeAllergies.get(0));
+        }
+
+        List<String> primaryDiagnoses = getPrimaryDiagnoses();
+        if (primaryDiagnoses.isEmpty()) {
+            siteHeader.setIgnoredSelectedDiagnosis("");
+        } else {
+            siteHeader.setIgnoredSelectedDiagnosis(primaryDiagnoses.get(0));
+        }
+
+        try {
+            HEncounter encounter = patientDemographicsMapper.getPatientEncounters(patientId).get(0);
+            siteHeader.setEncounterType(encounter.getEncounterType());
+            siteHeader.setEncounterStartDate(encounter.getEncStartDateTime());
+            siteHeader.setEncounterStatus(String.valueOf(encounter.getEncStatus()));
+            siteHeader.setEncounterNumber(encounter.getEncounterID());
+            siteHeader.setAttending("Doctor #" + encounter.getAttendingPhysician_ObjectID());
+        } catch (NullPointerException | IndexOutOfBoundsException ex) {
+            siteHeader.setEncounterType("");
+            siteHeader.setEncounterStartDate("");
+            siteHeader.setEncounterStatus("");
+            siteHeader.setEncounterNumber("");
+            siteHeader.setAttending("");
+        }
+
+        int personId = patientDemographicsMapper.getPatientDetails(patientId).getPersonId();
+        HName personName = patientDemographicsMapper.getPersonName(personId);
+        siteHeader.setNameLastCommaFirst(HName.getLastCommaFirstMiddleInitial(personName));
+
+        try {
+            long mrNumber = patientDemographicsMapper.getPatientIdentifiers(patientId).get(0).getPatientId();
+            siteHeader.setMrNumber(String.valueOf(mrNumber));
+        } catch (NullPointerException | IndexOutOfBoundsException ex) {
+            siteHeader.setMrNumber("NULL");
+        }
+
+        try {
+            siteHeader.setBirthDate(patientDemographicsMapper
+                    .getPersonDetails(patientId)
+                    .getBirthDate()
+                    .toString());
+        } catch (NullPointerException ex) {
+            siteHeader.setBirthDate("NULL");
+        }
 
         return siteHeader;
     }
 
-    public List<String> getSevereAllergyList() {
-        ArrayList<String> returnList = new ArrayList<>();
+    private List<String> stringListWithOnlyNoneElement() {
+        ArrayList<String> returnValue = new ArrayList<>();
+        returnValue.add("none");
+        return returnValue;
+    }
 
-        returnList.add("Latex");
-        returnList.add("Tree Nuts");
-        returnList.add("Peanuts");
+    public List<String> getSevereAllergies() {
+        if (patientId == null) {
+            return new ArrayList<>();
+        }
+
+        List<String> returnList = patientDemographicsMapper.getPatientAllergies(patientId)
+                .stream()
+                .filter(hAllergy -> hAllergy.getSeverity().equalsIgnoreCase("severe"))
+                .map(allergyName -> allergyName.getAllergyName())
+                .collect(Collectors.toList());
+
+        if (returnList.isEmpty()) {
+            return stringListWithOnlyNoneElement();
+        }
 
         return returnList;
     }
 
-    public List<String> getPrimaryDiagnosisList() {
-        ArrayList<String> returnList = new ArrayList<>();
-        
-        returnList.add("Hypertension");
-        returnList.add("Anxiety");
-        returnList.add("Allergic rhinitis");
+    public List<String> getPrimaryDiagnoses() {
+        if (patientId == null) {
+            return new ArrayList<>();
+        }
+
+        List<String> returnList = patientDemographicsMapper.getPatientDiagnoses(patientId)
+                .stream()
+                .filter(hDiagnosis -> hDiagnosis.getPriority() == 1)
+                .map(diagnosisName -> diagnosisName.getDescription())
+                .collect(Collectors.toList());
+
+        if (returnList.isEmpty()) {
+            return stringListWithOnlyNoneElement();
+        }
 
         return returnList;
+
     }
 
     public String getPhysicianName() {
-        return "John Smith, MD";
+        if (patientId == null) {
+            return "(no patient)";
+        }
+
+        try {
+            int hStaffId = patientDemographicsMapper.getPatientEncounters(patientId).get(0).getAttendingPhysician_ObjectID();
+            return "Doctor #" + hStaffId;
+        } catch (NullPointerException | IndexOutOfBoundsException ex) {
+            return "NULL";
+        }
     }
 
     public String getClinicName() {
-        return "Exton Clinic";
+        if (patientId == null) {
+            return "";
+        }
+
+        try {
+            int hClinicId = patientDemographicsMapper.getPatientEncounters(patientId).get(0).getEncounterLocation_ObjectID();
+            return "Clinic Location #" + hClinicId;
+        } catch (NullPointerException | IndexOutOfBoundsException ex) {
+            return "NULL";
+        }
     }
 }

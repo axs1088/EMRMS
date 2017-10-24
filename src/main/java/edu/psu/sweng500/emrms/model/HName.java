@@ -91,4 +91,33 @@ public class HName {
     public void setHPersonId(int hPersonId) {
         this.hPersonId = hPersonId;
     }
+
+    public static String getFirstMiddleInitialLastTitle(HName name) {
+        String returnValue = name.getFirstName();
+
+        String middle = name.getMiddleName();
+        if (middle != null && !middle.isEmpty()) {
+            returnValue += " " + middle.charAt(0);
+        }
+
+        returnValue += " " + name.getLastName();
+
+        String title = name.getTitle();
+        if (title != null && !title.isEmpty()) {
+            returnValue += " " + title;
+        }
+
+        return returnValue;
+    }
+
+    public static String getLastCommaFirstMiddleInitial(HName name) {
+        String returnValue = name.getLastName() + ", " + name.getFirstName();
+
+        String middleName = name.getMiddleName();
+        if (middleName != null && !middleName.isEmpty()) {
+            returnValue += " " + middleName.charAt(0);
+        }
+
+        return returnValue;
+    }
 }

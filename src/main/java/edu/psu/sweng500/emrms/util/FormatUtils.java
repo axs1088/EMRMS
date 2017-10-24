@@ -64,5 +64,4 @@ public class FormatUtils {
 
         return '{' + StringUtils.join(items, ", ") + '}';
     }
-
 }
