@@ -100,9 +100,10 @@
     <c:forEach items="${hPatientList}" var="patient" varStatus="status">
         <tr>
             <td width="130">
-                <text><a
-                        href="/emrms/patientDetails?hPatientID=${patient.hPatientID}">${patient.lastName}, ${patient.firstName}</a>
-                </text>
+                <form name="submitForm" method="POST" action="/emrms/patientDetails">
+				    <input type="hidden" name="hPatientID" value="${patient.hPatientID}"/>
+				    <a href="javascript:document.submitForm.submit()">${patient.lastName}, ${patient.firstName}</a>
+				</form>
             </td>
             <td width="150">
                 <text>${patient.birthdate}</text>

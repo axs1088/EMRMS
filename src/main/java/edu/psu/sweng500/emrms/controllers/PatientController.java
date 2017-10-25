@@ -91,8 +91,8 @@ public class PatientController {
         return mav;
     }
 
-    @RequestMapping(value = "/patientDetails", method = RequestMethod.GET)
-    public ModelAndView patientDetilas(HttpServletRequest request, @RequestParam("hPatientID") int hPatientID) {
+    @RequestMapping(value = "/patientDetails", method = RequestMethod.POST)
+    public ModelAndView patientDetails(HttpServletRequest request, @RequestParam("hPatientID") Integer hPatientID) {
         applicationAuditHelper.auditEvent(request.getSession(false), "Patient Details", 1);
 
         int personId = patientDemographicsService.getPersonId(hPatientID);
