@@ -60,7 +60,7 @@ public class PatientServiceTest {
     	patient.setUserId("vkumar123");
     	patient.setCreationDateTime(getCurrentDateTime());
     	patient.setGender(1);
-    	patient.setBirthDate(new RatifiedDate());
+    	patient.setBirthDate("2017-10-16");
     	patient.setOrganDonor(true);
     	ComplexName name = new ComplexName();
     	name.setFirst("Terry");

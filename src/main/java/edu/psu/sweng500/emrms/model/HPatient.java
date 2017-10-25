@@ -20,7 +20,7 @@ public class HPatient {
     private Boolean medHistoryConsent;
 
     @NotEmpty(message = "Must specify birth date")
-    private RatifiedDate birthDate;
+    private String birthDate;
     private long gender;
     private int personId;
 
@@ -121,11 +121,11 @@ public class HPatient {
         this.isPatientUnidentified = isPatientUnidentified;
     }
 
-    public RatifiedDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(RatifiedDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

@@ -35,8 +35,7 @@
 
 <body>
 <div class="content">
-    <form:form id="patientLocatorForm" method="post" action="patientLocatorProcess" modelAttribute="census"
-               onsubmit="return validateInput()">
+    <form:form id="patientLocatorForm" method="post" action="patientLocatorProcess" modelAttribute="census">
     <table border="1" cellpadding="5" align="center">
         <th colspan="2"><h3> Patient Information</h3></th>
         <tr>
@@ -67,7 +66,9 @@
 <tr>
     <td colspan="2" align="center">
         <div>
-            <form:button id="findPatient" name="findPatient">Find Patient</form:button>
+            <form:button id="findPatient" name="findPatient" onclick="return validateInput()">Find Patient</form:button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <form:button id="addPatient" name="addPatient">Add Patient</form:button>
         </div>
     </td>
 </tr>

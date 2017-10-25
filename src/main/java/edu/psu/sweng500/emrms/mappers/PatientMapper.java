@@ -40,7 +40,7 @@ public interface PatientMapper {
     public void insertEncounterDetails(HEncounter hEncounter);
     
     @Insert("INSERT INTO h_person(UserId, Gender, BirthDate) " +
-    		"VALUES (#{userId}, #{gender},#{birthDate, typeHandler=edu.psu.sweng500.emrms.database.RatifiedDateTypeHandler, jdbcType=DATE})")
+    		"VALUES (#{userId}, #{gender},#{birthDate})")
     @Options(useGeneratedKeys=true, keyProperty="personId", keyColumn="HPersonID")
     public void insertPerson(HPatient patient);
 
