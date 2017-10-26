@@ -85,6 +85,11 @@
         </style>
         <form:label id="allergiesLabel" path="ignoredSelectedAllergy">Allergies: </form:label>
         <form:select id="allergiesInput" path="ignoredSelectedAllergy" items="${severeAllergyList}"/>
+
+        <a href="/emrms/charting">
+            <img src="https://www.webpt.com/sites/default/files/images/icon-documentation.png" alt="Charting"
+                 style="width: 25px; height:auto; border:0; background-color: white;"/>
+        </a>
     </div>
 
     <div>

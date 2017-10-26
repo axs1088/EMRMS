@@ -23,11 +23,6 @@
     </script>
     <style>
         <%@include file="/css/formCommon.css"%>
-
-        .linkColor {
-            color: white;
-        }
-
     </style>
 </head>
 
@@ -102,9 +97,9 @@
         <tr>
             <td width="130">
                 <form name="submitForm${patient.hPatientID}" method="POST" action="/emrms/patientDetails">
-				    <input type="hidden" name="hPatientID" value="${patient.hPatientID}"/>
-				    <a href="javascript:document.submitForm${patient.hPatientID}.submit()">${patient.lastName}, ${patient.firstName}</a>
-				</form>
+                    <input type="hidden" name="hPatientID" value="${patient.hPatientID}"/>
+                    <a href="javascript:document.submitForm${patient.hPatientID}.submit()">${patient.lastName}, ${patient.firstName}</a>
+                </form>
             </td>
             <td width="150">
                 <text>${patient.birthdate}</text>

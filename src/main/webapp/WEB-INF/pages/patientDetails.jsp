@@ -147,11 +147,6 @@
             opacity: 1
         }
     }
-
-    .linkColor {
-        color: white;
-    }
-
 </style>
 
 <%@include file="siteHeader.jsp" %>

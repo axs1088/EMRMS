@@ -23,11 +23,6 @@
             border-bottom: 2pt solid white;
             border-top: 2pt solid white;
         }
-
-        .linkColor {
-            color: white;
-        }
-
     </style>
 </head>
 
