@@ -20,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -93,35 +96,16 @@ public class PatientController {
 
     @RequestMapping(value = "/patientDetails", method = { RequestMethod.GET, RequestMethod.POST })
     public ModelAndView patientDetails(HttpServletRequest request, @RequestParam(value="hPatientID", required=false) Integer hPatientID) {
-        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Details", 1);
-        
+        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Details", 1);       
         ModelAndView mav = new ModelAndView("patientDetails");
+        HPatient patient = null;
 
         if(hPatientID != null) {
-            int personId = patientDemographicsService.getPersonId(hPatientID);
-	        HPatient patientFromDB = patientDemographicsService.getPatientDemographics(hPatientID);
-	        HName nameFromDB = patientDemographicsService.getPersonName(personId);
-	        Address addressFromDB = patientDemographicsService.getPersonAddress(personId);
-	
-	        mav.addObject("firstName", nameFromDB.getFirstName());
-	        mav.addObject("lastName", nameFromDB.getLastName());
-	        mav.addObject("middleName", nameFromDB.getMiddleName());
-	        mav.addObject("gender", patientFromDB.getGender());
-	        mav.addObject("dateOfBirth", patientFromDB.getBirthDate());
-	        mav.addObject("streetAddressLine1", addressFromDB.getLine1());
-	        mav.addObject("streetAddressLine2", addressFromDB.getLine2());
-	        mav.addObject("city", addressFromDB.getCity());
-	        mav.addObject("state", addressFromDB.getState());
-	        mav.addObject("zip", addressFromDB.getZip());
-	        mav.addObject("cellPhone", patientFromDB.getCellPhone());
-	        mav.addObject("homePhone", patientFromDB.getHomePhone());
-	        mav.addObject("mpiNo", patientFromDB.getMPINumber());
-	        mav.addObject("organDonor", patientFromDB.getOrganDonor());
-	        mav.addObject("email", patientFromDB.getEmail());
-	
+        	patient = getPatientDetails(hPatientID);
 	        sessionHelper.setActivePatient(hPatientID);      
         }
         
+        mav.addObject("patient", patient);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         return mav;
@@ -210,4 +194,45 @@ public class PatientController {
     public void setApplicationAuditHelper(ApplicationAuditHelper applicationAuditHelper) {
         this.applicationAuditHelper = applicationAuditHelper;
     }
+    
+    private HPatient getPatientDetails(Integer hPatientID) {
+        int personId = patientDemographicsService.getPersonId(hPatientID);
+        HPatient patient = patientDemographicsService.getPatientDemographics(hPatientID);
+        HPerson person = patientDemographicsService.getPersonDetails(personId);
+        HName patientName = patientDemographicsService.getPersonName(personId);
+        Address patientAddress = patientDemographicsService.getPersonAddress(personId);
+        Phone homePhone = patientDemographicsService.getHomePhone(personId);
+        Phone cellPhone = patientDemographicsService.getCellPhone(personId);
+        String email = patientDemographicsService.getEmail(personId);	
+        
+        if(patient != null) {
+	    	ComplexName name = new ComplexName();
+	        name.setFirst(patientName.getFirstName());
+	        name.setLast(patientName.getLastName());
+	        name.setMiddle(patientName.getMiddleName());
+	        patient.setName(name);
+	        Address address =  new Address();
+	        address.setLine1(patientAddress.getLine1());
+	        address.setLine2(patientAddress.getLine2());
+	        address.setCity(patientAddress.getCity());
+	        address.setState(patientAddress.getState());
+	        address.setZip(patientAddress.getZip());
+	        patient.setAddress(address);
+	        patient.setHomePhone(homePhone);
+	        patient.setCellPhone(cellPhone);
+	        patient.setEmail(email);
+	        try {
+				SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+				patient.setBirthDate(format.format(inputFormat.parse(person.getBirthDate())));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+        } else {
+        	patient = new HPatient();
+        }     
+        
+        return patient;
+    }
+    
 }

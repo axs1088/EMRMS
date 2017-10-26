@@ -23,6 +23,15 @@ public interface PatientDemographicsMapper {
             + "Country as country, AddressType as addressType FROM h_address"
             + " where HPersonID = #{personId}")
     public Address getPersonAddress(int personId);
+    
+    @Select("SELECT HomePhoneNo as number FROM h_address where HPersonID = #{personId}")
+    public Phone getHomePhone(int personId);
+    
+    @Select("SELECT CellPhoneNo as number FROM h_address where HPersonID = #{personId}")
+    public Phone getCellPhone(int personId);
+    
+    @Select("SELECT EmailAddress FROM h_address where HPersonID = #{personId}")
+    public String getEmail(int personId);
 
     @Select("SELECT HPatientId as hPatientId,  "
             + "IDValue as idValue, IdType as idType, IdIssuerName as idIssuerName, IdIssuerID as idIssuerId, "

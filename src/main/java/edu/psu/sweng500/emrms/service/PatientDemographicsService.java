@@ -15,6 +15,12 @@ public interface PatientDemographicsService {
     public HName getPersonName(int personId);
 
     public Address getPersonAddress(int personId);
+    
+    public Phone getHomePhone(int personId);
+    
+    public Phone getCellPhone(int personId);
+    
+    public String getEmail(int personId);
 
     public List<HPatientId> getPatientIdentifiers(int patientObjectId);
 

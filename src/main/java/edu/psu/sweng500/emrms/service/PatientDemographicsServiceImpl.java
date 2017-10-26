@@ -49,6 +49,24 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
         Address personAddress = patientDemographicsMapper.getPersonAddress(personId);
         return personAddress;
     }
+    
+    @Override
+    public Phone getHomePhone(int personId) {
+        Phone homePhone = patientDemographicsMapper.getHomePhone(personId);
+        return homePhone;
+    }
+    
+    @Override
+    public Phone getCellPhone(int personId) {
+        Phone cellPhone = patientDemographicsMapper.getCellPhone(personId);
+        return cellPhone;
+    }
+    
+    @Override
+    public String getEmail(int personId) {
+        String email = patientDemographicsMapper.getEmail(personId);
+        return email;
+    }
 
     @Override
     public List<HPatientId> getPatientIdentifiers(int patientObjectId) {

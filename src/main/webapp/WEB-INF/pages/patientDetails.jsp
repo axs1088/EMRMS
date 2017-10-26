@@ -8,129 +8,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Register Patient</title>
-    <style>
-        <%@include file="/css/formCommon.css"%>
 
-        #addressInput {
-            width: 300px;
-        }
-
-        #zipInput {
-            width: 75px;
-        }
-
-        .error {
-            color: red;
-            font-weight: bold;
-        }
-
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0, 0, 0); /* Fallback color */
-            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-            -webkit-animation-name: fadeIn; /* Fade in the background */
-            -webkit-animation-duration: 0.4s;
-            animation-name: fadeIn;
-            animation-duration: 0.4s
-        }
-
-        /* Modal Content */
-        .modal-content {
-            position: fixed;
-            bottom: 0;
-            background-color: #fefefe;
-            width: 800px;
-            -webkit-animation-name: slideIn;
-            -webkit-animation-duration: 0.4s;
-            animation-name: slideIn;
-            animation-duration: 0.4s
-        }
-
-        /* The Close Button */
-        .close {
-            color: white;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-header {
-            padding: 2px 16px;
-            background-color: #808080;
-            color: white;
-        }
-
-        .modal-body {
-            padding: 2px 16px;
-        }
-
-        /* Add Animation */
-        @-webkit-keyframes slideIn {
-            from {
-                bottom: -300px;
-                opacity: 0
-            }
-            to {
-                bottom: 0;
-                opacity: 1
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                bottom: -300px;
-                opacity: 0
-            }
-            to {
-                bottom: 0;
-                opacity: 1
-            }
-        }
-
-        @-webkit-keyframes fadeIn {
-            from {
-                opacity: 0
-            }
-            to {
-                opacity: 1
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0
-            }
-            to {
-                opacity: 1
-            }
-        }
-
-        .topcorner {
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-
-        .linkColor {
-            color: white;
-        }
-
-    </style>
     <script type="text/javascript">
         function validateInput() {
             var lastName = document.getElementById("lastNameTxt").value;
@@ -157,172 +35,309 @@
         }
     </script>
 </head>
+
+<style>
+    <%@include file="/css/formCommon.css"%>
+
+    #addressInput {
+        width: 300px;
+    }
+
+    #zipInput {
+        width: 75px;
+    }
+
+    .error {
+        color: red;
+        font-weight: bold;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        -webkit-animation-name: fadeIn; /* Fade in the background */
+        -webkit-animation-duration: 0.4s;
+        animation-name: fadeIn;
+        animation-duration: 0.4s
+    }
+
+    /* Modal Content */
+    .modal-content {
+        position: fixed;
+        bottom: 0;
+        background-color: #fefefe;
+        width: 800px;
+        -webkit-animation-name: slideIn;
+        -webkit-animation-duration: 0.4s;
+        animation-name: slideIn;
+        animation-duration: 0.4s
+    }
+
+    /* The Close Button */
+    .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #808080;
+        color: white;
+    }
+
+    .modal-body {
+        padding: 2px 16px;
+    }
+
+    /* Add Animation */
+    @-webkit-keyframes slideIn {
+        from {
+            bottom: -300px;
+            opacity: 0
+        }
+        to {
+            bottom: 0;
+            opacity: 1
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            bottom: -300px;
+            opacity: 0
+        }
+        to {
+            bottom: 0;
+            opacity: 1
+        }
+    }
+
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0
+        }
+        to {
+            opacity: 1
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0
+        }
+        to {
+            opacity: 1
+        }
+    }
+
+    .linkColor {
+        color: white;
+    }
+
+</style>
+
 <%@include file="siteHeader.jsp" %>
+
 <body>
 <div class="content">
-    <h3>Patient Registration</h3>
-    <h4> Patient Information</h4>
+    <h3>Patient Demographics</h3>
+    <form:form id="addPatientForm" method="post" action="addPatient" modelAttribute="patient"
+               onsubmit="return validateInput()">
 
-    <div>
-        <label>First Name: </label>
-        <mandatory>*</mandatory>
-        <input type="text" value="${firstName}">
+        <h4> Patient Information</h4>
 
-        <label>Last Name: </label>
-        <mandatory>*</mandatory>
-        <input type="text" value="${lastName}">
-        </br>
-    </div>
+        <div>
+            <form:label path="name.first">First Name:
+                <mandatory>*</mandatory>
+            </form:label>
+            <form:input path="name.first" id="firstNameTxt"/>
+            <form:label path="name.last">Last Name:
+                <mandatory>*</mandatory>
+            </form:label>
+            <form:input path="name.last" id="lastNameTxt"/>
+        </div>
 
-    <div>
-        <label>Middle Name:</label>
-        &nbsp;&nbsp;&nbsp;<input type="text" value="${middleName}">&nbsp;&nbsp;&nbsp;
-        <label> Gender:
-            <mandatory>*</mandatory>
-        </label>
-        <select id="genderTxt" value="${gender}">
-            <option value="1" label="Male"/>
-            <option value="2" label="Female"/>
-            <option value="3" label="Other"/>
-        </select>
-    </div>
+        <div>
+            <form:label path="name.middle">Middle Name: </form:label>
+            <form:input path="name.middle"/>
+            <form:label path="gender">Gender:
+                <mandatory>*</mandatory>
+            </form:label>
+            <form:select path="gender" id="genderTxt">
+                <form:option value="1" label="Male"/>
+                <form:option value="2" label="Female"/>
+                <form:option value="3" label="Other"/>
+            </form:select>
+        </div>
 
-    <div>
-        <label>Birth Date: </label>
-        <mandatory>*</mandatory>
-        <input type="date" value="${dateOfBirth}">
-        </br>
-    </div>
+        <div>
+            <form:label path="birthDate">Birth Date:
+                <mandatory>*</mandatory>
+            </form:label>
+            <form:input type="date" path="birthDate" id="birthDateTxt"/>
+        </div>
 
-    <h4> Address</h4>
+        <h4> Address</h4>
 
-    <div>
-        <label>Street Address:</label>
-        <input id="addressInput" type="text" value="${streetAddressLine1}"/>
+        <div>
+            <form:label path="address.line1">Street Address: </form:label>
+            <form:input id="addressInput" path="address.line1"/>
+        </div>
+
+        <div>
+            <form:label path="address.city">City/State/Zip: </form:label>
+            <form:input path="address.city"/>
+            <form:select path="address.state">
+                <form:option value="Alabama"/>
+                <form:option value="Alaska"/>
+                <form:option value="Arizona"/>
+                <form:option value="Arkansas"/>
+                <form:option value="California"/>
+                <form:option value="Colorado"/>
+                <form:option value="Connecticut"/>
+                <form:option value="Delaware"/>
+                <form:option value="Florida"/>
+                <form:option value="Georgia"/>
+                <form:option value="Hawaii"/>
+                <form:option value="Idaho"/>
+                <form:option value="Illinois"/>
+                <form:option value="Indiana"/>
+                <form:option value="Iowa"/>
+                <form:option value="Kansas"/>
+                <form:option value="Kentucky"/>
+                <form:option value="Louisiana"/>
+                <form:option value="Maine"/>
+                <form:option value="Maryland"/>
+                <form:option value="Massachusetts"/>
+                <form:option value="Michigan"/>
+                <form:option value="Minnesota"/>
+                <form:option value="Mississippi"/>
+                <form:option value="Missouri"/>
+                <form:option value="Montana"/>
+                <form:option value="Nebraska"/>
+                <form:option value="Nevada"/>
+                <form:option value="New Hampshire"/>
+                <form:option value="New Jersey"/>
+                <form:option value="New Mexico"/>
+                <form:option value="New York"/>
+                <form:option value="North Carolina"/>
+                <form:option value="North Dakota"/>
+                <form:option value="Ohio"/>
+                <form:option value="Oklahoma"/>
+                <form:option value="Oregon"/>
+                <form:option value="Pennsylvania"/>
+                <form:option value="Rhode Island"/>
+                <form:option value="South Carolina"/>
+                <form:option value="South Dakota"/>
+                <form:option value="Tennessee"/>
+                <form:option value="Texas"/>
+                <form:option value="Utah"/>
+                <form:option value="Vermont"/>
+                <form:option value="Virginia"/>
+                <form:option value="Washington"/>
+                <form:option value="West Virginia"/>
+                <form:option value="Wisconsin"/>
+                <form:option value="Wyoming"/>
+            </form:select>
+            <form:input id="zipInput" path="address.zip"/>
+        </div>
+
+        <div>
+            <form:label path="address.line1">Mailing Address: </form:label>
+            <form:checkbox path="address.mailingAddrSameAsHomeAddr" value="1" label="Same as home"/>
+        </div>
+
+        <div>
+            <form:label path="cellPhone.number">Cell Phone: </form:label>
+            <form:input path="cellPhone.number" id="cellphoneTxt"/>
+            <form:label path="homePhone.number">Home Phone: </form:label>
+            <form:input path="homePhone.number"/>
+        </div>
+
+        <div>
+            <form:label path="email">Email: </form:label>
+            <form:input path="email" id="emailTxt"/>
+        </div>
+
+        <h4> Miscellaneous</h4>
+        <div>
+            <form:label path="mPINumber">MPI Number: </form:label>
+            <form:input path="mPINumber"/>
+        </div>
+        <div>
+            <form:label path="organDonor">Organ Donor: </form:label>
+            <form:select path="organDonor">
+                <form:option value="true" label="Yes"/>
+                <form:option value="false" label="No"/>
+            </form:select>
+        </div>
+        <br>
         <br/>
-    </div>
+        <div>
+            <form:button type="submit" value="Submit">Update Patient</form:button>
+        </div>
 
-    <div>
-        <label>City/State/Zip:</label>
-        <input type="text" value="${city}"/>
-        <select id="stateDropDown" value="${state}">
-            <option value="Alabama"/>
-            <option value="Alaska"/>
-            <option value="Arizona"/>
-            <option value="Arkansas"/>
-            <option value="California"/>
-            <option value="Colorado"/>
-            <option value="Connecticut"/>
-            <option value="Delaware"/>
-            <option value="Florida"/>
-            <option value="Georgia"/>
-            <option value="Hawaii"/>
-            <option value="Idaho"/>
-            <option value="Illinois"/>
-            <option value="Indiana"/>
-            <option value="Iowa"/>
-            <option value="Kansas"/>
-            <option value="Kentucky"/>
-            <option value="Louisiana"/>
-            <option value="Maine"/>
-            <option value="Maryland"/>
-            <option value="Massachusetts"/>
-            <option value="Michigan"/>
-            <option value="Minnesota"/>
-            <option value="Mississippi"/>
-            <option value="Missouri"/>
-            <option value="Montana"/>
-            <option value="Nebraska"/>
-            <option value="Nevada"/>
-            <option value="New Hampshire"/>
-            <option value="New Jersey"/>
-            <option value="New Mexico"/>
-            <option value="New York"/>
-            <option value="North Carolina"/>
-            <option value="North Dakota"/>
-            <option value="Ohio"/>
-            <option value="Oklahoma"/>
-            <option value="Oregon"/>
-            <option value="Pennsylvania"/>
-            <option value="Rhode Island"/>
-            <option value="South Carolina"/>
-            <option value="South Dakota"/>
-            <option value="Tennessee"/>
-            <option value="Texas"/>
-            <option value="Utah"/>
-            <option value="Vermont"/>
-            <option value="Virginia"/>
-            <option value="Washington"/>
-            <option value="West Virginia"/>
-            <option value="Wisconsin"/>
-            <option value="Wyoming"/>
-        </select>
-        <input id="zipInput" type="text" value="${zip}">
-        <br/>
-    </div>
+        <c:if test="${not empty validationErrors}">
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header" align="left">
+                        <span class="close">&times;</span>
+                        <p style="font-size:18px;">Please fix following errors before proceeding with patient
+                            registration</p>
+                    </div>
+                    <div class="modal-body" align="left">
+                        <c:forEach var="validationError" items="${validationErrors}" varStatus="loop">
+                            <p style="color:red;">${validationError}</p>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </c:if>
 
-    <div>
-        <label>Mailing Address:</label>
-        <input type="checkbox" value="1"/>
-        <label>Same as home</label>
-    </div>
+    </form:form>
 
-    <div>
-        <label>Cell Phone:</label>
-        <input id="cellphoneTxt" vaue="${cellPhone}"/>
-        <label>Home Phone: </label>
-        <input type="text" value="${homePhone}"/>
-        </br>
-    </div>
-
-    <div>
-        <label>Email:</label>
-        <input id="emailTxt" vaue="${email}"/>
-        </br>
-    </div>
-
-    <h4> Miscellaneous</h4>
-    <div>
-        <label>MPI Number: </label>
-        <input id="mpiTxt" vaue="${mpiNo}"/>
-        </br>
-    </div>
-    <div>
-        <label>Organ Donor: </label>
-        <select value="${organDonor}">
-            <option value="true" label="Yes"/>
-            <option value="false" label="No"/>
-        </select>
-    </div>
-    <br>
-    <br/>
-    <div>
-        <a href="/emrms/patientLocator" class="linkColor">Back</a>&nbsp;&nbsp>
-    </div>
-</div>
-<script type="text/javascript">
-    //Execute below if there is success
-    var saveSuccess = "${saveSuccess}";
-    if (saveSuccess) {
-        window.alert("Save Successful");
-    }
-
-    //Execute below if there is error on the page
-    var errorOnPage = "${errorOnPage}";
-    if (errorOnPage) {
-        var modal = document.getElementById('myModal');
-        var span = document.getElementsByClassName("close")[0];
-        modal.style.display = "block";
-        span.onclick = function () {
-            modal.style.display = "none";
+    <script type="text/javascript">
+        //Execute below if there is success
+        var saveSuccess = "${saveSuccess}";
+        if (saveSuccess) {
+            window.alert("Save Successful");
         }
-        window.onclick = function (event) {
-            if (event.target == modal) {
+
+        //Execute below if there is error on the page
+        var errorOnPage = "${errorOnPage}";
+        if (errorOnPage) {
+            var modal = document.getElementById('myModal');
+            var span = document.getElementsByClassName("close")[0];
+            modal.style.display = "block";
+            span.onclick = function () {
                 modal.style.display = "none";
             }
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
         }
-    }
-</script>
+    </script>
+</div>
 
 <%@include file="siteFooter.jsp" %>
 

@@ -11,7 +11,7 @@ public class HPerson {
     private String userId;
     private Date creationDateTime;
     private int gender;
-    private Date birthDate;
+    private String birthDate;
     private String race;
 
     public int getPersonId() {
@@ -46,11 +46,11 @@ public class HPerson {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

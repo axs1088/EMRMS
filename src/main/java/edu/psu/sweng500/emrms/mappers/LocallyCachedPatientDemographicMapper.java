@@ -46,4 +46,19 @@ public class LocallyCachedPatientDemographicMapper implements PatientDemographic
     public List<HDiagnosis> getPatientDiagnoses(int patientId) {
         return new ArrayList<>();
     }
+
+	@Override
+	public Phone getHomePhone(int personId) {
+		return new Phone();
+	}
+
+	@Override
+	public Phone getCellPhone(int personId) {
+		return new Phone();
+	}
+
+	@Override
+	public String getEmail(int personId) {
+		return "";
+	}
 }
