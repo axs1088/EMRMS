@@ -2,7 +2,9 @@ package edu.psu.sweng500.emrms.controllers;
 
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
+import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
 import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
+import edu.psu.sweng500.emrms.model.HAllergy;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,6 +37,9 @@ public class ChartingController {
 
     @Autowired
     private ApplicationSessionHelper sessionHelper;
+
+    private ModelAndView mav;
+    private Integer patientId;
 
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
@@ -68,10 +74,25 @@ public class ChartingController {
     }
 
     @RequestMapping(value = "/charting", method = RequestMethod.GET)
-    public ModelAndView showPatientLocator(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = new ModelAndView("chartingTabShell");
-
+    public ModelAndView showCharting(HttpServletRequest request, HttpServletResponse response) {
+        mav = new ModelAndView("chartingTabShell");
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+
+        addAllergiesToMav();
+
         return mav;
+    }
+
+    private void addAllergiesToMav() {
+        List<HAllergy> allergyList;
+
+        try {
+            int patientId = sessionHelper.getPatientId();
+            allergyList = patientDemographicsService.getPatientAllergies(patientId);
+        } catch (PatientNotFoundException e) {
+            allergyList = new ArrayList<>();
+        }
+
+        mav.addObject("allergyList", allergyList);
     }
 }

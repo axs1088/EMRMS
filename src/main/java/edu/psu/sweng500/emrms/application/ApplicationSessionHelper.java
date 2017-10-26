@@ -1,6 +1,7 @@
 package edu.psu.sweng500.emrms.application;
 
 import edu.psu.sweng500.emrms.controllers.annotation.ApplicationFormController;
+import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
 import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.model.HName;
@@ -291,5 +292,13 @@ public class ApplicationSessionHelper {
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
             return "NULL";
         }
+    }
+
+    public int getPatientId() throws PatientNotFoundException {
+        if (patientId == null) {
+            throw new PatientNotFoundException();
+        }
+
+        return patientId;
     }
 }
