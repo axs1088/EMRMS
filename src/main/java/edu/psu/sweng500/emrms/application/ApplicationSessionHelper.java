@@ -207,8 +207,8 @@ public class ApplicationSessionHelper {
         siteHeader.setNameLastCommaFirst(HName.getLastCommaFirstMiddleInitial(personName));
 
         try {
-            long mrNumber = patientDemographicsMapper.getPatientIdentifiers(patientId).get(0).getPatientId();
-            siteHeader.setMrNumber(String.valueOf(mrNumber));
+            String mrNumber = patientDemographicsMapper.getPatientIdentifiers(patientId).get(0).getIdValue();
+            siteHeader.setMrNumber(mrNumber);
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
             siteHeader.setMrNumber("NULL");
         }
@@ -216,8 +216,7 @@ public class ApplicationSessionHelper {
         try {
             siteHeader.setBirthDate(patientDemographicsMapper
                     .getPersonDetails(patientId)
-                    .getBirthDate()
-                    .toString());
+                    .getBirthDate());
         } catch (NullPointerException ex) {
             siteHeader.setBirthDate("NULL");
         }

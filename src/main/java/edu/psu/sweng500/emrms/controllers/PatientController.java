@@ -20,9 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -82,7 +83,7 @@ public class PatientController {
         return sessionHelper.getClinicName();
     }
 
-    @RequestMapping(value = "/patientLocatorProcess", params="addPatient", method = RequestMethod.POST)
+    @RequestMapping(value = "/patientLocatorProcess", params = "addPatient", method = RequestMethod.POST)
     public ModelAndView registerPatient(HttpServletRequest request, HttpServletResponse response) {
         applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registration", 1);
         ModelAndView mav = new ModelAndView("patientRegistration");
@@ -94,17 +95,17 @@ public class PatientController {
         return mav;
     }
 
-    @RequestMapping(value = "/patientDetails", method = { RequestMethod.GET, RequestMethod.POST })
-    public ModelAndView patientDetails(HttpServletRequest request, @RequestParam(value="hPatientID", required=false) Integer hPatientID) {
-        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Details", 1);       
+    @RequestMapping(value = "/patientDetails", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView patientDetails(HttpServletRequest request, @RequestParam(value = "hPatientID", required = false) Integer hPatientID) {
+        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Details", 1);
         ModelAndView mav = new ModelAndView("patientDetails");
         HPatient patient = null;
 
-        if(hPatientID != null) {
-        	patient = getPatientDetails(hPatientID);
-	        sessionHelper.setActivePatient(hPatientID);      
+        if (hPatientID != null) {
+            patient = getPatientDetails(hPatientID);
+            sessionHelper.setActivePatient(hPatientID);
         }
-        
+
         mav.addObject("patient", patient);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
@@ -121,7 +122,7 @@ public class PatientController {
         return mav;
     }
 
-    @RequestMapping(value = "/patientLocatorProcess", params="findPatient", method = RequestMethod.POST)
+    @RequestMapping(value = "/patientLocatorProcess", params = "findPatient", method = RequestMethod.POST)
     public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response,
                                     @ModelAttribute("census") HCensus patient) {
         ModelAndView mav = null;
@@ -156,6 +157,27 @@ public class PatientController {
             return mav;
         }
 
+        HPatientId newMrNumberId = new HPatientId();
+        int thisPatientId = patient.getObjectID();
+        newMrNumberId.setPatientId(thisPatientId);
+        newMrNumberId.setIdIssuerId(sessionHelper.getApplicationUserId(request.getSession()));
+        newMrNumberId.setIdIssuerName(sessionHelper.getClinicName());
+        newMrNumberId.setUserId(sessionHelper.getApplicationUser(request.getSession()));
+        newMrNumberId.setCreationDateTime(Date.from(Instant.now()).toString());
+
+        String mrNumber = "MRN";
+        newMrNumberId.setIdType(mrNumber);
+        if (thisPatientId > 100) {
+            mrNumber += "0";
+        }
+
+        if (thisPatientId > 10) {
+            mrNumber += "0";
+        }
+        mrNumber += String.valueOf(thisPatientId);
+        newMrNumberId.setIdValue(mrNumber);
+        patient.setPatientIds(newMrNumberId);
+
         patientService.registerPatient(patient);
         mav.addObject("saveSuccess", true);
 
@@ -164,8 +186,8 @@ public class PatientController {
         HPerson personFromDB = patientDemographicsService.getPersonDetails(personId);
         HName nameFromDB = patientDemographicsService.getPersonName(personId);
         Address addressFromDB = patientDemographicsService.getPersonAddress(personId);
-        List<HPatientId> patientIds = patientDemographicsService.getPatientIdentifiers(patient.getObjectID());
         List<HEncounter> encounters = patientDemographicsService.getPatientEncounters(patient.getObjectID());
+        List<HPatientId> patientIds = patientDemographicsService.getPatientIdentifiers(patient.getObjectID());
 
         mav.addObject("person", patientFromDB);
         mav.addObject("patientname", nameFromDB);
@@ -194,7 +216,7 @@ public class PatientController {
     public void setApplicationAuditHelper(ApplicationAuditHelper applicationAuditHelper) {
         this.applicationAuditHelper = applicationAuditHelper;
     }
-    
+
     private HPatient getPatientDetails(Integer hPatientID) {
         int personId = patientDemographicsService.getPersonId(hPatientID);
         HPatient patient = patientDemographicsService.getPatientDemographics(hPatientID);
@@ -203,36 +225,36 @@ public class PatientController {
         Address patientAddress = patientDemographicsService.getPersonAddress(personId);
         Phone homePhone = patientDemographicsService.getHomePhone(personId);
         Phone cellPhone = patientDemographicsService.getCellPhone(personId);
-        String email = patientDemographicsService.getEmail(personId);	
-        
-        if(patient != null) {
-	    	ComplexName name = new ComplexName();
-	        name.setFirst(patientName.getFirstName());
-	        name.setLast(patientName.getLastName());
-	        name.setMiddle(patientName.getMiddleName());
-	        patient.setName(name);
-	        Address address =  new Address();
-	        address.setLine1(patientAddress.getLine1());
-	        address.setLine2(patientAddress.getLine2());
-	        address.setCity(patientAddress.getCity());
-	        address.setState(patientAddress.getState());
-	        address.setZip(patientAddress.getZip());
-	        patient.setAddress(address);
-	        patient.setHomePhone(homePhone);
-	        patient.setCellPhone(cellPhone);
-	        patient.setEmail(email);
-	        try {
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-				patient.setBirthDate(format.format(inputFormat.parse(person.getBirthDate())));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+        String email = patientDemographicsService.getEmail(personId);
+
+        if (patient != null) {
+            ComplexName name = new ComplexName();
+            name.setFirst(patientName.getFirstName());
+            name.setLast(patientName.getLastName());
+            name.setMiddle(patientName.getMiddleName());
+            patient.setName(name);
+            Address address = new Address();
+            address.setLine1(patientAddress.getLine1());
+            address.setLine2(patientAddress.getLine2());
+            address.setCity(patientAddress.getCity());
+            address.setState(patientAddress.getState());
+            address.setZip(patientAddress.getZip());
+            patient.setAddress(address);
+            patient.setHomePhone(homePhone);
+            patient.setCellPhone(cellPhone);
+            patient.setEmail(email);
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+                patient.setBirthDate(format.format(inputFormat.parse(person.getBirthDate())));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         } else {
-        	patient = new HPatient();
-        }     
-        
+            patient = new HPatient();
+        }
+
         return patient;
     }
-    
+
 }

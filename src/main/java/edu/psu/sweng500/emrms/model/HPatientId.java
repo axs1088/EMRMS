@@ -1,7 +1,5 @@
 package edu.psu.sweng500.emrms.model;
 
-import org.apache.commons.lang.RandomStringUtils;
-
 public class HPatientId {
     private long hPatientId;
     private String userId;
@@ -57,8 +55,7 @@ public class HPatientId {
     }
 
     public void setIdValue(String idValue) {
-        //String generatedString = RandomStringUtils.randomAlphabetic(10);
-        this.idValue = RandomStringUtils.randomAlphanumeric(20).toUpperCase();;
+        this.idValue = idValue;
     }
 
     public void setIdType(String idType) {
