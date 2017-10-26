@@ -222,7 +222,7 @@ public class PatientController {
 	        patient.setCellPhone(cellPhone);
 	        patient.setEmail(email);
 	        try {
-				SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 				patient.setBirthDate(format.format(inputFormat.parse(person.getBirthDate())));
 			} catch (ParseException e) {
