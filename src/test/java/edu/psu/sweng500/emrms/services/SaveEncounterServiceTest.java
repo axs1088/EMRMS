@@ -61,8 +61,8 @@ public class SaveEncounterServiceTest {
        int returnValue = service.SaveEncounter(hPatient, hEncounter);
         assertEquals(0,returnValue);
        //Revise
-        /*
-        hEncounter.setHEncounterID(25);
+
+        //hEncounter.setHEncounterID(25);
         hEncounter.setEncStartDateTime("2018-09-14 11:55:00");
         hEncounter.setEncEndDateTime("2018-09-15 11:55:00");
         hEncounter.setEncStatus(ENCOUNTER_STATUS_CLOSED);
@@ -74,7 +74,7 @@ public class SaveEncounterServiceTest {
         returnValue = service.SaveEncounter(hPatient, hEncounter);
 
        assertEquals(0,returnValue);
-       */
+
 
     }
 

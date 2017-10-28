@@ -87,9 +87,8 @@ public class PatientServiceTest {
         patient.setPatientIds(patientId);
 
         service.registerPatient(patient);
-        /*
-        patient.setObjectID(42);
-        patient.setPersonId(44);
+
+        //Revise Details
         patient.setGender(2);
         patient.setBirthDate("2018-10-16");
         patient.setRace("Hispanic");
@@ -117,8 +116,6 @@ public class PatientServiceTest {
         patient.setHomePhone(homePhone);
 
         service.registerPatient(patient);
-        */
-
     }
     
 	public String getCurrentDateTime() {

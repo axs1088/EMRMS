@@ -18,12 +18,12 @@ public interface SaveEncounterMapper {
             "#{encStartDateTime},#{encEndDateTime}, #{encStatus}, #{encLocationName}," +
             "#{encounterLocation_ObjectID}, #{encounterID}, #{encounterType},#{bedName}," +
             "#{patient_ObjectID})")
-    //@Options(useGeneratedKeys=true, keyProperty="id", flushCache=true, keyColumn="id")
+    @Options(keyProperty = "hEncounterID", keyColumn="HEncounterID" )
     public void insertEncounterDetails(HEncounter hEncounter);
 
     String UPDATE_HENCOUNTER = "update h_Encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
             "ENCStatus = #{encounter.encStatus} ,EncLocationName = #{encounter.encLocationName}, EncounterLocation_ObjectID = #{encounter.encounterLocation_ObjectID}, " +
             "EncounterID = #{encounter.encounterID}, EncType = #{encounter.encounterType} , BedName = #{encounter.bedName} where HEncounterID=#{encounter.hEncounterID}";
-    @Update(UPDATE_HENCOUNTER)@Options(keyProperty = "hEncounterID" )
+    @Update(UPDATE_HENCOUNTER)@Options(keyProperty = "hEncounterID", keyColumn="HEncounterID" )
     public void reviseEncounterDetails(@Param("encounter") HEncounter encounter);
 }
