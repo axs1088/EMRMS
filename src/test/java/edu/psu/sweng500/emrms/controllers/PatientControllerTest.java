@@ -120,7 +120,7 @@ public class PatientControllerTest {
     }
 
     @Test
-    public void testAddPatient() {
+    public void testAddPatient() throws Exception {
         assertNotNull(controller.addPatient(mockedRequest, null, patientReturned, null));
     }
 }

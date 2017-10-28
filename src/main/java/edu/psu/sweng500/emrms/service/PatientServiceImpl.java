@@ -34,12 +34,21 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     @Transactional
-    public void registerPatient(HPatient patient) {
-        patientMapper.insertPerson(patient);
-        patientMapper.insertPatient(patient);
-        patientMapper.insertPatientName(patient);
-        patientMapper.insertPatientAddress(patient);
-        patientMapper.insertPatientIdentifiers(patient);
+    public void registerPatient(HPatient patient) throws Exception {
+        int patientObjectID = patient.getObjectID();
+        if(patientObjectID == 0){
+            patientMapper.insertPerson(patient);
+            patientMapper.insertPatient(patient);
+            patientMapper.insertPatientName(patient);
+            patientMapper.insertPatientAddress(patient);
+            patientMapper.insertPatientIdentifiers(patient);
+        }
+        else {
+            patientMapper.revisePerson(patient);
+            patientMapper.revisePersonName(patient);
+            patientMapper.revisePersonAddress(patient);
+        }
+
     }
 
 }

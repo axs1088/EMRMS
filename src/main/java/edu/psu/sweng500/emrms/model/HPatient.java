@@ -22,6 +22,7 @@ public class HPatient {
     @NotEmpty(message = "Must specify birth date")
     private String birthDate;
     private long gender;
+    private String race;
     private int personId;
 
     @Valid
@@ -183,6 +184,14 @@ public class HPatient {
 
     public void setPersonId(int personId) {
         this.personId = personId;
+    }
+
+    public String getRace() {
+        return race;
+    }
+
+    public void setRace(String race) {
+        this.race = race;
     }
 
     public HPatientId getPatientIds() {

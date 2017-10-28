@@ -53,7 +53,7 @@ public class PatientServiceTest {
     }
     
     @Test
-    public void testInsertPerson() {
+    public void testInsertPerson() throws Exception {
     	
     	//UserId, CreationDateTime, OrganDonor, HPersonID " +
     	HPatient patient = new HPatient();
@@ -87,6 +87,36 @@ public class PatientServiceTest {
         patient.setPatientIds(patientId);
 
         service.registerPatient(patient);
+        patient.setObjectID(42);
+        patient.setPersonId(44);
+        patient.setGender(2);
+        patient.setBirthDate("2018-10-16");
+        patient.setRace("Hispanic");
+        name.setFirst("ABC");
+        name.setLast("DEF");
+        name.setMiddle("IJK");
+        name.setTitle("Mr.");
+        name.setGenQualifier("Jr.");
+        patient.setName(name);
+
+        address.setLine1("ReviseStrAddr");
+        address.setCity("Malvern");
+        address.setState("MA");
+        address.setZip("12345");
+        address.setCountry("United States");
+        patient.setAddress(address);
+
+        phone.setNumber("098765432");
+        patient.setCellPhone(phone);
+
+        patient.setEmail("testrevise@psu.edu");
+
+        Phone homePhone = new Phone();
+        homePhone.setNumber("9833427665");
+        patient.setHomePhone(homePhone);
+
+        service.registerPatient(patient);
+
     }
     
 	public String getCurrentDateTime() {

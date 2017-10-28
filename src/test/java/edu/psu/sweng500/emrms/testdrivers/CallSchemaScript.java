@@ -33,6 +33,7 @@ public class CallSchemaScript {
                 "jdbc:mysql://localhost:3306/emrms_test", "root", "emrms2017");
         ScriptRunner scriptRunner = new ScriptRunner(connection);
 
+        /*
         String schemaScriptName = "Scripts\\MySql\\emrms-schema-20170906-2220.sql";
         String scriptFileAsString = readFile(schemaScriptName, Charset.defaultCharset());
         scriptFileAsString = scriptFileAsString.replaceAll("emrms", "emrms_test");
@@ -51,5 +52,6 @@ public class CallSchemaScript {
                     "USE EMRMS_TEST");
             scriptRunner.runScript(new StringReader(storedProcedureScript));
         }
+        */
     }
 }

@@ -19,6 +19,25 @@ public class ComplexName implements Serializable {
 	@Size(max=19)
 	private String last;
 
+	private String title;
+	private String genQualifier;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getGenQualifier() {
+		return genQualifier;
+	}
+
+	public void setGenQualifier(String genQualifier) {
+		this.genQualifier = genQualifier;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

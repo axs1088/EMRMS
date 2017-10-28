@@ -58,6 +58,21 @@ public class LocallyCachedPatientMapper implements PatientMapper {
     }
 
     @Override
+    public void revisePerson(HPatient patient) throws Exception {
+
+    }
+
+    @Override
+    public void revisePersonName(HPatient patient) throws Exception {
+
+    }
+
+    @Override
+    public void revisePersonAddress(HPatient patient) throws Exception {
+
+    }
+
+    @Override
     public void insertPatientIdentifiers(HPatient patient) {
         // TODO Auto-generated method stub
 

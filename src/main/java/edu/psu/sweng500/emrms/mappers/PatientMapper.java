@@ -4,6 +4,7 @@ import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.model.HPatient;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -61,8 +62,21 @@ public interface PatientMapper {
     @Insert("INSERT INTO h_address(UserId, StrAddress, City, State, Zip, Country, MailingAddressInd, " +
     		"HomePhoneNo, CellPhoneNo, EmailAddress, HPersonID) " +
     		"VALUES (#{patient.userId}, #{patient.address.line1}, #{patient.address.city}, #{patient.address.state}, #{patient.address.zip}, " +
-    		"#{patient.address.country}, #{patient.address.mailingAddrSameAsHomeAddr}, #{patient.cellPhone.number}, #{patient.homePhone.number}, #{patient.email}, #{patient.personId})")
+    		"#{patient.address.country}, #{patient.address.mailingAddrSameAsHomeAddr},  #{patient.homePhone.number},#{patient.cellPhone.number}, #{patient.email}, #{patient.personId})")
 	public void insertPatientAddress(@Param("patient") HPatient patient);
-    
-    
+
+    String UPDATE_HPERSON = "update h_person set Gender=#{patient.gender},BirthDate=#{patient.birthDate}, Race = #{patient.race} where HPersonID=#{patient.personId}";
+    @Update(UPDATE_HPERSON)@Options(keyProperty = "personId" )
+    public void revisePerson(@Param("patient") HPatient patient) throws Exception;
+
+    String UPDATE_HNAME = "update h_Name set LastName=#{patient.name.last},FirstName=#{patient.name.first}, " +
+            "MiddleName = #{patient.name.middle}, Title = #{patient.name.title}, GenQualifier = #{patient.name.genQualifier} where HPersonID=#{patient.personId}";
+    @Update(UPDATE_HNAME)@Options(keyProperty = "personId" )
+    public void revisePersonName(@Param("patient") HPatient patient) throws Exception;
+
+    String UPDATE_HAddress = "update h_Address set StrAddress=#{patient.address.line1},City=#{patient.address.city},State =#{patient.address.state}, Zip = #{patient.address.zip}, " +
+            "Country = #{patient.address.country}, MailingAddressInd = #{patient.address.mailingAddrSameAsHomeAddr}, HomePhoneNo = #{patient.homePhone.number}, " +
+            "CellPhoneNo = #{patient.cellPhone.number}, EmailAddress = #{patient.email} where HPersonID=#{patient.personId}";
+    @Update(UPDATE_HAddress)@Options(keyProperty = "personId" )
+    public void revisePersonAddress(@Param("patient") HPatient patient) throws Exception;
 }

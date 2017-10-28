@@ -145,7 +145,7 @@ public class PatientController {
 
     @RequestMapping(value = "/addPatient", method = RequestMethod.POST)
     public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response,
-                                   @ModelAttribute("patient") HPatient patient, BindingResult bindingResult) {
+                                   @ModelAttribute("patient") HPatient patient, BindingResult bindingResult) throws Exception {
         ModelAndView mav = new ModelAndView("patientRegistration");
 
         List<String> validationErrors = patientValidator.validate(patient);
