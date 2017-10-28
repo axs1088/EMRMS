@@ -18,8 +18,15 @@ public class SaveEncounterServiceImpl implements  SaveEncounterService{
 
 
     @Override
-    public int SaveEncounter(HPatient hPatient, HEncounter hEncounter) {
-        encounterMapper.insertEncounterDetails(hEncounter);
+    public int SaveEncounter(HPatient hPatient, HEncounter encounter) {
+        int encounterObjectID = encounter.getHEncounterID();
+        if (encounterObjectID == 0){
+            encounterMapper.insertEncounterDetails(encounter);
+        }
+        else
+        {
+            encounterMapper.reviseEncounterDetails(encounter);
+        }
         return 0;
     }
 }

@@ -11,7 +11,7 @@ public interface PatientService {
 
     HPatient createNew();
     
-    public void registerPatient(HPatient patient);
+    public void registerPatient(HPatient patient) throws Exception;
 
     
 }

@@ -87,6 +87,7 @@ public class PatientServiceTest {
         patient.setPatientIds(patientId);
 
         service.registerPatient(patient);
+        /*
         patient.setObjectID(42);
         patient.setPersonId(44);
         patient.setGender(2);
@@ -116,6 +117,7 @@ public class PatientServiceTest {
         patient.setHomePhone(homePhone);
 
         service.registerPatient(patient);
+        */
 
     }
     

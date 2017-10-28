@@ -1,7 +1,11 @@
 package edu.psu.sweng500.emrms.mappers;
 
 import edu.psu.sweng500.emrms.model.HEncounter;
+import edu.psu.sweng500.emrms.model.HPatient;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
 
@@ -16,4 +20,10 @@ public interface SaveEncounterMapper {
             "#{patient_ObjectID})")
     //@Options(useGeneratedKeys=true, keyProperty="id", flushCache=true, keyColumn="id")
     public void insertEncounterDetails(HEncounter hEncounter);
+
+    String UPDATE_HENCOUNTER = "update h_Encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
+            "ENCStatus = #{encounter.encStatus} ,EncLocationName = #{encounter.encLocationName}, EncounterLocation_ObjectID = #{encounter.encounterLocation_ObjectID}, " +
+            "EncounterID = #{encounter.encounterID}, EncType = #{encounter.encounterType} , BedName = #{encounter.bedName} where HEncounterID=#{encounter.hEncounterID}";
+    @Update(UPDATE_HENCOUNTER)@Options(keyProperty = "hEncounterID" )
+    public void reviseEncounterDetails(@Param("encounter") HEncounter encounter);
 }

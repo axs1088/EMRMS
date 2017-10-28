@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import static edu.psu.sweng500.emrms.util.Constants.ENCOUNTER_STATUS_ACTIVE;
+import static edu.psu.sweng500.emrms.util.Constants.ENCOUNTER_STATUS_CLOSED;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -56,10 +57,24 @@ public class SaveEncounterServiceTest {
         hEncounter.setAttendingPhysician_ObjectID(1);
         hEncounter.setBed_ObjectID(1);
 
-
         // ToDo
        int returnValue = service.SaveEncounter(hPatient, hEncounter);
+        assertEquals(0,returnValue);
+       //Revise
+        /*
+        hEncounter.setHEncounterID(25);
+        hEncounter.setEncStartDateTime("2018-09-14 11:55:00");
+        hEncounter.setEncEndDateTime("2018-09-15 11:55:00");
+        hEncounter.setEncStatus(ENCOUNTER_STATUS_CLOSED);
+        hEncounter.setEncLocationName("Malvern Clinic");
+        hEncounter.setEncounterType("EOP");
+        hEncounter.setEncounterID("Acc10012");
+        hEncounter.setAttendingPhysician_ObjectID(2);
+
+        returnValue = service.SaveEncounter(hPatient, hEncounter);
+
        assertEquals(0,returnValue);
+       */
 
     }
 
