@@ -14,7 +14,8 @@ BEGIN
         hp.Gender,
         hpat.MPINo,
         henc.EncStartdateTime,
-        henc.encStatus
+        henc.encStatus,
+        henc.HEncounterID
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         INNER JOIN H_Patient hpat ON hpat.HPatientID = hp.HPersonID
         LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
@@ -34,7 +35,8 @@ BEGIN
         hp.Gender,
         hpat.MPINo,
         henc.EncStartdateTime,
-        henc.encStatus
+        henc.encStatus,
+        henc.HEncounterID
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         INNER JOIN H_Patient hpat ON hpat.HPatientID = hp.HPersonID
         LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
@@ -52,7 +54,8 @@ BEGIN
         hp.Gender,
         hpat.MPINo,
         henc.EncStartdateTime,
-        henc.encStatus
+        henc.encStatus,
+        henc.HEncounterID
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         INNER JOIN H_Patient hpat ON hpat.HPatientID = hp.HPersonID
         LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID

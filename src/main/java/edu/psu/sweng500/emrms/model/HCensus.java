@@ -17,6 +17,7 @@ public class HCensus {
     private String MPINo;
     private Date encStartdateTime;
     private String encStatus;
+    private int encounterObjectID;
 
     public int gethPatientID() {
     	return hPatientID;
@@ -80,4 +81,11 @@ public class HCensus {
         this.encStatus = encStatus;
     }
 
+    public int getEncounterObjectID() {
+        return encounterObjectID;
+    }
+
+    public void setEncounterObjectID(int encounterObjectID) {
+        this.encounterObjectID = encounterObjectID;
+    }
 }
