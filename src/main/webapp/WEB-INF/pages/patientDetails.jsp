@@ -306,6 +306,8 @@
                 </div>
             </div>
         </c:if>
+        
+        <form:hidden path="objectID" />
 
     </form:form>
 

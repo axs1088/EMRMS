@@ -178,7 +178,11 @@ public class PatientController {
         newMrNumberId.setIdValue(mrNumber);
         patient.setPatientIds(newMrNumberId);
 
-        patientService.registerPatient(patient);
+        if(patient.getObjectID() == 0)
+        	patientService.registerPatient(patient);
+        else
+        	patientService.updatePatient(patient);
+        
         mav.addObject("saveSuccess", true);
 
         int personId = patientDemographicsService.getPersonId(patient.getObjectID());
