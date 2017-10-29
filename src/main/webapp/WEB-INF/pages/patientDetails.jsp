@@ -275,7 +275,7 @@
         <h4> Miscellaneous</h4>
         <div>
             <form:label path="mPINumber">MPI Number: </form:label>
-            <form:input path="mPINumber"/>
+            <form:input path="mPINumber" disabled="true" style="color:grey;"/>
         </div>
         <div>
             <form:label path="organDonor">Organ Donor: </form:label>
