@@ -1,5 +1,4 @@
-CREATE DEFINER = 'root'@'localhost'
-PROCEDURE emrms.Emrms_FindPatientByDemographics(IN lName  VARCHAR(30),
+CREATE PROCEDURE emrms.Emrms_FindPatientByDemographics(IN lName  VARCHAR(30),
                                                  IN fName  VARCHAR(30),
                                                  IN gender INT)
 BEGIN
