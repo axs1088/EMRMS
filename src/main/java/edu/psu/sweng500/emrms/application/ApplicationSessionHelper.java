@@ -62,11 +62,7 @@ public class ApplicationSessionHelper {
      * @return the session attribute names
      */
     public Set<String> getAllSessionAttributes() {
-        // Generate the session attributes on demand.
-        // We can't do it on instantiation because we have to wait for all the controllers
-        // to be autowired first.
         if (sessionAttributes == null) {
-            // Grab all the session attributes used by our controllers from their annotations.
             sessionAttributes = new HashSet<String>();
             for (Object controller : beanFactory.getBeansWithAnnotation(ApplicationFormController.class).values()) {
                 SessionAttributes controllerAttributes = AnnotationUtils.findAnnotation(controller.getClass(), SessionAttributes.class);

@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,9 +35,6 @@ public class LoginController {
 
     @Autowired
     private CensusService censusService;
-
-    @Autowired
-    private AuditEventService auditEventService;
 
     @Autowired
     private ApplicationAuditHelper applicationAuditHelper;
@@ -72,7 +71,6 @@ public class LoginController {
     }
 
     public void setAuditEventService(AuditEventServiceImpl auditEventService) {
-        this.auditEventService = auditEventService;
     }
 
     /**
@@ -150,9 +148,12 @@ public class LoginController {
                 //TODO - need to put logic for patient
             }
 
-            if (CollectionUtils.isNotEmpty(hCensusList)) {
-                mav.addObject("hCensusList", hCensusList);
+            if (CollectionUtils.isEmpty(hCensusList)) {
+            	hCensusList = new ArrayList<HCensus>();
             }
+            
+            mav.addObject("showHeader", false);
+            mav.addObject("hCensusList", hCensusList);
             mav.addObject(Constants.CENSUS, census);
 
             applicationAuditHelper.auditEvent(session, "Login", 1);

@@ -11,7 +11,7 @@
 </style>
 <div class="topcorner">
     <a href="/emrms/loginProcess" class="linkColor">Home</a>&nbsp;&nbsp;
-    <a href="/emrms/patientLocator" class="linkColor">Patient Locator</a>&nbsp;&nbsp
+    <a href="/emrms/patientLocator" class="linkColor">Patient Locator</a>&nbsp;&nbsp;
     <a href="/emrms/logout" class="linkColor">Logout</a>
 </div>
 
@@ -27,6 +27,9 @@
         <label>${clinicName}</label>
     </div>
     <hr/>
+    
+    <c:if test="${showHeader == 'true'}">
+    
     <div>
         <style>
             #nameLabel {
@@ -152,5 +155,13 @@
         <form:label id="diagnosesLabel" path="ignoredSelectedDiagnosis">Diagnoses: </form:label>
         <form:select id="diagnosesInput" path="ignoredSelectedDiagnosis" items="${primaryDiagnosisList}"/>
     </div>
+    
     <hr/>
+    
+        </c:if>
+    
+    
+    
+
+    
 </form:form>

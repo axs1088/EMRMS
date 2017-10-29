@@ -7,6 +7,7 @@ import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.CensusService;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
+import edu.psu.sweng500.emrms.util.FormatUtils;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import edu.psu.sweng500.emrms.validators.PatientValidator;
 import org.apache.commons.collections.CollectionUtils;
@@ -89,6 +90,7 @@ public class PatientController {
         ModelAndView mav = new ModelAndView("patientRegistration");
         HPatient patient = new HPatient();
 
+        mav.addObject("showHeader", true);
         mav.addObject("patient", patient);
         mav.addObject("siteHeader", new SiteHeader());
 
@@ -106,6 +108,7 @@ public class PatientController {
             sessionHelper.setActivePatient(hPatientID);
         }
 
+        mav.addObject("showHeader", true);
         mav.addObject("patient", patient);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
@@ -116,7 +119,7 @@ public class PatientController {
     public ModelAndView showPatientLocator(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("patientLocator");
         mav.addObject("census", new HCensus());
-
+        mav.addObject("showHeader", false);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         return mav;
@@ -138,6 +141,7 @@ public class PatientController {
         }
         applicationAuditHelper.auditEvent(session, "Patient Locator", 4);
 
+        mav.addObject("showHeader", false);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         return mav;
@@ -178,16 +182,17 @@ public class PatientController {
         newMrNumberId.setIdValue(mrNumber);
         patient.setPatientIds(newMrNumberId);
 
-        if(patient.getObjectID() == 0)
+        if(patient.getObjectID() == 0) {
         	patientService.registerPatient(patient);
-        else
+        } else {
         	patientService.updatePatient(patient);
+        	mav = new ModelAndView("patientDetails");      	
+        }       	
         
         mav.addObject("saveSuccess", true);
 
         int personId = patientDemographicsService.getPersonId(patient.getObjectID());
         HPatient patientFromDB = patientDemographicsService.getPatientDemographics(patient.getObjectID());
-        HPerson personFromDB = patientDemographicsService.getPersonDetails(personId);
         HName nameFromDB = patientDemographicsService.getPersonName(personId);
         Address addressFromDB = patientDemographicsService.getPersonAddress(personId);
         List<HEncounter> encounters = patientDemographicsService.getPatientEncounters(patient.getObjectID());
@@ -200,6 +205,7 @@ public class PatientController {
         mav.addObject("encounters", encounters);
 
         sessionHelper.setActivePatient(patientFromDB.getObjectID());
+        mav.addObject("showHeader", true);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         return mav;
@@ -248,9 +254,7 @@ public class PatientController {
             patient.setCellPhone(cellPhone);
             patient.setEmail(email);
             try {
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-                patient.setBirthDate(format.format(inputFormat.parse(person.getBirthDate())));
+                patient.setBirthDate(FormatUtils.formatDate(person.getBirthDate()));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
