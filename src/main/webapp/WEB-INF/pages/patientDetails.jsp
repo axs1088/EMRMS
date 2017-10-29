@@ -147,12 +147,18 @@
             opacity: 1
         }
     }
+
+    .linkColor {
+        color: white;
+    }
+
 </style>
 
 <%@include file="siteHeader.jsp" %>
 
 <body>
 <div class="content">
+	<h3><a href="/emrms/encounterDetails" class="linkColor">+ Add an Encounter</a></h3>
     <h3>Patient Demographics</h3>
     <form:form id="addPatientForm" method="post" action="addPatient" modelAttribute="patient"
                onsubmit="return validateInput()">

@@ -105,6 +105,16 @@ public class ApplicationSessionHelper {
     public Long getApplicationUserType(HttpSession session) {
         return (Long) session.getAttribute(Constants.APP_USER_TYPE);
     }
+    
+    /**
+     * Gets the logged in user id.
+     *
+     * @param session the current session
+     * @return the logged in user id, or null if not applicable
+     */
+    public Integer getHPatientId(HttpSession session) {
+        return (Integer) session.getAttribute(Constants.HPATIENT_ID);
+    }
 
     /**
      * Gets the bean factory.
