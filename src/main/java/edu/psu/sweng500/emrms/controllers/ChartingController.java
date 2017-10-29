@@ -5,11 +5,13 @@ import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
 import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
 import edu.psu.sweng500.emrms.model.HAllergy;
+import edu.psu.sweng500.emrms.service.ManageAllergyService;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +41,13 @@ public class ChartingController {
     @Autowired
     private ApplicationSessionHelper sessionHelper;
 
+    @Autowired
+    private ManageAllergyService manageAllergyService;
+
     private ModelAndView mav;
     private Integer patientId;
+    private HAllergy newAllergy;
+    private HttpSession session;
 
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
@@ -78,7 +84,8 @@ public class ChartingController {
     @RequestMapping(value = "/charting", method = RequestMethod.GET)
     public ModelAndView showCharting(HttpServletRequest request, HttpServletResponse response) {
         mav = new ModelAndView("chartingTabShell");
-        HttpSession session = request.getSession(false);
+        session = request.getSession(false);
+
         mav.addObject("showHeader", true);
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
@@ -90,14 +97,32 @@ public class ChartingController {
 
     private void addAllergiesToMav() {
         List<HAllergy> allergyList;
+        newAllergy = new HAllergy();
 
         try {
             int patientId = sessionHelper.getPatientId();
             allergyList = patientDemographicsService.getPatientAllergies(patientId);
+            newAllergy.setPatientID(patientId);
         } catch (PatientNotFoundException e) {
             allergyList = new ArrayList<>();
         }
 
+        newAllergy.setUserId(sessionHelper.getApplicationUser(session));
+
         mav.addObject("allergyList", allergyList);
+        mav.addObject("newAllergy", newAllergy);
+    }
+
+    @RequestMapping(value = "/addAllergy", method = RequestMethod.POST)
+    public ModelAndView addAllergy(HttpServletRequest request, HttpServletResponse response,
+                                   @ModelAttribute("newAllergy") HAllergy allergy, BindingResult bindingResult) {
+        newAllergy.setAllergyName(allergy.getAllergyName());
+        newAllergy.setSeverity(allergy.getSeverity());
+        newAllergy.setAllergyType(allergy.getAllergyType());
+        manageAllergyService.AddAllergy(newAllergy);
+
+        addAllergiesToMav();
+        
+        return mav;
     }
 }
