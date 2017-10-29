@@ -27,40 +27,6 @@ public class Phone implements Serializable {
 		this.number = number;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((number == null) ? 0 : FormatUtils.unformatNumber(number).hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if(this == obj) {
-			return true;
-		}
-		if(obj == null) {
-			return false;
-		}
-		if(getClass() != obj.getClass()) {
-			return false;
-		}
-		Phone other = (Phone)obj;
-		if(number == null) {
-			if(other.number != null) {
-				return false;
-			}
-		} else {
-			String myNumber = FormatUtils.unformatNumber(number);
-			String otherNumber = FormatUtils.unformatNumber(other.number);
-			if(!myNumber.equals(otherNumber)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public boolean isEmpty() {
 		return StringUtils.isEmpty(number);
 	}
