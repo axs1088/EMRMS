@@ -7,7 +7,7 @@ public class HAuditRecord {
     private int policyId ;
     private int patient_ObjectID ;
     private int encounter_ObjectID;
-    private int patientName;
+    private String patientName;
     private String encounterID;
     private String eventName;
 
@@ -68,11 +68,11 @@ public class HAuditRecord {
         this.encounter_ObjectID = encounter_ObjectID;
     }
 
-    public int getPatientName() {
+    public String getPatientName() {
         return patientName;
     }
 
-    public void setPatientName(int patientName) {
+    public void setPatientName(String patientName) {
         this.patientName = patientName;
     }
 

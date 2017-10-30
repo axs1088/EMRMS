@@ -4,6 +4,7 @@ import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.mappers.ChartingMapper;
 import edu.psu.sweng500.emrms.model.HAllergy;
 import edu.psu.sweng500.emrms.model.HAuditRecord;
+import edu.psu.sweng500.emrms.util.PersonPatientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,10 @@ public class ManageAllergyServiceImpl implements ManageAllergyService {
     @Autowired
     private AuditEventService auditEventService;
 
-    public void setChartingMapperMapper(ChartingMapper chartingMapper) {
+    @Autowired
+    private PersonPatientUtils patientUtils;
+
+    public void setChartingMapper(ChartingMapper chartingMapper) {
         this.chartingMapper = chartingMapper;
     }
 
@@ -27,8 +31,9 @@ public class ManageAllergyServiceImpl implements ManageAllergyService {
         chartingMapper.addAllergy(allergy);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Add Allergy");
-        auditRecord.setPolicyId(10);
+        auditRecord.setPolicyId(12);
         auditRecord.setPatient_ObjectID(allergy.getPatientID());
+        auditRecord.setPatientName(patientUtils.getPatientName(allergy.getPatientID()));
         auditEventService.auditEvent(auditRecord);
         return 0;
     }
@@ -38,8 +43,9 @@ public class ManageAllergyServiceImpl implements ManageAllergyService {
         chartingMapper.deleteAllergy(allergy);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Delete Allergy");
-        auditRecord.setPolicyId(13);
+        auditRecord.setPolicyId(14);
         auditRecord.setPatient_ObjectID(allergy.getPatientID());
+        auditRecord.setPatientName(patientUtils.getPatientName(allergy.getPatientID()));
         auditEventService.auditEvent(auditRecord);
         return 0;
     }

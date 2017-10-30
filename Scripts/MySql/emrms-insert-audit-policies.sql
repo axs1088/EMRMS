@@ -3,24 +3,40 @@ INSERT INTO h_policy(PolicyName,PolicyID)
 INSERT INTO h_policy(PolicyName,PolicyID)
   VALUES ('LogOff',2);
 INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('View Census',3);
+  VALUES ('View Patient Census',3);
 INSERT INTO h_policy(PolicyName,PolicyID)
   VALUES ('Patient Locator',4);
 INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('Create a New Patient',5);
+  VALUES ('Register Patient',5);
+  INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Revise Patient',6);
 INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('Create a New Encounter',6);
-INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('View Patient Details',7);
-INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('View Encounter Details',8);
-INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('View Patient Charts',9);
-INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('Add Allergy',10);
+  VALUES ('Add Encounter',7);
  INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('Delete Allergy',11);
+  VALUES ('Revise Encounter',8);
 INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('Add an Assessment',12);
+  VALUES ('View Patient Details',9);
 INSERT INTO h_policy(PolicyName,PolicyID)
-  VALUES ('Add a Problem',13);
+  VALUES ('View Encounter Details',10);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('View Patient Charts',11);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Add Allergy',12);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Revise Allergy',13);
+ INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Delete Allergy',14);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Add Assessment',15);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Revise Assessment',16);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Add Problem',17);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Revise Problem',18);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Add Diagnosis',19);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Revise Diagnosis',20);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Delete Diagnosis',21);

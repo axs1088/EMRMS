@@ -14,12 +14,12 @@ public interface SaveEncounterMapper {
             "EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName," +
             "EncounterLocation_ObjectID,EncounterID,EncType,BedName," +
             "Patient_ObjectID) VALUES" +
-            "(#{userID}," +
-            "#{encStartDateTime},#{encEndDateTime}, #{encStatus}, #{encLocationName}," +
-            "#{encounterLocation_ObjectID}, #{encounterID}, #{encounterType},#{bedName}," +
-            "#{patient_ObjectID})")
-    @Options(keyProperty = "hEncounterID", keyColumn="HEncounterID" )
-    public void insertEncounterDetails(HEncounter hEncounter);
+            "(#{encounter.userID}," +
+            "#{encounter.encStartDateTime},#{encounter.encEndDateTime}, #{encounter.encStatus}, #{encounter.encLocationName}," +
+            "#{encounter.encounterLocation_ObjectID}, #{encounter.encounterID}, #{encounter.encounterType},#{encounter.bedName}," +
+            "#{encounter.patient_ObjectID})")
+    @Options(useGeneratedKeys=true, keyProperty = "hEncounterID", keyColumn="HEncounterID" )
+    public void insertEncounterDetails(@Param("encounter") HEncounter hEncounter);
 
     String UPDATE_HENCOUNTER = "update h_Encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
             "ENCStatus = #{encounter.encStatus} ,EncLocationName = #{encounter.encLocationName}, EncounterLocation_ObjectID = #{encounter.encounterLocation_ObjectID}, " +
