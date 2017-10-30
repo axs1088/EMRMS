@@ -43,17 +43,17 @@ INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
   VALUES (4,'lg22',2,'1981-03-03 04:15:10','African American');
 
 ---------------------------- INSERT INTO h_name---------------------------------------------------
-INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Active,HPersonID)
-  VALUES(1,'lg22','Louis','Ho','MD',1,2);
+INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPersonID)
+  VALUES(1,'lg22','Louis','M','Joe','MD',1,2);
 
-INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Active,HPersonID)
-  VALUES(2,'jd101','Jane','Jeff','RN',1,1);
+INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPersonID)
+  VALUES(2,'jd101','Jane','T','Jeff','RN',1,1);
 
- INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Active,HPersonID)
-  VALUES(3,'jd101','John','Jeff','Doe',1,3);
+ INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPersonID)
+  VALUES(3,'jd101','John','Jeff','Doe','',1,3);
 
-   INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Active,HPersonID)
-  VALUES(4,'jd101','Mary','Jeff','Davis',1,4);
+   INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPersonID)
+  VALUES(4,'jd101','Mary','Jeff','Davis','',1,4);
 
  --------------------------- INSERT INTO h_address---------------------------------------------------
 INSERT INTO h_address(HAddressID,UserId,StrAddress,City,State,Zip,Country,HomePhoneNo,FaxNo,CellPhoneNo,AddressType,EmailAddress,MailingAddressInd,HPersonID)

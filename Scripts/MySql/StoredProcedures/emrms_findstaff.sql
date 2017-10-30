@@ -1,6 +1,5 @@
-USE EMRMS;
 
-CREATE PROCEDURE Emrms_FindPhysicians(IN SearchString Varchar(30))
+CREATE PROCEDURE emrms_findstaff(IN SearchString Varchar(30))
 
   BEGIN
     Select hs.HStaffID, CONCAT(hn.LastName, ', ', hn.FirstName, ' ', hn.MiddleName, ' ', hn.title) As StaffName from h_staff hs
