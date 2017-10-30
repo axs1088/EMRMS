@@ -7,6 +7,7 @@ import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.CensusService;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
+import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.util.FormatUtils;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import edu.psu.sweng500.emrms.validators.PatientValidator;
@@ -99,13 +100,15 @@ public class PatientController {
 
     @RequestMapping(value = "/patientDetails", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView patientDetails(HttpServletRequest request, @RequestParam(value = "hPatientID", required = false) Integer hPatientID) {
-        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Details", 1);
+    	HttpSession session = request.getSession(false);
+        applicationAuditHelper.auditEvent(session, "Patient Details", 1);
         ModelAndView mav = new ModelAndView("patientDetails");
         HPatient patient = null;
 
         if (hPatientID != null) {
             patient = getPatientDetails(hPatientID);
             sessionHelper.setActivePatient(hPatientID);
+            session.setAttribute(Constants.HPATIENT_ID, hPatientID);
         }
 
         mav.addObject("showHeader", true);
@@ -151,7 +154,7 @@ public class PatientController {
     public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response,
                                    @ModelAttribute("patient") HPatient patient, BindingResult bindingResult) throws Exception {
         ModelAndView mav = new ModelAndView("patientRegistration");
-
+        HttpSession session = request.getSession(false);
         List<String> validationErrors = patientValidator.validate(patient);
 
         if (CollectionUtils.isNotEmpty(validationErrors)) {
@@ -190,6 +193,7 @@ public class PatientController {
         }       	
         
         mav.addObject("saveSuccess", true);
+        session.setAttribute(Constants.HPATIENT_ID, patient.getObjectID());
 
         int personId = patientDemographicsService.getPersonId(patient.getObjectID());
         HPatient patientFromDB = patientDemographicsService.getPatientDemographics(patient.getObjectID());

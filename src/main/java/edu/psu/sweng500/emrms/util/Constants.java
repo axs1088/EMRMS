@@ -15,6 +15,7 @@ public final class Constants {
 	public static final String APP_USER_TYPE = "appUserType";
 	public static final String COUNTRY_USA = "United States";
 	public static final String AUTHORIZED_FOR_EMRMS = "AuthorizedForEMRMS";
+	public static final String HPATIENT_ID = "hPatientId";
 
 	public static final int ENCOUNTER_STATUS_ACTIVE = 1;
 	public static final int ENCOUNTER_STATUS_CLOSED = 2;
