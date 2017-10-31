@@ -44,7 +44,7 @@ public class SaveEncounterServiceTest {
     }
 
     @Test
-    public void testSaveEncounter() {
+    public void testSaveAndReviseEncounter() {
         HPatient hPatient = new HPatient();
         HEncounter hEncounter = new HEncounter();
         hEncounter.setUserID("admin");

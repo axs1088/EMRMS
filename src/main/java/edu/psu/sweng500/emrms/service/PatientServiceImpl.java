@@ -1,7 +1,9 @@
 package edu.psu.sweng500.emrms.service;
 
 import edu.psu.sweng500.emrms.mappers.PatientMapper;
+import edu.psu.sweng500.emrms.model.HAuditRecord;
 import edu.psu.sweng500.emrms.model.HPatient;
+import edu.psu.sweng500.emrms.util.PersonPatientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,12 @@ import java.util.List;
 public class PatientServiceImpl implements PatientService {
     @Autowired
     PatientMapper patientMapper;
+
+    @Autowired
+    private AuditEventService auditEventService;
+
+    @Autowired
+    private PersonPatientUtils patientUtils;
 
     public void setPatientMapper(PatientMapper patientMapper) {
         this.patientMapper = patientMapper;
@@ -40,6 +48,12 @@ public class PatientServiceImpl implements PatientService {
         patientMapper.insertPatientName(patient);
         patientMapper.insertPatientAddress(patient);
         patientMapper.insertPatientIdentifiers(patient);
+        HAuditRecord auditRecord = new HAuditRecord();
+        auditRecord.setEventName("Register Patient");
+        auditRecord.setPolicyId(5);
+        auditRecord.setPatient_ObjectID(patient.getObjectID());
+        auditRecord.setPatientName(patientUtils.getPatientName(patient.getObjectID()));
+        auditEventService.auditEvent(auditRecord);
     }
     
     @Override
@@ -48,6 +62,12 @@ public class PatientServiceImpl implements PatientService {
 	    patientMapper.revisePerson(patient);
 	    patientMapper.revisePersonName(patient);
 	    patientMapper.revisePersonAddress(patient);
+        HAuditRecord auditRecord = new HAuditRecord();
+        auditRecord.setEventName("Revise Patient");
+        auditRecord.setPolicyId(6);
+        auditRecord.setPatient_ObjectID(patient.getObjectID());
+        auditRecord.setPatientName(patientUtils.getPatientName(patient.getObjectID()));
+        auditEventService.auditEvent(auditRecord);
     }
 
 }

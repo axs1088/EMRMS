@@ -115,7 +115,7 @@ public class PatientServiceTest {
         homePhone.setNumber("9833427665");
         patient.setHomePhone(homePhone);
 
-        service.registerPatient(patient);
+        service.updatePatient(patient);
     }
     
 	public String getCurrentDateTime() {

@@ -50,9 +50,9 @@ public interface PatientMapper {
 	public void insertPatientName(@Param("patient") HPatient patient);
     
     @Insert("INSERT INTO h_patient(UserId, MPINo, OrganDonor, HPersonID) " +
-    		"VALUES (#{userId}, #{mPINumber}, #{organDonor}, #{personId})")
-	@Options(useGeneratedKeys=true, keyProperty="objectID", keyColumn="HPatientID")
-    public void insertPatient(HPatient patient);
+    		"VALUES (#{patient.userId}, #{patient.mPINumber}, #{patient.organDonor}, #{patient.personId})")
+	@Options(useGeneratedKeys=true, keyProperty="patient.objectID", keyColumn="HPatientID")
+    public void insertPatient(@Param("patient") HPatient patient);
 
     @Insert("INSERT INTO h_patient_Ids(UserId, IDValue, IdType, IdIssuerName, IdIssuerID, PatientID) " +
             "VALUES (#{patient.userId}, #{patient.patientIds.idValue}, #{patient.patientIds.idType}, #{patient.patientIds.idIssuerName}," +
