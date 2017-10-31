@@ -1,12 +1,8 @@
 USE EMRMS;
 
-CREATE PROCEDURE Emrms_GetUserType(IN UserObjectID INT)
+CREATE PROCEDURE emrms_getusertype(IN UserObjectID INT)
 
   BEGIN
-
-    /*DECLARE @staffid = Select huser.HPersonID from h_User huser left outer join h_staff hs on hs.StaffID = huser.HPersonID*/
-
-
     DECLARE personID INT;
     DECLARE staffid INT;
     DECLARE UserType INT DEFAULT 0;
@@ -16,7 +12,6 @@ CREATE PROCEDURE Emrms_GetUserType(IN UserObjectID INT)
     FROM h_user
     WHERE HUserID = UserObjectID;
 
-    /*Physician*/
     SELECT hs.HStaffID
     INTO staffid
     FROM h_staff hs
@@ -26,7 +21,6 @@ CREATE PROCEDURE Emrms_GetUserType(IN UserObjectID INT)
       SET UserType = 1;
     END IF;
 
-    /*Nurse*/
     SELECT hs.HStaffID
     INTO staffid
     FROM h_staff hs
@@ -36,7 +30,6 @@ CREATE PROCEDURE Emrms_GetUserType(IN UserObjectID INT)
       SET UserType = 2;
     END IF;
 
-    /*Patient*/
     SELECT hp.HPatientID
     INTO staffid
     FROM h_Patient hp
@@ -47,7 +40,6 @@ CREATE PROCEDURE Emrms_GetUserType(IN UserObjectID INT)
     END IF;
 
     SELECT UserType;
-
   END;
 
 

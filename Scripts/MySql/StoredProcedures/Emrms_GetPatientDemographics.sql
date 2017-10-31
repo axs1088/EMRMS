@@ -1,6 +1,5 @@
-USE EMRMS;
 
-CREATE PROCEDURE Emrms_GetPatientDemographics(IN PatientObjectID int)
+CREATE PROCEDURE emrms_getpatientdemographics(IN PatientObjectID int)
 
   BEGIN
       SELECT
@@ -23,7 +22,7 @@ CREATE PROCEDURE Emrms_GetPatientDemographics(IN PatientObjectID int)
         ha.MailingAddressInd
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         LEFT OUTER JOIN h_address ha on ha.HPersonID = hp.HPersonID
-        INNER JOIN H_Patient hpat ON hpat.HPatientID = hp.HPersonID
+        INNER JOIN h_patient hpat ON hpat.HPatientID = hp.HPersonID
         LEFT OUTER JOIN h_patient_ids hpid on hpid.PatientID = hpat.HPatientID and hpid.IdType = 'MRN'
       WHERE hpat.HPatientID = PatientObjectID;
 

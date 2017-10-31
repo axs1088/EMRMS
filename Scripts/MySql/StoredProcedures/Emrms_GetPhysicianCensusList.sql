@@ -1,12 +1,6 @@
-USE EMRMS;
-
-CREATE PROCEDURE Emrms_GetPhysicianCensusList(IN UserObjectID INT)
+CREATE PROCEDURE emrms_getphysiciancensuslist(IN UserObjectID INT)
 
   BEGIN
-
-    /*DECLARE @staffid = Select huser.HPersonID from h_User huser left outer join h_staff hs on hs.StaffID = huser.HPersonID*/
-
-
     DECLARE staffid INT;
     DECLARE personID INT;
     SELECT HPersonID
@@ -29,10 +23,9 @@ CREATE PROCEDURE Emrms_GetPhysicianCensusList(IN UserObjectID INT)
       henc.encStatus,
       henc.HEncounterID
     FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
-      INNER JOIN H_Patient hpat ON hpat.HPatientID = hp.HPersonID
+      INNER JOIN h_patient hpat ON hpat.HPatientID = hp.HPersonID
       LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
     WHERE henc.encStatus = 1 AND henc.AttendingPhysician_ObjectID = staffid;
-
   END;
 
 

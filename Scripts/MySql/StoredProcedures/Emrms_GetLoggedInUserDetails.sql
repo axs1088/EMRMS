@@ -1,6 +1,6 @@
-USE EMRMS;
 
-CREATE PROCEDURE Emrms_GetLoggedInUserDetails(IN UserObjectID INT)
+
+CREATE PROCEDURE emrms_getloggedinuserdetails(IN UserObjectID INT)
 
   BEGIN
 

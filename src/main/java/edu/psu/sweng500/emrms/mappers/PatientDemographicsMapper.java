@@ -35,7 +35,7 @@ public interface PatientDemographicsMapper {
 
     @Select("SELECT HPatientId as hPatientId,  "
             + "IDValue as idValue, IdType as idType, IdIssuerName as idIssuerName, IdIssuerID as idIssuerId, "
-            + "PatientID as patientId FROM h_patient_ids "
+            + "PatientID as patientId FROM h_patient_ids"
             + " where PatientID = #{patientId} and IdType = 'MRN'")
     public List<HPatientId> getPatientIdentifiers(int patientId);
 
@@ -54,12 +54,12 @@ public interface PatientDemographicsMapper {
 
     @Select("SELECT HAllergyID as allergyID,  "
             + "AllergyName as allergyName, AllergyCode as allergyCode, AllergyType as allergyType, Severity as severity, "
-            + "PatientID as patientId FROM h_Allergy "
+            + "PatientID as patientId FROM h_allergy"
             + " where PatientID = #{patientId} order by severity desc")
     public List<HAllergy> getPatientAllergies(int patientId);
 
     @Select("SELECT HDiagnosisID as diagnosisObjectId,  "
             + "Code as code, Description as description, Priority as priority, EncounterID as encounterID, PatientID as patientID "
-            + "FROM h_Diagnosis where PatientID = #{patientId} order by priority asc ")
+            + "FROM h_diagnosis where PatientID = #{patientId} order by priority asc ")
     public List<HDiagnosis> getPatientDiagnoses(int patientId);
 }

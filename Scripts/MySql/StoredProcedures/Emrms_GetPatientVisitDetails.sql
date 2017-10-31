@@ -1,6 +1,5 @@
-USE EMRMS;
 
-CREATE PROCEDURE Emrms_GetPatientVisitDetails(IN PatientObjectID int, IN EncounterObjectID int)
+CREATE PROCEDURE emrms_getpatientvisitdetails(IN PatientObjectID int, IN EncounterObjectID int)
 
   BEGIN
 
@@ -35,7 +34,7 @@ CREATE PROCEDURE Emrms_GetPatientVisitDetails(IN PatientObjectID int, IN Encount
         henc.Bed_ObjectID
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         LEFT OUTER JOIN h_address ha on ha.HPersonID = hp.HPersonID
-        INNER JOIN H_Patient hpat ON hpat.HPatientID = hp.HPersonID
+        INNER JOIN h_patient hpat ON hpat.HPatientID = hp.HPersonID
         LEFT OUTER JOIN h_patient_ids hpid on hpid.PatientID = hpat.HPatientID and hpid.IdType = 'MR'
         LEFT OUTER JOIN h_encounter henc on henc.Patient_ObjectID= hpat.HPatientID
       WHERE hpat.HPatientID = PatientObjectID and henc.HEncounterID = EncounterObjectID;

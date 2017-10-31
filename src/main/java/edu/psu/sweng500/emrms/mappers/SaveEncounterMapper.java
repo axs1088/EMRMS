@@ -21,7 +21,7 @@ public interface SaveEncounterMapper {
     @Options(useGeneratedKeys=true, keyProperty = "encounter.hEncounterID", keyColumn="HEncounterID" )
     public void insertEncounterDetails(@Param("encounter") HEncounter hEncounter);
 
-    String UPDATE_HENCOUNTER = "update h_Encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
+    String UPDATE_HENCOUNTER = "update h_encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
             "ENCStatus = #{encounter.encStatus} ,EncLocationName = #{encounter.encLocationName}, EncounterLocation_ObjectID = #{encounter.encounterLocation_ObjectID}, " +
             "EncounterID = #{encounter.encounterID}, EncType = #{encounter.encounterType} , BedName = #{encounter.bedName} where HEncounterID=#{encounter.hEncounterID}";
     @Update(UPDATE_HENCOUNTER)@Options(keyProperty = "encounter.hEncounterID", keyColumn="HEncounterID" )
