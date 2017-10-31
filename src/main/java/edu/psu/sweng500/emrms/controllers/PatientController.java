@@ -87,7 +87,6 @@ public class PatientController {
 
     @RequestMapping(value = "/patientLocatorProcess", params = "addPatient", method = RequestMethod.POST)
     public ModelAndView registerPatient(HttpServletRequest request, HttpServletResponse response) {
-        applicationAuditHelper.auditEvent(request.getSession(false), "Patient Registration", 1);
         ModelAndView mav = new ModelAndView("patientRegistration");
         HPatient patient = new HPatient();
 
@@ -101,7 +100,6 @@ public class PatientController {
     @RequestMapping(value = "/patientDetails", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView patientDetails(HttpServletRequest request, @RequestParam(value = "hPatientID", required = false) Integer hPatientID) {
     	HttpSession session = request.getSession(false);
-        applicationAuditHelper.auditEvent(session, "Patient Details", 1);
         ModelAndView mav = new ModelAndView("patientDetails");
         HPatient patient = null;
 
@@ -110,6 +108,7 @@ public class PatientController {
             sessionHelper.setActivePatient(hPatientID);
             session.setAttribute(Constants.HPATIENT_ID, hPatientID);
         }
+        applicationAuditHelper.auditEvent(session, "View Patient Details", 9,hPatientID,0);
 
         mav.addObject("showHeader", true);
         mav.addObject("patient", patient);
@@ -142,7 +141,7 @@ public class PatientController {
             mav.addObject("hPatientList", hPatientList);
             sessionHelper.setActivePatient(hPatientList.get(0).gethPatientID());
         }
-        applicationAuditHelper.auditEvent(session, "Patient Locator", 4);
+        applicationAuditHelper.auditEvent(session, "Patient Locator", 4,0,0);
 
         mav.addObject("showHeader", false);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());

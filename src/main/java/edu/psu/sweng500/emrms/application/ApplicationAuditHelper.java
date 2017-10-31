@@ -29,12 +29,14 @@ public class ApplicationAuditHelper {
     @Autowired
     private AuditEventService auditEventService;
 
-    public void auditEvent(HttpSession session, String eventName, int policyId) {
+    public void auditEvent(HttpSession session, String eventName, int policyId, int patientObjectID, int encounterObjectID) {
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName(eventName);
         auditRecord.setPolicyId(policyId);
         auditRecord.setUserId(applicationSessionHelper.getApplicationUser(session));
         auditRecord.setCreationDateTime(getCurrentDateTime());
+        auditRecord.setPatient_ObjectID(patientObjectID);
+        auditRecord.setEncounter_ObjectID(encounterObjectID);
         auditEventService.auditEvent(auditRecord);
     }
 

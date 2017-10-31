@@ -58,7 +58,7 @@ public class EncounterController {
     @RequestMapping(value = "/encounterDetails", method = RequestMethod.GET)
     public ModelAndView patientEncounter(HttpServletRequest request, HttpServletResponse response) {
     	HttpSession session = request.getSession(false);
-        applicationAuditHelper.auditEvent(session, "Patient Encounter", 1);
+        applicationAuditHelper.auditEvent(session, "View Encounter Details", 10, sessionHelper.getHPatientId(session),0 );
         ModelAndView mav = new ModelAndView("encounterTabShell");
         HEncounter hEncounter = new HEncounter();
 

@@ -156,8 +156,8 @@ public class LoginController {
             mav.addObject("hCensusList", hCensusList);
             mav.addObject(Constants.CENSUS, census);
 
-            applicationAuditHelper.auditEvent(session, "Login", 1);
-            applicationAuditHelper.auditEvent(session, "View Census", 3);
+            applicationAuditHelper.auditEvent(session, "Login", 1,0,0);
+            applicationAuditHelper.auditEvent(session, "View Patient Census", 3,0,0);
         }
 
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
