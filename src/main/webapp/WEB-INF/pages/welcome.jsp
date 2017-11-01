@@ -41,8 +41,11 @@
         </tr>
         <c:forEach items="${hCensusList}" var="physicianCensus" varStatus="status">
             <tr>
-                <td width="130"><a
-                        href="http://www.psu.edu">${physicianCensus.lastName}, ${physicianCensus.firstName}</a>
+                <td width="130">
+	                <form name="submitForm${physicianCensus.hPatientID}" method="POST" action="/emrms/patientDetails">
+	                    <input type="hidden" name="hPatientID" value="${physicianCensus.hPatientID}"/>
+	                    <a href="javascript:document.submitForm${physicianCensus.hPatientID}.submit()">${physicianCensus.lastName}, ${physicianCensus.firstName}</a>
+	                </form>
                 </td>
                 <td width="150">${physicianCensus.birthdate}</td>
                 <td width="150">

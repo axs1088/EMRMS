@@ -242,16 +242,20 @@ public class PatientController {
 
         if (patient != null) {
             ComplexName name = new ComplexName();
-            name.setFirst(patientName.getFirstName());
-            name.setLast(patientName.getLastName());
-            name.setMiddle(patientName.getMiddleName());
+            if(patientName != null) {
+	            name.setFirst(patientName.getFirstName());
+	            name.setLast(patientName.getLastName());
+	            name.setMiddle(patientName.getMiddleName());
+            }
             patient.setName(name);
             Address address = new Address();
-            address.setLine1(patientAddress.getLine1());
-            address.setLine2(patientAddress.getLine2());
-            address.setCity(patientAddress.getCity());
-            address.setState(patientAddress.getState());
-            address.setZip(patientAddress.getZip());
+            if(patientAddress != null) {
+	            address.setLine1(patientAddress.getLine1());
+	            address.setLine2(patientAddress.getLine2());
+	            address.setCity(patientAddress.getCity());
+	            address.setState(patientAddress.getState());
+	            address.setZip(patientAddress.getZip());
+            }
             patient.setAddress(address);
             patient.setHomePhone(homePhone);
             patient.setCellPhone(cellPhone);
