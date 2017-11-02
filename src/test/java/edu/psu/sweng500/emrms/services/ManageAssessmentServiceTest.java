@@ -1,8 +1,7 @@
 package edu.psu.sweng500.emrms.services;
 
-import edu.psu.sweng500.emrms.model.HAllergy;
-import edu.psu.sweng500.emrms.model.HDiagnosis;
-import edu.psu.sweng500.emrms.service.ManageAllergyService;
+import edu.psu.sweng500.emrms.model.HAssessment;
+import edu.psu.sweng500.emrms.service.ManageAssessmentService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +19,10 @@ import static org.junit.Assert.assertThat;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/spring/test-emrms-context.xml"})
-public class ManageAllergyServiceTest {
+public class ManageAssessmentServiceTest {
     @Autowired
-    @Qualifier("manageAllergyService")
-    private ManageAllergyService service;
+    @Qualifier("manageAssessmentService")
+    private ManageAssessmentService service;
 
     @Before
     public void setUp() {
@@ -37,39 +36,30 @@ public class ManageAllergyServiceTest {
     }
 
     public void verifySpringAnnotations() {
-        assertThat(service, instanceOf(ManageAllergyService.class));
+        assertThat(service, instanceOf(ManageAssessmentService.class));
     }
-
     @Test
-    public void testAddAllergy() {
-        HAllergy allergy = new HAllergy();
-        allergy.setAllergyID(1);
-        allergy.setUserId("admin");
-        allergy.setAllergyCode("ALGCODE");
-        allergy.setAllergyName("NUT Allergy");
-        allergy.setAllergyType(1);
-        allergy.setSeverity("High");
-        allergy.setPatientID(3);
+    public void testAddAssessment() {
+        HAssessment assessment = new HAssessment();
+        assessment.setUserId("admin");
+        assessment.setCollectedDateTime("2017-09-14 11:55:00");
+        assessment.setAssessmentId(1);
+        assessment.setHeight(72);
+        assessment.setHeightmeasureId(1);
+        assessment.setWeight(155);
+        assessment.setWeightmeasureId(3);
+        assessment.setDystolicBP(120);
+        assessment.setSystolicBP(85);
+        assessment.setTemperature(104);
+        assessment.setTemperaturemeasureId(5);
+        assessment.setPulse(82);
+        assessment.setEncounterObjectId(1);
+        assessment.setPatientObjectId(3);
+        assessment.setStatus("COMPLETE");
 
         // ToDo
-        int returnValue = service.AddAllergy(allergy);
+        int returnValue = service.AddAssessment(assessment);
         assertEquals(0,returnValue);
 
     }
-
-    @Test
-    public void testDeleteAllergy()throws Exception{
-        HAllergy allergy=new HAllergy();
-        allergy.setAllergyID(1);
-        allergy.setPatientID(3);
-
-        //ToDo
-        int returnValue=service.DeleteAllergy(allergy);
-        assertEquals(0,returnValue);
-
-    }
-
-
-
-
 }

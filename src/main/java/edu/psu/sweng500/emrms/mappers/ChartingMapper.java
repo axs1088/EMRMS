@@ -1,6 +1,7 @@
 package edu.psu.sweng500.emrms.mappers;
 
 import edu.psu.sweng500.emrms.model.HAllergy;
+import edu.psu.sweng500.emrms.model.HAssessment;
 import edu.psu.sweng500.emrms.model.HDiagnosis;
 import org.apache.ibatis.annotations.*;
 
@@ -26,5 +27,22 @@ public interface ChartingMapper {
 
     @Delete(DELETE_HALLERGY) @Options(keyProperty = "allergyID" )
     public int deleteAllergy(HAllergy allergy) throws Exception;
+
+
+    String INSERT_H_ASSESSMENT = "INSERT INTO h_Assessment(UserId, collectedDateTime, AssessmentID, Status, Encounter_ObjectID, " +
+            "temperature, height, weight, pulse, systolicBP, dystolicBP, heightmeasureId, weightmeasureId, temperaturemeasureId, patient_ObjectID)" +
+            "VALUES (#{assessment.userId}, #{assessment.collectedDateTime},#{assessment.assessmentId}, #{assessment.status},#{assessment.encounterObjectId}, " +
+            "#{assessment.temperature}, #{assessment.height}, #{assessment.weight}, " +
+            "#{assessment.pulse}, #{assessment.systolicBP}, #{assessment.dystolicBP}, #{assessment.heightmeasureId}, " +
+            "#{assessment.weightmeasureId}, #{assessment.temperaturemeasureId}, #{assessment.patientObjectId})";
+    @Insert(INSERT_H_ASSESSMENT)
+    @Options(useGeneratedKeys=true, keyProperty="assessment.objectId", keyColumn="HAssessmentID")
+    public void addAssessment(@Param("assessment") HAssessment assessment);
+
+    String UPDATE_H_ASSESSMENT = "update h_Assessment set collectedDateTime = #{collectedDateTime}, Status=#{status},temperature=#{temperature}," +
+            " height=#{height}, weight=#{weight}, pulse=#{pulse}, systolicBP=#{systolicBP}, " +
+            "dystolicBP=#{dystolicBP}} where hdiagnosisid=#{objectId}";
+    @Update(UPDATE_H_ASSESSMENT)@Options(useGeneratedKeys = true, keyProperty = "HAssessmentID" )
+    public void reviseAssessment(HAssessment assessment);
 
 }

@@ -33,6 +33,16 @@ USE emrms;
 --
 -- Definition for table h_assessment
 --
+CREATE TABLE h_units_of_measure (
+  measureId INT(11) NOT NULL,
+  measureDescription VARCHAR(255) DEFAULT NULL,
+  UNIQUE INDEX UK_h_units_of_measure_measureId (measureId)
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
 CREATE TABLE h_assessment (
   HAssessmentID BIGINT(20) NOT NULL AUTO_INCREMENT,
   UserId VARCHAR(20) DEFAULT NULL,
@@ -40,7 +50,24 @@ CREATE TABLE h_assessment (
   AssessmentID INT(11) DEFAULT NULL,
   Status VARCHAR(20) DEFAULT NULL,
   Encounter_ObjectID BIGINT(20) DEFAULT NULL,
-  PRIMARY KEY (HAssessmentID)
+  temperature FLOAT DEFAULT NULL,
+  height FLOAT DEFAULT NULL,
+  weight FLOAT DEFAULT NULL,
+  pulse INT(11) DEFAULT NULL,
+  systolicBP INT(11) DEFAULT NULL,
+  dystolicBP INT(11) DEFAULT NULL,
+  heightmeasureId INT(11) DEFAULT NULL,
+  weightmeasureId INT(11) DEFAULT NULL,
+  temperaturemeasureId INT(11) DEFAULT NULL,
+  patient_ObjectID BIGINT(20) NOT NULL,
+  collectedDateTime DATETIME DEFAULT NULL,
+  PRIMARY KEY (HAssessmentID),
+  CONSTRAINT FK_h_assessment_htmeasureId FOREIGN KEY (heightmeasureId)
+    REFERENCES h_units_of_measure(measureId) ON DELETE NO ACTION ON UPDATE RESTRICT,
+  CONSTRAINT FK_h_assessment_tempmeasureId FOREIGN KEY (temperaturemeasureId)
+    REFERENCES h_units_of_measure(measureId) ON DELETE NO ACTION ON UPDATE RESTRICT,
+  CONSTRAINT FK_h_assessment_wtmeasureId FOREIGN KEY (weightmeasureId)
+    REFERENCES h_units_of_measure(measureId) ON DELETE NO ACTION ON UPDATE RESTRICT
 )
 ENGINE = INNODB
 AUTO_INCREMENT = 1
