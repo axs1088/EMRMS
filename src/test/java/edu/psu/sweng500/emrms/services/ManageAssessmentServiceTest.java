@@ -39,7 +39,7 @@ public class ManageAssessmentServiceTest {
         assertThat(service, instanceOf(ManageAssessmentService.class));
     }
     @Test
-    public void testAddAssessment() {
+    public void testAddReviseAssessment() {
         HAssessment assessment = new HAssessment();
         assessment.setUserId("admin");
         assessment.setCollectedDateTime("2017-09-14 11:55:00");
@@ -59,6 +59,26 @@ public class ManageAssessmentServiceTest {
 
         // ToDo
         int returnValue = service.AddAssessment(assessment);
+        assertEquals(0,returnValue);
+
+        assessment.setObjectId(assessment.getObjectId());
+        assessment.setCollectedDateTime("2018-09-14 11:55:00");
+        assessment.setAssessmentId(1);
+        assessment.setHeight(71);
+        assessment.setHeightmeasureId(2);
+        assessment.setWeight(156);
+        assessment.setWeightmeasureId(4);
+        assessment.setDystolicBP(121);
+        assessment.setSystolicBP(86);
+        assessment.setTemperature(102);
+        assessment.setTemperaturemeasureId(5);
+        assessment.setPulse(81);
+        assessment.setEncounterObjectId(1);
+        assessment.setPatientObjectId(3);
+        assessment.setStatus("COMPLETE");
+
+        // ToDo
+        returnValue = service.ReviseAssessment(assessment);
         assertEquals(0,returnValue);
 
     }

@@ -41,7 +41,7 @@ public interface ChartingMapper {
 
     String UPDATE_H_ASSESSMENT = "update h_Assessment set collectedDateTime = #{collectedDateTime}, Status=#{status},temperature=#{temperature}," +
             " height=#{height}, weight=#{weight}, pulse=#{pulse}, systolicBP=#{systolicBP}, " +
-            "dystolicBP=#{dystolicBP}} where hdiagnosisid=#{objectId}";
+            "dystolicBP=#{dystolicBP} where HAssessmentID=#{objectId}";
     @Update(UPDATE_H_ASSESSMENT)@Options(useGeneratedKeys = true, keyProperty = "HAssessmentID" )
     public void reviseAssessment(HAssessment assessment);
 
