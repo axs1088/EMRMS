@@ -126,7 +126,17 @@ public class PatientController {
 
         return mav;
     }
-
+    @RequestMapping(value = "/policies", method = RequestMethod.GET)
+    public ModelAndView showPolicies(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("policies");
+        Policy policy = new Policy();
+        policy.setStartDate("11-11-2017");
+        policy.setEndDate("11-11-2017");
+        policy.setPolicyName("Policy Test");
+        
+        mav.addObject("policy",policy);
+        return mav;
+    }
     @RequestMapping(value = "/patientLocatorProcess", params = "findPatient", method = RequestMethod.POST)
     public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response,
                                     @ModelAttribute("census") HCensus patient) {
