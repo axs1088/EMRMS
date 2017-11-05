@@ -111,6 +111,7 @@ public class ChartingController {
 
         mav.addObject("allergyList", allergyList);
         mav.addObject("newAllergy", newAllergy);
+        mav.addObject("deletedAllergy", new HAllergy());
     }
 
     @RequestMapping(value = "/addAllergy", method = RequestMethod.POST)
@@ -122,7 +123,20 @@ public class ChartingController {
         manageAllergyService.AddAllergy(newAllergy);
 
         addAllergiesToMav();
-        
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/deleteAllergy", method = RequestMethod.POST)
+    public ModelAndView deleteAllergy(HttpServletRequest request, HttpServletResponse response,
+                                      @ModelAttribute("deletedAllergy") HAllergy deletedAllergy, BindingResult bindingResult) {
+        try {
+            manageAllergyService.DeleteAllergy(deletedAllergy);
+        } catch (Exception e) {
+            // Fine
+        }
+
+        addAllergiesToMav();
         return mav;
     }
 }

@@ -18,7 +18,7 @@
         </th>
     </tr>
 
-    <form:form id="addAllergyForm" method="post" action="addAllergy" modelAttribute="newAllergy">
+    <form:form id="addAllergyForm" method="post" action="addAllergy" modelAttribute="newAllergy" name="addAllergyForm">
         <tr>
             <td width="55%">
                 <form:input path="allergyName"/>
@@ -39,13 +39,13 @@
                 </form:select>
             </td>
             <td width="15%">
-                <form:button type="submit" value="Add">Add</form:button>
+                    <%--<form:button type="submit" value="Add" name="addForm">Add</form:button>--%>
+                <a href="javascript:document.addAllergyForm.submit()">Add</a>
             </td>
         </tr>
     </form:form>
 
     <c:forEach items="${allergyList}" var="allergy" varStatus="status">
-        <%--<form:form id="modifyAllergyForm" method="post" action="modifyAllergy" modelAttribute="modifiedAllergy">--%>
         <tr>
             <td width="55%">
                 <text>${allergy.allergyName}</text>
@@ -69,13 +69,16 @@
                 </text>
             </td>
             <td width="15%">
-                <input type="button" value="Edit"/>
-                <input type="button" value="Delete"/>
-                    <%--<form:button type="submit" value="Delete"/>--%>
+                <form name="submitForm${allergy.allergyID}" method="POST" action="deleteAllergy">
+                    <input type="hidden" name="allergyID" value="${allergy.allergyID}"/>
+                    <a href="javascript:document.submitForm${allergy.allergyID}.submit()">Delete</a>
+                </form>
+                    <%--<input type="button" value="Edit"/>--%>
+                    <%--<form:form id="deleteAllergyForm" method="post" action="deleteAllergy" modelAttribute="deletedAllergy">--%>
+                    <%--<form:hidden path="allergyID">${allergy.allergyID}</form:hidden>--%>
+                    <%--<form:button type="submit" value="Delete">Delete</form:button>--%>
+                    <%--</form:form>--%>
             </td>
         </tr>
-        <%--</form:form>--%>
     </c:forEach>
-
-
 </table>
