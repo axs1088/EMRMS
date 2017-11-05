@@ -49,6 +49,7 @@ public class ChartingController {
     private Integer patientId;
     private HAllergy newAllergy;
     private HttpSession session;
+    private List<HAllergy> allergyList;
 
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
@@ -97,7 +98,6 @@ public class ChartingController {
     }
 
     private void addAllergiesToMav() {
-        List<HAllergy> allergyList;
         newAllergy = new HAllergy();
 
         try {
@@ -139,6 +139,12 @@ public class ChartingController {
     public ModelAndView deleteAllergy(HttpServletRequest request, HttpServletResponse response,
                                       @ModelAttribute("deletedAllergy") HAllergy deletedAllergy, BindingResult bindingResult) {
         try {
+            final int deletedAllergyId = deletedAllergy.getAllergyID();
+            deletedAllergy = allergyList.stream()
+                    .filter(allergy -> allergy.getAllergyID() == deletedAllergyId)
+                    .findFirst()
+                    .get();
+
             manageAllergyService.DeleteAllergy(deletedAllergy);
         } catch (Exception e) {
             // Fine
