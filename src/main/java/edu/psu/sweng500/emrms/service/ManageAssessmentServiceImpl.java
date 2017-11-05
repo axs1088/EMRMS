@@ -38,7 +38,7 @@ public class ManageAssessmentServiceImpl implements ManageAssessmentService {
 
     @Override
     public int ReviseAssessment(HAssessment assessment) {
-        chartingMapper.addAssessment(assessment);
+        chartingMapper.reviseAssessment(assessment);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Revise Assessment");
         auditRecord.setPolicyId(16);

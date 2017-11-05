@@ -4,6 +4,7 @@ public class Policy {
 	private String startDate;
 	private String endDate;
 	private String policyName;
+	private int policyId;
 	
 	public String getStartDate() {
 		return startDate;
@@ -22,5 +23,13 @@ public class Policy {
 	}
 	public void setPolicyName(String policyName) {
 		this.policyName = policyName;
+	}
+
+	public int getPolicyId() {
+		return policyId;
+	}
+
+	public void setPolicyId(int policyId) {
+		this.policyId = policyId;
 	}
 }
