@@ -12,13 +12,16 @@
         function validateInput() {
             var lastName = document.getElementById("lastNameTxt").value;
             var firstName = document.getElementById("firstNameTxt").value;
-            if (lastName == "" || firstName == "") {
+            if (isBlank(lastName) || isBlank(firstName)) {
                 alert("Please fill in mandatory fields marked by *");
                 return false;
             } else {
                 return true;
             }
-
+        }
+        
+        function isBlank(str) {
+            return (!str || /^\s*$/.test(str));
         }
     </script>
     <style>

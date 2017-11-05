@@ -23,16 +23,18 @@
                 validate = false;
             }
 
-            if (lastName == "" || lastName == null
-                || firstName == "" || firstName == null
-                || birthDate == "" || birthDate == null
-                || gender == "" || gender == null) {
+            if (isBlank(lastName) || isBlank(firstName) || isBlank(birthDate) || isBlank(gender)) {
                 alert("Please enter values in mandatory fields marked by *");
                 validate = false;
             }
 
             return validate;
         }
+        
+        function isBlank(str) {
+            return (!str || /^\s*$/.test(str));
+        }
+        
     </script>
 </head>
 

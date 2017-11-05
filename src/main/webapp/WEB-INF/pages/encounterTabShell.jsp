@@ -35,6 +35,29 @@
             // Get the element with id="defaultOpen" and click on it
             document.getElementById("defaultOpen").click();
         }
+        
+        function validateInput() {
+            var encounterType = document.getElementById("encounterTypeInput").value;
+            var encStartDateTime = document.getElementById("encStartDateTimeInput").value;
+            var encLocationName = document.getElementById("encLocationNameInput").value;
+            var encStatus = document.getElementById("encStatusInput").value;
+            var encounterID = document.getElementById("encounterIDInput").value;
+            var encounterReason = document.getElementById("encounterReasonInput").value;
+            var validate = true;
+
+            if (isBlank(encounterType) || isBlank(encStartDateTime) || isBlank(encLocationName) || isBlank(encStatus) 
+            		|| isBlank(encounterID) || isBlank(encounterReason)) {
+                alert("Please enter values in mandatory fields marked by *");
+                validate = false;
+            }
+
+            return validate;
+        }
+        
+        function isBlank(str) {
+            return (!str || /^\s*$/.test(str));
+        }
+        
     </script>
 </head>
 
