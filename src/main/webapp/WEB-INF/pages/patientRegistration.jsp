@@ -287,7 +287,8 @@
         <br>
         <br/>
         <div>
-            <form:button type="submit" value="Submit">Save Patient</form:button>
+            <form:button type="submit" value="Submit">Save Patient</form:button>&nbsp;&nbsp;
+            <button type="button" name="back" onclick="history.back()">&laquo; Previous</button>
         </div>
 
         <c:if test="${not empty validationErrors}">
