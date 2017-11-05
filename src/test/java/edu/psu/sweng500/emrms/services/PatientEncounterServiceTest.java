@@ -2,7 +2,7 @@ package edu.psu.sweng500.emrms.services;
 
 import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.model.HPatient;
-import edu.psu.sweng500.emrms.service.SaveEncounterService;
+import edu.psu.sweng500.emrms.service.PatientEncounterService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,10 +23,10 @@ import static org.junit.Assert.assertThat;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/spring/test-emrms-context.xml"})
-public class SaveEncounterServiceTest {
+public class PatientEncounterServiceTest {
     @Autowired
     @Qualifier("saveEncounterService")
-    private SaveEncounterService service;
+    private PatientEncounterService service;
 
     @Before
     public void setUp() {
@@ -40,7 +40,7 @@ public class SaveEncounterServiceTest {
     }
 
     public void verifySpringAnnotations() {
-        assertThat(service, instanceOf(SaveEncounterService.class));
+        assertThat(service, instanceOf(PatientEncounterService.class));
     }
 
     @Test

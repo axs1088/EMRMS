@@ -2,7 +2,7 @@ package edu.psu.sweng500.emrms.service;
 
 import edu.psu.sweng500.emrms.mappers.ChartingMapper;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
-import edu.psu.sweng500.emrms.mappers.SaveEncounterMapper;
+import edu.psu.sweng500.emrms.mappers.PatientEncounterMapper;
 import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.util.PersonPatientUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,15 +1,12 @@
 package edu.psu.sweng500.emrms.mappers;
 
 import edu.psu.sweng500.emrms.model.HEncounter;
-import edu.psu.sweng500.emrms.model.HPatient;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
-import java.util.Date;
-
-public interface SaveEncounterMapper {
+public interface PatientEncounterMapper {
     @Insert("INSERT INTO h_encounter(UserId," +
             "EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName," +
             "EncounterLocation_ObjectID,EncounterID,EncType,BedName," +

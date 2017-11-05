@@ -1,6 +1,6 @@
 package edu.psu.sweng500.emrms.service;
 
-import edu.psu.sweng500.emrms.mappers.SaveEncounterMapper;
+import edu.psu.sweng500.emrms.mappers.PatientEncounterMapper;
 import edu.psu.sweng500.emrms.model.HAuditRecord;
 import edu.psu.sweng500.emrms.util.PersonPatientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("saveEncounterService")
 
-public class SaveEncounterServiceImpl implements  SaveEncounterService{
-    public void setEncounterMapper(SaveEncounterMapper encounterMapper) {
+public class PatientEncounterServiceImpl implements  PatientEncounterService{
+    public void setEncounterMapper(PatientEncounterMapper encounterMapper) {
         this.encounterMapper = encounterMapper;
     }
 
     @Autowired
-    private SaveEncounterMapper encounterMapper;
+    private PatientEncounterMapper encounterMapper;
 
     @Autowired
     private AuditEventService auditEventService;
