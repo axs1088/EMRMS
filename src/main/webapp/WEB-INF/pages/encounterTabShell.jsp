@@ -86,15 +86,15 @@
         <button class="tablinks" onclick="openTab(event, 'Checkout')">Check-Out</button>
     </div>
 
-    <div id="Allergies" class="tabcontent">
+    <div id="EncounterDetails" class="tabcontent">
         <%@include file="encounterDetails.jsp" %>
     </div>
 
-    <div id="Assessments" class="tabcontent">
+    <div id="Transfer" class="tabcontent">
         <%@include file="encounterTransfer.jsp" %>
     </div>
 
-    <div id="Diagnoses" class="tabcontent">
+    <div id="Checkout" class="tabcontent">
         <%@include file="encounterCheckout.jsp" %>
     </div>
 
