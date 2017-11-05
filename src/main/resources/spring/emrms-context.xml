@@ -20,7 +20,7 @@
     <context:component-scan base-package="edu.psu.sweng500.emrms"/>
 
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"/>
-    
+
     <!--
     <mvc:interceptors>
     	<bean class="edu.psu.sweng500.emrms.application.ApplicationSecurityInterceptor"/>
@@ -66,15 +66,12 @@
         <property name="basePackage" value="edu.psu.sweng500.emrms.mappers"/>
     </bean>
 
-
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!--  Enable Transaction Processing  -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-
-    <mvc:resources mapping="/resources/**" location="/resources/theme1/" cache-period="31556926"/>
 
     <mvc:annotation-driven/>
 

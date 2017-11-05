@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.List;
 
@@ -64,27 +63,6 @@ public class PatientController {
         binder.registerCustomEditor(Integer.class, new EMRMSCustomEditor());
     }
 
-    // I needed allergies, diagnoses, physician, and clinic to be separate attributes
-    @ModelAttribute("severeAllergyList")
-    public List<String> getSevereAllergyList() {
-        return sessionHelper.getSevereAllergies();
-    }
-
-    @ModelAttribute("primaryDiagnosisList")
-    public List<String> getPrimaryDiagnosisList() {
-        return sessionHelper.getPrimaryDiagnoses();
-    }
-
-    @ModelAttribute("physicianName")
-    public String getPhysicianName() {
-        return sessionHelper.getPhysicianName();
-    }
-
-    @ModelAttribute("clinicName")
-    public String getClinicName() {
-        return sessionHelper.getClinicName();
-    }
-
     @RequestMapping(value = "/patientLocatorProcess", params = "addPatient", method = RequestMethod.POST)
     public ModelAndView registerPatient(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("patientRegistration");
@@ -93,13 +71,14 @@ public class PatientController {
         mav.addObject("showHeader", true);
         mav.addObject("patient", patient);
         mav.addObject("siteHeader", new SiteHeader());
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
 
         return mav;
     }
 
     @RequestMapping(value = "/patientDetails", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView patientDetails(HttpServletRequest request, @RequestParam(value = "hPatientID", required = false) Integer hPatientID) {
-    	HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(false);
         ModelAndView mav = new ModelAndView("patientDetails");
         HPatient patient = null;
 
@@ -108,11 +87,12 @@ public class PatientController {
             sessionHelper.setActivePatient(hPatientID);
             session.setAttribute(Constants.HPATIENT_ID, hPatientID);
         }
-        applicationAuditHelper.auditEvent(session, "View Patient Details", 9,hPatientID,0);
+        applicationAuditHelper.auditEvent(session, "View Patient Details", 9, hPatientID, 0);
 
         mav.addObject("showHeader", true);
         mav.addObject("patient", patient);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
 
         return mav;
     }
@@ -123,9 +103,11 @@ public class PatientController {
         mav.addObject("census", new HCensus());
         mav.addObject("showHeader", false);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
 
         return mav;
     }
+
     @RequestMapping(value = "/policies", method = RequestMethod.GET)
     public ModelAndView showPolicies(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("policies");
@@ -133,10 +115,13 @@ public class PatientController {
         policy.setStartDate("11-11-2017");
         policy.setEndDate("11-11-2017");
         policy.setPolicyName("Policy Test");
-        
-        mav.addObject("policy",policy);
+
+        mav.addObject("policy", policy);
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
+
         return mav;
     }
+
     @RequestMapping(value = "/patientLocatorProcess", params = "findPatient", method = RequestMethod.POST)
     public ModelAndView findPatient(HttpServletRequest request, HttpServletResponse response,
                                     @ModelAttribute("census") HCensus patient) {
@@ -151,10 +136,11 @@ public class PatientController {
             mav.addObject("hPatientList", hPatientList);
             sessionHelper.setActivePatient(hPatientList.get(0).gethPatientID());
         }
-        applicationAuditHelper.auditEvent(session, "Patient Locator", 4,0,0);
+        applicationAuditHelper.auditEvent(session, "Patient Locator", 4, 0, 0);
 
         mav.addObject("showHeader", false);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
 
         return mav;
     }
@@ -194,13 +180,13 @@ public class PatientController {
         newMrNumberId.setIdValue(mrNumber);
         patient.setPatientIds(newMrNumberId);
 
-        if(patient.getObjectID() == 0) {
-        	patientService.registerPatient(patient);
+        if (patient.getObjectID() == 0) {
+            patientService.registerPatient(patient);
         } else {
-        	patientService.updatePatient(patient);
-        	mav = new ModelAndView("patientDetails");      	
-        }       	
-        
+            patientService.updatePatient(patient);
+            mav = new ModelAndView("patientDetails");
+        }
+
         mav.addObject("saveSuccess", true);
         session.setAttribute(Constants.HPATIENT_ID, patient.getObjectID());
 
@@ -220,6 +206,7 @@ public class PatientController {
         sessionHelper.setActivePatient(patientFromDB.getObjectID());
         mav.addObject("showHeader", true);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
 
         return mav;
     }
@@ -252,19 +239,19 @@ public class PatientController {
 
         if (patient != null) {
             ComplexName name = new ComplexName();
-            if(patientName != null) {
-	            name.setFirst(patientName.getFirstName());
-	            name.setLast(patientName.getLastName());
-	            name.setMiddle(patientName.getMiddleName());
+            if (patientName != null) {
+                name.setFirst(patientName.getFirstName());
+                name.setLast(patientName.getLastName());
+                name.setMiddle(patientName.getMiddleName());
             }
             patient.setName(name);
             Address address = new Address();
-            if(patientAddress != null) {
-	            address.setLine1(patientAddress.getLine1());
-	            address.setLine2(patientAddress.getLine2());
-	            address.setCity(patientAddress.getCity());
-	            address.setState(patientAddress.getState());
-	            address.setZip(patientAddress.getZip());
+            if (patientAddress != null) {
+                address.setLine1(patientAddress.getLine1());
+                address.setLine2(patientAddress.getLine2());
+                address.setCity(patientAddress.getCity());
+                address.setState(patientAddress.getState());
+                address.setZip(patientAddress.getZip());
             }
             patient.setAddress(address);
             patient.setHomePhone(homePhone);

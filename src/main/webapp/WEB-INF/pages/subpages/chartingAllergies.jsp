@@ -1,8 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-<%@ include file="/WEB-INF/pages/include.jsp" %>
-<!DOCTYPE html>
-
-<div>
+<div align="center">
     <form:form modelAttribute="knownAllergies">
         <form:checkbox path="noKnownAllergies" title="No Known Allergies" disabled="true"/>
         <label title="No Known Allergies" style="text-align: left">NKA</label>
@@ -50,7 +46,6 @@
                 </form:select>
             </td>
             <td width="15%">
-                    <%--<form:button type="submit" value="Add" name="addForm">Add</form:button>--%>
                 <a href="javascript:document.addAllergyForm.submit()">Add</a>
             </td>
         </tr>
@@ -82,13 +77,9 @@
             <td width="15%">
                 <form name="submitForm${allergy.allergyID}" method="POST" action="deleteAllergy">
                     <input type="hidden" name="allergyID" value="${allergy.allergyID}"/>
-                    <a href="javascript:document.submitForm${allergy.allergyID}.submit()">Delete</a>
+                    <a onclick="return confirm('Are you sure you want to delete this allergy?')"
+                       href="javascript:document.submitForm${allergy.allergyID}.submit()">Delete</a>
                 </form>
-                    <%--<input type="button" value="Edit"/>--%>
-                    <%--<form:form id="deleteAllergyForm" method="post" action="deleteAllergy" modelAttribute="deletedAllergy">--%>
-                    <%--<form:hidden path="allergyID">${allergy.allergyID}</form:hidden>--%>
-                    <%--<form:button type="submit" value="Delete">Delete</form:button>--%>
-                    <%--</form:form>--%>
             </td>
         </tr>
     </c:forEach>

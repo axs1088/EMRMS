@@ -1,10 +1,8 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/WEB-INF/pages/subpages/include.jsp" %>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>Login</title>
     <style>
@@ -26,17 +24,13 @@
     </script>
 </head>
 
-<div id="header">
-    <h1><a href="/emrms/home">EMRMS<span>Electronic Medical Record Management System</span></a></h1>
-    <ul id="navigation">
-        <li class="current">
-            <a href="/emrms/home">Home</a>
-        </li>
-    </ul>
-</div>
+<header>
+    <label style="font-weight: bold; font-size: 300%;">EMRMS</label>
+    <h3>Electronic Medical Record Management System</h3>
+</header>
 
 <body align="center" class="body">
-<div class="content">
+<div class="mainContent">
     <form:form id="loginForm" modelAttribute="user" action="loginProcess" method="post">
         <table align="center">
             <tr>
@@ -76,7 +70,8 @@
         </tr>
     </table>
 </div>
-<%@include file="siteFooter.jsp" %>
-
 </body>
+
+<%@include file="subpages/siteFooter.jsp" %>
+
 </html>

@@ -1,5 +1,67 @@
-body {
-    background-color: #6E7B7A;
+:root {
+    --sitePadding: 10px;
 }
 
-​
+header, footer {
+    background-color: #B3E5FC;
+    padding: var(--sitePadding);
+}
+
+body {
+    background-color: #e6ffff;
+}
+
+header {
+    width: 100%;
+    padding-top: 0px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.leftLabel {
+    text-align: right;
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+.rightInput {
+    text-align: left;
+    height: 25px;
+    width: auto;
+    margin-bottom: 5px;
+}
+
+input:read-only {
+    width: auto;
+}
+
+#addressInput {
+    width: 300px;
+}
+
+#zipInput {
+    width: 75px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+.mainContent {
+    padding: var(--sitePadding);
+}
+
+mandatory {
+    color: red;
+}

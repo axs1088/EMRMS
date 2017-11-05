@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-<%@ include file="/WEB-INF/pages/include.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/WEB-INF/pages/subpages/include.jsp" %>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Charting</title>
@@ -38,15 +36,14 @@
     </script>
 </head>
 
-
 <style>
-    <%@include file="/css/formCommon.css"%>
+    <%@include file="/css/emrms.css"%>
 </style>
 
-<%@include file="siteHeader.jsp" %>
-
+<%@include file="subpages/siteHeader.jsp" %>
 <body onload="openDefaultTab()">
-<div class="content">
+<div class="mainContent">
+    <h3>Charting</h3>
     <style>
         div.tab {
             overflow: hidden;
@@ -88,23 +85,23 @@
     </div>
 
     <div id="Allergies" class="tabcontent">
-        <%@include file="chartingAllergies.jsp" %>
+        <%@include file="subpages/chartingAllergies.jsp" %>
     </div>
 
     <div id="Assessments" class="tabcontent">
-        <%@include file="chartingAssessments.jsp" %>
+        <%@include file="subpages/chartingAssessments.jsp" %>
     </div>
 
     <div id="Diagnoses" class="tabcontent">
-        <%@include file="chartingDiagnoses.jsp" %>
+        <%@include file="subpages/chartingDiagnoses.jsp" %>
     </div>
 
     <div id="Problems" class="tabcontent">
-        <%@include file="chartingProblems.jsp" %>
+        <%@include file="subpages/chartingProblems.jsp" %>
     </div>
 </div>
-
-<%@include file="siteFooter.jsp" %>
-
 </body>
+
+<%@include file="subpages/siteFooter.jsp" %>
+
 </html>

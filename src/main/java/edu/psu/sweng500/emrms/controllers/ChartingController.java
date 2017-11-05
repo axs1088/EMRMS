@@ -4,9 +4,12 @@ import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
 import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
+import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
 import edu.psu.sweng500.emrms.model.HAllergy;
+import edu.psu.sweng500.emrms.model.HDiagnosis;
 import edu.psu.sweng500.emrms.model.KnownAllergies;
 import edu.psu.sweng500.emrms.service.ManageAllergyService;
+import edu.psu.sweng500.emrms.service.ManageDiagnosisService;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
@@ -45,11 +48,22 @@ public class ChartingController {
     @Autowired
     private ManageAllergyService manageAllergyService;
 
+    @Autowired
+    private ManageDiagnosisService manageDiagnosisService;
+
+    @Autowired
+    private PatientDemographicsMapper patientDemographicsMapper;
+
     private ModelAndView mav;
     private Integer patientId;
-    private HAllergy newAllergy;
     private HttpSession session;
+
+    private HAllergy newAllergy;
     private List<HAllergy> allergyList;
+
+    private HDiagnosis newDiagnosis;
+    private List<HDiagnosis> diagnosisList;
+
 
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
@@ -62,27 +76,6 @@ public class ChartingController {
         binder.registerCustomEditor(Integer.class, new EMRMSCustomEditor());
     }
 
-    // I needed allergies, diagnoses, physician, and clinic to be separate attributes
-    @ModelAttribute("severeAllergyList")
-    public List<String> getSevereAllergyList() {
-        return sessionHelper.getSevereAllergies();
-    }
-
-    @ModelAttribute("primaryDiagnosisList")
-    public List<String> getPrimaryDiagnosisList() {
-        return sessionHelper.getPrimaryDiagnoses();
-    }
-
-    @ModelAttribute("physicianName")
-    public String getPhysicianName() {
-        return sessionHelper.getPhysicianName();
-    }
-
-    @ModelAttribute("clinicName")
-    public String getClinicName() {
-        return sessionHelper.getClinicName();
-    }
-
     @RequestMapping(value = "/charting", method = RequestMethod.GET)
     public ModelAndView showCharting(HttpServletRequest request, HttpServletResponse response) {
         mav = new ModelAndView("chartingTabShell");
@@ -93,6 +86,9 @@ public class ChartingController {
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         addAllergiesToMav();
+        addDiagnosesToMav();
+
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
 
         return mav;
     }
@@ -101,7 +97,7 @@ public class ChartingController {
         newAllergy = new HAllergy();
 
         try {
-            int patientId = sessionHelper.getPatientId();
+            patientId = sessionHelper.getPatientId();
             allergyList = patientDemographicsService.getPatientAllergies(patientId);
             newAllergy.setPatientID(patientId);
         } catch (PatientNotFoundException e) {
@@ -131,6 +127,7 @@ public class ChartingController {
 
         addAllergiesToMav();
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
 
         return mav;
     }
@@ -152,6 +149,64 @@ public class ChartingController {
 
         addAllergiesToMav();
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
+
+        return mav;
+    }
+
+    private void addDiagnosesToMav() {
+        newDiagnosis = new HDiagnosis();
+
+        try {
+            patientId = sessionHelper.getPatientId();
+            diagnosisList = patientDemographicsService.getPatientDiagnoses(patientId);
+            newDiagnosis.setPatientID(patientId);
+        } catch (PatientNotFoundException e) {
+            diagnosisList = new ArrayList<>();
+        }
+
+        newDiagnosis.setUserId(sessionHelper.getApplicationUser(session));
+        newDiagnosis.setEncounterID(patientDemographicsMapper.getPatientEncounters(patientId).get(0).getHEncounterID());
+
+        mav.addObject("diagnosisList", diagnosisList);
+        mav.addObject("newDiagnosis", newDiagnosis);
+        mav.addObject("deletedDiagnosis", new HDiagnosis());
+    }
+
+    @RequestMapping(value = "/addDiagnosis", method = RequestMethod.POST)
+    public ModelAndView addAllergy(HttpServletRequest request, HttpServletResponse response,
+                                   @ModelAttribute("newDiagnosis") HDiagnosis diagnosis, BindingResult bindingResult) {
+        newDiagnosis.setDescription(diagnosis.getDescription());
+        newDiagnosis.setCode(diagnosis.getCode());
+        newDiagnosis.setPriority(diagnosis.getPriority());
+
+        manageDiagnosisService.AddDiagnosis(newDiagnosis);
+
+        addDiagnosesToMav();
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/deleteDiagnosis", method = RequestMethod.POST)
+    public ModelAndView deleteDiagnosis(HttpServletRequest request, HttpServletResponse response,
+                                        @ModelAttribute("deletedDiagnosis") HDiagnosis deletedDiagnosis, BindingResult bindingResult) {
+        try {
+            final int deletedDiagnosisId = deletedDiagnosis.getDiagnosisObjectId();
+            deletedDiagnosis = diagnosisList.stream()
+                    .filter(diagnosis -> diagnosis.getDiagnosisObjectId() == deletedDiagnosisId)
+                    .findFirst()
+                    .get();
+
+            manageDiagnosisService.DeleteDiagnosis(deletedDiagnosis);
+        } catch (Exception e) {
+            // Fine
+        }
+
+        addDiagnosesToMav();
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
 
         return mav;
     }

@@ -4,7 +4,10 @@ import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.model.User;
-import edu.psu.sweng500.emrms.service.*;
+import edu.psu.sweng500.emrms.service.AuditEventServiceImpl;
+import edu.psu.sweng500.emrms.service.CensusService;
+import edu.psu.sweng500.emrms.service.CensusServiceImpl;
+import edu.psu.sweng500.emrms.service.UserService;
 import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import org.apache.commons.collections.CollectionUtils;
@@ -20,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,26 +43,6 @@ public class LoginController {
 
     @Autowired
     private ApplicationSessionHelper sessionHelper;
-
-    @ModelAttribute("severeAllergyList")
-    public List<String> getSevereAllergyList() {
-        return sessionHelper.getSevereAllergies();
-    }
-
-    @ModelAttribute("primaryDiagnosisList")
-    public List<String> getPrimaryDiagnosisList() {
-        return sessionHelper.getPrimaryDiagnoses();
-    }
-
-    @ModelAttribute("physicianName")
-    public String getPhysicianName() {
-        return sessionHelper.getPhysicianName();
-    }
-
-    @ModelAttribute("clinicName")
-    public String getClinicName() {
-        return sessionHelper.getClinicName();
-    }
 
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -86,6 +68,9 @@ public class LoginController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView showHome(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("home");
+
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
+
         return mav;
     }
 
@@ -93,6 +78,9 @@ public class LoginController {
     public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("user", new User());
+
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
+
         return mav;
     }
 
@@ -104,6 +92,9 @@ public class LoginController {
         if (session != null)
             sessionHelper.clearAllSessionAttributes(session);
         session.invalidate();
+
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
+
         return mav;
     }
 
@@ -149,18 +140,19 @@ public class LoginController {
             }
 
             if (CollectionUtils.isEmpty(hCensusList)) {
-            	hCensusList = new ArrayList<HCensus>();
+                hCensusList = new ArrayList<HCensus>();
             }
-            
+
             mav.addObject("showHeader", false);
             mav.addObject("hCensusList", hCensusList);
             mav.addObject(Constants.CENSUS, census);
 
-            applicationAuditHelper.auditEvent(session, "Login", 1,0,0);
-            applicationAuditHelper.auditEvent(session, "View Patient Census", 3,0,0);
+            applicationAuditHelper.auditEvent(session, "Login", 1, 0, 0);
+            applicationAuditHelper.auditEvent(session, "View Patient Census", 3, 0, 0);
         }
 
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
 
         return mav;
     }
