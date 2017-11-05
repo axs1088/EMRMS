@@ -2,6 +2,17 @@
 <%@ include file="/WEB-INF/pages/include.jsp" %>
 <!DOCTYPE html>
 
+<div>
+    <form:form modelAttribute="knownAllergies">
+        <form:checkbox path="noKnownAllergies" title="No Known Allergies" disabled="true"/>
+        <label title="No Known Allergies" style="text-align: left">NKA</label>
+        <form:checkbox path="noKnownDrugAllergies" title="No Known Drug Allergies" disabled="true"/>
+        <label title="No Known Drug Allergies" style="text-align: left">NKDA</label>
+        <form:checkbox path="noKnownFoodAllergies" title="No Known Food Allergies" disabled="true"/>
+        <label title="No Known Food Allergies" style="text-align: left">NKFA</label>
+    </form:form>
+</div>
+
 <table id="allergyTable" border="1" align="center" cellpadding="5" width="100%">
     <tr>
         <th width="55%">

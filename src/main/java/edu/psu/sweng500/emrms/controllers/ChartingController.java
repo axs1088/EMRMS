@@ -5,6 +5,7 @@ import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
 import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
 import edu.psu.sweng500.emrms.model.HAllergy;
+import edu.psu.sweng500.emrms.model.KnownAllergies;
 import edu.psu.sweng500.emrms.service.ManageAllergyService;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
@@ -112,6 +113,12 @@ public class ChartingController {
         mav.addObject("allergyList", allergyList);
         mav.addObject("newAllergy", newAllergy);
         mav.addObject("deletedAllergy", new HAllergy());
+
+        KnownAllergies knownAllergies = new KnownAllergies();
+        knownAllergies.setNoKnownAllergies(allergyList.isEmpty());
+        knownAllergies.setNoKnownFoodAllergies(allergyList.stream().noneMatch(allergy -> allergy.getAllergyType() == 1));
+        knownAllergies.setNoKnownDrugAllergies(allergyList.stream().noneMatch(allergy -> allergy.getAllergyType() == 2));
+        mav.addObject("knownAllergies", knownAllergies);
     }
 
     @RequestMapping(value = "/addAllergy", method = RequestMethod.POST)
@@ -123,6 +130,7 @@ public class ChartingController {
         manageAllergyService.AddAllergy(newAllergy);
 
         addAllergiesToMav();
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         return mav;
     }
@@ -137,6 +145,8 @@ public class ChartingController {
         }
 
         addAllergiesToMav();
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+
         return mav;
     }
 }
