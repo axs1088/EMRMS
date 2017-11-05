@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ include file="/WEB-INF/pages/include.jsp" %>
 
-    <h3>Patient Demographics</h3>
+    <h3>Encounter Details</h3>
     <form:form id="addEncounterForm" method="post" action="addEncounter" modelAttribute="encounter"
                onsubmit="return validateInput()">
         <div>         
