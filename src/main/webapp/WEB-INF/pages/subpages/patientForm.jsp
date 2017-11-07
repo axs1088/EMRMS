@@ -52,7 +52,6 @@
         <form:input cssClass="rightInput" id="addressInput" path="address.line1"/>
         <div>
             <form:input cssClass="rightInput" path="address.city"/>
-            <form:input cssClass="rightInput" id="zipInput" path="address.zip"/>
             <form:select path="address.state">
                 <form:option value="Alabama"/>
                 <form:option value="Alaska"/>
@@ -105,6 +104,7 @@
                 <form:option value="Wisconsin"/>
                 <form:option value="Wyoming"/>
             </form:select>
+            <form:input cssClass="rightInput" id="zipInput" path="address.zip"/>
         </div>
         <div>
             <form:checkbox cssClass="rightInput" path="address.mailingAddrSameAsHomeAddr" value="1"/>
