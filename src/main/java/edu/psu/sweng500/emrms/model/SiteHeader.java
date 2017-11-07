@@ -25,7 +25,8 @@ public class SiteHeader {
     }
 
     public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+        String[] splitToRemoveTime = birthDate.split(" ");
+        this.birthDate = splitToRemoveTime[0];
     }
 
     public String getAttending() {
@@ -65,7 +66,8 @@ public class SiteHeader {
     }
 
     public void setEncounterStartDate(String encounterStartDate) {
-        this.encounterStartDate = encounterStartDate;
+        String[] splitToRemoveTime = encounterStartDate.split(" ");
+        this.encounterStartDate = splitToRemoveTime[0];
     }
 
     public String getEncounterNumber() {

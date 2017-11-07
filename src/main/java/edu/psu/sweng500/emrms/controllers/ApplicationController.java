@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.controllers;
 
+import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.model.HCensus;
 import edu.psu.sweng500.emrms.service.CensusService;
 import edu.psu.sweng500.emrms.service.UserService;
@@ -27,9 +28,12 @@ public class ApplicationController {
 
     @Autowired
     private CensusService censusService;
-    
+
+    @Autowired
+    private ApplicationSessionHelper sessionHelper;
+
     public void setCensusService(CensusService censusService) {
-    	this.censusService = censusService;
+        this.censusService = censusService;
     }
 
     /**
@@ -65,13 +69,14 @@ public class ApplicationController {
 
         List<HCensus> hCensusList = censusService.getPhysicianCensus(1);
 
-        ModelAndView model = new ModelAndView("hello");
+        ModelAndView mav = new ModelAndView("hello");
 
         if (CollectionUtils.isNotEmpty(hCensusList)) {
-            model.addObject("msg", generateWelcomeMessage(hCensusList.get(0)));
+            mav.addObject("msg", generateWelcomeMessage(hCensusList.get(0)));
         }
 
-        return model;
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        return mav;
     }
 
     public static String generateWelcomeMessage(HCensus validCensus) {

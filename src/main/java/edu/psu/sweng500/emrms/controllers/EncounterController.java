@@ -2,9 +2,7 @@ package edu.psu.sweng500.emrms.controllers;
 
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
-import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
 import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
-import edu.psu.sweng500.emrms.model.HAllergy;
 import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,9 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class EncounterController {
@@ -54,11 +48,11 @@ public class EncounterController {
         binder.setBindingErrorProcessor(new EMRMSBindingErrorProcessor());
         binder.registerCustomEditor(Integer.class, new EMRMSCustomEditor());
     }
-   
+
     @RequestMapping(value = "/encounterDetails", method = RequestMethod.GET)
     public ModelAndView patientEncounter(HttpServletRequest request, HttpServletResponse response) {
-    	HttpSession session = request.getSession(false);
-        applicationAuditHelper.auditEvent(session, "View Encounter Details", 10, sessionHelper.getHPatientId(session),0 );
+        HttpSession session = request.getSession(false);
+        applicationAuditHelper.auditEvent(session, "View Encounter Details", 10, sessionHelper.getHPatientId(session), 0);
         ModelAndView mav = new ModelAndView("encounterTabShell");
         HEncounter hEncounter = new HEncounter();
 
@@ -67,7 +61,8 @@ public class EncounterController {
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
+        mav = sessionHelper.addSessionHeplperAttributes(mav);
+
         return mav;
     }
-    
 }

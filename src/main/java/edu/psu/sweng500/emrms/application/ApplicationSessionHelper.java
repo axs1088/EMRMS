@@ -15,6 +15,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -55,6 +56,15 @@ public class ApplicationSessionHelper {
     private PatientDemographicsMapper patientDemographicsMapper;
 
     private Integer patientId;
+
+    public ModelAndView addSessionHeplperAttributes(ModelAndView mav) {
+        mav.addObject("severeAllergyList", getSevereAllergies());
+        mav.addObject("primaryDiagnosisList", getPrimaryDiagnoses());
+        mav.addObject("physicianName", getPhysicianName());
+        mav.addObject("clinicName", getClinicName());
+
+        return mav;
+    }
 
     /**
      * Gets the session attributes for all application controllers.
@@ -105,7 +115,7 @@ public class ApplicationSessionHelper {
     public Long getApplicationUserType(HttpSession session) {
         return (Long) session.getAttribute(Constants.APP_USER_TYPE);
     }
-    
+
     /**
      * Gets the logged in user id.
      *
@@ -283,7 +293,7 @@ public class ApplicationSessionHelper {
             int hStaffId = patientDemographicsMapper.getPatientEncounters(patientId).get(0).getAttendingPhysician_ObjectID();
             return "Doctor #" + hStaffId;
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
-            return "NULL";
+            return "No encounters found";
         }
     }
 
@@ -296,7 +306,7 @@ public class ApplicationSessionHelper {
             int hClinicId = patientDemographicsMapper.getPatientEncounters(patientId).get(0).getEncounterLocation_ObjectID();
             return "Clinic Location #" + hClinicId;
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
-            return "NULL";
+            return "";
         }
     }
 

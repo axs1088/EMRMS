@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-<%@ include file="/WEB-INF/pages/include.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/WEB-INF/pages/subpages/include.jsp" %>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Charting</title>
+    <title>Encounter</title>
 
     <script type="application/javascript">
         function openTab(evt, tabName) {
@@ -35,7 +33,7 @@
             // Get the element with id="defaultOpen" and click on it
             document.getElementById("defaultOpen").click();
         }
-        
+
         function validateInput() {
             var encounterType = document.getElementById("encounterTypeInput").value;
             var encStartDateTime = document.getElementById("encStartDateTimeInput").value;
@@ -45,31 +43,27 @@
             var encounterReason = document.getElementById("encounterReasonInput").value;
             var validate = true;
 
-            if (isBlank(encounterType) || isBlank(encStartDateTime) || isBlank(encLocationName) || isBlank(encStatus) 
-            		|| isBlank(encounterID) || isBlank(encounterReason)) {
+            if (isBlank(encounterType) || isBlank(encStartDateTime) || isBlank(encLocationName) || isBlank(encStatus)
+                || isBlank(encounterID) || isBlank(encounterReason)) {
                 alert("Please enter values in mandatory fields marked by *");
                 validate = false;
             }
 
             return validate;
         }
-        
+
         function isBlank(str) {
             return (!str || /^\s*$/.test(str));
         }
-        
+
     </script>
 </head>
 
-
-<style>
-    <%@include file="/css/formCommon.css"%>
-</style>
-
-<%@include file="siteHeader.jsp" %>
+<%@include file="subpages/siteHeader.jsp" %>
 
 <body onload="openDefaultTab()">
-<div class="content">
+<div class="mainContent">
+    <h3>Add an Encounter</h3>
     <style>
         div.tab {
             overflow: hidden;
@@ -104,26 +98,25 @@
     </style>
 
     <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'EncounterDetails')" id="defaultOpen">Encounter Details</button>
+        <button class="tablinks" onclick="openTab(event, 'EncounterDetails')" id="defaultOpen">Encounter Details
+        </button>
         <button class="tablinks" onclick="openTab(event, 'Transfer')">Transfer</button>
         <button class="tablinks" onclick="openTab(event, 'Checkout')">Check-Out</button>
     </div>
 
     <div id="EncounterDetails" class="tabcontent">
-        <%@include file="encounterDetails.jsp" %>
+        <%@include file="subpages/encounterDetails.jsp" %>
     </div>
 
     <div id="Transfer" class="tabcontent">
-        <%@include file="encounterTransfer.jsp" %>
+        <%@include file="subpages/encounterTransfer.jsp" %>
     </div>
 
     <div id="Checkout" class="tabcontent">
-        <%@include file="encounterCheckout.jsp" %>
+        <%@include file="subpages/encounterCheckout.jsp" %>
     </div>
-
 </div>
-
-<%@include file="siteFooter.jsp" %>
-
 </body>
+
+<%@include file="subpages/siteFooter.jsp" %>
 </html>
