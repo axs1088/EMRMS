@@ -293,7 +293,7 @@ public class ApplicationSessionHelper {
             int hStaffId = patientDemographicsMapper.getPatientEncounters(patientId).get(0).getAttendingPhysician_ObjectID();
             return "Doctor #" + hStaffId;
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
-            return "NULL";
+            return "No encounters found";
         }
     }
 
@@ -306,7 +306,7 @@ public class ApplicationSessionHelper {
             int hClinicId = patientDemographicsMapper.getPatientEncounters(patientId).get(0).getEncounterLocation_ObjectID();
             return "Clinic Location #" + hClinicId;
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
-            return "NULL";
+            return "";
         }
     }
 
