@@ -4,8 +4,7 @@ public class Policy {
 	private String startDate;
 	private String endDate;
 	private String policyName;
-	private int policyId;
-	
+	private String policyId;
 	public String getStartDate() {
 		return startDate;
 	}
@@ -25,11 +24,17 @@ public class Policy {
 		this.policyName = policyName;
 	}
 
-	public int getPolicyId() {
+	public String getPolicyId() {
 		return policyId;
 	}
 
-	public void setPolicyId(int policyId) {
+	public void setPolicyId(String policyId) {
 		this.policyId = policyId;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return policyName;
 	}
 }

@@ -4,6 +4,7 @@ import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
 import edu.psu.sweng500.emrms.model.*;
+import edu.psu.sweng500.emrms.service.AuditEventService;
 import edu.psu.sweng500.emrms.service.CensusService;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientService;
@@ -25,7 +26,10 @@ import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.ParseException;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author vkumar
@@ -51,6 +55,9 @@ public class PatientController {
 
     @Autowired
     private ApplicationSessionHelper sessionHelper;
+    
+    @Autowired
+    private AuditEventService auditEventService;
 
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
@@ -112,13 +119,49 @@ public class PatientController {
     public ModelAndView showPolicies(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("policies");
         Policy policy = new Policy();
-        policy.setStartDate("11-11-2017");
-        policy.setEndDate("11-11-2017");
-        policy.setPolicyName("Policy Test");
-
+        List<Policy> policyList = new ArrayList<Policy>();
+        policyList = auditEventService.getAuditPolicies();
+       
+        HashMap<String,String> policyListHashMap = new HashMap<String,String>();
+        for(Policy p : policyList)
+        {
+        	policyListHashMap.put(p.getPolicyId(),p.getPolicyName());
+        }
+        
         mav.addObject("policy", policy);
+        mav.addObject("policyListHashMap",policyListHashMap);
+       
         mav = sessionHelper.addSessionHeplperAttributes(mav);
 
+        return mav;
+    }
+   
+    @RequestMapping(value = "/policyProcess", method = RequestMethod.POST)
+    public ModelAndView policySearch(HttpServletRequest request, HttpServletResponse response,
+            @ModelAttribute("policy") Policy policy) {
+    	
+        ModelAndView mav = new ModelAndView("policies");
+       
+        List<Policy> policyList = new ArrayList<Policy>();
+        List<HAuditRecord> policySearchList = new ArrayList<HAuditRecord>();
+        policyList = auditEventService.getAuditPolicies();
+       
+        HashMap<String,String> policyListHashMap = new HashMap<String,String>();
+        for(Policy p : policyList)
+        {
+        	policyListHashMap.put(p.getPolicyId(),p.getPolicyName());
+        }
+        
+        if(!policy.getStartDate().isEmpty() && !policy.getEndDate().isEmpty()) {
+        	policySearchList = auditEventService.getAuditRecords(policy.getStartDate(), policy.getEndDate(), Integer.parseInt(policy.getPolicyId()));
+        }else {
+        	policySearchList = auditEventService.getAuditRecordsByPolicyId(Integer.parseInt(policy.getPolicyId()));
+        }
+        	
+        mav.addObject("policy", policy);
+        mav.addObject("policyListHashMap",policyListHashMap);
+        mav.addObject("policySearchList",policySearchList);
+        
         return mav;
     }
 

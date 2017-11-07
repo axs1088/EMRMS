@@ -20,6 +20,18 @@
             <th colspan="2"><h3>Search</h3></th>
             <tr>
                 <div>
+                    <td><form:label id="endDateTxt" path="policyName">Policy Name: </form:label>
+                    </td>
+                   	 <td>
+                	   	<form:select path = "policyId">
+                    	 <form:option value = "NONE" label = "Select"/>
+                    	 <form:options items = "${policyListHashMap}" />
+                  		</form:select>  
+        			</td>
+                </div>
+            </tr>
+            <tr>
+                <div>
                     <td><form:label path="startDate">Start Date: </form:label>
                         <mandatory> *</mandatory>
                     </td>
@@ -34,13 +46,7 @@
                     <td><form:input type="date" id="endDateTxt" path="endDate"/></td>
                 </div>
             </tr>
-            <tr>
-                <div>
-                    <td><form:label id="endDateTxt" path="policyName">Policy Name: </form:label>
-                    </td>
-                    <td><form:label id="endDateTxt" path="policyName"/></td>
-                </div>
-            </tr>
+            
             <tr>
                 <div>
                     <td><input type="submit" value="Search"></td>
@@ -52,6 +58,39 @@
     <div id="header" align="center" class="header">
         <h3><span>Policy Search Results</span></h3>
     </div>
+    
+    <table border="1" align="center" cellpadding="5">
+        <tr>
+            <th>
+                <text>User Id</text>
+            </th>
+            <th>
+                <text>Event Name</text>
+            </th>
+             <th>
+                <text>Patient Name</text>
+            </th>
+             <th>
+                <text>Audit Date Time</text>
+            </th>
+        </tr>
+        <c:forEach items="${policySearchList}" var="policyitem" varStatus="status">
+            <tr>
+                <td width="130">
+                    <text>${policyitem.userId}</text>
+                </td>
+                <td width="150">
+                    <text>${policyitem.eventName}</text>
+                </td>
+                <td width="150">
+                    <text>${policyitem.patientName}</text>
+                </td>
+                 <td width="150">
+                    <text>${policyitem.creationDateTime}</text>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </div>
 
 <%@include file="subpages/siteFooter.jsp" %>
