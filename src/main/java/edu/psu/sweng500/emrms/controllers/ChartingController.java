@@ -7,6 +7,7 @@ import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
 import edu.psu.sweng500.emrms.model.HAllergy;
 import edu.psu.sweng500.emrms.model.HDiagnosis;
+import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.model.KnownAllergies;
 import edu.psu.sweng500.emrms.service.ManageAllergyService;
 import edu.psu.sweng500.emrms.service.ManageDiagnosisService;
@@ -166,7 +167,12 @@ public class ChartingController {
         }
 
         newDiagnosis.setUserId(sessionHelper.getApplicationUser(session));
-        newDiagnosis.setEncounterID(patientDemographicsMapper.getPatientEncounters(patientId).get(0).getHEncounterID());
+
+        List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientId);
+
+        if (encounters != null && !encounters.isEmpty()) {
+            newDiagnosis.setEncounterID(encounters.get(0).getHEncounterID());
+        }
 
         mav.addObject("diagnosisList", diagnosisList);
         mav.addObject("newDiagnosis", newDiagnosis);
