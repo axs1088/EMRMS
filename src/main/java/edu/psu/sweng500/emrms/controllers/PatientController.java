@@ -29,7 +29,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author vkumar
@@ -55,7 +54,7 @@ public class PatientController {
 
     @Autowired
     private ApplicationSessionHelper sessionHelper;
-    
+
     @Autowired
     private AuditEventService auditEventService;
 
@@ -78,7 +77,7 @@ public class PatientController {
         mav.addObject("showHeader", true);
         mav.addObject("patient", patient);
         mav.addObject("siteHeader", new SiteHeader());
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -99,7 +98,7 @@ public class PatientController {
         mav.addObject("showHeader", true);
         mav.addObject("patient", patient);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -110,7 +109,7 @@ public class PatientController {
         mav.addObject("census", new HCensus());
         mav.addObject("showHeader", false);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -121,47 +120,45 @@ public class PatientController {
         Policy policy = new Policy();
         List<Policy> policyList = new ArrayList<Policy>();
         policyList = auditEventService.getAuditPolicies();
-       
-        HashMap<String,String> policyListHashMap = new HashMap<String,String>();
-        for(Policy p : policyList)
-        {
-        	policyListHashMap.put(p.getPolicyId(),p.getPolicyName());
+
+        HashMap<String, String> policyListHashMap = new HashMap<String, String>();
+        for (Policy p : policyList) {
+            policyListHashMap.put(p.getPolicyId(), p.getPolicyName());
         }
-        
+
         mav.addObject("policy", policy);
-        mav.addObject("policyListHashMap",policyListHashMap);
-       
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav.addObject("policyListHashMap", policyListHashMap);
+
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
-   
+
     @RequestMapping(value = "/policyProcess", method = RequestMethod.POST)
     public ModelAndView policySearch(HttpServletRequest request, HttpServletResponse response,
-            @ModelAttribute("policy") Policy policy) {
-    	
+                                     @ModelAttribute("policy") Policy policy) {
+
         ModelAndView mav = new ModelAndView("policies");
-       
+
         List<Policy> policyList = new ArrayList<Policy>();
         List<HAuditRecord> policySearchList = new ArrayList<HAuditRecord>();
         policyList = auditEventService.getAuditPolicies();
-       
-        HashMap<String,String> policyListHashMap = new HashMap<String,String>();
-        for(Policy p : policyList)
-        {
-        	policyListHashMap.put(p.getPolicyId(),p.getPolicyName());
+
+        HashMap<String, String> policyListHashMap = new HashMap<String, String>();
+        for (Policy p : policyList) {
+            policyListHashMap.put(p.getPolicyId(), p.getPolicyName());
         }
-        
-        if(!policy.getStartDate().isEmpty() && !policy.getEndDate().isEmpty()) {
-        	policySearchList = auditEventService.getAuditRecords(policy.getStartDate(), policy.getEndDate(), Integer.parseInt(policy.getPolicyId()));
-        }else {
-        	policySearchList = auditEventService.getAuditRecordsByPolicyId(Integer.parseInt(policy.getPolicyId()));
+
+        if (!policy.getStartDate().isEmpty() && !policy.getEndDate().isEmpty()) {
+            policySearchList = auditEventService.getAuditRecords(policy.getStartDate(), policy.getEndDate(), Integer.parseInt(policy.getPolicyId()));
+        } else {
+            policySearchList = auditEventService.getAuditRecordsByPolicyId(Integer.parseInt(policy.getPolicyId()));
         }
-        	
+
         mav.addObject("policy", policy);
-        mav.addObject("policyListHashMap",policyListHashMap);
-        mav.addObject("policySearchList",policySearchList);
-        
+        mav.addObject("policyListHashMap", policyListHashMap);
+        mav.addObject("policySearchList", policySearchList);
+
         return mav;
     }
 
@@ -183,7 +180,7 @@ public class PatientController {
 
         mav.addObject("showHeader", false);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -249,7 +246,7 @@ public class PatientController {
         sessionHelper.setActivePatient(patientFromDB.getObjectID());
         mav.addObject("showHeader", true);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }

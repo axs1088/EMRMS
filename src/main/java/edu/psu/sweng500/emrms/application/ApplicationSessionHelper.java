@@ -3,6 +3,7 @@ package edu.psu.sweng500.emrms.application;
 import edu.psu.sweng500.emrms.controllers.annotation.ApplicationFormController;
 import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
+import edu.psu.sweng500.emrms.model.ActiveTabs;
 import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.model.HName;
 import edu.psu.sweng500.emrms.model.SiteHeader;
@@ -57,11 +58,14 @@ public class ApplicationSessionHelper {
 
     private Integer patientId;
 
-    public ModelAndView addSessionHeplperAttributes(ModelAndView mav) {
+    ActiveTabs activeTabs;
+
+    public ModelAndView addSessionHelperAttributes(ModelAndView mav) {
         mav.addObject("severeAllergyList", getSevereAllergies());
         mav.addObject("primaryDiagnosisList", getPrimaryDiagnoses());
         mav.addObject("physicianName", getPhysicianName());
         mav.addObject("clinicName", getClinicName());
+        mav.addObject("activeTabs", getActiveTabs());
 
         return mav;
     }
@@ -316,5 +320,23 @@ public class ApplicationSessionHelper {
         }
 
         return patientId;
+    }
+
+    public ActiveTabs getActiveTabs() {
+        if (activeTabs == null) {
+            activeTabs = new ActiveTabs();
+            activeTabs.setCharting("allergies");
+            activeTabs.setEncounter("details");
+        }
+
+        return activeTabs;
+    }
+
+    public void setActiveChartingTab(String activeChartingTab) {
+        getActiveTabs().setCharting(activeChartingTab);
+    }
+
+    public void setActiveEncounterTab(String activeEncounterTab) {
+        getActiveTabs().setEncounter(activeEncounterTab);
     }
 }

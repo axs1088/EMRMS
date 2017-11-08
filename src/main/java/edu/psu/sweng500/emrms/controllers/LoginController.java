@@ -69,7 +69,7 @@ public class LoginController {
     public ModelAndView showHome(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("home");
 
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -79,7 +79,7 @@ public class LoginController {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("user", new User());
 
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -93,7 +93,7 @@ public class LoginController {
             sessionHelper.clearAllSessionAttributes(session);
         session.invalidate();
 
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -152,7 +152,7 @@ public class LoginController {
         }
 
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }

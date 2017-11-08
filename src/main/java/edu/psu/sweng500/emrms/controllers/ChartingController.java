@@ -42,7 +42,6 @@ public class ChartingController {
     @Autowired
     private ApplicationAuditHelper applicationAuditHelper;
 
-
     @Autowired
     private ApplicationSessionHelper sessionHelper;
 
@@ -79,6 +78,8 @@ public class ChartingController {
 
     @RequestMapping(value = "/charting", method = RequestMethod.GET)
     public ModelAndView showCharting(HttpServletRequest request, HttpServletResponse response) {
+        sessionHelper.setActiveChartingTab("allergies");
+
         mav = new ModelAndView("chartingTabShell");
         session = request.getSession(false);
 
@@ -89,7 +90,7 @@ public class ChartingController {
         addAllergiesToMav();
         addDiagnosesToMav();
 
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -121,6 +122,8 @@ public class ChartingController {
     @RequestMapping(value = "/addAllergy", method = RequestMethod.POST)
     public ModelAndView addAllergy(HttpServletRequest request, HttpServletResponse response,
                                    @ModelAttribute("newAllergy") HAllergy allergy, BindingResult bindingResult) {
+        sessionHelper.setActiveChartingTab("allergies");
+
         newAllergy.setAllergyName(allergy.getAllergyName());
         newAllergy.setSeverity(allergy.getSeverity());
         newAllergy.setAllergyType(allergy.getAllergyType());
@@ -128,7 +131,7 @@ public class ChartingController {
 
         addAllergiesToMav();
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -136,6 +139,8 @@ public class ChartingController {
     @RequestMapping(value = "/deleteAllergy", method = RequestMethod.POST)
     public ModelAndView deleteAllergy(HttpServletRequest request, HttpServletResponse response,
                                       @ModelAttribute("deletedAllergy") HAllergy deletedAllergy, BindingResult bindingResult) {
+        sessionHelper.setActiveChartingTab("allergies");
+
         try {
             final int deletedAllergyId = deletedAllergy.getAllergyID();
             deletedAllergy = allergyList.stream()
@@ -150,7 +155,7 @@ public class ChartingController {
 
         addAllergiesToMav();
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -182,6 +187,8 @@ public class ChartingController {
     @RequestMapping(value = "/addDiagnosis", method = RequestMethod.POST)
     public ModelAndView addAllergy(HttpServletRequest request, HttpServletResponse response,
                                    @ModelAttribute("newDiagnosis") HDiagnosis diagnosis, BindingResult bindingResult) {
+        sessionHelper.setActiveChartingTab("diagnoses");
+
         newDiagnosis.setDescription(diagnosis.getDescription());
         newDiagnosis.setCode(diagnosis.getCode());
         newDiagnosis.setPriority(diagnosis.getPriority());
@@ -190,7 +197,7 @@ public class ChartingController {
 
         addDiagnosesToMav();
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -198,6 +205,8 @@ public class ChartingController {
     @RequestMapping(value = "/deleteDiagnosis", method = RequestMethod.POST)
     public ModelAndView deleteDiagnosis(HttpServletRequest request, HttpServletResponse response,
                                         @ModelAttribute("deletedDiagnosis") HDiagnosis deletedDiagnosis, BindingResult bindingResult) {
+        sessionHelper.setActiveChartingTab("diagnoses");
+
         try {
             final int deletedDiagnosisId = deletedDiagnosis.getDiagnosisObjectId();
             deletedDiagnosis = diagnosisList.stream()
@@ -212,7 +221,7 @@ public class ChartingController {
 
         addDiagnosesToMav();
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
