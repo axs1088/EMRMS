@@ -8,30 +8,25 @@
     <title>Charting</title>
 
     <script type="application/javascript">
-        function openTab(evt, tabName) {
-            // Declare all variables
-            var i, tabcontent, tablinks;
+        function openTab(tabName) {
+            var i;
+            document.getElementById("activeTabField").setAttribute("value", tabName);
 
-            // Get all elements with class="tabcontent" and hide them
-            tabcontent = document.getElementsByClassName("tabcontent");
+            var tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
+            document.getElementById(tabName + "Content").style.display = "block";
 
-            // Get all elements with class="tablinks" and remove the class "active"
-            tablinks = document.getElementsByClassName("tablinks");
+            var tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-
-            // Show the current tab, and add an "active" class to the button that opened the tab
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
+            document.getElementById(tabName + "Tab").className += " active";
         }
 
-        function openDefaultTab() {
-            // Get the element with id="defaultOpen" and click on it
-            document.getElementById("defaultOpen").click();
+        function openActiveTab() {
+            openTab(document.getElementById("activeTabField").getAttribute("value"));
         }
     </script>
 </head>
@@ -41,7 +36,12 @@
 </style>
 
 <%@include file="subpages/siteHeader.jsp" %>
-<body onload="openDefaultTab()">
+<body onload="openActiveTab()">
+
+<form:form modelAttribute="activeTabs">
+    <form:hidden id="activeTabField" path="charting"></form:hidden>
+</form:form>
+
 <div class="mainContent">
     <h3>Charting</h3>
     <style>
@@ -78,25 +78,25 @@
     </style>
 
     <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'Allergies')" id="defaultOpen">Allergies</button>
-        <button class="tablinks" onclick="openTab(event, 'Assessments')">Assessments</button>
-        <button class="tablinks" onclick="openTab(event, 'Diagnoses')">Diagnoses</button>
-        <button class="tablinks" onclick="openTab(event, 'Problems')">Problems</button>
+        <button class="tablinks" id="allergiesTab" onclick="openTab('allergies')">Allergies</button>
+        <button class="tablinks" id="assessmentsTab" onclick="openTab('assessments')">Assessments</button>
+        <button class="tablinks" id="diagnosesTab" onclick="openTab('diagnoses')">Diagnoses</button>
+        <button class="tablinks" id="problemsTab" onclick="openTab('problems')">Problems</button>
     </div>
 
-    <div id="Allergies" class="tabcontent">
+    <div id="allergiesContent" class="tabcontent">
         <%@include file="subpages/chartingAllergies.jsp" %>
     </div>
 
-    <div id="Assessments" class="tabcontent">
+    <div id="assessmentsContent" class="tabcontent">
         <%@include file="subpages/chartingAssessments.jsp" %>
     </div>
 
-    <div id="Diagnoses" class="tabcontent">
+    <div id="diagnosesContent" class="tabcontent">
         <%@include file="subpages/chartingDiagnoses.jsp" %>
     </div>
 
-    <div id="Problems" class="tabcontent">
+    <div id="problemsContent" class="tabcontent">
         <%@include file="subpages/chartingProblems.jsp" %>
     </div>
 </div>

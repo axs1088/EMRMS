@@ -61,7 +61,7 @@ public class EncounterController {
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }

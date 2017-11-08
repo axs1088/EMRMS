@@ -42,18 +42,28 @@ public class ChartingController {
     @Autowired
     private ApplicationAuditHelper applicationAuditHelper;
 
-
     @Autowired
     private ApplicationSessionHelper sessionHelper;
 
     @Autowired
     private ManageAllergyService manageAllergyService;
 
+    @Autowired
+    private ManageDiagnosisService manageDiagnosisService;
+
+    @Autowired
+    private PatientDemographicsMapper patientDemographicsMapper;
+
     private ModelAndView mav;
     private Integer patientId;
-    private HAllergy newAllergy;
     private HttpSession session;
+
+    private HAllergy newAllergy;
     private List<HAllergy> allergyList;
+
+    private HDiagnosis newDiagnosis;
+    private List<HDiagnosis> diagnosisList;
+
 
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
@@ -66,29 +76,10 @@ public class ChartingController {
         binder.registerCustomEditor(Integer.class, new EMRMSCustomEditor());
     }
 
-    // I needed allergies, diagnoses, physician, and clinic to be separate attributes
-    @ModelAttribute("severeAllergyList")
-    public List<String> getSevereAllergyList() {
-        return sessionHelper.getSevereAllergies();
-    }
-
-    @ModelAttribute("primaryDiagnosisList")
-    public List<String> getPrimaryDiagnosisList() {
-        return sessionHelper.getPrimaryDiagnoses();
-    }
-
-    @ModelAttribute("physicianName")
-    public String getPhysicianName() {
-        return sessionHelper.getPhysicianName();
-    }
-
-    @ModelAttribute("clinicName")
-    public String getClinicName() {
-        return sessionHelper.getClinicName();
-    }
-
     @RequestMapping(value = "/charting", method = RequestMethod.GET)
     public ModelAndView showCharting(HttpServletRequest request, HttpServletResponse response) {
+        sessionHelper.setActiveChartingTab("allergies");
+
         mav = new ModelAndView("chartingTabShell");
         session = request.getSession(false);
 
@@ -97,6 +88,9 @@ public class ChartingController {
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         addAllergiesToMav();
+        addDiagnosesToMav();
+
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -105,7 +99,7 @@ public class ChartingController {
         newAllergy = new HAllergy();
 
         try {
-            int patientId = sessionHelper.getPatientId();
+            patientId = sessionHelper.getPatientId();
             allergyList = patientDemographicsService.getPatientAllergies(patientId);
             newAllergy.setPatientID(patientId);
         } catch (PatientNotFoundException e) {
@@ -128,6 +122,8 @@ public class ChartingController {
     @RequestMapping(value = "/addAllergy", method = RequestMethod.POST)
     public ModelAndView addAllergy(HttpServletRequest request, HttpServletResponse response,
                                    @ModelAttribute("newAllergy") HAllergy allergy, BindingResult bindingResult) {
+        sessionHelper.setActiveChartingTab("allergies");
+
         newAllergy.setAllergyName(allergy.getAllergyName());
         newAllergy.setSeverity(allergy.getSeverity());
         newAllergy.setAllergyType(allergy.getAllergyType());
@@ -135,6 +131,7 @@ public class ChartingController {
 
         addAllergiesToMav();
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }
@@ -142,6 +139,8 @@ public class ChartingController {
     @RequestMapping(value = "/deleteAllergy", method = RequestMethod.POST)
     public ModelAndView deleteAllergy(HttpServletRequest request, HttpServletResponse response,
                                       @ModelAttribute("deletedAllergy") HAllergy deletedAllergy, BindingResult bindingResult) {
+        sessionHelper.setActiveChartingTab("allergies");
+
         try {
             final int deletedAllergyId = deletedAllergy.getAllergyID();
             deletedAllergy = allergyList.stream()
@@ -156,6 +155,73 @@ public class ChartingController {
 
         addAllergiesToMav();
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHelperAttributes(mav);
+
+        return mav;
+    }
+
+    private void addDiagnosesToMav() {
+        newDiagnosis = new HDiagnosis();
+
+        try {
+            patientId = sessionHelper.getPatientId();
+            diagnosisList = patientDemographicsService.getPatientDiagnoses(patientId);
+            newDiagnosis.setPatientID(patientId);
+        } catch (PatientNotFoundException e) {
+            diagnosisList = new ArrayList<>();
+        }
+
+        newDiagnosis.setUserId(sessionHelper.getApplicationUser(session));
+
+        List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientId);
+
+        if (encounters != null && !encounters.isEmpty()) {
+            newDiagnosis.setEncounterID(encounters.get(0).getHEncounterID());
+        }
+
+        mav.addObject("diagnosisList", diagnosisList);
+        mav.addObject("newDiagnosis", newDiagnosis);
+        mav.addObject("deletedDiagnosis", new HDiagnosis());
+    }
+
+    @RequestMapping(value = "/addDiagnosis", method = RequestMethod.POST)
+    public ModelAndView addAllergy(HttpServletRequest request, HttpServletResponse response,
+                                   @ModelAttribute("newDiagnosis") HDiagnosis diagnosis, BindingResult bindingResult) {
+        sessionHelper.setActiveChartingTab("diagnoses");
+
+        newDiagnosis.setDescription(diagnosis.getDescription());
+        newDiagnosis.setCode(diagnosis.getCode());
+        newDiagnosis.setPriority(diagnosis.getPriority());
+
+        manageDiagnosisService.AddDiagnosis(newDiagnosis);
+
+        addDiagnosesToMav();
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHelperAttributes(mav);
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/deleteDiagnosis", method = RequestMethod.POST)
+    public ModelAndView deleteDiagnosis(HttpServletRequest request, HttpServletResponse response,
+                                        @ModelAttribute("deletedDiagnosis") HDiagnosis deletedDiagnosis, BindingResult bindingResult) {
+        sessionHelper.setActiveChartingTab("diagnoses");
+
+        try {
+            final int deletedDiagnosisId = deletedDiagnosis.getDiagnosisObjectId();
+            deletedDiagnosis = diagnosisList.stream()
+                    .filter(diagnosis -> diagnosis.getDiagnosisObjectId() == deletedDiagnosisId)
+                    .findFirst()
+                    .get();
+
+            manageDiagnosisService.DeleteDiagnosis(deletedDiagnosis);
+        } catch (Exception e) {
+            // Fine
+        }
+
+        addDiagnosesToMav();
+        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }

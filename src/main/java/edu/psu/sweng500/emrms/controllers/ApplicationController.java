@@ -75,7 +75,7 @@ public class ApplicationController {
             mav.addObject("msg", generateWelcomeMessage(hCensusList.get(0)));
         }
 
-        mav = sessionHelper.addSessionHeplperAttributes(mav);
+        mav = sessionHelper.addSessionHelperAttributes(mav);
         return mav;
     }
 
