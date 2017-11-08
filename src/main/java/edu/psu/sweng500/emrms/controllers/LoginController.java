@@ -91,7 +91,7 @@ public class LoginController {
         HttpSession session = request.getSession(false);
         if (session != null)
             sessionHelper.clearAllSessionAttributes(session);
-        session.invalidate();
+        //session.invalidate();
 
         mav = sessionHelper.addSessionHelperAttributes(mav);
 
@@ -103,7 +103,7 @@ public class LoginController {
         ModelAndView mav = new ModelAndView("login");
         List<HCensus> hCensusList = null;
         String census = null;
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         user.setLoginId(user.getUsername());
 
         Integer userId = null;
