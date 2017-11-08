@@ -12,6 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -81,5 +83,7 @@ public class ManageAssessmentServiceTest {
         returnValue = service.ReviseAssessment(assessment);
         assertEquals(0,returnValue);
 
+        //List<HAssessment>assessments = service.GetPatientAssessments(3,1);
+        //assertEquals(18,assessments.size());
     }
 }

@@ -7,6 +7,8 @@ import edu.psu.sweng500.emrms.util.PersonPatientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("manageAssessmentService")
 
 public class ManageAssessmentServiceImpl implements ManageAssessmentService {
@@ -47,5 +49,10 @@ public class ManageAssessmentServiceImpl implements ManageAssessmentService {
         auditRecord.setPatientName(patientUtils.getPatientName(assessment.getPatientObjectId()));
         auditEventService.auditEvent(auditRecord);
         return 0;
+    }
+
+    @Override
+    public List<HAssessment> GetPatientAssessments(int patientObjectId, int encounterObjectId) {
+        return chartingMapper.getPatientAssessments(patientObjectId,encounterObjectId);
     }
 }

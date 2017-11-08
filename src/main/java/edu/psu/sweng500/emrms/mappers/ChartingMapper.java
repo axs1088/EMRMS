@@ -4,6 +4,9 @@ import edu.psu.sweng500.emrms.model.HAllergy;
 import edu.psu.sweng500.emrms.model.HAssessment;
 import edu.psu.sweng500.emrms.model.HDiagnosis;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.StatementType;
+
+import java.util.List;
 
 public interface ChartingMapper {
 
@@ -49,5 +52,10 @@ public interface ChartingMapper {
     @Update(UPDATE_H_ASSESSMENT)
     @Options(useGeneratedKeys = true, keyProperty = "HAssessmentID")
     public void reviseAssessment(HAssessment assessment);
+
+    @Select(value = "{ CALL emrms_getassessments(#{patientObjectId, mode=IN, jdbcType=INTEGER}," +
+            "#{encounterObjectId, mode=IN, jdbcType=INTEGER})}")
+    @Options(statementType = StatementType.CALLABLE)
+    public List<HAssessment> getPatientAssessments(@Param("patientObjectId")int patientObjectId, @Param("encounterObjectId")int encounterObjectId);
 
 }

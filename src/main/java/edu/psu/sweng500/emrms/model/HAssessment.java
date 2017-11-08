@@ -1,22 +1,22 @@
 package edu.psu.sweng500.emrms.model;
 
 public class HAssessment {
-        private Integer objectId;
+        private int objectId;
         private String creationDateTime;
         private String userId;
-        private Integer assessmentId;
+        private int assessmentId;
         private String status;
-        private Integer encounterObjectId;
+        private int encounterObjectId;
         private float temperature;
         private float height;
         private float weight;
-        private Integer pulse;
-        private Integer systolicBP;
-        private Integer dystolicBP;
-        private Integer heightmeasureId;
-        private Integer weightmeasureId;
-        private Integer temperaturemeasureId;
-        private Integer patientObjectId;
+        private int pulse;
+        private int systolicBP;
+        private int dystolicBP;
+        private int heightmeasureId;
+        private int weightmeasureId;
+        private int temperaturemeasureId;
+        private int patientObjectId;
         private String collectedDateTime;
 
     public Integer getObjectId() {
