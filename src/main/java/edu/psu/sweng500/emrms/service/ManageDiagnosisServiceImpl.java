@@ -33,6 +33,7 @@ public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
         auditRecord.setPolicyId(19);
         auditRecord.setPatient_ObjectID(diagnosis.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(diagnosis.getPatientID()));
+        auditRecord.setEncounter_ObjectID(diagnosis.getEncounterID());
         auditEventService.auditEvent(auditRecord);
         return 0;
     }
@@ -45,6 +46,7 @@ public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
         auditRecord.setPolicyId(20);
         auditRecord.setPatient_ObjectID(diagnosis.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(diagnosis.getPatientID()));
+        auditRecord.setEncounter_ObjectID(diagnosis.getEncounterID());
         auditEventService.auditEvent(auditRecord);
         return 0;
     }
@@ -57,6 +59,7 @@ public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
         auditRecord.setPolicyId(21);
         auditRecord.setPatient_ObjectID(diagnosis.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(diagnosis.getPatientID()));
+        auditRecord.setEncounter_ObjectID(diagnosis.getEncounterID());
         auditEventService.auditEvent(auditRecord);
         return 0;
     }

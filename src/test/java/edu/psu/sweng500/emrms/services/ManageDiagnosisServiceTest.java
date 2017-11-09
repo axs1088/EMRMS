@@ -80,6 +80,7 @@ public class ManageDiagnosisServiceTest {
         HDiagnosis diagnosis = new HDiagnosis();
         diagnosis.setDiagnosisObjectId(2);
         diagnosis.setPatientID(3);
+        diagnosis.setEncounterID(1);
 
         // ToDo
         int returnValue = service.DeleteDiagnosis(diagnosis);

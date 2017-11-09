@@ -3,6 +3,7 @@ package edu.psu.sweng500.emrms.mappers;
 import edu.psu.sweng500.emrms.model.HAllergy;
 import edu.psu.sweng500.emrms.model.HAssessment;
 import edu.psu.sweng500.emrms.model.HDiagnosis;
+import edu.psu.sweng500.emrms.model.HProblem;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 
@@ -57,5 +58,25 @@ public interface ChartingMapper {
             "#{encounterObjectId, mode=IN, jdbcType=INTEGER})}")
     @Options(statementType = StatementType.CALLABLE)
     public List<HAssessment> getPatientAssessments(@Param("patientObjectId")int patientObjectId, @Param("encounterObjectId")int encounterObjectId);
+
+    @Insert("INSERT INTO h_problem_list(UserId, SNOMEDCode, ProblemDesc, Priority, Status, EncounterID,PatientID  ) " +
+            "VALUES (#{userId}, #{code},#{description}, #{priority}, #{status}, #{encounterID}, #{patientID})")
+    public void addProblem(HProblem problem);
+
+    String UPDATE_H_PROBLEM_LIST = "update h_problem_list set SNOMEDCode=#{code}, " +
+            "ProblemDesc=#{description},Priority =#{priority}, Status = #{status} where ObjectId=#{objectId}";
+    @Update(UPDATE_H_PROBLEM_LIST)
+    @Options(useGeneratedKeys = true, keyProperty = "objectId")
+    public void reviseProblem(HProblem problem);
+
+    String DELETE_H_PROBLEM_LIST ="DELETE FROM h_problem_list WHERE ObjectID = #{objectId}";
+    @Delete(DELETE_H_PROBLEM_LIST)
+    @Options(keyProperty = "ObjectID")
+    public int deleteProblem(HProblem problem);
+
+    @Select(value = "{ CALL emrms_getproblemslist(#{patObjId, mode=IN, jdbcType=INTEGER}," +
+            "#{encObjectId, mode=IN, jdbcType=INTEGER})}")
+    @Options(statementType = StatementType.CALLABLE)
+    public List<HProblem> getPatientProblemList(@Param("patObjId")int patObjId, @Param("encObjectId")int encObjectId);
 
 }

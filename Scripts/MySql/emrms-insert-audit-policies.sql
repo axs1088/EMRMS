@@ -40,3 +40,5 @@ INSERT INTO h_policy(PolicyName,PolicyID)
   VALUES ('Revise Diagnosis',20);
 INSERT INTO h_policy(PolicyName,PolicyID)
   VALUES ('Delete Diagnosis',21);
+INSERT INTO h_policy(PolicyName,PolicyID)
+  VALUES ('Delete Problem',22);
