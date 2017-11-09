@@ -91,7 +91,7 @@ public class LoginController {
         HttpSession session = request.getSession(false);
         if (session != null)
             sessionHelper.clearAllSessionAttributes(session);
-        //session.invalidate();
+        session.invalidate();
 
         mav = sessionHelper.addSessionHelperAttributes(mav);
 
