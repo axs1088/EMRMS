@@ -25,22 +25,21 @@
 
         <div class="flexColumn">
             <form:select cssClass="rightInput" id="encounterTypeInput" path="encounterType">
-                <form:option value="1" label="Outpatient"/>
-                <form:option value="2" label="Inpatient"/>
-                <form:option value="3" label="Other"/>
+                <form:option value="Outpatient" label="Outpatient"/>
+                <form:option value="Inpatient" label="Inpatient"/>
             </form:select>
             <form:input cssClass="rightInput" id="encStartDateTimeInput" type="date" path="encStartDateTime"/>
             <form:select cssClass="rightInput" id="encLocationNameInput" path="encLocationName">
-                <form:option value="1" label="Exton Clinic"/>
-                <form:option value="2" label="Paoli Clinic"/>
-                <form:option value="3" label="Other"/>
+                <form:option value="Main Line Health" label="Main Line Health"/>
+                <form:option value="Paoli Hospital" label="Paoli Hospital"/>
             </form:select>
             <form:select cssClass="rightInput" id="encStatusInput" path="encStatus">
                 <form:option value="1" label="Active"/>
+                <form:option value="2" label="Close"/>
             </form:select>
             <form:input cssClass="rightInput" id="encounterIDInput" path="encounterID"/>
             <form:input cssClass="rightInput" id="encounterReasonInput" path="encounterReason"/>
-            <form:input cssClass="rightInput" id="bedNameInput" path="bedName"/>
+            <form:input cssClass="rightInput" id="attendingPhysician" path="attendingPhysician"/>
         </div>
     </div>
 
@@ -73,7 +72,7 @@
     //Execute below if there is success
     var saveSuccess = "${saveSuccess}";
     if (saveSuccess) {
-        window.alert("Save Successful");
+        window.alert("Encounter has been saved Successfully");
     }
 
     //Execute below if there is error on the page

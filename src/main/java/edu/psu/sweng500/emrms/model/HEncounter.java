@@ -15,6 +15,7 @@ public class HEncounter {
     private String bedName;
     private int patient_ObjectID;
     private int attendingPhysician_ObjectID;
+    private String attendingPhysician;
     private int bed_ObjectID;
     private String encounterReason;
 
@@ -137,6 +138,14 @@ public class HEncounter {
 
 	public void setEncounterReason(String encounterReason) {
 		this.encounterReason = encounterReason;
+	}
+
+	public String getAttendingPhysician() {
+		return attendingPhysician;
+	}
+
+	public void setAttendingPhysician(String attendingPhysician) {
+		this.attendingPhysician = attendingPhysician;
 	}
 
 }
