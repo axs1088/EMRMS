@@ -6,6 +6,52 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Encounter</title>
+    
+    <script src="http://code.jquery.com/jquery-1.7.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+	<STYLE TYPE="text/css" media="all">
+		.ui-autocomplete { 
+		    position: absolute; 
+		    cursor: default; 
+		    height: 200px; 
+		    overflow-y: scroll; 
+		    overflow-x: hidden;}
+	</STYLE>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $("input#attendingPhysician").autocomplete({
+		        width: 300,
+		        max: 10,
+		        delay: 100,
+		        minLength: 1,
+		        autoFocus: true,
+		        cacheLength: 1,
+		        scroll: true,
+		        highlight: false,
+		        source: function(request, response) {
+		            $.ajax({
+		                url: "physiciandetails",
+		                dataType: "json",
+		                data: {
+		                	 searchString: $('#attendingPhysician').val(),
+		                },
+		                success: function(data, textStatus, jqXHR) {
+		                    console.log( data);
+		                    var items = data;
+		                    response(items);
+		                },
+		                error: function(jqXHR, textStatus, errorThrown){
+		                     console.log( textStatus);
+		                }
+		            });
+		        }
+		
+		    });
+		});
+	   
+	</script>
 
     <script type="application/javascript">
         function openTab(evt, tabName) {

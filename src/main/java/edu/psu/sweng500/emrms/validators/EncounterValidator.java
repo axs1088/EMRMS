@@ -15,14 +15,14 @@ import edu.psu.sweng500.emrms.util.EMRMSProperties;
 @Component
 public class EncounterValidator {
 	
-	public static final String nameRegEx = new String ("^[\\p{L} .']+$");
+	public static final String nameRegEx = new String ("^[0-9\\(\\p{L}\\) ',]+$");
 	public static final String chiefComplaintRegEx = new String ("^[0-9\\p{L} .']+$");
 	public static final String encounterIdRegEx = "^[0-9a-zA-Z\\s]+$";
 
 	public List<String> validate(HEncounter encounter) {
 		List<String> errors = new ArrayList<String>();
 		
-		if(!validate(encounter.getEncounterID(), encounterIdRegEx))
+		if(StringUtils.isNotBlank(encounter.getAttendingPhysician()) && !validate(encounter.getEncounterID(), encounterIdRegEx))
         	errors.add(EMRMSProperties.get("patientencounter.validate.encounterid"));
         
         if(!validate(encounter.getEncounterReason(), chiefComplaintRegEx))
