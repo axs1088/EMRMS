@@ -5,8 +5,11 @@ import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
 import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.model.HPatient;
+import edu.psu.sweng500.emrms.model.SiteHeader;
 import edu.psu.sweng500.emrms.service.PatientEncounterService;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
+import edu.psu.sweng500.emrms.validators.EncounterValidator;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +38,9 @@ public class EncounterController {
 
     @Autowired
     private ApplicationSessionHelper sessionHelper;
+    
+    @Autowired
+    private EncounterValidator encounterValidator;
 
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
@@ -68,14 +76,14 @@ public class EncounterController {
                                    BindingResult bindingResult) throws Exception {
         ModelAndView mav = new ModelAndView("encounterTabShell");
         HttpSession session = request.getSession(false);
-        //List<String> validationErrors = encounterValidator.validate(encounter);
+        List<String> validationErrors = encounterValidator.validate(encounter);
 
-        /*if (CollectionUtils.isNotEmpty(validationErrors)) {
+        if (CollectionUtils.isNotEmpty(validationErrors)) {
             mav.addObject("errorOnPage", true);
             mav.addObject("validationErrors", validationErrors);
             mav.addObject("siteHeader", new SiteHeader());
             return mav;
-        }*/
+        }
         
         HPatient hPatient = new HPatient();
         
