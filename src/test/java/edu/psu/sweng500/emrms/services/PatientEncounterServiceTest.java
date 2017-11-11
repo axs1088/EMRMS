@@ -1,6 +1,8 @@
 package edu.psu.sweng500.emrms.services;
 
+import edu.psu.sweng500.emrms.model.HBed;
 import edu.psu.sweng500.emrms.model.HEncounter;
+import edu.psu.sweng500.emrms.model.HHealthcareOrganization;
 import edu.psu.sweng500.emrms.model.HPatient;
 import edu.psu.sweng500.emrms.service.PatientEncounterService;
 
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.List;
 
 import static edu.psu.sweng500.emrms.util.Constants.ENCOUNTER_STATUS_ACTIVE;
 import static edu.psu.sweng500.emrms.util.Constants.ENCOUNTER_STATUS_CLOSED;
@@ -76,6 +80,30 @@ public class PatientEncounterServiceTest {
        assertEquals(0,returnValue);
 
 
+    }
+
+    @Test
+    public void testGetPatientLocations() {
+        List<HHealthcareOrganization>locations = service.GetPatientLocations("P");
+        assertEquals(5,locations.size());
+    }
+
+    @Test
+    public void testGetPatientLocationBeds() {
+        List<HBed>beds = service.GetPatientLocationBeds("B",3);
+        assertEquals(3,beds.size());
+
+        beds.clear();
+        beds = service.GetPatientLocationBeds("B",4);
+        assertEquals(2,beds.size());
+
+        beds.clear();
+        beds = service.GetPatientLocationBeds("B",5);
+        assertEquals(2,beds.size());
+
+        beds.clear();
+        beds = service.GetPatientLocationBeds("B",6);
+        assertEquals(2,beds.size());
     }
 
 

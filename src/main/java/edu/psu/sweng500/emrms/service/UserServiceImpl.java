@@ -2,6 +2,7 @@ package edu.psu.sweng500.emrms.service;
 
 import edu.psu.sweng500.emrms.mappers.PersonMapper;
 import edu.psu.sweng500.emrms.mappers.UserMapper;
+import edu.psu.sweng500.emrms.model.HHealthcareOrganization;
 import edu.psu.sweng500.emrms.model.HPerson;
 import edu.psu.sweng500.emrms.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,15 @@ public class UserServiceImpl implements UserService {
 
     public void insertUserDetails(HPerson person) {
         personMapper.insertPersonDetails(person);
+    }
+
+    @Override
+    public List<HHealthcareOrganization> getLoggedinEntityDetails() {
+        return userMapper.getLoggedinEntityDetails();
+    }
+
+    @Override
+    public User getLoggedinUserDetails(int userObjectId) {
+        return userMapper.getLoggedinUserDetails(userObjectId);
     }
 }

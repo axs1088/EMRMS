@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.service;
 
+import edu.psu.sweng500.emrms.model.HHealthcareOrganization;
 import edu.psu.sweng500.emrms.model.HPerson;
 import edu.psu.sweng500.emrms.model.User;
 
@@ -12,4 +13,8 @@ public interface UserService {
     public User validateUser(String loginID, String password);
 
     public void insertUserDetails(HPerson person);
+
+    public List<HHealthcareOrganization> getLoggedinEntityDetails();
+
+    public User getLoggedinUserDetails(int userObjectId);
 }

@@ -1,8 +1,10 @@
 package edu.psu.sweng500.emrms.mappers;
 
+import edu.psu.sweng500.emrms.model.HHealthcareOrganization;
 import edu.psu.sweng500.emrms.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LocallyCachedUserMapper implements UserMapper {
     ArrayList<User> userList;
@@ -23,6 +25,16 @@ public class LocallyCachedUserMapper implements UserMapper {
             }
         }
 
+        return null;
+    }
+
+    @Override
+    public List<HHealthcareOrganization> getLoggedinEntityDetails() {
+        return null;
+    }
+
+    @Override
+    public User getLoggedinUserDetails(int userObjectID) {
         return null;
     }
 }

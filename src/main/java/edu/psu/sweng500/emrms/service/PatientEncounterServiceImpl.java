@@ -1,13 +1,13 @@
 package edu.psu.sweng500.emrms.service;
 
 import edu.psu.sweng500.emrms.mappers.PatientEncounterMapper;
-import edu.psu.sweng500.emrms.model.HAuditRecord;
+import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.util.PersonPatientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import edu.psu.sweng500.emrms.model.HPatient;
-import edu.psu.sweng500.emrms.model.HEncounter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service("saveEncounterService")
 
@@ -54,5 +54,15 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
         auditRecord.setPatientName(patientUtils.getPatientName(encounter.getPatient_ObjectID()));
         auditEventService.auditEvent(auditRecord);
         return 0;
+    }
+
+    @Override
+    public List<HHealthcareOrganization> GetPatientLocations(String searchString) {
+        return encounterMapper.getPatientLocations(searchString);
+    }
+
+    @Override
+    public List<HBed> GetPatientLocationBeds(String searchString, int locationId) {
+        return encounterMapper.getPatientLocationBeds(searchString, locationId);
     }
 }
