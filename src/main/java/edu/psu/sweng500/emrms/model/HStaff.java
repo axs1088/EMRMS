@@ -9,6 +9,8 @@ public class HStaff {
 
     @Valid
     private String staffName;
+    
+    private int staffId;
 
     public int getObjectId() {
         return ObjectId;
@@ -41,4 +43,13 @@ public class HStaff {
     public void setStaffName(String staffName) {
         this.staffName = staffName;
     }
+
+	public int getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(int staffId) {
+		this.staffId = staffId;
+	}
+    
 }
