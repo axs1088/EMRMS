@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.services;
 
+import edu.psu.sweng500.emrms.model.ComplexName;
 import edu.psu.sweng500.emrms.model.HStaff;
 import edu.psu.sweng500.emrms.service.ManageStaffService;
 import edu.psu.sweng500.emrms.service.PatientDemographicsService;
@@ -45,7 +46,8 @@ public class ManageStaffServiceTest {
     public void testGetStaffList() {
         String searchString = "J";
         List<HStaff> staffList = manageStaffService.GetStaffList(searchString);
-        assertEquals(2,staffList.size());
+        String  staffName = staffList.get(1).getStaffName();
+        assertEquals(5,staffList.size());
 
     }
 

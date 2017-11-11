@@ -8,7 +8,7 @@ public class HStaff {
     private boolean active;
 
     @Valid
-    private ComplexName staffName;
+    private String staffName;
 
     public int getObjectId() {
         return ObjectId;
@@ -34,11 +34,11 @@ public class HStaff {
         this.active = active;
     }
 
-    public ComplexName getStaffNameName() {
+    public String getStaffName() {
         return staffName;
     }
 
-    public void setStaffName(ComplexName staffName) {
+    public void setStaffName(String staffName) {
         this.staffName = staffName;
     }
 }

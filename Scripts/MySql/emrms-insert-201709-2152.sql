@@ -11,12 +11,14 @@ DELETE FROM h_address;
 DELETE FROM h_password;
 DELETE FROM h_user;
 DELETE FROM h_diagnosis;
+DELETE FROM h_problem_list;
+DELETE FROM h_assessment;
 DELETE FROM h_encounter;
 DELETE FROM h_patient_ids;
 DELETE FROM h_patient;
-DELETE FROM h_person;
 DELETE FROM h_bed;
 DELETE FROM h_staff;
+DELETE FROM h_person;
 DELETE FROM healthcare_organization;
 
 -------------------------- INSERT INTO h_person--------------------------------------------------
@@ -27,6 +29,18 @@ INSERT INTO healthcare_organization(HealthcareOrganizationID,UserId,Name,Abbrevi
 
   INSERT INTO healthcare_organization(HealthcareOrganizationID,UserId,Name,Abbreviation,Active,EnterprizeObjectId,IdIssuer,IsIdIssuer)
   VALUES (2,'jd101','Paoli Hospital','PH',1, 1, 1,1);
+
+   INSERT INTO healthcare_organization(HealthcareOrganizationID,UserId,Name,Abbreviation,Active,EnterprizeObjectId,IdIssuer,IsIdIssuer)
+  VALUES (3,'jd101','PH-Cardiology','PHCard',1, 2, 1,0);
+
+  INSERT INTO healthcare_organization(HealthcareOrganizationID,UserId,Name,Abbreviation,Active,EnterprizeObjectId,IdIssuer,IsIdIssuer)
+  VALUES (4,'jd101','PH-General','PHGen',1, 2, 1,0);
+
+   INSERT INTO healthcare_organization(HealthcareOrganizationID,UserId,Name,Abbreviation,Active,EnterprizeObjectId,IdIssuer,IsIdIssuer)
+  VALUES (5,'jd101','PH-Endocrinology','PHEndo',1, 2, 1,0);
+
+   INSERT INTO healthcare_organization(HealthcareOrganizationID,UserId,Name,Abbreviation,Active,EnterprizeObjectId,IdIssuer,IsIdIssuer)
+  VALUES (6,'jd101','PH-InternalMedicine','PHIntMed',1, 2, 1,0);
 
 -------------------------- INSERT INTO h_person--------------------------------------------------
 
@@ -42,6 +56,19 @@ INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
   INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
   VALUES (4,'lg22',2,'1981-03-03 04:15:10','African American');
 
+INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
+  VALUES (5,'jd101',1,'1979-08-23 08:15:10','American');
+
+INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
+  VALUES (6,'lg22',2,'1978-03-03 04:15:10','Asian');
+
+
+INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
+  VALUES (7,'jd101',1,'1977-08-23 08:15:10','American');
+
+INSERT INTO h_person(HPersonID,UserId,Gender,BirthDate,Race)
+  VALUES (8,'lg22',2,'1976-03-03 04:15:10','Asian');
+
 ---------------------------- INSERT INTO h_name---------------------------------------------------
 INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPersonID)
   VALUES(1,'lg22','Louis','M','Joe','MD',1,2);
@@ -54,6 +81,18 @@ INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPe
 
    INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPersonID)
   VALUES(4,'jd101','Mary','Jeff','Davis','',1,4);
+
+  INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPersonID)
+  VALUES(5,'jd101','John','M','Johnson','MD',1,5);
+
+INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPersonID)
+  VALUES(6,'jd101','David','T','Joyce','MD',1,6);
+
+  INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPersonID)
+  VALUES(7,'jd101','Allerd','M','Rachel','MD',1,7);
+
+INSERT INTO h_name(HNameID,UserId,FirstName,MiddleName,LastName,Title,Active,HPersonID)
+  VALUES(8,'jd101','Rex','T','Alexander','MD',1,8);
 
  --------------------------- INSERT INTO h_address---------------------------------------------------
 INSERT INTO h_address(HAddressID,UserId,StrAddress,City,State,Zip,Country,HomePhoneNo,FaxNo,CellPhoneNo,AddressType,EmailAddress,MailingAddressInd,HPersonID)
@@ -72,12 +111,26 @@ INSERT INTO h_patient_ids(`HPatientId`, `UserId`,`IDValue`,`IdType`,`IdIssuerID`
   VALUES(2,'jd101','MRN002','MRN',2,'Paoli Hospital',4);
 ---------------------------- INSERT INTO h_staff--------------------------------------------------
 -- 1:Physician 2:Nurse for Type
-INSERT INTO h_staff(HStaffID,UserID,Type,Active)
-  VALUES(1,'lg22',1,1);
+INSERT INTO h_staff(HStaffID,UserID,Type,Active,HPersonID)
+  VALUES(1,'lg22',1,1,1);
 
   -- 1:Physician 2:Nurse for Type
-INSERT INTO h_staff(HStaffID,UserID,Type,Active)
-  VALUES(2,'lg22',2,1);
+INSERT INTO h_staff(HStaffID,UserID,Type,Active,HPersonID)
+  VALUES(2,'lg22',2,1,2);
+
+INSERT INTO h_staff(HStaffID,UserID,Type,Active,HPersonID)
+  VALUES(3,'lg22',1,1,5);
+
+  -- 1:Physician 2:Nurse for Type
+INSERT INTO h_staff(HStaffID,UserID,Type,Active,HPersonID)
+  VALUES(4,'lg22',1,1,6);
+
+INSERT INTO h_staff(HStaffID,UserID,Type,Active,HPersonID)
+  VALUES(5,'lg22',1,1,7);
+
+  -- 1:Physician 2:Nurse for Type
+INSERT INTO h_staff(HStaffID,UserID,Type,Active,HPersonID)
+  VALUES(6,'lg22',1,1,8);
 
 ---------------------------- INSERT INTO h_password--------------------------------------------------
 -- 1:Physician 2:Nurse for Type
@@ -92,15 +145,45 @@ INSERT INTO h_user(HUserID,LoginID,UserType,HPersonID,HPasswordID)
   VALUES(3,'nurse01',2,2,1);
 
   INSERT INTO h_user(HUserID,LoginID,UserType,HPersonID,HPasswordID)
-  VALUES(4,'pat01',3,3,1);
+  VALUES(4,'phys01',3,5,1);
 
   INSERT INTO h_user(HUserID,LoginID,UserType,HPersonID,HPasswordID)
-  VALUES(5,'pat02',3,4,1);
+  VALUES(5,'phys02',3,6,1);
+
+   INSERT INTO h_user(HUserID,LoginID,UserType,HPersonID,HPasswordID)
+  VALUES(6,'phys03',3,7,1);
+
+  INSERT INTO h_user(HUserID,LoginID,UserType,HPersonID,HPasswordID)
+  VALUES(7,'phys04',3,8,1);
 
 
 ---------------------------- INSERT INTO h_bed----------------------------------------------------
 INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
-  VALUES(1,'lg22','Bed101',1,1,1);
+  VALUES(1,'lg22','Bed101',1,1,3);
+
+INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
+  VALUES(2,'lg22','Bed102',1,1,3);
+
+  INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
+  VALUES(3,'lg22','Bed103',1,1,3);
+
+  INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
+  VALUES(4,'lg22','Bed104',1,1,4);
+
+INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
+  VALUES(5,'lg22','Bed105',1,1,4);
+
+INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
+  VALUES(6,'lg22','Bed106',1,1,5);
+
+    INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
+  VALUES(7,'lg22','Bed107',1,1,5);
+
+    INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
+  VALUES(8,'lg22','Bed106',1,1,6);
+
+    INSERT INTO h_bed(BedId,UserId,BedName,BedStatus,Active,LocationID)
+  VALUES(9,'lg22','Bed107',1,1,6);
 
 ---------------------------- INSERT INTO h_Allergy----------------------------------------------------
 INSERT INTO h_allergy(HAllergyID,UserID,AllergyName,AllergyCode,AllergyType,Severity,PatientID)
