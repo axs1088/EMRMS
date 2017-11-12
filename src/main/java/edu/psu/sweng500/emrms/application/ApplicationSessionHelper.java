@@ -212,7 +212,13 @@ public class ApplicationSessionHelper {
             HEncounter encounter = patientDemographicsMapper.getPatientEncounters(patientId).get(0);
             siteHeader.setEncounterType(encounter.getEncounterType());
             siteHeader.setEncounterStartDate(encounter.getEncStartDateTime());
-            siteHeader.setEncounterStatus(String.valueOf(encounter.getEncStatus()));
+            String encounterStatus = null;
+            if(encounter.getEncStatus() == Constants.ACTIVE_ENCOUNTER) {
+            	encounterStatus = "Active";
+            } else if(encounter.getEncStatus() == Constants.CLOSED_ENCOUNTER) {
+            	encounterStatus = "Closed";
+            }
+            siteHeader.setEncounterStatus(encounterStatus);
             siteHeader.setEncounterNumber(encounter.getEncounterID());
             siteHeader.setAttending("Doctor #" + encounter.getAttendingPhysician_ObjectID());
         } catch (NullPointerException | IndexOutOfBoundsException ex) {

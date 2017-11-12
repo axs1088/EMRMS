@@ -30,8 +30,8 @@ public final class Constants {
 	public static final int BED_STATUS_HOUSEKEEPING = 3;
 
 	public static final String SAVE_SUCESSFUL = "Save Successful";
-	
-	
+	public static final int ACTIVE_ENCOUNTER = 1;
+	public static final int CLOSED_ENCOUNTER = 1;
 
 
     
