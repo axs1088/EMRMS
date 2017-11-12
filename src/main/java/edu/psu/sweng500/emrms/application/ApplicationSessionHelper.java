@@ -59,7 +59,7 @@ public class ApplicationSessionHelper {
     private Integer patientId;
 
     ActiveTabs activeTabs;
-
+    
     public ModelAndView addSessionHelperAttributes(ModelAndView mav) {
         mav.addObject("severeAllergyList", getSevereAllergies());
         mav.addObject("primaryDiagnosisList", getPrimaryDiagnoses());
@@ -128,6 +128,10 @@ public class ApplicationSessionHelper {
      */
     public Integer getHPatientId(HttpSession session) {
         return (Integer) session.getAttribute(Constants.HPATIENT_ID);
+    }
+
+    public Integer getEncounterObjectId(HttpSession session) {
+        return (Integer) session.getAttribute(Constants.APP_ENCOUNTER_ID);
     }
 
     /**
@@ -213,10 +217,10 @@ public class ApplicationSessionHelper {
             siteHeader.setEncounterType(encounter.getEncounterType());
             siteHeader.setEncounterStartDate(encounter.getEncStartDateTime());
             String encounterStatus = null;
-            if(encounter.getEncStatus() == Constants.ACTIVE_ENCOUNTER) {
-            	encounterStatus = "Active";
-            } else if(encounter.getEncStatus() == Constants.CLOSED_ENCOUNTER) {
-            	encounterStatus = "Closed";
+            if (encounter.getEncStatus() == Constants.ACTIVE_ENCOUNTER) {
+                encounterStatus = "Active";
+            } else if (encounter.getEncStatus() == Constants.CLOSED_ENCOUNTER) {
+                encounterStatus = "Closed";
             }
             siteHeader.setEncounterStatus(encounterStatus);
             siteHeader.setEncounterNumber(encounter.getEncounterID());

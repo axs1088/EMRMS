@@ -4,15 +4,10 @@ import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
 import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
+import edu.psu.sweng500.emrms.mappers.ChartingMapper;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
-import edu.psu.sweng500.emrms.model.HAllergy;
-import edu.psu.sweng500.emrms.model.HDiagnosis;
-import edu.psu.sweng500.emrms.model.HEncounter;
-import edu.psu.sweng500.emrms.model.KnownAllergies;
-import edu.psu.sweng500.emrms.service.ManageAllergyService;
-import edu.psu.sweng500.emrms.service.ManageDiagnosisService;
-import edu.psu.sweng500.emrms.service.PatientDemographicsService;
-import edu.psu.sweng500.emrms.service.PatientService;
+import edu.psu.sweng500.emrms.model.*;
+import edu.psu.sweng500.emrms.service.*;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ChartingController {
@@ -52,10 +50,17 @@ public class ChartingController {
     private ManageDiagnosisService manageDiagnosisService;
 
     @Autowired
+    private ManageAssessmentService manageAssessmentService;
+
+    @Autowired
     private PatientDemographicsMapper patientDemographicsMapper;
+
+    @Autowired
+    private ChartingMapper chartingMapper;
 
     private ModelAndView mav;
     private Integer patientId;
+    private HEncounter currentEncounter;
     private HttpSession session;
 
     private HAllergy newAllergy;
@@ -64,12 +69,10 @@ public class ChartingController {
     private HDiagnosis newDiagnosis;
     private List<HDiagnosis> diagnosisList;
 
+    private HAssessment newAssessment;
+    private List<HAssessment> assessmentList;
 
-    /**
-     * Initialize data binder. Support MM/dd/yyyy dates.
-     *
-     * @param binder the binder to initialize
-     */
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.setBindingErrorProcessor(new EMRMSBindingErrorProcessor());
@@ -79,28 +82,50 @@ public class ChartingController {
     @RequestMapping(value = "/charting", method = RequestMethod.GET)
     public ModelAndView showCharting(HttpServletRequest request, HttpServletResponse response) {
         sessionHelper.setActiveChartingTab("allergies");
+        setupMav(request);
+        return mav;
+    }
 
+    private void setupMav(HttpServletRequest request) {
         mav = new ModelAndView("chartingTabShell");
         session = request.getSession(false);
+        patientId = sessionHelper.getHPatientId(session);
+        sessionHelper.setActivePatient(patientId);
+
+        determineCurrentEncounter();
 
         mav.addObject("showHeader", true);
-        sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
 
         addAllergiesToMav();
         addDiagnosesToMav();
+        addAssessmentsToMav();
 
         mav = sessionHelper.addSessionHelperAttributes(mav);
+    }
 
-        return mav;
+    private void determineCurrentEncounter() {
+        try {
+            String currentEncounterId = sessionHelper.getSiteHeader().getEncounterNumber();
+
+            currentEncounter = patientDemographicsService.getPatientEncounters(patientId).stream()
+                    .filter(matchingEncounter -> matchingEncounter.getEncounterID().equals(currentEncounterId))
+                    .findFirst()
+                    .orElseThrow(NullPointerException::new);
+
+            mav.addObject("currentEncounter", currentEncounter);
+        } catch (Exception ex) {
+            currentEncounter = null;
+        }
+
+        mav.addObject("showAddAction", currentEncounter != null);
     }
 
     private void addAllergiesToMav() {
         newAllergy = new HAllergy();
 
         try {
-            patientId = sessionHelper.getPatientId();
-            allergyList = patientDemographicsService.getPatientAllergies(patientId);
+            allergyList = patientDemographicsService.getPatientAllergies(sessionHelper.getPatientId());
             newAllergy.setPatientID(patientId);
         } catch (PatientNotFoundException e) {
             allergyList = new ArrayList<>();
@@ -129,9 +154,7 @@ public class ChartingController {
         newAllergy.setAllergyType(allergy.getAllergyType());
         manageAllergyService.AddAllergy(newAllergy);
 
-        addAllergiesToMav();
-        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHelperAttributes(mav);
+        setupMav(request);
 
         return mav;
     }
@@ -153,9 +176,7 @@ public class ChartingController {
             // Fine
         }
 
-        addAllergiesToMav();
-        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHelperAttributes(mav);
+        setupMav(request);
 
         return mav;
     }
@@ -164,19 +185,14 @@ public class ChartingController {
         newDiagnosis = new HDiagnosis();
 
         try {
-            patientId = sessionHelper.getPatientId();
-            diagnosisList = patientDemographicsService.getPatientDiagnoses(patientId);
-            newDiagnosis.setPatientID(patientId);
-        } catch (PatientNotFoundException e) {
+            newDiagnosis.setUserId(sessionHelper.getApplicationUser(session));
+            newDiagnosis.setPatientID(sessionHelper.getPatientId());
+            final int currentEncounterId = currentEncounter.getHEncounterID();
+            diagnosisList = patientDemographicsService.getPatientDiagnoses(patientId).stream()
+                    .filter(diagnosis -> diagnosis.getEncounterID() == currentEncounterId)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
             diagnosisList = new ArrayList<>();
-        }
-
-        newDiagnosis.setUserId(sessionHelper.getApplicationUser(session));
-
-        List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientId);
-
-        if (encounters != null && !encounters.isEmpty()) {
-            newDiagnosis.setEncounterID(encounters.get(0).getHEncounterID());
         }
 
         mav.addObject("diagnosisList", diagnosisList);
@@ -192,12 +208,11 @@ public class ChartingController {
         newDiagnosis.setDescription(diagnosis.getDescription());
         newDiagnosis.setCode(diagnosis.getCode());
         newDiagnosis.setPriority(diagnosis.getPriority());
+        newDiagnosis.setEncounterID(currentEncounter.getHEncounterID());
 
         manageDiagnosisService.AddDiagnosis(newDiagnosis);
 
-        addDiagnosesToMav();
-        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHelperAttributes(mav);
+        setupMav(request);
 
         return mav;
     }
@@ -219,10 +234,76 @@ public class ChartingController {
             // Fine
         }
 
-        addDiagnosesToMav();
-        mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav = sessionHelper.addSessionHelperAttributes(mav);
+        setupMav(request);
 
+        return mav;
+    }
+
+    private void addAssessmentsToMav() {
+        newAssessment = new HAssessment();
+
+        try {
+            sessionHelper.getPatientId();
+            int encounterObjectId = currentEncounter.getHEncounterID();
+            assessmentList = manageAssessmentService.GetPatientAssessments(patientId, encounterObjectId);
+            newAssessment.setEncounterObjectId(encounterObjectId);
+        } catch (Exception e) {
+            assessmentList = new ArrayList<>();
+        }
+
+        newAssessment.setUserId(sessionHelper.getApplicationUser(session));
+
+        List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientId);
+
+        if (encounters != null && !encounters.isEmpty()) {
+            newAssessment.setEncounterObjectId(encounters.get(0).getHEncounterID());
+        }
+
+        mav.addObject("assessmentList", assessmentList);
+        mav.addObject("newAssessment", newAssessment);
+        mav.addObject("deletedAssessment", new HAssessment());
+    }
+
+    @RequestMapping(value = "/addAssessment", method = RequestMethod.POST)
+    public ModelAndView addAssessment(HttpServletRequest request, HttpServletResponse response,
+                                      @ModelAttribute("newAssessment") HAssessment assessment, BindingResult bindingResult) throws PatientNotFoundException {
+        sessionHelper.setActiveChartingTab("assessments");
+
+        final HttpSession session = request.getSession();
+
+        assessment.setUserId(sessionHelper.getApplicationUser(session));
+        assessment.setEncounterObjectId(currentEncounter.getHEncounterID());
+        assessment.setPatientObjectId(sessionHelper.getPatientId());
+        assessment.setCollectedDateTime(Date.valueOf(LocalDate.now()).toString());
+        assessment.setHeightmeasureId(1);
+        assessment.setWeightmeasureId(3);
+        assessment.setTemperaturemeasureId(5);
+
+        manageAssessmentService.AddAssessment(assessment);
+
+        setupMav(request);
+        return mav;
+    }
+
+    @RequestMapping(value = "/deleteAssessment", method = RequestMethod.POST)
+    public ModelAndView deleteAssessment(HttpServletRequest request, HttpServletResponse response,
+                                         @ModelAttribute("deletedAssessment") HAssessment deletedAssessment, BindingResult bindingResult) {
+        sessionHelper.setActiveChartingTab("assessments");
+
+        try {
+            final int deletedAssessmentId = deletedAssessment.getObjectId();
+
+            deletedAssessment = assessmentList.stream()
+                    .filter(assessment -> assessment.getObjectId() == deletedAssessmentId)
+                    .findFirst()
+                    .get();
+
+            chartingMapper.deleteAssessment(deletedAssessment);
+        } catch (Exception e) {
+            // Fine
+        }
+
+        setupMav(request);
         return mav;
     }
 }
