@@ -12,7 +12,7 @@
 <%@include file="subpages/siteHeader.jsp" %>
 
 <div class="mainContent">
-    <h3><b>Patient Census</b></h3>
+    <h3 style="text-align: center"><b>Patient Census</b></h3>
     <table cellpadding="10" border="1" align="center">
         <tr style=>
             <th>Name</th>
