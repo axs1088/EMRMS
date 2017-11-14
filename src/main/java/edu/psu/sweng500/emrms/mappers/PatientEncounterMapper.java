@@ -31,7 +31,7 @@ public interface PatientEncounterMapper {
     @Options(useGeneratedKeys=true, keyProperty = "hEncounterID", keyColumn="HEncounterID" )
     public void insertIPEncounterDetails(HEncounter hEncounter);
 
-    String UPDATE_OP_HENCOUNTER = "update h_Encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
+    String UPDATE_OP_HENCOUNTER = "update h_encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
             "ENCStatus = #{encounter.encStatus} ,EncLocationName = #{encounter.encLocationName}, EncounterLocation_ObjectID = #{encounter.encounterLocation_ObjectID}, " +
             "EncounterID = #{encounter.encounterID}, EncType = #{encounter.encounterType} , " +
             "AttendingPhysician_ObjectID = #{encounter.attendingPhysician_ObjectID} " +
@@ -39,7 +39,7 @@ public interface PatientEncounterMapper {
     @Update(UPDATE_OP_HENCOUNTER)@Options(keyProperty = "encounter.hEncounterID", keyColumn="HEncounterID" )
     public void reviseOPEncounterDetails(@Param("encounter") HEncounter encounter);
 
-    String UPDATE_IP_HENCOUNTER = "update h_Encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
+    String UPDATE_IP_HENCOUNTER = "update h_encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
             "ENCStatus = #{encounter.encStatus} ,EncLocationName = #{encounter.encLocationName}, EncounterLocation_ObjectID = #{encounter.encounterLocation_ObjectID}, " +
             "EncounterID = #{encounter.encounterID}, EncType = #{encounter.encounterType} , BedName = #{encounter.bedName}, " +
             "AttendingPhysician_ObjectID = #{encounter.attendingPhysician_ObjectID}, Bed_ObjectID = #{encounter.bed_ObjectID} " +

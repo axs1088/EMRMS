@@ -13,7 +13,7 @@ public interface ChartingMapper {
 
     String UPDATE_HDIAGNOSIS = "update h_diagnosis set code=#{code},description=#{description} where hdiagnosisid=#{diagnosisObjectId}";
     String DELETE_HDIAGNOSIS = "DELETE FROM h_diagnosis WHERE hdiagnosisid=#{diagnosisObjectId}";
-    String DELETE_HALLERGY = "DELETE FROM h_Allergy WHERE HAllergyID=#{allergyID}";
+    String DELETE_HALLERGY = "DELETE FROM h_allergy WHERE HAllergyID=#{allergyID}";
 
     @Insert("INSERT INTO h_diagnosis(UserId, Code, Description, Priority, EncounterID,PatientID  ) " +
             "VALUES (#{userId}, #{code},#{description}, #{priority}, #{encounterID}, #{patientID})")
@@ -27,7 +27,7 @@ public interface ChartingMapper {
     @Options(keyProperty = "hDiagnosisId")
     public int deleteDiagnosis(HDiagnosis diagnosis) throws Exception;
 
-    @Insert("INSERT INTO h_Allergy(UserId, AllergyName, AllergyCode, AllergyType, PatientID, Severity  ) " +
+    @Insert("INSERT INTO h_allergy(UserId, AllergyName, AllergyCode, AllergyType, PatientID, Severity  ) " +
             "VALUES (#{userId}, #{allergyName},#{allergyCode}, #{allergyType}, #{patientID}, #{severity})")
     public void addAllergy(HAllergy allergy);
 
@@ -35,7 +35,7 @@ public interface ChartingMapper {
     @Options(keyProperty = "allergyID")
     public int deleteAllergy(HAllergy allergy) throws Exception;
 
-    String INSERT_H_ASSESSMENT = "INSERT INTO h_Assessment(UserId, collectedDateTime, AssessmentID, Status, Encounter_ObjectID, " +
+    String INSERT_H_ASSESSMENT = "INSERT INTO h_assessment(UserId, collectedDateTime, AssessmentID, Status, Encounter_ObjectID, " +
             "temperature, height, weight, pulse, systolicBP, dystolicBP, heightmeasureId, weightmeasureId, temperaturemeasureId, patient_ObjectID)" +
             "VALUES (#{assessment.userId}, #{assessment.collectedDateTime},#{assessment.assessmentId}, #{assessment.status},#{assessment.encounterObjectId}, " +
             "#{assessment.temperature}, #{assessment.height}, #{assessment.weight}, " +
@@ -46,7 +46,7 @@ public interface ChartingMapper {
     @Options(useGeneratedKeys = true, keyProperty = "assessment.objectId", keyColumn = "HAssessmentID")
     public void addAssessment(@Param("assessment") HAssessment assessment);
 
-    String UPDATE_H_ASSESSMENT = "update h_Assessment set collectedDateTime = #{collectedDateTime}, Status=#{status},temperature=#{temperature}," +
+    String UPDATE_H_ASSESSMENT = "update h_assessment set collectedDateTime = #{collectedDateTime}, Status=#{status},temperature=#{temperature}," +
             " height=#{height}, weight=#{weight}, pulse=#{pulse}, systolicBP=#{systolicBP}, " +
             "dystolicBP=#{dystolicBP} where HAssessmentID=#{objectId}";
 
