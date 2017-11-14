@@ -89,11 +89,14 @@ public class LoginController {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("user", new User());
         HttpSession session = request.getSession(false);
+        applicationAuditHelper.auditEvent(session, "Logout", 2, 0, 0);
         if (session != null)
             sessionHelper.clearAllSessionAttributes(session);
         session.invalidate();
 
         mav = sessionHelper.addSessionHelperAttributes(mav);
+
+
 
         return mav;
     }
