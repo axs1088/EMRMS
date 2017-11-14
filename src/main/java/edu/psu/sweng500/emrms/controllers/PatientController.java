@@ -29,6 +29,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * @author vkumar
@@ -125,7 +127,7 @@ public class PatientController {
         for (Policy p : policyList) {
             policyListHashMap.put(p.getPolicyId(), p.getPolicyName());
         }
-
+        policyListHashMap = FormatUtils.sortByValue(policyListHashMap);
         mav.addObject("policy", policy);
         mav.addObject("policyListHashMap", policyListHashMap);
 
