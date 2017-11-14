@@ -11,20 +11,42 @@ import java.util.List;
 public interface PatientEncounterMapper {
     @Insert("INSERT INTO h_encounter(UserId," +
             "EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName," +
-            "EncounterLocation_ObjectID,EncounterID,EncType,BedName," +
+            "EncounterLocation_ObjectID,EncounterID,EncType," +
             "Patient_ObjectID, AttendingPhysician_ObjectID) VALUES" +
-            "(#{encounter.userID}," +
-            "#{encounter.encStartDateTime},#{encounter.encEndDateTime}, #{encounter.encStatus}, #{encounter.encLocationName}," +
-            "#{encounter.encounterLocation_ObjectID}, #{encounter.encounterID}, #{encounter.encounterType},#{encounter.bedName}," +
-            "#{encounter.patient_ObjectID}, #{encounter.attendingPhysician_ObjectID})")
-    @Options(useGeneratedKeys=true, keyProperty = "encounter.hEncounterID", keyColumn="HEncounterID" )
-    public void insertEncounterDetails(@Param("encounter") HEncounter hEncounter);
+            "(#{userID}," +
+            "#{encStartDateTime},#{encEndDateTime}, #{encStatus}, #{encLocationName}," +
+            "#{encounterLocation_ObjectID}, #{encounterID}, #{encounterType}, " +
+            "#{patient_ObjectID}, #{attendingPhysician_ObjectID})")
+    @Options(useGeneratedKeys=true, keyProperty = "hEncounterID", keyColumn="HEncounterID" )
+    public void insertOPEncounterDetails(HEncounter hEncounter);
 
-    String UPDATE_HENCOUNTER = "update h_Encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
+    @Insert("INSERT INTO h_encounter(UserId," +
+            "EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName," +
+            "EncounterLocation_ObjectID,EncounterID,EncType,BedName," +
+            "Patient_ObjectID, AttendingPhysician_ObjectID, Bed_ObjectID) VALUES" +
+            "(#{userID}," +
+            "#{encStartDateTime},#{encEndDateTime}, #{encStatus}, #{encLocationName}," +
+            "#{encounterLocation_ObjectID}, #{encounterID}, #{encounterType},#{bedName}," +
+            "#{patient_ObjectID}, #{attendingPhysician_ObjectID}, #{bed_ObjectID})")
+    @Options(useGeneratedKeys=true, keyProperty = "hEncounterID", keyColumn="HEncounterID" )
+    public void insertIPEncounterDetails(HEncounter hEncounter);
+
+    String UPDATE_OP_HENCOUNTER = "update h_Encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
             "ENCStatus = #{encounter.encStatus} ,EncLocationName = #{encounter.encLocationName}, EncounterLocation_ObjectID = #{encounter.encounterLocation_ObjectID}, " +
-            "EncounterID = #{encounter.encounterID}, EncType = #{encounter.encounterType} , BedName = #{encounter.bedName} where HEncounterID=#{encounter.hEncounterID}";
-    @Update(UPDATE_HENCOUNTER)@Options(keyProperty = "encounter.hEncounterID", keyColumn="HEncounterID" )
-    public void reviseEncounterDetails(@Param("encounter") HEncounter encounter);
+            "EncounterID = #{encounter.encounterID}, EncType = #{encounter.encounterType} , " +
+            "AttendingPhysician_ObjectID = #{encounter.attendingPhysician_ObjectID} " +
+            " where HEncounterID=#{encounter.hEncounterID}";
+    @Update(UPDATE_OP_HENCOUNTER)@Options(keyProperty = "encounter.hEncounterID", keyColumn="HEncounterID" )
+    public void reviseOPEncounterDetails(@Param("encounter") HEncounter encounter);
+
+    String UPDATE_IP_HENCOUNTER = "update h_Encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
+            "ENCStatus = #{encounter.encStatus} ,EncLocationName = #{encounter.encLocationName}, EncounterLocation_ObjectID = #{encounter.encounterLocation_ObjectID}, " +
+            "EncounterID = #{encounter.encounterID}, EncType = #{encounter.encounterType} , BedName = #{encounter.bedName}, " +
+            "AttendingPhysician_ObjectID = #{encounter.attendingPhysician_ObjectID}, Bed_ObjectID = #{encounter.bed_ObjectID} " +
+            " where HEncounterID=#{encounter.hEncounterID}";
+    @Update(UPDATE_IP_HENCOUNTER)@Options(keyProperty = "encounter.hEncounterID", keyColumn="HEncounterID" )
+    public void reviseIPEncounterDetails(@Param("encounter") HEncounter encounter);
+
 
     @Select(value = "{ CALL emrms_getencounterlocations(#{searchString, mode=IN, jdbcType=VARCHAR})}")
     @Options(statementType = StatementType.CALLABLE)

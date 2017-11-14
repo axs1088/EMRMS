@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface PatientEncounterService {
     public int AddEncounter(HPatient hPatient, HEncounter hEncounter);
+    public int AddInPatientEncounter(HPatient hPatient, HEncounter hEncounter);
     public int ReviseEncounter(HPatient hPatient, HEncounter hEncounter);
+    public int ReviseInPatientEncounter(HPatient hPatient, HEncounter hEncounter);
     public List<HHealthcareOrganization> GetPatientLocations(String searchString);
     public List<HBed> GetPatientLocationBeds(String searchString, int locationId);
 }

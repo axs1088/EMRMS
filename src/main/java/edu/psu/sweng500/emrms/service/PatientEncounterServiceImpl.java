@@ -30,7 +30,23 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
     public int AddEncounter(HPatient hPatient, HEncounter encounter) {
         int encounterObjectID = encounter.getHEncounterID();
         if (encounterObjectID == 0){
-            encounterMapper.insertEncounterDetails(encounter);
+            encounterMapper.insertOPEncounterDetails(encounter);
+            HAuditRecord auditRecord = new HAuditRecord();
+            auditRecord.setEventName("Add Encounter");
+            auditRecord.setPolicyId(7);
+            auditRecord.setPatient_ObjectID(encounter.getPatient_ObjectID());
+            auditRecord.setEncounter_ObjectID(encounter.getHEncounterID());
+            auditRecord.setPatientName(patientUtils.getPatientName(encounter.getPatient_ObjectID()));
+            auditEventService.auditEvent(auditRecord);
+        }
+        return 0;
+    }
+
+    @Override
+    public int AddInPatientEncounter(HPatient hPatient, HEncounter encounter) {
+        int encounterObjectID = encounter.getHEncounterID();
+        if (encounterObjectID == 0){
+            encounterMapper.insertIPEncounterDetails(encounter);
             HAuditRecord auditRecord = new HAuditRecord();
             auditRecord.setEventName("Add Encounter");
             auditRecord.setPolicyId(7);
@@ -45,7 +61,20 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
     @Override
     @Transactional
     public int ReviseEncounter(HPatient hPatient, HEncounter encounter) {
-        encounterMapper.reviseEncounterDetails(encounter);
+        encounterMapper.reviseOPEncounterDetails(encounter);
+        HAuditRecord auditRecord = new HAuditRecord();
+        auditRecord.setEventName("Revise Encounter");
+        auditRecord.setPolicyId(8);
+        auditRecord.setPatient_ObjectID(encounter.getPatient_ObjectID());
+        auditRecord.setEncounter_ObjectID(encounter.getHEncounterID());
+        auditRecord.setPatientName(patientUtils.getPatientName(encounter.getPatient_ObjectID()));
+        auditEventService.auditEvent(auditRecord);
+        return 0;
+    }
+
+    @Override
+    public int ReviseInPatientEncounter(HPatient hPatient, HEncounter encounter) {
+        encounterMapper.reviseIPEncounterDetails(encounter);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Revise Encounter");
         auditRecord.setPolicyId(8);

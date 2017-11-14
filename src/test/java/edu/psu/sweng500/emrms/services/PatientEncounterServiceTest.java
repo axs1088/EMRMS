@@ -59,7 +59,7 @@ public class PatientEncounterServiceTest {
         hEncounter.setEncounterID("Acc1001");
         hEncounter.setPatient_ObjectID(3);
         hEncounter.setAttendingPhysician_ObjectID(1);
-        hEncounter.setBed_ObjectID(1);
+        //hEncounter.setBed_ObjectID(1);
 
         // ToDo
        int returnValue = service.AddEncounter(hPatient, hEncounter);
@@ -76,8 +76,34 @@ public class PatientEncounterServiceTest {
         hEncounter.setAttendingPhysician_ObjectID(2);
 
         returnValue = service.ReviseEncounter(hPatient, hEncounter);
+        assertEquals(0,returnValue);
 
-       assertEquals(0,returnValue);
+        hEncounter = new HEncounter();
+        hEncounter.setUserID("admin");
+        hEncounter.setEncStartDateTime("2017-09-14 11:55:00");
+        hEncounter.setEncStatus(ENCOUNTER_STATUS_ACTIVE);
+        hEncounter.setEncLocationName("Exton Clinic");
+        hEncounter.setEncounterType("IP");
+        hEncounter.setEncounterID("Acc1001");
+        hEncounter.setPatient_ObjectID(3);
+        hEncounter.setAttendingPhysician_ObjectID(1);
+        hEncounter.setBed_ObjectID(1);
+
+        // ToDo
+        returnValue = service.AddInPatientEncounter(hPatient, hEncounter);
+        assertEquals(0,returnValue);
+
+        hEncounter.setHEncounterID(hEncounter.getHEncounterID());
+        hEncounter.setEncStartDateTime("2018-09-14 11:55:00");
+        hEncounter.setEncEndDateTime("2018-09-15 11:55:00");
+        hEncounter.setEncStatus(ENCOUNTER_STATUS_CLOSED);
+        hEncounter.setEncLocationName("Malvern Clinic");
+        hEncounter.setEncounterType("IP");
+        hEncounter.setEncounterID("Acc10012");
+        hEncounter.setAttendingPhysician_ObjectID(2);
+
+        returnValue = service.ReviseInPatientEncounter(hPatient, hEncounter);
+        assertEquals(0,returnValue);
 
 
     }
