@@ -141,6 +141,10 @@
             border: 1px solid #ccc;
             border-top: none;
         }
+        
+        tr:nth-of-type(odd) {
+      		background-color:#e6e6e6;
+    	}
     </style>
 
     <div class="tab">

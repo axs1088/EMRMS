@@ -7,6 +7,7 @@ import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.model.HPatient;
 import edu.psu.sweng500.emrms.model.HStaff;
 import edu.psu.sweng500.emrms.service.ManageStaffService;
+import edu.psu.sweng500.emrms.service.PatientDemographicsService;
 import edu.psu.sweng500.emrms.service.PatientEncounterService;
 import edu.psu.sweng500.emrms.util.EMRMSProperties;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
@@ -49,6 +50,9 @@ public class EncounterController {
     @Autowired
     private EncounterValidator encounterValidator;
     
+    @Autowired
+    private PatientDemographicsService demographicsService;
+    
     List<String> attendingPhysicians = new ArrayList<String>();
 
     /**
@@ -73,7 +77,8 @@ public class EncounterController {
         mav.addObject("encounter", hEncounter);
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-
+        mav.addObject("encounterList", demographicsService.getPatientEncounters(sessionHelper.getHPatientId(session)));
+        
         mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
@@ -113,6 +118,7 @@ public class EncounterController {
         mav.addObject("encounter", encounter);
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav.addObject("encounterList", demographicsService.getPatientEncounters(sessionHelper.getHPatientId(session)));
 
         mav = sessionHelper.addSessionHelperAttributes(mav);
 

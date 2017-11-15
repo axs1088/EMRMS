@@ -43,12 +43,59 @@
         </div>
     </div>
 
-    <br>
+    <br/>
     <br/>
 
     <div>
         <form:button type="submit" value="Submit">Save Encounter</form:button>&nbsp;&nbsp;
         <button type="button" name="back" onclick="history.back()">&laquo; Previous</button>
+    </div>
+    
+    <br/>
+    <br/>
+    
+    <div>
+    	<table align="left">
+	        <tr>
+	            <th>Encounter Type</th>
+	            <th>Encounter Start Date</th>
+	            <th>Clinic</th>
+	            <th>Encounter Status</th>
+	            <th>Encounter ID</th>
+	            <th>Chief Complaint</th>
+	            <th>Attending Physician</th>
+	            <th>Action</th>
+	        </tr>
+	        <c:forEach items="${encounterList}" var="encounterDetail" varStatus="encounterStatus">
+	            <tr>
+	                <td width="150">${encounterDetail.encounterType}</td>
+	                <td width="150">${encounterDetail.encStartDateTime}</td>
+	                <td width="150">${encounterDetail.encLocationName}</td>              
+	                <td width="150">
+	                    <c:choose>
+	                        <c:when test="${encounterDetail.encStatus == '1'}">
+	                            Active
+	                        </c:when>
+	                        <c:otherwise>
+	                            Closed
+	                        </c:otherwise>
+	                    </c:choose>
+               		</td>	                
+	                <td width="150">${encounterDetail.encounterID}</td>
+	                <td width="200">${encounterDetail.encounterReason}</td>
+	                <td width="150">${encounterDetail.attendingPhysician}</td>
+	                <td width="100"><form:button type="submit" value="Submit">Revise</form:button></td>
+	            </tr>
+        	</c:forEach>
+    	</table>
+    </div>
+    
+    <br/>
+    <br/>
+    
+    <!-- This div is to fix the footer overlapping issue -->
+    <div>
+        <input style="visibility:hidden;" type="button">
     </div>
 
     <c:if test="${not empty validationErrors}">
