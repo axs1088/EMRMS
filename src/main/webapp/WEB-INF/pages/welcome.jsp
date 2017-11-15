@@ -13,8 +13,11 @@
 
 <div class="mainContent">
     <h3 style="text-align: center"><b>Patient Census</b></h3>
+    <c:if test="${empty hCensusList}">
+    	<h4 style="color:red;text-align: center;">No active patient records founds!</h4>
+    </c:if>
     <table cellpadding="10" border="1" align="center">
-        <tr style=>
+        <tr>
             <th>Name</th>
             <th>DOB</th>
             <th>Gender</th>
