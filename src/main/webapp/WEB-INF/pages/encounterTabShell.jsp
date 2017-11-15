@@ -87,10 +87,12 @@
             var encStatus = document.getElementById("encStatusInput").value;
             var encounterID = document.getElementById("encounterIDInput").value;
             var encounterReason = document.getElementById("encounterReasonInput").value;
+            var attendingPhysician = document.getElementById("attendingPhysicianInput").value;
+            
             var validate = true;
 
             if (isBlank(encounterType) || isBlank(encStartDateTime) || isBlank(encLocationName) || isBlank(encStatus)
-                || isBlank(encounterID) || isBlank(encounterReason)) {
+                || isBlank(encounterID) || isBlank(encounterReason) || isBlank(attendingPhysician)) {
                 alert("Please enter values in mandatory fields marked by *");
                 validate = false;
             }
