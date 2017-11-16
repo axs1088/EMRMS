@@ -17,9 +17,9 @@ BEGIN
         henc.HEncounterID
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         INNER JOIN H_Patient hpat ON hpat.HPersonID = hp.HPersonID
-        LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
+        LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID AND (henc.HEncounterID in(select MAX(HEncounterID) from h_encounter where ENCStatus = 1 GROUP by Patient_ObjectID))
       WHERE  hn.LastName LIKE CONCAT(lName, '%') AND hn.FirstName LIKE CONCAT(fName, '%') AND
-            hp.Gender = gender AND (henc.HEncounterID in(select MAX(HEncounterID) from h_encounter where ENCStatus = 1 GROUP by Patient_ObjectID));
+            hp.Gender = gender;
     END IF;
 
     /*Return All patients*/
@@ -38,9 +38,8 @@ BEGIN
         henc.HEncounterID
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         INNER JOIN H_Patient hpat ON hpat.HPersonID = hp.HPersonID
-        LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
-      WHERE hn.LastName LIKE CONCAT(lName, '%') AND hn.FirstName LIKE CONCAT(fName, '%')
-      AND (henc.HEncounterID in(select MAX(HEncounterID) from h_encounter where ENCStatus = 1 GROUP by Patient_ObjectID));
+        LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID AND (henc.HEncounterID in(select MAX(HEncounterID) from h_encounter where ENCStatus = 1 GROUP by Patient_ObjectID))
+      WHERE hn.LastName LIKE CONCAT(lName, '%') AND hn.FirstName LIKE CONCAT(fName, '%');
     END IF;
 
     /*Return All patients*/
@@ -58,8 +57,8 @@ BEGIN
         henc.HEncounterID
       FROM h_name hn INNER JOIN h_person hp ON hn.HpersonID = hp.HPersonID
         INNER JOIN H_Patient hpat ON hpat.HPersonID = hp.HPersonID
-        LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
-      WHERE hn.LastName LIKE CONCAT(lName, '%') AND (henc.HEncounterID in(select MAX(HEncounterID) from h_encounter where ENCStatus = 1 GROUP by Patient_ObjectID));
+        LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID AND (henc.HEncounterID in(select MAX(HEncounterID) from h_encounter where ENCStatus = 1 GROUP by Patient_ObjectID))
+      WHERE hn.LastName LIKE CONCAT(lName, '%');
     END IF;
 
   END
