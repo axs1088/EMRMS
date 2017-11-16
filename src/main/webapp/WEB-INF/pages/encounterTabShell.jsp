@@ -21,7 +21,7 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-		    $("input#attendingPhysician").autocomplete({
+		    $("input#attendingPhysicianInput").autocomplete({
 		        width: 300,
 		        max: 10,
 		        delay: 100,
@@ -35,7 +35,7 @@
 		                url: "physiciandetails",
 		                dataType: "json",
 		                data: {
-		                	 searchString: $('#attendingPhysician').val(),
+		                	 searchString: $('#attendingPhysicianInput').val(),
 		                },
 		                success: function(data, textStatus, jqXHR) {
 		                    console.log( data);
@@ -87,10 +87,12 @@
             var encStatus = document.getElementById("encStatusInput").value;
             var encounterID = document.getElementById("encounterIDInput").value;
             var encounterReason = document.getElementById("encounterReasonInput").value;
+            var attendingPhysician = document.getElementById("attendingPhysicianInput").value;
+            
             var validate = true;
 
             if (isBlank(encounterType) || isBlank(encStartDateTime) || isBlank(encLocationName) || isBlank(encStatus)
-                || isBlank(encounterID) || isBlank(encounterReason)) {
+                || isBlank(encounterID) || isBlank(encounterReason) || isBlank(attendingPhysician)) {
                 alert("Please enter values in mandatory fields marked by *");
                 validate = false;
             }

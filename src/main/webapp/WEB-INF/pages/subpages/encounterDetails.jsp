@@ -20,7 +20,9 @@
             <form:label cssClass="leftLabel" id="encounterReasonLabel" path="encounterReason">Chief Complaint:
                 <mandatory>*</mandatory>
             </form:label>
-            <form:label cssClass="leftLabel" id="bedNameLabel" path="bedName">Attending Physician: </form:label>
+            <form:label cssClass="leftLabel" id="bedNameLabel" path="bedName">Attending Physician:
+            	<mandatory>*</mandatory>
+            </form:label>
         </div>
 
         <div class="flexColumn">
@@ -39,7 +41,7 @@
             </form:select>
             <form:input cssClass="rightInput" id="encounterIDInput" path="encounterID"/>
             <form:input cssClass="rightInput" id="encounterReasonInput" path="encounterReason"/>
-            <form:input cssClass="rightInput" id="attendingPhysician" path="attendingPhysician"/>
+            <form:input cssClass="rightInput" id="attendingPhysicianInput" path="attendingPhysician"/>
         </div>
     </div>
 
@@ -54,45 +56,44 @@
     <br/>
     <br/>
     
-    <div>
-    	<table align="left">
-	        <tr>
-	            <th>Encounter Type</th>
-	            <th>Encounter Start Date</th>
-	            <th>Clinic</th>
-	            <th>Encounter Status</th>
-	            <th>Encounter ID</th>
-	            <th>Chief Complaint</th>
-	            <th>Attending Physician</th>
-	            <th>Action</th>
-	        </tr>
-	        <c:forEach items="${encounterList}" var="encounterDetail" varStatus="encounterStatus">
-	            <tr>
-	                <td width="150">${encounterDetail.encounterType}</td>
-	                <td width="150">${encounterDetail.encStartDateTime}</td>
-	                <td width="150">${encounterDetail.encLocationName}</td>              
-	                <td width="150">
-	                    <c:choose>
-	                        <c:when test="${encounterDetail.encStatus == '1'}">
-	                            Active
-	                        </c:when>
-	                        <c:otherwise>
-	                            Closed
-	                        </c:otherwise>
-	                    </c:choose>
-               		</td>	                
-	                <td width="150">${encounterDetail.encounterID}</td>
-	                <td width="200">${encounterDetail.encounterReason}</td>
-	                <td width="150">${encounterDetail.attendingPhysician}</td>
-	                <td width="100"><form:button type="submit" value="Submit">Revise</form:button></td>
-	            </tr>
-        	</c:forEach>
-    	</table>
-    </div>
-    
-    <br/>
-    <br/>
-    
+    <c:if test="${!empty encounterList}">
+        <div>
+	    	<table align="left">
+		        <tr>
+		            <th>Encounter Type</th>
+		            <th>Encounter Start Date</th>
+		            <th>Clinic</th>
+		            <th>Encounter Status</th>
+		            <th>Encounter ID</th>
+		            <th>Chief Complaint</th>
+		            <th>Attending Physician</th>
+		            <th>Action</th>
+		        </tr>
+		        <c:forEach items="${encounterList}" var="encounterDetail" varStatus="encounterStatus">
+		            <tr>
+		                <td width="150">${encounterDetail.encounterType}</td>
+		                <td width="150">${encounterDetail.encStartDateTime}</td>
+		                <td width="150">${encounterDetail.encLocationName}</td>              
+		                <td width="150">
+		                    <c:choose>
+		                        <c:when test="${encounterDetail.encStatus == '1'}">
+		                            Active
+		                        </c:when>
+		                        <c:otherwise>
+		                            Closed
+		                        </c:otherwise>
+		                    </c:choose>
+	               		</td>	                
+		                <td width="150">${encounterDetail.encounterID}</td>
+		                <td width="200">${encounterDetail.encounterReason}</td>
+		                <td width="150">${encounterDetail.attendingPhysician}</td>
+		                <td width="100"><form:button type="submit" value="Submit">Revise</form:button></td>
+		            </tr>
+	        	</c:forEach>
+	    	</table>
+	    </div>
+    </c:if>
+
     <!-- This div is to fix the footer overlapping issue -->
     <div>
         <input style="visibility:hidden;" type="button">
