@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserMapper {
     @Select("SELECT LoginId as LoginId, UserType as UserType, "
             + " HPersonID as HPersonID, HUserId as UserId " +
-            "FROM h_user INNER JOIN h_Password on h_user.HPasswordID = h_Password.HPasswordID"
+            "FROM h_user INNER JOIN h_password on h_user.HPasswordID = h_Password.HPasswordID"
             + " where h_user.loginid = #{loginID} and h_password.password = #{password}")
     public User validateUser(@Param("loginID")String loginID, @Param("password")String password);
 
