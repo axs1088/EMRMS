@@ -88,7 +88,6 @@ public class EncounterController {
     public ModelAndView addEncounter(HttpServletRequest request, HttpServletResponse response,
                                    @ModelAttribute("encounter") HEncounter encounter, BindingResult bindingResult) throws Exception {
         ModelAndView mav = new ModelAndView("encounterTabShell");
-        mav.addObject("showHeader", true);
         HttpSession session = request.getSession(false);
         List<String> validationErrors = encounterValidator.validate(encounter);
         
@@ -105,6 +104,7 @@ public class EncounterController {
         if (CollectionUtils.isNotEmpty(validationErrors)) {
             mav.addObject("errorOnPage", true);
             mav.addObject("validationErrors", validationErrors);
+            mav.addObject("showHeader", true);
             mav.addObject("siteHeader", sessionHelper.getSiteHeader());
             return mav;
         }
@@ -117,6 +117,7 @@ public class EncounterController {
         mav.addObject("saveSuccess", true);
         mav.addObject("encounter", encounter);
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
+        mav.addObject("showHeader", true);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
         mav.addObject("encounterList", demographicsService.getPatientEncounters(sessionHelper.getHPatientId(session)));
 
