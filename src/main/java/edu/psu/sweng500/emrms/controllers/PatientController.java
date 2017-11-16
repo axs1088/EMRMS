@@ -191,13 +191,13 @@ public class PatientController {
     public ModelAndView addPatient(HttpServletRequest request, HttpServletResponse response,
                                    @ModelAttribute("patient") HPatient patient, BindingResult bindingResult) throws Exception {
         ModelAndView mav = new ModelAndView("patientRegistration");
-        mav.addObject("showHeader", true);
         HttpSession session = request.getSession(false);
         List<String> validationErrors = patientValidator.validate(patient);
 
         if (CollectionUtils.isNotEmpty(validationErrors)) {
             mav.addObject("errorOnPage", true);
             mav.addObject("validationErrors", validationErrors);
+            mav.addObject("showHeader", true);
             mav.addObject("siteHeader", new SiteHeader());
             return mav;
         }
@@ -226,10 +226,10 @@ public class PatientController {
         if (patient.getObjectID() == 0) {
             patientService.registerPatient(patient);
         } else {
-            patientService.updatePatient(patient);
-            mav = new ModelAndView("patientDetails");
+            patientService.updatePatient(patient);           
         }
 
+        mav = new ModelAndView("patientDetails");
         mav.addObject("saveSuccess", true);
         session.setAttribute(Constants.HPATIENT_ID, patient.getObjectID());
 
@@ -247,6 +247,7 @@ public class PatientController {
         mav.addObject("encounters", encounters);
 
         sessionHelper.setActivePatient(patientFromDB.getObjectID());
+        mav.addObject("showHeader", true);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
         mav = sessionHelper.addSessionHelperAttributes(mav);
 

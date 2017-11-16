@@ -185,6 +185,7 @@
         </c:if>
 
         <form:hidden path="objectID"/>
+        <form:hidden path="personId"/>
 
     </form:form>
 
