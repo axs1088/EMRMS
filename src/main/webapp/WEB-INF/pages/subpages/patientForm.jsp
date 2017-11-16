@@ -12,9 +12,9 @@
     </div>
 
     <div class="flexColumn">
-        <form:input cssClass="rightInput" path="name.first"/>
+        <form:input cssClass="rightInput" path="name.first" id="firstNameTxt"/>
         <form:input cssClass="rightInput" path="name.middle"/>
-        <form:input cssClass="rightInput" type="date" path="birthDate"/>
+        <form:input cssClass="rightInput" type="date" path="birthDate" id="birthDateTxt"/>
     </div>
 
     <div class="flexColumn">
