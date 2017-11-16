@@ -10,17 +10,17 @@ import java.util.List;
 
 public interface CensusMapper {
 
-    @Select(value = "{ CALL Emrms_GetPhysicianCensusList(#{userObjectID, mode=IN, jdbcType=INTEGER})}")
+    @Select(value = "{ CALL emrms_getphysiciancensuslist(#{userObjectID, mode=IN, jdbcType=INTEGER})}")
     @Options(statementType = StatementType.CALLABLE)
     public List<HCensus> getPhysicianCensus(Integer userObjectID);
 
-    @Select(value = "{ CALL Emrms_GetNurseCensusList(#{locationObjectID, mode=IN, jdbcType=INTEGER})}")
+    @Select(value = "{ CALL emrms_getnursecensuslist(#{locationObjectID, mode=IN, jdbcType=INTEGER})}")
     @Options(statementType = StatementType.CALLABLE)
     public List<HCensus> getNurseCensus(Integer locationObjectID);
 
     //user object id
     @Select(value = "{ CALL " +
-            "Emrms_FindPatientByDemographics(" +
+            "emrms_findpatientbydemographics(" +
             "#{lName, mode=IN, jdbcType=VARCHAR}," +
             "#{fName, mode=IN, jdbcType=VARCHAR}," +
             "#{gender, mode=IN, jdbcType=INTEGER})}")

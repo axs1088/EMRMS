@@ -8,7 +8,7 @@ import org.apache.ibatis.mapping.StatementType;
 import java.util.List;
 
 public interface StaffMapper {
-    @Select(value = "{ CALL emrms_findStaff(#{searchString, mode=IN, jdbcType=VARCHAR})}")
+    @Select(value = "{ CALL emrms_findstaff(#{searchString, mode=IN, jdbcType=VARCHAR})}")
     @Options(statementType = StatementType.CALLABLE)
     public List<HStaff> getStaffList(String searchString);
 }

@@ -150,7 +150,7 @@ public class PatientController {
         for (Policy p : policyList) {
             policyListHashMap.put(p.getPolicyId(), p.getPolicyName());
         }
-
+        policyListHashMap = FormatUtils.sortByValue(policyListHashMap);
         if (!policy.getStartDate().isEmpty() && !policy.getEndDate().isEmpty()) {
             policySearchList = auditEventService.getAuditRecords(policy.getStartDate(), policy.getEndDate(), Integer.parseInt(policy.getPolicyId()));
         } else {

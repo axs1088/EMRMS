@@ -54,7 +54,7 @@ public interface PatientMapper {
 	@Options(useGeneratedKeys=true, keyProperty="patient.objectID", keyColumn="HPatientID")
     public void insertPatient(@Param("patient") HPatient patient);
 
-    @Insert("INSERT INTO h_patient_Ids(UserId, IDValue, IdType, IdIssuerName, IdIssuerID, PatientID) " +
+    @Insert("INSERT INTO h_patient_ids(UserId, IDValue, IdType, IdIssuerName, IdIssuerID, PatientID) " +
             "VALUES (#{patient.userId}, #{patient.patientIds.idValue}, #{patient.patientIds.idType}, #{patient.patientIds.idIssuerName}," +
             " #{patient.patientIds.idIssuerId}, #{patient.objectID})")
     public void insertPatientIdentifiers(@Param("patient") HPatient patient);
@@ -69,12 +69,12 @@ public interface PatientMapper {
     @Update(UPDATE_HPERSON)@Options(keyProperty = "personId" )
     public void revisePerson(@Param("patient") HPatient patient) throws Exception;
 
-    String UPDATE_HNAME = "update h_Name set LastName=#{patient.name.last},FirstName=#{patient.name.first}, " +
+    String UPDATE_HNAME = "update h_name set LastName=#{patient.name.last},FirstName=#{patient.name.first}, " +
             "MiddleName = #{patient.name.middle}, Title = #{patient.name.title}, GenQualifier = #{patient.name.genQualifier} where HPersonID=#{patient.personId}";
     @Update(UPDATE_HNAME)@Options(keyProperty = "personId" )
     public void revisePersonName(@Param("patient") HPatient patient) throws Exception;
 
-    String UPDATE_HAddress = "update h_Address set StrAddress=#{patient.address.line1},City=#{patient.address.city},State =#{patient.address.state}, Zip = #{patient.address.zip}, " +
+    String UPDATE_HAddress = "update h_address set StrAddress=#{patient.address.line1},City=#{patient.address.city},State =#{patient.address.state}, Zip = #{patient.address.zip}, " +
             "Country = #{patient.address.country}, MailingAddressInd = #{patient.address.mailingAddrSameAsHomeAddr}, HomePhoneNo = #{patient.homePhone.number}, " +
             "CellPhoneNo = #{patient.cellPhone.number}, EmailAddress = #{patient.email} where HPersonID=#{patient.personId}";
     @Update(UPDATE_HAddress)@Options(keyProperty = "personId" )

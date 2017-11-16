@@ -12,15 +12,15 @@ import java.util.List;
 public interface UserMapper {
     @Select("SELECT LoginId as LoginId, UserType as UserType, "
             + " HPersonID as HPersonID, HUserId as UserId " +
-            "FROM h_User INNER JOIN h_Password on h_User.HPasswordID = h_Password.HPasswordID"
-            + " where h_User.loginid = #{loginID} and h_Password.password = #{password}")
+            "FROM h_user INNER JOIN h_Password on h_user.HPasswordID = h_Password.HPasswordID"
+            + " where h_user.loginid = #{loginID} and h_password.password = #{password}")
     public User validateUser(@Param("loginID")String loginID, @Param("password")String password);
 
-    @Select(value = "{CALL emrms_GetLoggedInEntityDetails()}")
+    @Select(value = "{CALL emrms_getloggedinentitydetails()}")
     @Options(statementType = StatementType.CALLABLE)
     public List<HHealthcareOrganization> getLoggedinEntityDetails();
 
-    @Select(value = "{CALL emrms_GetLoggedInUserDetails(#{userObjectID, mode=IN, jdbcType=INTEGER})}")
+    @Select(value = "{CALL emrms_getloggedinuserdetails(#{userObjectID, mode=IN, jdbcType=INTEGER})}")
     @Options(statementType = StatementType.CALLABLE)
     public User getLoggedinUserDetails(int userObjectID);
 }
