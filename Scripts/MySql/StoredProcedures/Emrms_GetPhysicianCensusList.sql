@@ -32,6 +32,6 @@ CREATE PROCEDURE Emrms_GetPhysicianCensusList(IN UserObjectID INT)
       INNER JOIN H_Patient hpat ON hpat.HPersonID = hp.HPersonID
       LEFT OUTER JOIN h_encounter henc ON henc.Patient_ObjectID = hpat.HPatientID
     WHERE henc.encStatus = 1 AND henc.AttendingPhysician_ObjectID = staffid
-    AND (henc.HEncounterID in(select MAX(HEncounterID) from h_encounter GROUP by Patient_ObjectID));
+    AND (henc.HEncounterID in(select MAX(HEncounterID) from h_encounter where ENCStatus = 1 GROUP by Patient_ObjectID));
 
   END;
