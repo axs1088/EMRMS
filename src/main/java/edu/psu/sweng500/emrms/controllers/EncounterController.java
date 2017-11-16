@@ -88,6 +88,7 @@ public class EncounterController {
     public ModelAndView addEncounter(HttpServletRequest request, HttpServletResponse response,
                                    @ModelAttribute("encounter") HEncounter encounter, BindingResult bindingResult) throws Exception {
         ModelAndView mav = new ModelAndView("encounterTabShell");
+        mav.addObject("showHeader", true);
         HttpSession session = request.getSession(false);
         List<String> validationErrors = encounterValidator.validate(encounter);
         
@@ -114,7 +115,6 @@ public class EncounterController {
         encounterService.AddEncounter(hPatient, encounter);
         
         mav.addObject("saveSuccess", true);
-        mav.addObject("showHeader", true);
         mav.addObject("encounter", encounter);
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());

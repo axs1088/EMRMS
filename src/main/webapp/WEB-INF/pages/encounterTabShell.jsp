@@ -21,7 +21,7 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-		    $("input#attendingPhysician").autocomplete({
+		    $("input#attendingPhysicianInput").autocomplete({
 		        width: 300,
 		        max: 10,
 		        delay: 100,
@@ -35,7 +35,7 @@
 		                url: "physiciandetails",
 		                dataType: "json",
 		                data: {
-		                	 searchString: $('#attendingPhysician').val(),
+		                	 searchString: $('#attendingPhysicianInput').val(),
 		                },
 		                success: function(data, textStatus, jqXHR) {
 		                    console.log( data);
