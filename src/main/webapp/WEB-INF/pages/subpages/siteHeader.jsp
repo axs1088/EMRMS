@@ -5,6 +5,7 @@
         <a href="/emrms/loginProcess" class="linkColor">Home</a>&nbsp;&nbsp;
         <a href="/emrms/patientLocator" class="linkColor">Patient Locator</a>&nbsp;&nbsp;
         <a href="/emrms/policies" class="linkColor">Policies</a>&nbsp;&nbsp;
+        <a href="#" onclick="window.open('USer Manual for EMRMS.pdf', '_blank', 'fullscreen=yes'); return false;">Help</a>&nbsp;&nbsp;
         <a href="/emrms/logout" class="linkColor">Logout</a>
         </span>
     </p>
