@@ -44,7 +44,7 @@
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td width="100"></td>
+                <td width="100">${physicianCensus.encounterLocationName}</td>
                 <td width="100">${physicianCensus.MPINo}</td>
                 <td width="100">
                     <c:choose>

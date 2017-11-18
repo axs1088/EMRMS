@@ -18,6 +18,7 @@ public class HCensus {
     private Date encStartdateTime;
     private String encStatus;
     private int encounterObjectID;
+    private String encounterLocationName;
 
     public int gethPatientID() {
     	return hPatientID;
@@ -87,5 +88,13 @@ public class HCensus {
 
     public void setEncounterObjectID(int encounterObjectID) {
         this.encounterObjectID = encounterObjectID;
+    }
+
+    public String getEncounterLocationName() {
+        return encounterLocationName;
+    }
+
+    public void setEncounterLocationName(String encounterLocationName) {
+        this.encounterLocationName = encounterLocationName;
     }
 }

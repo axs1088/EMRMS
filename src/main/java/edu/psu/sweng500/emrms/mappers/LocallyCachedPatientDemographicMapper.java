@@ -13,6 +13,11 @@ public class LocallyCachedPatientDemographicMapper implements PatientDemographic
     }
 
     @Override
+    public Integer getNextPatientObjectID() {
+        return null;
+    }
+
+    @Override
     public HName getPersonName(int personId) {
         return new HName();
     }

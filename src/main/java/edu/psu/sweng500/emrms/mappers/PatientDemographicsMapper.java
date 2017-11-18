@@ -12,6 +12,9 @@ public interface PatientDemographicsMapper {
             + " where HPERSONID = #{personId}")
     public HPerson getPersonDetails(int personId);
 
+    @Select("SELECT (MAX(HPatientID)+1) As ObjectID FROM h_patient;")
+    Integer  getNextPatientObjectID();
+
     @Select("SELECT HNameID as ObjectID, USERID as userId, "
             + "CREATIONDATETIME as creationDateTime, FirstName as firstName, LastName as lastName, MiddleName as middleName, "
             + "Active as active, HPersonID as hpersonId , Title as title, GenQualifier as genQualifier FROM h_name"

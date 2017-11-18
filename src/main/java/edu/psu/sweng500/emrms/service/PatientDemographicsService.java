@@ -8,6 +8,8 @@ public interface PatientDemographicsService {
 
     public int getPersonId(int patientObjectId);
 
+    public int getNextPatientObjectID();
+
     public HPatient getPatientDemographics(int patientObjectId);
 
     public HPerson getPersonDetails(int patientObjectId);

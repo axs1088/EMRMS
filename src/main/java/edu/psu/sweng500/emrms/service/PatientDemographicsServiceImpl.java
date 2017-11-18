@@ -27,6 +27,11 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
     }
 
     @Override
+    public int getNextPatientObjectID() {
+        return patientDemographicsMapper.getNextPatientObjectID();
+    }
+
+    @Override
     public HPatient getPatientDemographics(int patientObjectId) {
         HPatient patient = patientDemographicsMapper.getPatientDetails(patientObjectId);
         return patient;

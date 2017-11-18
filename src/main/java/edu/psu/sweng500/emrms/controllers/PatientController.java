@@ -203,7 +203,7 @@ public class PatientController {
         }
 
         HPatientId newMrNumberId = new HPatientId();
-        int thisPatientId = patient.getObjectID();
+        int thisPatientId = patientDemographicsService.getNextPatientObjectID();
         newMrNumberId.setPatientId(thisPatientId);
         newMrNumberId.setIdIssuerId(sessionHelper.getApplicationUserId(request.getSession()));
         newMrNumberId.setIdIssuerName(sessionHelper.getClinicName());
@@ -212,14 +212,7 @@ public class PatientController {
 
         String mrNumber = "MRN";
         newMrNumberId.setIdType(mrNumber);
-        if (thisPatientId > 100) {
-            mrNumber += "0";
-        }
-
-        if (thisPatientId > 10) {
-            mrNumber += "0";
-        }
-        mrNumber += String.valueOf(thisPatientId);
+        mrNumber = mrNumber + String.valueOf(thisPatientId) + "001";
         newMrNumberId.setIdValue(mrNumber);
         patient.setPatientIds(newMrNumberId);
 
