@@ -2,6 +2,7 @@ package edu.psu.sweng500.emrms.services;
 
 import edu.psu.sweng500.emrms.model.HAssessment;
 import edu.psu.sweng500.emrms.service.ManageAssessmentService;
+import org.apache.commons.lang.ObjectUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,8 +53,8 @@ public class ManageAssessmentServiceTest {
         assessment.setWeightmeasureId(3);
         assessment.setDystolicBP(120);
         assessment.setSystolicBP(85);
-        assessment.setTemperature(104);
-        assessment.setTemperaturemeasureId(5);
+        //assessment.setTemperature(104);
+        //assessment.setTemperaturemeasureId(0);
         assessment.setPulse(82);
         assessment.setEncounterObjectId(1);
         assessment.setPatientObjectId(3);

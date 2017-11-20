@@ -70,7 +70,7 @@ public class AuditRecordTest {
     @Test
     public void testGetAuditPolilcies() {
         List<Policy>policies = service.getAuditPolicies();
-        assertEquals(21,policies.size());
+        assertEquals(22,policies.size());
     }
 
     @Test

@@ -12,11 +12,11 @@ public interface PatientEncounterMapper {
     @Insert("INSERT INTO h_encounter(UserId," +
             "EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName," +
             "EncounterLocation_ObjectID,EncounterID,EncType," +
-            "Patient_ObjectID, AttendingPhysician_ObjectID) VALUES" +
+            "Patient_ObjectID, AttendingPhysician_ObjectID, Bed_ObjectID) VALUES" +
             "(#{userID}," +
             "#{encStartDateTime},#{encEndDateTime}, #{encStatus}, #{encLocationName}," +
             "#{encounterLocation_ObjectID}, #{encounterID}, #{encounterType}, " +
-            "#{patient_ObjectID}, #{attendingPhysician_ObjectID})")
+            "#{patient_ObjectID}, #{attendingPhysician_ObjectID}, #{bed_ObjectID})")
     @Options(useGeneratedKeys=true, keyProperty = "hEncounterID", keyColumn="HEncounterID" )
     public void insertOPEncounterDetails(HEncounter hEncounter);
 

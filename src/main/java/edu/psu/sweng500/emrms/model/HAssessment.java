@@ -13,9 +13,9 @@ public class HAssessment {
         private int pulse;
         private int systolicBP;
         private int dystolicBP;
-        private int heightmeasureId;
-        private int weightmeasureId;
-        private int temperaturemeasureId;
+        private Integer heightmeasureId = null;
+        private Integer weightmeasureId = null;
+        private Integer temperaturemeasureId = null;
         private int patientObjectId;
         private String collectedDateTime;
 

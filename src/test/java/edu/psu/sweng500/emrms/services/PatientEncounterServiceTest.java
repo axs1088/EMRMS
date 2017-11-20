@@ -58,7 +58,7 @@ public class PatientEncounterServiceTest {
         hEncounter.setEncounterType("OP");
         hEncounter.setEncounterID("Acc1001");
         hEncounter.setPatient_ObjectID(3);
-        hEncounter.setAttendingPhysician_ObjectID(1);
+        //hEncounter.setAttendingPhysician_ObjectID(1);
         //hEncounter.setBed_ObjectID(1);
 
         // ToDo

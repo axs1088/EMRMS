@@ -9,14 +9,14 @@ public class HEncounter {
     private String encEndDateTime;
     private int encStatus;
     private String encLocationName;
-    private int encounterLocation_ObjectID;
+    private Integer encounterLocation_ObjectID = null;
     private String encounterID;
     private String encounterType;
     private String bedName;
     private int patient_ObjectID;
-    private int attendingPhysician_ObjectID;
+    private Integer attendingPhysician_ObjectID = null;
     private String attendingPhysician;
-    private int bed_ObjectID;
+    private Integer bed_ObjectID = null;
     private String encounterReason;
 
     public int getPatient_ObjectID() {
@@ -27,19 +27,19 @@ public class HEncounter {
         this.patient_ObjectID = patient_ObjectID;
     }
 
-    public int getAttendingPhysician_ObjectID() {
+    public Integer getAttendingPhysician_ObjectID() {
         return attendingPhysician_ObjectID;
     }
 
-    public void setAttendingPhysician_ObjectID(int attendingPhysician_ObjectID) {
+    public void setAttendingPhysician_ObjectID(Integer attendingPhysician_ObjectID) {
         this.attendingPhysician_ObjectID = attendingPhysician_ObjectID;
     }
 
-    public int getBed_ObjectID() {
+    public Integer getBed_ObjectID() {
         return bed_ObjectID;
     }
 
-    public void setBed_ObjectID(int bed_ObjectID) {
+    public void setBed_ObjectID(Integer bed_ObjectID) {
         this.bed_ObjectID = bed_ObjectID;
     }
 
@@ -100,11 +100,11 @@ public class HEncounter {
         this.encLocationName = encLocationName;
     }
 
-    public int getEncounterLocation_ObjectID() {
+    public Integer getEncounterLocation_ObjectID() {
         return encounterLocation_ObjectID;
     }
 
-    public void setEncounterLocation_ObjectID(int encounterLocation_ObjectID) {
+    public void setEncounterLocation_ObjectID(Integer encounterLocation_ObjectID) {
         this.encounterLocation_ObjectID = encounterLocation_ObjectID;
     }
 
