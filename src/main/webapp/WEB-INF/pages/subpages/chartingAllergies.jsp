@@ -78,14 +78,9 @@
             <td width="15%">
                 <form name="submitForm${allergy.allergyID}" method="POST" action="deleteAllergy">
                     <input type="hidden" name="allergyID" value="${allergy.allergyID}"/>
-                    <a href="javascript:document.submitForm${allergy.allergyID}.submit()">Delete</a>
+                    <a onclick="return confirm('Are you sure you want to delete this allergy?')"
+                       href="javascript:document.submitForm${allergy.allergyID}.submit()">Delete</a>
                 </form>
-                    <%--<input type="button" value="Edit"/>--%>
-                    <%--<form:form id="deleteAllergyForm" method="post" action="deleteAllergy" modelAttribute="deletedAllergy">--%>
-                    <%--<form:hidden path="allergyID">${allergy.allergyID}</form:hidden>--%>
-                    <%--<form:button type="submit" value="Delete">Delete</form:button>--%>
-                    <%--</form:form>--%>
-            </td>
         </tr>
     </c:forEach>
 </table>
