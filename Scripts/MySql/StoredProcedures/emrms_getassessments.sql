@@ -2,25 +2,27 @@ CREATE PROCEDURE emrms_getassessments(IN patientObjectId Int, IN encounterObject
 
   BEGIN
 
- SELECT 
-  HAssessmentID AS objectId,
-  AssessmentID,
-  Status ,
-  Encounter_ObjectID AS encounterObjectId,
-  temperature ,
-  height ,
-  weight ,
-  pulse ,
-  systolicBP ,
-  dystolicBP ,
-  heightmeasureId ,
-  weightmeasureId ,
-  temperaturemeasureId ,
-  patient_ObjectID  AS patientObjectId,
-  collectedDateTime
+ SELECT
+  ha.HAssessmentID AS objectId,
+  ha.AssessmentID,
+  ha.Status ,
+  ha.Encounter_ObjectID AS encounterObjectId,
+  ha.temperature ,
+  ha.height ,
+  ha.weight ,
+  ha.pulse ,
+  ha.systolicBP ,
+  ha.dystolicBP ,
+  ha.heightmeasureId ,
+  ha.weightmeasureId ,
+  ha.temperaturemeasureId ,
+  ha.patient_ObjectID  AS patientObjectId,
+  ha.collectedDateTime,
+  henc.encounterId,
+  henc.EncStartDateTime,
+  henc.EncType
 FROM
-  h_assessment
+  h_assessment ha INNER JOIN h_Encounter henc ON ha.Encounter_ObjectID = henc.HEncounterID
 WHERE
-  patient_ObjectID = patientObjectId AND Encounter_ObjectID = EncounterObjectID ORDER By collectedDateTime DESC;
-
+  ha.patient_ObjectID = patientObjectId;
   END;
