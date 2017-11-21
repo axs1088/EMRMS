@@ -11,4 +11,8 @@ public interface StaffMapper {
     @Select(value = "{ CALL emrms_findstaff(#{searchString, mode=IN, jdbcType=VARCHAR})}")
     @Options(statementType = StatementType.CALLABLE)
     public List<HStaff> getStaffList(String searchString);
+    
+    @Select(value = "{ CALL emrms_findStaffList()}")
+    @Options(statementType = StatementType.CALLABLE)
+    public List<HStaff> getPhysicianList();
 }

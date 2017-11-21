@@ -18,4 +18,10 @@ public class ManageStaffServiceImpl implements ManageStaffService {
         List<HStaff>staffList = staffMapper.getStaffList(searchString);
         return staffList;
     }
+    
+    @Override
+    public List<HStaff> GetPhysicianList() {
+        List<HStaff>staffList = staffMapper.getPhysicianList();
+        return staffList;
+    }
 }
