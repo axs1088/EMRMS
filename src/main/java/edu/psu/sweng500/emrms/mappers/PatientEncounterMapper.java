@@ -12,29 +12,29 @@ public interface PatientEncounterMapper {
     @Insert("INSERT INTO h_encounter(UserId," +
             "EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName," +
             "EncounterLocation_ObjectID,EncounterID,EncType," +
-            "Patient_ObjectID, AttendingPhysician_ObjectID, Bed_ObjectID) VALUES" +
+            "Patient_ObjectID, AttendingPhysician_ObjectID, Bed_ObjectID, EncounterReason) VALUES" +
             "(#{userID}," +
             "#{encStartDateTime},#{encEndDateTime}, #{encStatus}, #{encLocationName}," +
             "#{encounterLocation_ObjectID}, #{encounterID}, #{encounterType}, " +
-            "#{patient_ObjectID}, #{attendingPhysician_ObjectID}, #{bed_ObjectID})")
+            "#{patient_ObjectID}, #{attendingPhysician_ObjectID}, #{bed_ObjectID}, #{encounterReason})")
     @Options(useGeneratedKeys=true, keyProperty = "hEncounterID", keyColumn="HEncounterID" )
     public void insertOPEncounterDetails(HEncounter hEncounter);
 
     @Insert("INSERT INTO h_encounter(UserId," +
             "EncStartDateTime,ENCEndDateTime,ENCStatus,EncLocationName," +
             "EncounterLocation_ObjectID,EncounterID,EncType,BedName," +
-            "Patient_ObjectID, AttendingPhysician_ObjectID, Bed_ObjectID) VALUES" +
+            "Patient_ObjectID, AttendingPhysician_ObjectID, Bed_ObjectID, EncounterReason) VALUES" +
             "(#{userID}," +
             "#{encStartDateTime},#{encEndDateTime}, #{encStatus}, #{encLocationName}," +
             "#{encounterLocation_ObjectID}, #{encounterID}, #{encounterType},#{bedName}," +
-            "#{patient_ObjectID}, #{attendingPhysician_ObjectID}, #{bed_ObjectID})")
+            "#{patient_ObjectID}, #{attendingPhysician_ObjectID}, #{bed_ObjectID}, #{encounterReason})")
     @Options(useGeneratedKeys=true, keyProperty = "hEncounterID", keyColumn="HEncounterID" )
     public void insertIPEncounterDetails(HEncounter hEncounter);
 
     String UPDATE_OP_HENCOUNTER = "update h_encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
             "ENCStatus = #{encounter.encStatus} ,EncLocationName = #{encounter.encLocationName}, EncounterLocation_ObjectID = #{encounter.encounterLocation_ObjectID}, " +
             "EncounterID = #{encounter.encounterID}, EncType = #{encounter.encounterType} , " +
-            "AttendingPhysician_ObjectID = #{encounter.attendingPhysician_ObjectID} " +
+            "AttendingPhysician_ObjectID = #{encounter.attendingPhysician_ObjectID}, EncounterReason = #{encounter.encounterReason} " +
             " where HEncounterID=#{encounter.hEncounterID}";
     @Update(UPDATE_OP_HENCOUNTER)@Options(keyProperty = "encounter.hEncounterID", keyColumn="HEncounterID" )
     public void reviseOPEncounterDetails(@Param("encounter") HEncounter encounter);
@@ -42,7 +42,7 @@ public interface PatientEncounterMapper {
     String UPDATE_IP_HENCOUNTER = "update h_encounter set EncStartDateTime = #{encounter.encStartDateTime}, ENCEndDateTime = #{encounter.encEndDateTime}, " +
             "ENCStatus = #{encounter.encStatus} ,EncLocationName = #{encounter.encLocationName}, EncounterLocation_ObjectID = #{encounter.encounterLocation_ObjectID}, " +
             "EncounterID = #{encounter.encounterID}, EncType = #{encounter.encounterType} , BedName = #{encounter.bedName}, " +
-            "AttendingPhysician_ObjectID = #{encounter.attendingPhysician_ObjectID}, Bed_ObjectID = #{encounter.bed_ObjectID} " +
+            "AttendingPhysician_ObjectID = #{encounter.attendingPhysician_ObjectID}, Bed_ObjectID = #{encounter.bed_ObjectID}, EncounterReason = #{encounter.encounterReason} " +
             " where HEncounterID=#{encounter.hEncounterID}";
     @Update(UPDATE_IP_HENCOUNTER)@Options(keyProperty = "encounter.hEncounterID", keyColumn="HEncounterID" )
     public void reviseIPEncounterDetails(@Param("encounter") HEncounter encounter);

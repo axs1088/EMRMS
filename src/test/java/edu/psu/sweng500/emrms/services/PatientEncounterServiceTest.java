@@ -58,6 +58,7 @@ public class PatientEncounterServiceTest {
         hEncounter.setEncounterType("OP");
         hEncounter.setEncounterID("Acc1001");
         hEncounter.setPatient_ObjectID(3);
+        hEncounter.setEncounterReason("Headache");
         //hEncounter.setAttendingPhysician_ObjectID(1);
         //hEncounter.setBed_ObjectID(1);
 
@@ -74,6 +75,7 @@ public class PatientEncounterServiceTest {
         hEncounter.setEncounterType("EOP");
         hEncounter.setEncounterID("Acc10012");
         hEncounter.setAttendingPhysician_ObjectID(2);
+        hEncounter.setEncounterReason("TummyPain");
 
         returnValue = service.ReviseEncounter(hPatient, hEncounter);
         assertEquals(0,returnValue);
@@ -88,6 +90,7 @@ public class PatientEncounterServiceTest {
         hEncounter.setPatient_ObjectID(3);
         hEncounter.setAttendingPhysician_ObjectID(1);
         hEncounter.setBed_ObjectID(1);
+        hEncounter.setEncounterReason("Belly Hurts");
 
         // ToDo
         returnValue = service.AddInPatientEncounter(hPatient, hEncounter);
@@ -101,6 +104,7 @@ public class PatientEncounterServiceTest {
         hEncounter.setEncounterType("IP");
         hEncounter.setEncounterID("Acc10012");
         hEncounter.setAttendingPhysician_ObjectID(2);
+        hEncounter.setEncounterReason("Broken Legs");
 
         returnValue = service.ReviseInPatientEncounter(hPatient, hEncounter);
         assertEquals(0,returnValue);

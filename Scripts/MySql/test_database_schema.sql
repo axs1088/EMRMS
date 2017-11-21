@@ -366,6 +366,7 @@ CREATE TABLE h_encounter (
   Patient_ObjectID BIGINT(20) NOT NULL,
   AttendingPhysician_ObjectID BIGINT(20) DEFAULT NULL,
   Bed_ObjectID BIGINT(20) DEFAULT NULL,
+  EncounterReason VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (HEncounterID),
   INDEX UK_h_encounter_EncounterLocation_ObjectID (EncounterLocation_ObjectID),
   CONSTRAINT FK_h_encounter_attending_physi FOREIGN KEY (AttendingPhysician_ObjectID)
