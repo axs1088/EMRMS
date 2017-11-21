@@ -1,7 +1,10 @@
 package edu.psu.sweng500.emrms.service;
 
+import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
 import edu.psu.sweng500.emrms.model.*;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +16,9 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
     @Autowired
     private
     PatientDemographicsMapper patientDemographicsMapper;
-
+    
+    @Autowired
+    private ApplicationSessionHelper sessionHelper;
 
     public void setPatientDemographicsMapper(PatientDemographicsMapper patientDemographicsMapper) {
         this.patientDemographicsMapper = patientDemographicsMapper;
@@ -82,6 +87,7 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
     @Override
     public List<HEncounter> getPatientEncounters(int patientObjectId) {
         List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientObjectId);
+        populatePhysician(encounters);
         return encounters;
     }
 
@@ -112,4 +118,15 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
 
     }
     */
+    
+    private void populatePhysician(List<HEncounter> hEncounterList) {
+    	if(CollectionUtils.isNotEmpty(hEncounterList)) {
+    		for(HEncounter hEncounter: hEncounterList) {
+    			hEncounter.setAttendingPhysician(sessionHelper.getPhysician(hEncounter.getAttendingPhysician_ObjectID()));
+    		}   		
+    	}
+    }
+    	
+    	
+    
 }

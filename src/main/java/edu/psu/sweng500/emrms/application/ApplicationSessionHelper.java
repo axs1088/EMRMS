@@ -6,8 +6,12 @@ import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
 import edu.psu.sweng500.emrms.model.ActiveTabs;
 import edu.psu.sweng500.emrms.model.HEncounter;
 import edu.psu.sweng500.emrms.model.HName;
+import edu.psu.sweng500.emrms.model.HStaff;
 import edu.psu.sweng500.emrms.model.SiteHeader;
+import edu.psu.sweng500.emrms.service.ManageStaffService;
 import edu.psu.sweng500.emrms.util.Constants;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
@@ -55,6 +59,9 @@ public class ApplicationSessionHelper {
 
     @Autowired
     private PatientDemographicsMapper patientDemographicsMapper;
+    
+    @Autowired
+    private ManageStaffService manageStaffService;
 
     private Integer patientId;
 
@@ -224,7 +231,7 @@ public class ApplicationSessionHelper {
             }
             siteHeader.setEncounterStatus(encounterStatus);
             siteHeader.setEncounterNumber(encounter.getEncounterID());
-            siteHeader.setAttending("Doctor #" + encounter.getAttendingPhysician_ObjectID());
+            siteHeader.setAttending(getPhysician(encounter.getAttendingPhysician_ObjectID()));
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
             siteHeader.setEncounterType("");
             siteHeader.setEncounterStartDate("");
@@ -349,4 +356,18 @@ public class ApplicationSessionHelper {
     public void setActiveEncounterTab(String activeEncounterTab) {
         getActiveTabs().setEncounter(activeEncounterTab);
     }
+    
+    public String getPhysician(int physicianObjectId) {
+    	String physician = null;
+    	List<HStaff> staffList = manageStaffService.GetPhysicianList();
+    	if(CollectionUtils.isNotEmpty(staffList)) {
+	    	for(HStaff hStaff : staffList) {
+	    		if(hStaff.getStaffId() == physicianObjectId) {
+	    			physician = hStaff.getStaffName();
+	    		}
+	    	}
+    	}
+    	return physician;
+    }
+    
 }
