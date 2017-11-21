@@ -18,6 +18,9 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
     PatientDemographicsMapper patientDemographicsMapper;
     
     @Autowired
+    private ManageStaffService manageStaffService;
+    
+    @Autowired
     private ApplicationSessionHelper sessionHelper;
 
     public void setPatientDemographicsMapper(PatientDemographicsMapper patientDemographicsMapper) {
@@ -122,7 +125,8 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
     private void populatePhysician(List<HEncounter> hEncounterList) {
     	if(CollectionUtils.isNotEmpty(hEncounterList)) {
     		for(HEncounter hEncounter: hEncounterList) {
-    			hEncounter.setAttendingPhysician(sessionHelper.getPhysician(hEncounter.getAttendingPhysician_ObjectID()));
+    			HStaff hStaff = manageStaffService.GetPhysicianDetails(hEncounter.getAttendingPhysician_ObjectID());
+    			hEncounter.setAttendingPhysician(hStaff != null ? hStaff.getStaffName() : "");
     		}   		
     	}
     }

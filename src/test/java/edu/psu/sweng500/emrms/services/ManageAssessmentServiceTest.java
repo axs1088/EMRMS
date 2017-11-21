@@ -84,7 +84,7 @@ public class ManageAssessmentServiceTest {
         returnValue = service.ReviseAssessment(assessment);
         assertEquals(0,returnValue);
 
-        //List<HAssessment>assessments = service.GetPatientAssessments(3,1);
-        //assertEquals(18,assessments.size());
+       // List<HAssessment>assessments = service.GetPatientAssessments(3,1);
+       // assertEquals(3,assessments.size());
     }
 }

@@ -7,5 +7,5 @@ import java.util.List;
 public interface ManageStaffService {
 
     public List<HStaff> GetStaffList(String searchString);
-    public List<HStaff> GetPhysicianList();
+    public HStaff GetPhysicianDetails(int hStaffId);
 }

@@ -18,6 +18,9 @@ public class HAssessment {
         private Integer temperaturemeasureId = null;
         private int patientObjectId;
         private String collectedDateTime;
+        private String encounterId;
+        private String encStartDateTime;
+        private String encType;
 
     public Integer getObjectId() {
         return objectId;
@@ -153,5 +156,29 @@ public class HAssessment {
 
     public void setCollectedDateTime(String collectedDateTime) {
         this.collectedDateTime = collectedDateTime;
+    }
+
+    public String getEncounterId() {
+        return encounterId;
+    }
+
+    public void setEncounterId(String encounterId) {
+        this.encounterId = encounterId;
+    }
+
+    public String getEncStartDateTime() {
+        return encStartDateTime;
+    }
+
+    public void setEncStartDateTime(String encStartDateTime) {
+        this.encStartDateTime = encStartDateTime;
+    }
+
+    public String getEncType() {
+        return encType;
+    }
+
+    public void setEncType(String encType) {
+        this.encType = encType;
     }
 }

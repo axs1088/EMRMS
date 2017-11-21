@@ -12,7 +12,7 @@ public interface StaffMapper {
     @Options(statementType = StatementType.CALLABLE)
     public List<HStaff> getStaffList(String searchString);
     
-    @Select(value = "{ CALL emrms_findStaffList()}")
-    @Options(statementType = StatementType.CALLABLE)
-    public List<HStaff> getPhysicianList();
+    @Select("Select hs.HStaffID As StaffId, CONCAT(hn.LastName, ', ', hn.FirstName, ' ', hn.MiddleName, ' ', hn.title) As StaffName from h_staff hs "
+    + "INNER JOIN h_name hn on hn.HPersonID = hs.HStaffID where hs.HStaffID = #{hStaffId}")
+    public HStaff getPhysicianDetails(int hStaffId);
 }
