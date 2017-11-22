@@ -51,7 +51,7 @@ public interface PatientDemographicsMapper {
     @Select("SELECT HEncounterID as hEncounterID, EncStartDateTime as encStartDateTime, ENCEndDateTime as encEndDateTime,  "
             + "ENCStatus as encStatus, EncLocationName as encLocationName, EncounterLocation_ObjectID as encounterLocation_ObjectID,"
             + "EncounterID as encounterID, EncType as encounterType, BedName as bedName, Patient_ObjectID as patient_ObjectID, "
-            + "AttendingPhysician_ObjectID as attendingPhysician_ObjectID, Bed_ObjectID as bed_ObjectID FROM h_encounter"
+            + "AttendingPhysician_ObjectID as attendingPhysician_ObjectID, Bed_ObjectID as bed_ObjectID, EncounterReason as encounterReason FROM h_encounter"
             + " where Patient_ObjectID = #{patientId} order by EncStartDateTime desc")
     public List<HEncounter> getPatientEncounters(int patientId);
 

@@ -12,6 +12,7 @@ public interface PatientEncounterService {
     public int AddInPatientEncounter(HPatient hPatient, HEncounter hEncounter);
     public int ReviseEncounter(HPatient hPatient, HEncounter hEncounter);
     public int ReviseInPatientEncounter(HPatient hPatient, HEncounter hEncounter);
-    public List<HHealthcareOrganization> GetPatientLocations(String searchString);
+    public List<HHealthcareOrganization> GetPatientLocations();
+    public HHealthcareOrganization getPatientLocationByObjectId(int encounterLocationObjectID);
     public List<HBed> GetPatientLocationBeds(String searchString, int locationId);
 }

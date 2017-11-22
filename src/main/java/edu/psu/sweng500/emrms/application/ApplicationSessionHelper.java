@@ -231,7 +231,8 @@ public class ApplicationSessionHelper {
             }
             siteHeader.setEncounterStatus(encounterStatus);
             siteHeader.setEncounterNumber(encounter.getEncounterID());
-            siteHeader.setAttending(getPhysician(encounter.getAttendingPhysician_ObjectID()));
+            HStaff hStaff = manageStaffService.GetPhysicianDetails(encounter.getAttendingPhysician_ObjectID());
+            siteHeader.setAttending(hStaff != null ? hStaff.getStaffName() : "");
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
             siteHeader.setEncounterType("");
             siteHeader.setEncounterStartDate("");
@@ -355,19 +356,6 @@ public class ApplicationSessionHelper {
 
     public void setActiveEncounterTab(String activeEncounterTab) {
         getActiveTabs().setEncounter(activeEncounterTab);
-    }
-    
-    public String getPhysician(int physicianObjectId) {
-    	String physician = null;
-    	List<HStaff> staffList = manageStaffService.GetPhysicianList();
-    	if(CollectionUtils.isNotEmpty(staffList)) {
-	    	for(HStaff hStaff : staffList) {
-	    		if(hStaff.getStaffId() == physicianObjectId) {
-	    			physician = hStaff.getStaffName();
-	    		}
-	    	}
-    	}
-    	return physician;
     }
     
 }

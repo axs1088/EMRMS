@@ -20,8 +20,8 @@ public class ManageStaffServiceImpl implements ManageStaffService {
     }
     
     @Override
-    public List<HStaff> GetPhysicianList() {
-        List<HStaff>staffList = staffMapper.getPhysicianList();
-        return staffList;
+    public HStaff GetPhysicianDetails(int hStaffId) {
+        HStaff hStaff = staffMapper.getPhysicianDetails(hStaffId);
+        return hStaff;
     }
 }

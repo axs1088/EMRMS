@@ -1,6 +1,5 @@
 package edu.psu.sweng500.emrms.service;
 
-import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
 import edu.psu.sweng500.emrms.model.*;
 
@@ -18,7 +17,10 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
     PatientDemographicsMapper patientDemographicsMapper;
     
     @Autowired
-    private ApplicationSessionHelper sessionHelper;
+    private ManageStaffService manageStaffService;
+    
+    @Autowired
+    private PatientEncounterService encounterService;
 
     public void setPatientDemographicsMapper(PatientDemographicsMapper patientDemographicsMapper) {
         this.patientDemographicsMapper = patientDemographicsMapper;
@@ -88,6 +90,7 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
     public List<HEncounter> getPatientEncounters(int patientObjectId) {
         List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientObjectId);
         populatePhysician(encounters);
+        populateEncounterLocation(encounters);
         return encounters;
     }
 
@@ -102,31 +105,25 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
         List<HDiagnosis> diagnoses = patientDemographicsMapper.getPatientDiagnoses(patientObjectId);
         return diagnoses;
     }
-
-
-     /*
-    @Override
-    public void getPatientDemographics(int patientObjectId)
-    {
-        HPatient patient =  patientDemographicsMapper.getPatientDetails(patientObjectId);
-        int personId = patient.getPersonId();
-        HPerson person = patientDemographicsMapper.getPersonDetails(personId);
-        HName personName = patientDemographicsMapper.getPersonName(personId);
-        Address personAddress = patientDemographicsMapper.getPersonAddress(personId);
-        List<HPatientId> patientIds = patientDemographicsMapper.getPatientIdentifiers(patientObjectId);
-        List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientObjectId);
-
-    }
-    */
     
     private void populatePhysician(List<HEncounter> hEncounterList) {
     	if(CollectionUtils.isNotEmpty(hEncounterList)) {
     		for(HEncounter hEncounter: hEncounterList) {
-    			hEncounter.setAttendingPhysician(sessionHelper.getPhysician(hEncounter.getAttendingPhysician_ObjectID()));
+    			if(hEncounter.getAttendingPhysician_ObjectID() != null) {
+	    			HStaff hStaff = manageStaffService.GetPhysicianDetails(hEncounter.getAttendingPhysician_ObjectID());
+	    			hEncounter.setAttendingPhysician(hStaff != null ? hStaff.getStaffName() : "");
+    			}
     		}   		
     	}
     }
-    	
-    	
+    
+    private void populateEncounterLocation(List<HEncounter> hEncounterList) {
+        for(HEncounter hEncounter : hEncounterList) {
+        	if(hEncounter.getEncounterLocation_ObjectID() != null) {
+	        	HHealthcareOrganization hHealthcareOrganization = encounterService.getPatientLocationByObjectId(hEncounter.getEncounterLocation_ObjectID());
+	        	hEncounter.setEncLocationName(hHealthcareOrganization.getName());
+        	}
+        }
+    }  	
     
 }

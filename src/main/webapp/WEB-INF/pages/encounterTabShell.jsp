@@ -83,7 +83,7 @@
         function validateInput() {
             var encounterType = document.getElementById("encounterTypeInput").value;
             var encStartDateTime = document.getElementById("encStartDateTimeInput").value;
-            var encLocationName = document.getElementById("encLocationNameInput").value;
+            var encLocationName = document.getElementById("encounterLocation_ObjectID").value;
             var encStatus = document.getElementById("encStatusInput").value;
             var encounterID = document.getElementById("encounterIDInput").value;
             var encounterReason = document.getElementById("encounterReasonInput").value;
