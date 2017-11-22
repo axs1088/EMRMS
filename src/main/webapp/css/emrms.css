@@ -7,8 +7,22 @@ header, footer {
     padding: var(--sitePadding);
 }
 
+html {
+  height: 100%;
+}
+
+/* Fixed footer issue for encounter using https://css-tricks.com/couple-takes-sticky-footer/. */
+
 body {
-    background-color: #e6ffff;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
+  background-color: #e6ffff;
+}
+
+.content {
+  flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+  padding: 20px;
 }
 
 header {
@@ -17,7 +31,9 @@ header {
 }
 
 footer {
-    width: 100%;
+  flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+  padding: 20px;
+  width: 100%;
 }
 
 .flexColumn {
