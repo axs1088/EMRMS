@@ -114,8 +114,8 @@ public class PatientEncounterServiceTest {
 
     @Test
     public void testGetPatientLocations() {
-        List<HHealthcareOrganization>locations = service.GetPatientLocations("P");
-        assertEquals(5,locations.size());
+        List<HHealthcareOrganization>locations = service.GetPatientLocations();
+        assertEquals(6,locations.size());
     }
 
     @Test
