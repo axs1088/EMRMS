@@ -78,7 +78,7 @@ public class ApplicationSessionHelper {
         mav.addObject("severeAllergyList", getSevereAllergies());
         mav.addObject("primaryDiagnosisList", getPrimaryDiagnoses());
         mav.addObject("physicianName", "Doctor:  "+getPhysicianName());
-        mav.addObject("clinicName", getClinicName());
+        mav.addObject("clinicName", "Clinic Location: "+getClinicName());
         mav.addObject("activeTabs", getActiveTabs());
 
         return mav;
@@ -261,7 +261,7 @@ public class ApplicationSessionHelper {
 
         try {
             siteHeader.setBirthDate(patientDemographicsMapper
-                    .getPersonDetails(patientId)
+                    .getPersonDetails(personId)
                     .getBirthDate());
         } catch (NullPointerException ex) {
             siteHeader.setBirthDate("NULL");
@@ -318,7 +318,7 @@ public class ApplicationSessionHelper {
         try {       	
         	List<HHealthcareOrganization>  hHealthcareOrganizationList = userService.getLoggedinEntityDetails();
         	if(CollectionUtils.isNotEmpty(hHealthcareOrganizationList)) {
-        		clinicName = "Clinic Location: "+hHealthcareOrganizationList.get(0).getName();
+        		clinicName = hHealthcareOrganizationList.get(0).getName();
         	}
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
             ex.printStackTrace();
