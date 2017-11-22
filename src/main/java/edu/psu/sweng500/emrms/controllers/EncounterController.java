@@ -106,7 +106,6 @@ public class EncounterController {
 	        }
         }
         
-        mav.addObject("encounterList", demographicsService.getPatientEncounters(sessionHelper.getHPatientId(session)));
         mav.addObject("patientLocations", getPatientLocations());
 
         if (CollectionUtils.isNotEmpty(validationErrors)) {
@@ -114,6 +113,7 @@ public class EncounterController {
             mav.addObject("validationErrors", validationErrors);
             mav.addObject("showHeader", true);
             mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+            mav.addObject("encounterList", demographicsService.getPatientEncounters(sessionHelper.getHPatientId(session)));
             return mav;
         }
         
@@ -127,6 +127,7 @@ public class EncounterController {
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("showHeader", true);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
+        mav.addObject("encounterList", demographicsService.getPatientEncounters(sessionHelper.getHPatientId(session)));
         
         mav = sessionHelper.addSessionHelperAttributes(mav);
 
