@@ -53,6 +53,9 @@ public class ChartingController {
     private ManageAssessmentService manageAssessmentService;
 
     @Autowired
+    private ManageProblemService manageProblemService;
+
+    @Autowired
     private PatientDemographicsMapper patientDemographicsMapper;
 
     @Autowired
@@ -71,6 +74,9 @@ public class ChartingController {
 
     private HAssessment newAssessment;
     private List<HAssessment> assessmentList;
+
+    private HProblem newProblem;
+    private List<HProblem> problemList;
 
 
     @InitBinder
@@ -100,6 +106,7 @@ public class ChartingController {
         addAllergiesToMav();
         addDiagnosesToMav();
         addAssessmentsToMav();
+        addProblemsToMav();
 
         mav = sessionHelper.addSessionHelperAttributes(mav);
     }
@@ -299,6 +306,71 @@ public class ChartingController {
                     .get();
 
             chartingMapper.deleteAssessment(deletedAssessment);
+        } catch (Exception e) {
+            // Fine
+        }
+
+        setupMav(request);
+        return mav;
+    }
+
+    private void addProblemsToMav() {
+        newProblem = new HProblem();
+
+        try {
+            sessionHelper.getPatientId();
+            int encounterObjectId = currentEncounter.getHEncounterID();
+            problemList = manageProblemService.GetProblemsList(patientId, encounterObjectId);
+            newProblem.setEncounterID(encounterObjectId);
+        } catch (Exception e) {
+            problemList = new ArrayList<>();
+        }
+
+        newProblem.setUserId(sessionHelper.getApplicationUser(session));
+
+        List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientId);
+
+        if (encounters != null && !encounters.isEmpty()) {
+            newProblem.setEncounterID(encounters.get(0).getHEncounterID());
+        }
+
+        mav.addObject("problemList", problemList);
+        mav.addObject("newProblem", newProblem);
+        mav.addObject("deletedProblem", new HProblem());
+    }
+
+    @RequestMapping(value = "/addProblem", method = RequestMethod.POST)
+    public ModelAndView addProblem(HttpServletRequest request, HttpServletResponse response,
+                                   @ModelAttribute("newProblem") HProblem problem, BindingResult bindingResult) throws PatientNotFoundException {
+        sessionHelper.setActiveChartingTab("problems");
+
+        final HttpSession session = request.getSession();
+
+        problem.setUserId(sessionHelper.getApplicationUser(session));
+        problem.setEncounterID(currentEncounter.getHEncounterID());
+        problem.setPatientID(sessionHelper.getPatientId());
+        problem.setCreationDateTime(Date.valueOf(LocalDate.now()).toString());
+
+        manageProblemService.AddProblem(problem);
+
+        setupMav(request);
+        return mav;
+    }
+
+    @RequestMapping(value = "/deleteProblem", method = RequestMethod.POST)
+    public ModelAndView deleteProblem(HttpServletRequest request, HttpServletResponse response,
+                                      @ModelAttribute("deletedProblem") HProblem deletedProblem, BindingResult bindingResult) {
+        sessionHelper.setActiveChartingTab("problems");
+
+        try {
+            final int deletedProblemId = deletedProblem.getObjectId();
+
+            deletedProblem = problemList.stream()
+                    .filter(assessment -> assessment.getObjectId() == deletedProblemId)
+                    .findFirst()
+                    .get();
+
+            chartingMapper.deleteProblem(deletedProblem);
         } catch (Exception e) {
             // Fine
         }

@@ -57,7 +57,6 @@
                 <td width="10%">
                     <form:input size="8" path="pulse"/>
                 </td>
-                jm
                 <td width="10%" style="white-space: nowrap">
                     <form:input size="4" path="systolicBP"/>
                     <label>/</label>
