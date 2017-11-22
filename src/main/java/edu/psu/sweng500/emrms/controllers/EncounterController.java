@@ -105,6 +105,8 @@ public class EncounterController {
 	            encounter.setAttendingPhysician_ObjectID(staffId);
 	        }
         }
+        
+        mav.addObject("encounterList", demographicsService.getPatientEncounters(sessionHelper.getHPatientId(session)));
 
         if (CollectionUtils.isNotEmpty(validationErrors)) {
             mav.addObject("errorOnPage", true);
@@ -124,7 +126,6 @@ public class EncounterController {
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("showHeader", true);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
-        mav.addObject("encounterList", demographicsService.getPatientEncounters(sessionHelper.getHPatientId(session)));
         mav.addObject("patientLocations", getPatientLocations());
         
         mav = sessionHelper.addSessionHelperAttributes(mav);
