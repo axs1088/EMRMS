@@ -194,7 +194,7 @@ public class ChartingController {
             newDiagnosis.setUserId(sessionHelper.getApplicationUser(session));
             newDiagnosis.setPatientID(sessionHelper.getPatientId());
             final int currentEncounterId = currentEncounter.getHEncounterID();
-            diagnosisList = patientDemographicsService.getPatientDiagnoses(patientId);
+            diagnosisList = manageDiagnosisService.GetDiagnosisList(sessionHelper.getPatientId());
         } catch (Exception e) {
             diagnosisList = new ArrayList<>();
         }
