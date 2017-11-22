@@ -321,7 +321,7 @@ public class ChartingController {
             sessionHelper.getPatientId();
             int encounterObjectId = currentEncounter.getHEncounterID();
             problemList = manageProblemService.GetProblemsList(patientId, encounterObjectId);
-            newProblem.setEncounterID(encounterObjectId);
+            newProblem.setEncObjectId(encounterObjectId);
         } catch (Exception e) {
             problemList = new ArrayList<>();
         }
@@ -331,7 +331,7 @@ public class ChartingController {
         List<HEncounter> encounters = patientDemographicsMapper.getPatientEncounters(patientId);
 
         if (encounters != null && !encounters.isEmpty()) {
-            newProblem.setEncounterID(encounters.get(0).getHEncounterID());
+            newProblem.setEncObjectId(encounters.get(0).getHEncounterID());
         }
 
         mav.addObject("problemList", problemList);
@@ -347,7 +347,7 @@ public class ChartingController {
         final HttpSession session = request.getSession();
 
         problem.setUserId(sessionHelper.getApplicationUser(session));
-        problem.setEncounterID(currentEncounter.getHEncounterID());
+        problem.setEncObjectId(currentEncounter.getHEncounterID());
         problem.setPatientID(sessionHelper.getPatientId());
         problem.setCreationDateTime(Date.valueOf(LocalDate.now()).toString());
 
