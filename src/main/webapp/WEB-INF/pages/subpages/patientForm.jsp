@@ -12,9 +12,9 @@
     </div>
 
     <div class="flexColumn">
-        <form:input cssClass="rightInput" path="name.first" id="firstNameTxt"/>
-        <form:input cssClass="rightInput" path="name.middle"/>
-        <form:input cssClass="rightInput" type="date" path="birthDate" id="birthDateTxt"/>
+        <form:input cssClass="rightInput" tabindex="1" path="name.first" id="firstNameTxt"/>
+        <form:input cssClass="rightInput" tabindex="3" path="name.middle"/>
+        <form:input cssClass="rightInput" tabindex="5" type="date" path="birthDate" id="birthDateTxt"/>
     </div>
 
     <div class="flexColumn">
@@ -27,8 +27,8 @@
     </div>
 
     <div class="flexColumn">
-        <form:input cssClass="rightInput" path="name.last" id="lastNameTxt"/>
-        <form:select path="gender" id="genderTxt">
+        <form:input cssClass="rightInput" tabindex="2" path="name.last" id="lastNameTxt"/>
+        <form:select path="gender" tabindex="4" id="genderTxt">
             <form:option value="1" label="Male"/>
             <form:option value="2" label="Female"/>
             <form:option value="3" label="Other"/>
@@ -49,10 +49,10 @@
     </div>
 
     <div class="flexColumn">
-        <form:input cssClass="rightInput" id="addressInput" path="address.line1"/>
+        <form:input cssClass="rightInput" tabindex="6" id="addressInput" path="address.line1"/>
         <div>
-            <form:input cssClass="rightInput" path="address.city"/>
-            <form:select path="address.state">
+            <form:input cssClass="rightInput" tabindex="7" path="address.city"/>
+            <form:select path="address.state" tabindex="8">
                 <form:option value="Alabama"/>
                 <form:option value="Alaska"/>
                 <form:option value="Arizona"/>
@@ -104,15 +104,15 @@
                 <form:option value="Wisconsin"/>
                 <form:option value="Wyoming"/>
             </form:select>
-            <form:input cssClass="rightInput" id="zipInput" path="address.zip"/>
+            <form:input cssClass="rightInput" tabindex="9" id="zipInput" path="address.zip"/>
         </div>
         <div>
-            <form:checkbox cssClass="rightInput" path="address.mailingAddrSameAsHomeAddr" value="1"/>
+            <form:checkbox cssClass="rightInput" tabindex="10" path="address.mailingAddrSameAsHomeAddr" value="1"/>
             <label class="leftLabel">Same as home</label>
         </div>
-        <form:input cssClass="rightInput" path="homePhone.number"/>
-        <form:input path="cellPhone.number" id="cellphoneTxt"/>
-        <form:input path="email" id="emailTxt"/>
+        <form:input cssClass="rightInput" tabindex="11" path="homePhone.number"/>
+        <form:input path="cellPhone.number" tabindex="12" id="cellphoneTxt"/>
+        <form:input path="email" tabindex="13" id="emailTxt"/>
     </div>
 </div>
 
@@ -124,8 +124,8 @@
         <form:label cssClass="leftLabel" path="organDonor">Organ Donor: </form:label>
     </div>
     <div class="flexColumn">
-        <form:input cssClass="rightInput" path="mPINumber"/>
-        <form:select path="organDonor">
+        <form:input cssClass="rightInput" tabindex="14" path="mPINumber"/>
+        <form:select path="organDonor" tabindex="15">
             <form:option value="true" label="Yes"/>
             <form:option value="false" label="No"/>
         </form:select>
