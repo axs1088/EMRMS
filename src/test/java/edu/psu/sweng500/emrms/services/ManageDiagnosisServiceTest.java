@@ -49,7 +49,7 @@ public class ManageDiagnosisServiceTest {
         diagnosis.setUserId("admin");
         diagnosis.setCode("520.124");
         diagnosis.setDescription("Foot Fracture");
-        diagnosis.setEncounterID(1);
+        diagnosis.setEncObjectId(1);
         diagnosis.setPatientID(3);
 
         // ToDo
@@ -66,7 +66,7 @@ public class ManageDiagnosisServiceTest {
         diagnosis.setCode("520.124567");
         diagnosis.setDescription("Foot Fracture Test Revised");
         diagnosis.setPriority(1);
-        diagnosis.setEncounterID(1);
+        diagnosis.setEncObjectId(1);
         diagnosis.setPatientID(3);
 
         // ToDo
@@ -80,7 +80,7 @@ public class ManageDiagnosisServiceTest {
         HDiagnosis diagnosis = new HDiagnosis();
         diagnosis.setDiagnosisObjectId(2);
         diagnosis.setPatientID(3);
-        diagnosis.setEncounterID(1);
+        diagnosis.setEncObjectId(1);
 
         // ToDo
         int returnValue = service.DeleteDiagnosis(diagnosis);

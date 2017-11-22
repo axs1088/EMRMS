@@ -18,7 +18,7 @@ public interface ChartingMapper {
 
 
     @Insert("INSERT INTO h_diagnosis(UserId, Code, Description, Priority, EncounterID,PatientID  ) " +
-            "VALUES (#{userId}, #{code},#{description}, #{priority}, #{encounterID}, #{patientID})")
+            "VALUES (#{userId}, #{code},#{description}, #{priority}, #{encObjectId}, #{patientID})")
     public void addDiagnosis(HDiagnosis diagnosis);
 
     @Update(UPDATE_HDIAGNOSIS)
@@ -51,6 +51,10 @@ public interface ChartingMapper {
     @Delete(DELETE_HASSESSMENT)
     @Options(keyProperty = "hAssessmentId")
     public int deleteAssessment(HAssessment assessment) throws Exception;
+
+    @Select(value = "{ CALL emrms_getdiagnosislist(#{patObjId, mode=IN, jdbcType=INTEGER})}")
+    @Options(statementType = StatementType.CALLABLE)
+    public List<HDiagnosis> getPatientDiagnosisList(@Param("patObjId") int patObjId);
 
     String UPDATE_H_ASSESSMENT = "update h_assessment set collectedDateTime = #{collectedDateTime}, Status=#{status},temperature=#{temperature}," +
             " height=#{height}, weight=#{weight}, pulse=#{pulse}, systolicBP=#{systolicBP}, " +

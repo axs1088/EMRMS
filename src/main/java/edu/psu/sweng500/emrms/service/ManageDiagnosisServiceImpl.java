@@ -8,6 +8,8 @@ import edu.psu.sweng500.emrms.util.PersonPatientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("manageDiagnosisService")
 
 public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
@@ -33,7 +35,7 @@ public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
         auditRecord.setPolicyId(19);
         auditRecord.setPatient_ObjectID(diagnosis.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(diagnosis.getPatientID()));
-        auditRecord.setEncounter_ObjectID(diagnosis.getEncounterID());
+        auditRecord.setEncounter_ObjectID(diagnosis.getEncObjectId());
         auditEventService.auditEvent(auditRecord);
         return 0;
     }
@@ -46,7 +48,7 @@ public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
         auditRecord.setPolicyId(20);
         auditRecord.setPatient_ObjectID(diagnosis.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(diagnosis.getPatientID()));
-        auditRecord.setEncounter_ObjectID(diagnosis.getEncounterID());
+        auditRecord.setEncounter_ObjectID(diagnosis.getEncObjectId());
         auditEventService.auditEvent(auditRecord);
         return 0;
     }
@@ -59,8 +61,13 @@ public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
         auditRecord.setPolicyId(21);
         auditRecord.setPatient_ObjectID(diagnosis.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(diagnosis.getPatientID()));
-        auditRecord.setEncounter_ObjectID(diagnosis.getEncounterID());
+        auditRecord.setEncounter_ObjectID(diagnosis.getEncObjectId());
         auditEventService.auditEvent(auditRecord);
         return 0;
+    }
+
+    @Override
+    public List<HDiagnosis> GetDiagnosisList(int patientObjId) {
+        return chartingMapper.getPatientDiagnosisList(patientObjId);
     }
 }

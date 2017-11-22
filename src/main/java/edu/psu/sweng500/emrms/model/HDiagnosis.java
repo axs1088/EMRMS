@@ -6,9 +6,12 @@ public class HDiagnosis {
     private String userId;
     private  String code;
     private  String description;
-    private int encounterID;
+    private int encObjectId;
     private int patientID;
     private int priority;
+    private String encounterId;
+    private String encStartDateTime;
+    private String encType;
 
     public int getDiagnosisObjectId() {
         return diagnosisObjectId;
@@ -42,12 +45,12 @@ public class HDiagnosis {
         this.description = description;
     }
 
-    public int getEncounterID() {
-        return encounterID;
+    public int getEncObjectId() {
+        return encObjectId;
     }
 
-    public void setEncounterID(int encounterID) {
-        this.encounterID = encounterID;
+    public void setEncObjectId(int encObjectId) {
+        this.encObjectId = encObjectId;
     }
 
     public int getPatientID() {
@@ -64,6 +67,30 @@ public class HDiagnosis {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public String getEncounterId() {
+        return encounterId;
+    }
+
+    public void setEncounterId(String encounterId) {
+        this.encounterId = encounterId;
+    }
+
+    public String getEncStartDateTime() {
+        return encStartDateTime;
+    }
+
+    public void setEncStartDateTime(String encStartDateTime) {
+        this.encStartDateTime = encStartDateTime;
+    }
+
+    public String getEncType() {
+        return encType;
+    }
+
+    public void setEncType(String encType) {
+        this.encType = encType;
     }
 }
 

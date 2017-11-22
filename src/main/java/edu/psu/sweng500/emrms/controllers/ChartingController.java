@@ -196,7 +196,7 @@ public class ChartingController {
             newDiagnosis.setPatientID(sessionHelper.getPatientId());
             final int currentEncounterId = currentEncounter.getHEncounterID();
             diagnosisList = patientDemographicsService.getPatientDiagnoses(patientId).stream()
-                    .filter(diagnosis -> diagnosis.getEncounterID() == currentEncounterId)
+                    .filter(diagnosis -> diagnosis.getEncObjectId() == currentEncounterId)
                     .collect(Collectors.toList());
         } catch (Exception e) {
             diagnosisList = new ArrayList<>();
@@ -215,7 +215,7 @@ public class ChartingController {
         newDiagnosis.setDescription(diagnosis.getDescription());
         newDiagnosis.setCode(diagnosis.getCode());
         newDiagnosis.setPriority(diagnosis.getPriority());
-        newDiagnosis.setEncounterID(currentEncounter.getHEncounterID());
+        newDiagnosis.setEncObjectId(currentEncounter.getHEncounterID());
 
         manageDiagnosisService.AddDiagnosis(newDiagnosis);
 
