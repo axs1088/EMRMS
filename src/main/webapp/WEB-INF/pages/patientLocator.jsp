@@ -96,7 +96,7 @@
             <tr>
                 <td width="130">
                     <form name="submitForm${patientlist.hPatientID}" method="POST" action="/emrms/patientDetails">
-                        <input type="hidden" name="hPatientID" value="${allergy.hPatientID}"/>
+                        <input type="hidden" name="hPatientID" value="${patientlist.hPatientID}"/>
                         <a href="javascript:document.submitForm${patientlist.hPatientID}.submit()">${patientlist.lastName}, ${patientlist.firstName}</a>
                     </form>
                 </td>
