@@ -5,10 +5,12 @@ import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
 import edu.psu.sweng500.emrms.model.ActiveTabs;
 import edu.psu.sweng500.emrms.model.HEncounter;
+import edu.psu.sweng500.emrms.model.HHealthcareOrganization;
 import edu.psu.sweng500.emrms.model.HName;
 import edu.psu.sweng500.emrms.model.HStaff;
 import edu.psu.sweng500.emrms.model.SiteHeader;
 import edu.psu.sweng500.emrms.service.ManageStaffService;
+import edu.psu.sweng500.emrms.service.UserService;
 import edu.psu.sweng500.emrms.util.Constants;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -62,15 +64,20 @@ public class ApplicationSessionHelper {
     
     @Autowired
     private ManageStaffService manageStaffService;
+    
+    @Autowired
+    private UserService userService;
 
     private Integer patientId;
+    
+    private String physicianName;
 
     ActiveTabs activeTabs;
     
     public ModelAndView addSessionHelperAttributes(ModelAndView mav) {
         mav.addObject("severeAllergyList", getSevereAllergies());
         mav.addObject("primaryDiagnosisList", getPrimaryDiagnoses());
-        mav.addObject("physicianName", getPhysicianName());
+        mav.addObject("physicianName", "Doctor:  "+getPhysicianName());
         mav.addObject("clinicName", getClinicName());
         mav.addObject("activeTabs", getActiveTabs());
 
@@ -306,30 +313,17 @@ public class ApplicationSessionHelper {
 
     }
 
-    public String getPhysicianName() {
-        if (patientId == null) {
-            return "(no patient)";
-        }
-
-        try {
-            int hStaffId = patientDemographicsMapper.getPatientEncounters(patientId).get(0).getAttendingPhysician_ObjectID();
-            return "Doctor #" + hStaffId;
-        } catch (NullPointerException | IndexOutOfBoundsException ex) {
-            return "No encounters found";
-        }
-    }
-
     public String getClinicName() {
-        if (patientId == null) {
-            return "";
-        }
-
-        try {
-            int hClinicId = patientDemographicsMapper.getPatientEncounters(patientId).get(0).getEncounterLocation_ObjectID();
-            return "Clinic Location #" + hClinicId;
+    	String clinicName = "";
+        try {       	
+        	List<HHealthcareOrganization>  hHealthcareOrganizationList = userService.getLoggedinEntityDetails();
+        	if(CollectionUtils.isNotEmpty(hHealthcareOrganizationList)) {
+        		clinicName = "Clinic Location: "+hHealthcareOrganizationList.get(0).getName();
+        	}
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
-            return "";
+            ex.printStackTrace();
         }
+        return clinicName;
     }
 
     public int getPatientId() throws PatientNotFoundException {
@@ -357,5 +351,13 @@ public class ApplicationSessionHelper {
     public void setActiveEncounterTab(String activeEncounterTab) {
         getActiveTabs().setEncounter(activeEncounterTab);
     }
+
+	public String getPhysicianName() {
+		return physicianName;
+	}
+
+	public void setPhysicianName(String physicianName) {
+		this.physicianName = physicianName;
+	}
     
 }
