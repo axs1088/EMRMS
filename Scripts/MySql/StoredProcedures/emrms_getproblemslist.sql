@@ -12,7 +12,7 @@ CREATE PROCEDURE emrms_getproblemslist(IN patObjId Int, IN encObjectId Int)
   hpl.PatientID,
   hpl.Status,
   hpl.Priority,
-  henc.encounterId AS ,
+  henc.encounterId ,
   henc.EncStartDateTime,
   henc.EncType
 FROM
