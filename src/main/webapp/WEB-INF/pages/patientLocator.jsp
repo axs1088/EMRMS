@@ -89,24 +89,24 @@
                 <text>MRN</text>
             </th>
             <th>
-                <text>Encounter</text>
+                <text>Encounter Status</text>
             </th>
         </tr>
-        <c:forEach items="${hPatientList}" var="allergy" varStatus="status">
+        <c:forEach items="${hPatientList}" var="patientlist" varStatus="status">
             <tr>
                 <td width="130">
-                    <form name="submitForm${allergy.hPatientID}" method="POST" action="/emrms/patientDetails">
+                    <form name="submitForm${patientlist.hPatientID}" method="POST" action="/emrms/patientDetails">
                         <input type="hidden" name="hPatientID" value="${allergy.hPatientID}"/>
-                        <a href="javascript:document.submitForm${allergy.hPatientID}.submit()">${allergy.lastName}, ${allergy.firstName}</a>
+                        <a href="javascript:document.submitForm${patientlist.hPatientID}.submit()">${patientlist.lastName}, ${patientlist.firstName}</a>
                     </form>
                 </td>
                 <td width="150">
-                    <text>${allergy.birthdate}</text>
+                    <text>${patientlist.birthdate}</text>
                 </td>
                 <td width="100">
                     <text>
                         <c:choose>
-                            <c:when test="${allergy.gender == '1'}">
+                            <c:when test="${patientlist.gender == '1'}">
                                 Male
                             </c:when>
                             <c:otherwise>
@@ -115,20 +115,20 @@
                         </c:choose>
                     </text>
                 </td>
-                <td width="100"></td>
+                <td width="100">${patientlist.encounterLocationName}</td>
                 <td width="100">
-                    <text>${allergy.MPINo}</text>
+                    <text>${patientlist.MPINo}</text>
                 </td>
                 <td width="100">
                     <text>
                         <c:choose>
-                            <c:when test="${allergy.encStatus == '1'}">
+                            <c:when test="${patientlist.encStatus == '1'}">
                                 Active
                             </c:when>
-                            <c:when test="${allergy.encStatus == '2'}">
+                            <c:when test="${patientlist.encStatus == '2'}">
                                 Closed
                             </c:when>
-                            <c:when test="${allergy.encStatus == '2'}">
+                            <c:when test="${patientlist.encStatus == '2'}">
                                 Scheduled
                             </c:when>
                         </c:choose>

@@ -23,7 +23,7 @@
             <th>Gender</th>
             <th>Location</th>
             <th>MRN</th>
-            <th>Encounter</th>
+            <th>Encounter Status</th>
         </tr>
         <c:forEach items="${hCensusList}" var="physicianCensus" varStatus="status">
             <tr>
