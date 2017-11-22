@@ -26,7 +26,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class ChartingController {
@@ -195,9 +194,7 @@ public class ChartingController {
             newDiagnosis.setUserId(sessionHelper.getApplicationUser(session));
             newDiagnosis.setPatientID(sessionHelper.getPatientId());
             final int currentEncounterId = currentEncounter.getHEncounterID();
-            diagnosisList = patientDemographicsService.getPatientDiagnoses(patientId).stream()
-                    .filter(diagnosis -> diagnosis.getEncObjectId() == currentEncounterId)
-                    .collect(Collectors.toList());
+            diagnosisList = patientDemographicsService.getPatientDiagnoses(patientId);
         } catch (Exception e) {
             diagnosisList = new ArrayList<>();
         }
@@ -208,8 +205,8 @@ public class ChartingController {
     }
 
     @RequestMapping(value = "/addDiagnosis", method = RequestMethod.POST)
-    public ModelAndView addAllergy(HttpServletRequest request, HttpServletResponse response,
-                                   @ModelAttribute("newDiagnosis") HDiagnosis diagnosis, BindingResult bindingResult) {
+    public ModelAndView addDiagnosis(HttpServletRequest request, HttpServletResponse response,
+                                     @ModelAttribute("newDiagnosis") HDiagnosis diagnosis, BindingResult bindingResult) {
         sessionHelper.setActiveChartingTab("diagnoses");
 
         newDiagnosis.setDescription(diagnosis.getDescription());

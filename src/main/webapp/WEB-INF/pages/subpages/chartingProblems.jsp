@@ -18,7 +18,7 @@
         <th width="10%" title="Problem Type">
             <text>Type</text>
         </th>
-        <th width="10" title="Add or remove an problem">
+        <th width="10" title="Add or remove a problem">
             <text>Action</text>
         </th>
     </tr>
@@ -61,15 +61,13 @@
     <c:forEach items="${problemList}" var="problem" varStatus="status">
         <tr>
             <td width="10%">
-                <text>${problem.encounterID}</text>
+                <text>${problem.encounterId}</text>
             </td>
             <td width="14%">
-                    <%--<text>${problem.encStartDateTime}</text>--%>
-                <text></text>
+                <text>${problem.encStartDateTime}</text>
             </td>
             <td width="10%">
-                    <%--<text>${problem.encSType}</text>--%>
-                <text></text>
+                <text>${problem.encType}</text>
             </td>
             <td width="10%">
                 <text>${problem.code}</text>

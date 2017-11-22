@@ -78,7 +78,7 @@
     <c:forEach items="${assessmentList}" var="assessment" varStatus="status">
         <tr>
             <td width="10%">
-                <text>${assessment.encounterObjectId}</text>
+                <text>${assessment.encounterId}</text>
             </td>
             <td width="14%">
                 <text>${assessment.encStartDateTime}</text>
