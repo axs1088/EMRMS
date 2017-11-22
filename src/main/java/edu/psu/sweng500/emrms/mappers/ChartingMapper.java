@@ -14,9 +14,9 @@ public interface ChartingMapper {
     String UPDATE_HDIAGNOSIS = "update h_diagnosis set code=#{code},description=#{description} where hdiagnosisid=#{diagnosisObjectId}";
     String DELETE_HDIAGNOSIS = "DELETE FROM h_diagnosis WHERE hdiagnosisid=#{diagnosisObjectId}";
     String DELETE_HALLERGY = "DELETE FROM h_allergy WHERE HAllergyID=#{allergyID}";
-    String DELETE_HASSESSMENT = "DELETE FROM h_assessment WHERE HAssessmentId=#{assessmentId}";
+    String DELETE_HASSESSMENT = "DELETE FROM h_assessment WHERE HAssessmentId=#{objectId}";
 
-    
+
     @Insert("INSERT INTO h_diagnosis(UserId, Code, Description, Priority, EncounterID,PatientID  ) " +
             "VALUES (#{userId}, #{code},#{description}, #{priority}, #{encounterID}, #{patientID})")
     public void addDiagnosis(HDiagnosis diagnosis);

@@ -57,6 +57,7 @@
                 <td width="10%">
                     <form:input size="8" path="pulse"/>
                 </td>
+                jm
                 <td width="10%" style="white-space: nowrap">
                     <form:input size="4" path="systolicBP"/>
                     <label>/</label>
@@ -81,12 +82,10 @@
                 <text>${assessment.encounterObjectId}</text>
             </td>
             <td width="14%">
-                <text></text>
-                    <%--<form:input size="18" disabled="true" path="encStartDateTime"/>--%>
+                <text>${assessment.encStartDateTime}</text>
             </td>
             <td width="10%">
-                <text></text>
-                    <%--<form:input size="8" disabled="true" path="encounterType"/>--%>
+                <text>${assessment.encType}</text>
             </td>
             <td width="10%">
                 <text>${assessment.status}</text>
