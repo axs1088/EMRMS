@@ -66,7 +66,7 @@ public interface ChartingMapper {
     public List<HAssessment> getPatientAssessments(@Param("patientObjectId") int patientObjectId, @Param("encounterObjectId") int encounterObjectId);
 
     @Insert("INSERT INTO h_problem_list(UserId, SNOMEDCode, ProblemDesc, Priority, Status, EncounterID,PatientID  ) " +
-            "VALUES (#{userId}, #{code},#{description}, #{priority}, #{status}, #{encounterID}, #{patientID})")
+            "VALUES (#{userId}, #{code},#{description}, #{priority}, #{status}, #{encObjectId}, #{patientID})")
     public void addProblem(HProblem problem);
 
     String UPDATE_H_PROBLEM_LIST = "update h_problem_list set SNOMEDCode=#{code}, " +

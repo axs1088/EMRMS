@@ -50,7 +50,7 @@ public class ManageProblemServiceTest {
         problem.setDescription("Headache");
         problem.setStatus("Active");
         problem.setPriority(1);
-        problem.setEncounterID(1);
+        problem.setEncObjectId(1);
         problem.setPatientID(3);
 
         // ToDo
@@ -67,7 +67,7 @@ public class ManageProblemServiceTest {
         returnValue = service.ReviseProblem(problem);
         assertEquals(0,returnValue);
 
-        List<HProblem>problems = service.GetProblemsList(problem.getPatientID(), problem.getEncounterID());
+        List<HProblem>problems = service.GetProblemsList(problem.getPatientID(), problem.getEncObjectId());
         assertEquals(1,problems.size());
 
         problem.setObjectId(problemObjectId);

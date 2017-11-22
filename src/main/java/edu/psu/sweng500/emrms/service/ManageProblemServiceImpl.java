@@ -33,7 +33,7 @@ public class ManageProblemServiceImpl implements  ManageProblemService{
         auditRecord.setPolicyId(17);
         auditRecord.setPatient_ObjectID(problem.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(problem.getPatientID()));
-        auditRecord.setEncounter_ObjectID(problem.getEncounterID());
+        auditRecord.setEncounter_ObjectID(problem.getEncObjectId());
         auditEventService.auditEvent(auditRecord);
         return 0;
     }
@@ -46,7 +46,7 @@ public class ManageProblemServiceImpl implements  ManageProblemService{
         auditRecord.setPolicyId(18);
         auditRecord.setPatient_ObjectID(problem.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(problem.getPatientID()));
-        auditRecord.setEncounter_ObjectID(problem.getEncounterID());
+        auditRecord.setEncounter_ObjectID(problem.getEncObjectId());
         auditEventService.auditEvent(auditRecord);
         return 0;
     }
@@ -59,7 +59,7 @@ public class ManageProblemServiceImpl implements  ManageProblemService{
         auditRecord.setPolicyId(22);
         auditRecord.setPatient_ObjectID(problem.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(problem.getPatientID()));
-        auditRecord.setEncounter_ObjectID(problem.getEncounterID());
+        auditRecord.setEncounter_ObjectID(problem.getEncObjectId());
         auditEventService.auditEvent(auditRecord);
         return 0;
     }
