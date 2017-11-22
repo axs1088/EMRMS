@@ -4,6 +4,7 @@ import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.format.EMRMSCustomEditor;
 import edu.psu.sweng500.emrms.model.HEncounter;
+import edu.psu.sweng500.emrms.model.HHealthcareOrganization;
 import edu.psu.sweng500.emrms.model.HPatient;
 import edu.psu.sweng500.emrms.model.HStaff;
 import edu.psu.sweng500.emrms.service.ManageStaffService;
@@ -27,7 +28,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -63,11 +67,11 @@ public class EncounterController {
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.setBindingErrorProcessor(new EMRMSBindingErrorProcessor());
-        binder.registerCustomEditor(Integer.class, new EMRMSCustomEditor());
+        //binder.registerCustomEditor(Integer.class, new EMRMSCustomEditor());
     }
 
     @RequestMapping(value = "/encounterDetails", method = RequestMethod.GET)
-    public ModelAndView patientEncounter(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView patientEncounter(HttpServletRequest request, @RequestParam(value = "hPatientID", required = false) Integer hPatientID) {
         HttpSession session = request.getSession(false);
         applicationAuditHelper.auditEvent(session, "View Encounter Details", 10, sessionHelper.getHPatientId(session), 0);
         ModelAndView mav = new ModelAndView("encounterTabShell");
@@ -78,6 +82,7 @@ public class EncounterController {
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
         mav.addObject("encounterList", demographicsService.getPatientEncounters(sessionHelper.getHPatientId(session)));
+        mav.addObject("patientLocations", getPatientLocations());
         
         mav = sessionHelper.addSessionHelperAttributes(mav);
 
@@ -120,7 +125,8 @@ public class EncounterController {
         mav.addObject("showHeader", true);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());
         mav.addObject("encounterList", demographicsService.getPatientEncounters(sessionHelper.getHPatientId(session)));
-
+        mav.addObject("patientLocations", getPatientLocations());
+        
         mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
@@ -141,6 +147,17 @@ public class EncounterController {
         }
         
         return attendingPhysicians;
+    }
+    
+    private Map<Integer,String> getPatientLocations() {
+        List<HHealthcareOrganization> patientLocations = encounterService.GetPatientLocations();
+	    Map<Integer,String> locationsMap = new LinkedHashMap<Integer,String>();
+	    if(CollectionUtils.isNotEmpty(patientLocations)) {
+	        for (HHealthcareOrganization patientLocation : patientLocations) {
+	        	locationsMap.put(patientLocation.getObjectId(), patientLocation.getName());
+	        }
+	    }
+	    return locationsMap;
     }
     
 }

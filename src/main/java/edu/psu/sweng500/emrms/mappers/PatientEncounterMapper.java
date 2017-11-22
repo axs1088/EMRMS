@@ -48,9 +48,12 @@ public interface PatientEncounterMapper {
     public void reviseIPEncounterDetails(@Param("encounter") HEncounter encounter);
 
 
-    @Select(value = "{ CALL emrms_getencounterlocations(#{searchString, mode=IN, jdbcType=VARCHAR})}")
+    @Select(value = "{ CALL emrms_getencounterlocations()}")
     @Options(statementType = StatementType.CALLABLE)
-    public List<HHealthcareOrganization> getPatientLocations(String searchString);
+    public List<HHealthcareOrganization> getPatientLocations(); 
+    
+    @Select("Select HealthcareOrganizationID as objectId, Name as name, Abbreviation as abbreviation from healthcare_organization where HealthcareOrganizationID = #{encounterLocationObjectID}")
+    public HHealthcareOrganization getPatientLocationByObjectId(int encounterLocationObjectID);
 
     @Select(value = "{ CALL emrms_getlocationbeds(#{searchString, mode=IN, jdbcType=VARCHAR}, #{locationId, mode=IN, jdbcType=INTEGER})}")
     @Options(statementType = StatementType.CALLABLE)

@@ -1,6 +1,5 @@
-CREATE PROCEDURE emrms_getencounterlocations(IN SearchString Varchar(30))
+CREATE PROCEDURE emrms_getencounterlocations()
 
   BEGIN
-     Select ho.HealthcareOrganizationID, ho.Name, ho.Abbreviation from healthcare_organization ho
-    WHERE ho.Name LIKE CONCAT(SearchString, '%') ORDER BY ho.Name;
+     Select HealthcareOrganizationID as objectId, Name as name, Abbreviation as abbreviation from healthcare_organization ORDER BY Name;
   END;

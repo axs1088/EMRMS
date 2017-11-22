@@ -31,10 +31,7 @@
                 <form:option value="Inpatient" label="Inpatient"/>
             </form:select>
             <form:input cssClass="rightInput" id="encStartDateTimeInput" type="date" path="encStartDateTime"/>
-            <form:select cssClass="rightInput" id="encLocationNameInput" path="encLocationName">
-                <form:option value="Main Line Health" label="Main Line Health"/>
-                <form:option value="Paoli Hospital" label="Paoli Hospital"/>
-            </form:select>
+            <form:select cssClass="rightInput" path="encounterLocation_ObjectID" items="${patientLocations}" />
             <form:select cssClass="rightInput" id="encStatusInput" path="encStatus">
                 <form:option value="1" label="Active"/>
                 <form:option value="2" label="Close"/>

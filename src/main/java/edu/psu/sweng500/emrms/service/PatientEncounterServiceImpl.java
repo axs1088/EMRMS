@@ -86,8 +86,13 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
     }
 
     @Override
-    public List<HHealthcareOrganization> GetPatientLocations(String searchString) {
-        return encounterMapper.getPatientLocations(searchString);
+    public List<HHealthcareOrganization> GetPatientLocations() {
+        return encounterMapper.getPatientLocations();
+    }
+    
+    @Override
+    public HHealthcareOrganization getPatientLocationByObjectId(int encounterLocationObjectID) {
+    	return encounterMapper.getPatientLocationByObjectId(encounterLocationObjectID);
     }
 
     @Override
