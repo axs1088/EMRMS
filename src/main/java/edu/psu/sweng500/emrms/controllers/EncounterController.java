@@ -123,7 +123,7 @@ public class EncounterController {
         encounterService.AddEncounter(hPatient, encounter);
         
         mav.addObject("saveSuccess", true);
-        mav.addObject("encounter", encounter);
+        mav.addObject("encounter", new HEncounter());
         sessionHelper.setActivePatient(sessionHelper.getHPatientId(session));
         mav.addObject("showHeader", true);
         mav.addObject("siteHeader", sessionHelper.getSiteHeader());

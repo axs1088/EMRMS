@@ -149,6 +149,7 @@ public class LoginController {
             mav.addObject("showHeader", false);
             mav.addObject("hCensusList", hCensusList);
             mav.addObject(Constants.CENSUS, census);
+            sessionHelper.setPhysicianName(userService.getLoggedinUserDetails(userId).getUsername());
 
             applicationAuditHelper.auditEvent(session, "Login", 1, 0, 0);
             applicationAuditHelper.auditEvent(session, "View Patient Census", 3, 0, 0);

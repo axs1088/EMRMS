@@ -29,7 +29,7 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
     @Transactional
     public int AddEncounter(HPatient hPatient, HEncounter encounter) {
         int encounterObjectID = encounter.getHEncounterID();
-        if (encounterObjectID == 0){
+        //if (encounterObjectID == 0){
             encounterMapper.insertOPEncounterDetails(encounter);
             HAuditRecord auditRecord = new HAuditRecord();
             auditRecord.setEventName("Add Encounter");
@@ -38,14 +38,14 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
             auditRecord.setEncounter_ObjectID(encounter.getHEncounterID());
             auditRecord.setPatientName(patientUtils.getPatientName(encounter.getPatient_ObjectID()));
             auditEventService.auditEvent(auditRecord);
-        }
+        //}
         return 0;
     }
 
     @Override
     public int AddInPatientEncounter(HPatient hPatient, HEncounter encounter) {
         int encounterObjectID = encounter.getHEncounterID();
-        if (encounterObjectID == 0){
+        //if (encounterObjectID == 0){
             encounterMapper.insertIPEncounterDetails(encounter);
             HAuditRecord auditRecord = new HAuditRecord();
             auditRecord.setEventName("Add Encounter");
@@ -54,7 +54,7 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
             auditRecord.setEncounter_ObjectID(encounter.getHEncounterID());
             auditRecord.setPatientName(patientUtils.getPatientName(encounter.getPatient_ObjectID()));
             auditEventService.auditEvent(auditRecord);
-        }
+        //}
         return 0;
     }
 

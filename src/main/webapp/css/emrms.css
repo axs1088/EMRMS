@@ -175,3 +175,12 @@ mandatory {
         opacity: 1
     }
 }
+
+span {
+    border-left:2px solid;
+    padding-left:5px;   
+}
+
+.physicianClinic {
+    font-size: 22px;
+}
