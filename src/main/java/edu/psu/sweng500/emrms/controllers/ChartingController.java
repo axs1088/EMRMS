@@ -367,7 +367,7 @@ public class ChartingController {
                     .findFirst()
                     .get();
 
-            chartingMapper.deleteProblem(deletedProblem);
+            manageProblemService.DeleteProblem(deletedProblem);
         } catch (Exception e) {
             // Fine
         }
