@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.service;
 
+import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.mappers.PatientMapper;
 import edu.psu.sweng500.emrms.model.HAuditRecord;
 import edu.psu.sweng500.emrms.model.HPatient;
@@ -20,6 +21,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private PersonPatientUtils patientUtils;
+
+    @Autowired
+    private ApplicationSessionHelper sessionHelper;
 
     public void setPatientMapper(PatientMapper patientMapper) {
         this.patientMapper = patientMapper;
@@ -50,6 +54,7 @@ public class PatientServiceImpl implements PatientService {
         patientMapper.insertPatientIdentifiers(patient);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Register Patient");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(5);
         auditRecord.setPatient_ObjectID(patient.getObjectID());
         auditRecord.setPatientName(patientUtils.getPatientName(patient.getObjectID()));
@@ -64,6 +69,7 @@ public class PatientServiceImpl implements PatientService {
 	    patientMapper.revisePersonAddress(patient);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Revise Patient");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(6);
         auditRecord.setPatient_ObjectID(patient.getObjectID());
         auditRecord.setPatientName(patientUtils.getPatientName(patient.getObjectID()));

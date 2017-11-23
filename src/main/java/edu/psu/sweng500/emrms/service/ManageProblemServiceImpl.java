@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.service;
 
+import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.mappers.ChartingMapper;
 import edu.psu.sweng500.emrms.model.HAuditRecord;
 import edu.psu.sweng500.emrms.model.HProblem;
@@ -21,6 +22,9 @@ public class ManageProblemServiceImpl implements  ManageProblemService{
     @Autowired
     private PersonPatientUtils patientUtils;
 
+    @Autowired
+    private ApplicationSessionHelper sessionHelper;
+
     public void setChartingMapper(ChartingMapper chartingMapper) {
         this.chartingMapper = chartingMapper;
     }
@@ -30,6 +34,7 @@ public class ManageProblemServiceImpl implements  ManageProblemService{
         chartingMapper.addProblem(problem);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Add Problem");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(17);
         auditRecord.setPatient_ObjectID(problem.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(problem.getPatientID()));
@@ -43,6 +48,7 @@ public class ManageProblemServiceImpl implements  ManageProblemService{
         chartingMapper.reviseProblem(problem);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Revise Problem");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(18);
         auditRecord.setPatient_ObjectID(problem.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(problem.getPatientID()));
@@ -56,6 +62,7 @@ public class ManageProblemServiceImpl implements  ManageProblemService{
         chartingMapper.deleteProblem(problem);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Delete Problem");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(22);
         auditRecord.setPatient_ObjectID(problem.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(problem.getPatientID()));

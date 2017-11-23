@@ -2,6 +2,7 @@ package edu.psu.sweng500.emrms.application;
 
 import edu.psu.sweng500.emrms.model.HAuditRecord;
 import edu.psu.sweng500.emrms.service.AuditEventService;
+import edu.psu.sweng500.emrms.util.PersonPatientUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,20 @@ public class ApplicationAuditHelper {
     @Autowired
     private AuditEventService auditEventService;
 
+    @Autowired
+    private PersonPatientUtils personPatientUtils;
+
     public void auditEvent(HttpSession session, String eventName, int policyId, int patientObjectID, int encounterObjectID) {
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName(eventName);
         auditRecord.setPolicyId(policyId);
-        auditRecord.setUserId(applicationSessionHelper.getApplicationUser(session));
+        auditRecord.setUserId(applicationSessionHelper.getPhysicianName());
         auditRecord.setCreationDateTime(getCurrentDateTime());
         auditRecord.setPatient_ObjectID(patientObjectID);
+        if(patientObjectID != 0)
+        {
+            auditRecord.setPatientName(personPatientUtils.getPatientName(patientObjectID));
+        }
         auditRecord.setEncounter_ObjectID(encounterObjectID);
         auditEventService.auditEvent(auditRecord);
     }

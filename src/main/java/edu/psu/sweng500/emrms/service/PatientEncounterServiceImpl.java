@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.service;
 
+import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.mappers.PatientEncounterMapper;
 import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.util.PersonPatientUtils;
@@ -25,6 +26,9 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
     @Autowired
     private PersonPatientUtils patientUtils;
 
+    @Autowired
+    private ApplicationSessionHelper sessionHelper;
+
     @Override
     @Transactional
     public int AddEncounter(HPatient hPatient, HEncounter encounter) {
@@ -33,6 +37,7 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
             encounterMapper.insertOPEncounterDetails(encounter);
             HAuditRecord auditRecord = new HAuditRecord();
             auditRecord.setEventName("Add Encounter");
+            auditRecord.setUserId(sessionHelper.getPhysicianName());
             auditRecord.setPolicyId(7);
             auditRecord.setPatient_ObjectID(encounter.getPatient_ObjectID());
             auditRecord.setEncounter_ObjectID(encounter.getHEncounterID());
@@ -49,6 +54,7 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
             encounterMapper.insertIPEncounterDetails(encounter);
             HAuditRecord auditRecord = new HAuditRecord();
             auditRecord.setEventName("Add Encounter");
+            auditRecord.setUserId(sessionHelper.getPhysicianName());
             auditRecord.setPolicyId(7);
             auditRecord.setPatient_ObjectID(encounter.getPatient_ObjectID());
             auditRecord.setEncounter_ObjectID(encounter.getHEncounterID());
@@ -64,6 +70,7 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
         encounterMapper.reviseOPEncounterDetails(encounter);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Revise Encounter");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(8);
         auditRecord.setPatient_ObjectID(encounter.getPatient_ObjectID());
         auditRecord.setEncounter_ObjectID(encounter.getHEncounterID());
@@ -77,6 +84,7 @@ public class PatientEncounterServiceImpl implements  PatientEncounterService{
         encounterMapper.reviseIPEncounterDetails(encounter);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Revise Encounter");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(8);
         auditRecord.setPatient_ObjectID(encounter.getPatient_ObjectID());
         auditRecord.setEncounter_ObjectID(encounter.getHEncounterID());

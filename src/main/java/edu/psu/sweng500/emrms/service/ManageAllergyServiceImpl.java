@@ -1,6 +1,7 @@
 package edu.psu.sweng500.emrms.service;
 
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
+import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.mappers.ChartingMapper;
 import edu.psu.sweng500.emrms.model.HAllergy;
 import edu.psu.sweng500.emrms.model.HAuditRecord;
@@ -22,6 +23,9 @@ public class ManageAllergyServiceImpl implements ManageAllergyService {
     @Autowired
     private PersonPatientUtils patientUtils;
 
+    @Autowired
+    private ApplicationSessionHelper sessionHelper;
+
     public void setChartingMapper(ChartingMapper chartingMapper) {
         this.chartingMapper = chartingMapper;
     }
@@ -31,6 +35,7 @@ public class ManageAllergyServiceImpl implements ManageAllergyService {
         chartingMapper.addAllergy(allergy);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Add Allergy");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(12);
         auditRecord.setPatient_ObjectID(allergy.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(allergy.getPatientID()));
@@ -43,6 +48,7 @@ public class ManageAllergyServiceImpl implements ManageAllergyService {
         chartingMapper.deleteAllergy(allergy);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Delete Allergy");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(14);
         auditRecord.setPatient_ObjectID(allergy.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(allergy.getPatientID()));

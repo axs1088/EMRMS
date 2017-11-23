@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.service;
 
+import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.mappers.ChartingMapper;
 import edu.psu.sweng500.emrms.model.HAssessment;
 import edu.psu.sweng500.emrms.model.HAuditRecord;
@@ -21,6 +22,9 @@ public class ManageAssessmentServiceImpl implements ManageAssessmentService {
     @Autowired
     private PersonPatientUtils patientUtils;
 
+    @Autowired
+    private ApplicationSessionHelper sessionHelper;
+
     public void setChartingMapper(ChartingMapper chartingMapper) {
         this.chartingMapper = chartingMapper;
     }
@@ -30,6 +34,7 @@ public class ManageAssessmentServiceImpl implements ManageAssessmentService {
         chartingMapper.addAssessment(assessment);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Add Assessment");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(15);
         auditRecord.setEncounter_ObjectID(assessment.getEncounterObjectId());
         auditRecord.setPatient_ObjectID(assessment.getPatientObjectId());
@@ -43,6 +48,7 @@ public class ManageAssessmentServiceImpl implements ManageAssessmentService {
         chartingMapper.reviseAssessment(assessment);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Revise Assessment");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(16);
         auditRecord.setEncounter_ObjectID(assessment.getEncounterObjectId());
         auditRecord.setPatient_ObjectID(assessment.getPatientObjectId());

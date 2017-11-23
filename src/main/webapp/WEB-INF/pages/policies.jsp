@@ -83,7 +83,7 @@
 	
         <tr>
             <th>
-                <text>User Id</text>
+                <text>User Name</text>
             </th>
             <th>
                 <text>Event Name</text>

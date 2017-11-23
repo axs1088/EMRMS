@@ -1,5 +1,6 @@
 package edu.psu.sweng500.emrms.service;
 
+import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
 import edu.psu.sweng500.emrms.mappers.ChartingMapper;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
 import edu.psu.sweng500.emrms.mappers.PatientEncounterMapper;
@@ -23,6 +24,9 @@ public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
     @Autowired
     private PersonPatientUtils patientUtils;
 
+    @Autowired
+    private ApplicationSessionHelper sessionHelper;
+
     public void setChartingMapper(ChartingMapper chartingMapper) {
         this.chartingMapper = chartingMapper;
     }
@@ -32,6 +36,7 @@ public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
         chartingMapper.addDiagnosis(diagnosis);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Add Diagnosis");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(19);
         auditRecord.setPatient_ObjectID(diagnosis.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(diagnosis.getPatientID()));
@@ -45,6 +50,7 @@ public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
         chartingMapper.reviseDiagnosis(diagnosis);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Revise Diagnosis");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(20);
         auditRecord.setPatient_ObjectID(diagnosis.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(diagnosis.getPatientID()));
@@ -58,6 +64,7 @@ public class ManageDiagnosisServiceImpl implements ManageDiagnosisService {
         chartingMapper.deleteDiagnosis(diagnosis);
         HAuditRecord auditRecord = new HAuditRecord();
         auditRecord.setEventName("Delete Diagnosis");
+        auditRecord.setUserId(sessionHelper.getPhysicianName());
         auditRecord.setPolicyId(21);
         auditRecord.setPatient_ObjectID(diagnosis.getPatientID());
         auditRecord.setPatientName(patientUtils.getPatientName(diagnosis.getPatientID()));
