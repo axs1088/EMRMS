@@ -1,7 +1,7 @@
 <footer>
     <div style="display: flex;">
         <div class="flexColumn">
-            <p style="text-align: left">Malvern Clinic, PA - 19355 | 222-222-2222</p>
+            <p style="text-align: left">${clinicName}, PA - 19301 | 222-222-2222</p>
             <p style="text-align: left">&copy; 2017 by EMRMS TEAM &amp; SWENG-500 - Penn State University. All rights
                 reserved.</p>
         </div>

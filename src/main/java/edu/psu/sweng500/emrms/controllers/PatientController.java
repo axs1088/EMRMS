@@ -160,6 +160,8 @@ public class PatientController {
         mav.addObject("policy", policy);
         mav.addObject("policyListHashMap", policyListHashMap);
         mav.addObject("policySearchList", policySearchList);
+        
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }

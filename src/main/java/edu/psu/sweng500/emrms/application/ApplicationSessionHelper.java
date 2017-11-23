@@ -77,8 +77,8 @@ public class ApplicationSessionHelper {
     public ModelAndView addSessionHelperAttributes(ModelAndView mav) {
         mav.addObject("severeAllergyList", getSevereAllergies());
         mav.addObject("primaryDiagnosisList", getPrimaryDiagnoses());
-        mav.addObject("physicianName", "Doctor:  "+getPhysicianName());
-        mav.addObject("clinicName", "Clinic Location: "+getClinicName());
+        mav.addObject("physicianName", getPhysicianName());
+        mav.addObject("clinicName", getClinicName());
         mav.addObject("activeTabs", getActiveTabs());
 
         return mav;
