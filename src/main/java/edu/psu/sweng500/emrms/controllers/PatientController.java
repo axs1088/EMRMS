@@ -23,8 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -120,6 +122,11 @@ public class PatientController {
     public ModelAndView showPolicies(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("policies");
         Policy policy = new Policy();
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        policy.setStartDate(dateFormat.format(new Date()));
+        policy.setEndDate(dateFormat.format(new Date()));
+        
         List<Policy> policyList = new ArrayList<Policy>();
         policyList = auditEventService.getAuditPolicies();
 
@@ -160,6 +167,8 @@ public class PatientController {
         mav.addObject("policy", policy);
         mav.addObject("policyListHashMap", policyListHashMap);
         mav.addObject("policySearchList", policySearchList);
+        
+        mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
     }

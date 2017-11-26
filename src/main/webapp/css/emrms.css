@@ -176,11 +176,11 @@ mandatory {
     }
 }
 
-span {
+.physicianClinicSpan {
     border-left:2px solid;
     padding-left:5px;   
 }
 
-.physicianClinic {
+.physicianClinicDiv {
     font-size: 22px;
 }

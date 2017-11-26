@@ -13,9 +13,9 @@
     <form:form modelAttribute="siteHeader">
         <hr/>
 
-        <div class="physicianClinic">
-			${physicianName}
-			<span>${clinicName}</span>
+        <div class="physicianClinicDiv">
+			Doctor: ${physicianName}
+			<span class="physicianClinicSpan">Clinic Location: ${clinicName}</span>
         </div>
 
         <hr/>
