@@ -21,8 +21,8 @@
         <th width="10%" title="Blood pressure measured in systolic over diastolic">
             <text>Blood Pressure<br>(s/d)</text>
         </th>
-        <th width="10%" title="Height measured in feet">
-            <text>Height<br>(ft")</text>
+        <th width="10%" title="Height measured in inches">
+            <text>Height<br>(inches)</text>
         </th>
         <th width="10%" title="Weight measured in pounds">
             <text>Weight<br>(lbs)</text>
@@ -49,7 +49,11 @@
             <form:form id="addAssessmentForm" method="post" action="addAssessment"
                        modelAttribute="newAssessment" name="addAssessmentForm">
                 <td width="10%">
-                    <form:input size="8" path="status"/>
+                    <form:select path="status">
+                        <form:option value="In Progress"/>
+                        <form:option value="Completed"/>
+                        <form:option value="Erroneous"/>
+                    </form:select>
                 </td>
                 <td width="10%">
                     <form:input size="8" path="temperature"/>
