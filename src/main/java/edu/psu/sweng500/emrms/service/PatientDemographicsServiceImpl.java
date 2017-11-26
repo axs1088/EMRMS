@@ -118,12 +118,14 @@ public class PatientDemographicsServiceImpl implements PatientDemographicsServic
     }
     
     private void populateEncounterLocation(List<HEncounter> hEncounterList) {
-        for(HEncounter hEncounter : hEncounterList) {
-        	if(hEncounter.getEncounterLocation_ObjectID() != null) {
-	        	HHealthcareOrganization hHealthcareOrganization = encounterService.getPatientLocationByObjectId(hEncounter.getEncounterLocation_ObjectID());
-	        	hEncounter.setEncLocationName(hHealthcareOrganization.getName());
-        	}
-        }
+    	if(CollectionUtils.isNotEmpty(hEncounterList)) {
+	        for(HEncounter hEncounter : hEncounterList) {
+	        	if(hEncounter.getEncounterLocation_ObjectID() != null) {
+		        	HHealthcareOrganization hHealthcareOrganization = encounterService.getPatientLocationByObjectId(hEncounter.getEncounterLocation_ObjectID());
+		        	hEncounter.setEncLocationName(hHealthcareOrganization != null ? hHealthcareOrganization.getName() : "");
+	        	}
+	        }
+    	}
     }  	
     
 }
