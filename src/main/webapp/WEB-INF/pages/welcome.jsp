@@ -14,7 +14,7 @@
 <div class="mainContent">
     <h3 style="text-align: center"><b>Patient Census</b></h3>
     <c:if test="${empty hCensusList}">
-    	<h4 style="color:red;text-align: center;">No active patient records founds!</h4>
+        <h4 style="color:red;text-align: center;">No active patient records founds!</h4>
     </c:if>
     <table cellpadding="10" border="1" align="center">
         <tr>
@@ -46,15 +46,25 @@
                 </td>
                 <td width="100">${physicianCensus.encounterLocationName}</td>
                 <td width="100">${physicianCensus.MPINo}</td>
-                <td width="100">
-                    <c:choose>
-                        <c:when test="${physicianCensus.encStatus == '1'}">
-                            Active
-                        </c:when>
-                        <c:otherwise>
-                            Not Active
-                        </c:otherwise>
-                    </c:choose>
+                <td width="100" style="white-space: nowrap;">
+                    <form name="submitCharting${physicianCensus.hPatientID}" method="GET" action="/emrms/charting">
+                        <text>
+                            <c:choose>
+                                <c:when test="${physicianCensus.encStatus == '1'}">
+                                    Active
+                                    <input type="hidden" name="hPatientID" value="${physicianCensus.hPatientID}"/>
+                                    <a href="javascript:document.submitCharting${physicianCensus.hPatientID}.submit()">
+                                        <img src="https://www.webpt.com/sites/default/files/images/icon-documentation.png"
+                                             alt="Charting"
+                                             style="width: 25px; height:auto; border:0; background-color: white;"/>
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    Not Active
+                                </c:otherwise>
+                            </c:choose>
+                        </text>
+                    </form>
                 </td>
             </tr>
         </c:forEach>

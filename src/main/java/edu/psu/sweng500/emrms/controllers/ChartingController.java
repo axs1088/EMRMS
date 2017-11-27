@@ -8,15 +8,13 @@ import edu.psu.sweng500.emrms.mappers.ChartingMapper;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
 import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.*;
+import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.validators.EMRMSBindingErrorProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -85,7 +83,12 @@ public class ChartingController {
     }
 
     @RequestMapping(value = "/charting", method = RequestMethod.GET)
-    public ModelAndView showCharting(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView showCharting(HttpServletRequest request, @RequestParam(value = "hPatientID", required = false) Integer hPatientID) {
+        if (hPatientID != null) {
+            sessionHelper.setActivePatient(hPatientID);
+            session = request.getSession();
+            session.setAttribute(Constants.HPATIENT_ID, hPatientID);
+        }
         sessionHelper.setActiveChartingTab("allergies");
         setupMav(request);
         return mav;

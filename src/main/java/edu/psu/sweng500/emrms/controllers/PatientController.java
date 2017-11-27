@@ -23,16 +23,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 /**
  * @author vkumar
@@ -122,11 +120,11 @@ public class PatientController {
     public ModelAndView showPolicies(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("policies");
         Policy policy = new Policy();
-        
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         policy.setStartDate(dateFormat.format(new Date()));
         policy.setEndDate(dateFormat.format(new Date()));
-        
+
         List<Policy> policyList = new ArrayList<Policy>();
         policyList = auditEventService.getAuditPolicies();
 
@@ -167,7 +165,7 @@ public class PatientController {
         mav.addObject("policy", policy);
         mav.addObject("policyListHashMap", policyListHashMap);
         mav.addObject("policySearchList", policySearchList);
-        
+
         mav = sessionHelper.addSessionHelperAttributes(mav);
 
         return mav;
@@ -228,7 +226,7 @@ public class PatientController {
         if (patient.getObjectID() == 0) {
             patientService.registerPatient(patient);
         } else {
-            patientService.updatePatient(patient);           
+            patientService.updatePatient(patient);
         }
 
         mav = new ModelAndView("patientDetails");

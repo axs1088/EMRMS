@@ -119,20 +119,28 @@
                 <td width="100">
                     <text>${patientlist.MPINo}</text>
                 </td>
-                <td width="100">
-                    <text>
-                        <c:choose>
-                            <c:when test="${patientlist.encStatus == '1'}">
-                                Active
-                            </c:when>
-                            <c:when test="${patientlist.encStatus == '2'}">
-                                Closed
-                            </c:when>
-                            <c:when test="${patientlist.encStatus == '2'}">
-                                Scheduled
-                            </c:when>
-                        </c:choose>
-                    </text>
+                <td width="100" style="white-space: nowrap;">
+                    <form name="submitCharting${patientlist.hPatientID}" method="GET" action="/emrms/charting">
+                        <text>
+                            <c:choose>
+                                <c:when test="${patientlist.encStatus == '1'}">
+                                    Active
+                                    <input type="hidden" name="hPatientID" value="${patientlist.hPatientID}"/>
+                                    <a href="javascript:document.submitCharting${patientlist.hPatientID}.submit()">
+                                        <img src="https://www.webpt.com/sites/default/files/images/icon-documentation.png"
+                                             alt="Charting"
+                                             style="width: 25px; height:auto; border:0; background-color: white;"/>
+                                    </a>
+                                </c:when>
+                                <c:when test="${patientlist.encStatus == '2'}">
+                                    Closed
+                                </c:when>
+                                <c:when test="${patientlist.encStatus == '2'}">
+                                    Scheduled
+                                </c:when>
+                            </c:choose>
+                        </text>
+                    </form>
                 </td>
             </tr>
         </c:forEach>
