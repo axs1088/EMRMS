@@ -23,7 +23,7 @@ CREATE PROCEDURE Emrms_GetPhysicianCensusList(IN UserObjectID INT)
       hn.FirstName,
       hp.Birthdate,
       hp.Gender,
-      hpat.HPatientID,
+      hpat.HPatientID as patientObjectid,
       hPtId.IDValue as MPINo,
       henc.EncStartdateTime,
       henc.encStatus,

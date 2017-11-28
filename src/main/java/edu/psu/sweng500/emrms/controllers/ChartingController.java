@@ -83,7 +83,7 @@ public class ChartingController {
     }
 
     @RequestMapping(value = "/charting", method = RequestMethod.GET)
-    public ModelAndView showCharting(HttpServletRequest request, @RequestParam(value = "hPatientID", required = false) Integer hPatientID) {
+    public ModelAndView showCharting(HttpServletRequest request, @RequestParam(value = "patientObjectid", required = false) Integer hPatientID) {
         if (hPatientID != null) {
             sessionHelper.setActivePatient(hPatientID);
             session = request.getSession();

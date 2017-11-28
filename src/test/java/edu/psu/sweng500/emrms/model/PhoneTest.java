@@ -25,15 +25,15 @@ public class PhoneTest {
         Phone alsoAllFives = new Phone("5555555555");
         Phone allFours = new Phone("4444444444");
         Object notAPhone = "string!";
-        Phone nullNumberPhone = new Phone();
+        Phone nullNumberPhone = new Phone("");
 
         assertTrue(allFives.equals(allFives));
         assertFalse(allFives.equals(null));
         assertFalse(allFives.equals(notAPhone));
         assertFalse(allFives.equals(nullNumberPhone));
         assertFalse(nullNumberPhone.equals(allFives));
-        assertTrue(allFives.equals(alsoAllFives));
-        assertFalse(allFives.equals(allFours));
+       assertTrue(allFives.equals(alsoAllFives));
+       assertFalse(allFives.equals(allFours));
     }
 
     @Test

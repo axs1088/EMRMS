@@ -2,6 +2,7 @@ package edu.psu.sweng500.emrms.application;
 
 import edu.psu.sweng500.emrms.model.HAuditRecord;
 import edu.psu.sweng500.emrms.service.AuditEventService;
+import edu.psu.sweng500.emrms.service.AuditEventServiceImpl;
 import edu.psu.sweng500.emrms.util.PersonPatientUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class ApplicationAuditHelper {
     private ApplicationSessionHelper applicationSessionHelper;
 
     @Autowired
-    private AuditEventService auditEventService;
+    private AuditEventServiceImpl auditEventService;
 
     @Autowired
     private PersonPatientUtils personPatientUtils;
@@ -58,7 +59,7 @@ public class ApplicationAuditHelper {
         this.applicationSessionHelper = applicationSessionHelper;
     }
 
-    public void setAuditEventService(AuditEventService auditEventService) {
+    public void setAuditEventService(AuditEventServiceImpl auditEventService) {
         this.auditEventService = auditEventService;
     }
 }

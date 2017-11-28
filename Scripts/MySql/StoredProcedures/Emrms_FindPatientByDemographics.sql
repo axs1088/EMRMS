@@ -6,7 +6,7 @@ BEGIN
     IF lName <> '' AND fName <> '' AND gender <> '' AND gender <> 3
     THEN
       SELECT
-        hpat.HPatientID,
+        hpat.HPatientID as patientObjectid,
         hn.LastName,
         hn.FirstName,
         hp.Birthdate,
@@ -29,7 +29,7 @@ BEGIN
     IF lName <> '' AND fName <> '' AND gender = 3
     THEN
       SELECT
-        hpat.HPatientID,
+        hpat.HPatientID as patientObjectid,
         hn.HpersonID,
         hn.LastName,
         hn.FirstName,
@@ -52,7 +52,7 @@ BEGIN
     IF lName <> '' AND fName = '' AND gender = 3
     THEN
       SELECT
-        hpat.HPatientID,
+        hpat.HPatientID as patientObjectid,
         hn.LastName,
         hn.FirstName,
         hp.Birthdate,

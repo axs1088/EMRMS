@@ -95,9 +95,9 @@
         <c:forEach items="${hPatientList}" var="patientlist" varStatus="status">
             <tr>
                 <td width="130">
-                    <form name="submitForm${patientlist.hPatientID}" method="POST" action="/emrms/patientDetails">
-                        <input type="hidden" name="hPatientID" value="${patientlist.hPatientID}"/>
-                        <a href="javascript:document.submitForm${patientlist.hPatientID}.submit()">${patientlist.lastName}, ${patientlist.firstName}</a>
+                    <form name="submitForm${patientlist.patientObjectid}" method="POST" action="/emrms/patientDetails">
+                        <input type="hidden" name="patientObjectid" value="${patientlist.patientObjectid}"/>
+                        <a href="javascript:document.submitForm${patientlist.patientObjectid}.submit()">${patientlist.lastName}, ${patientlist.firstName}</a>
                     </form>
                 </td>
                 <td width="150">
@@ -120,13 +120,13 @@
                     <text>${patientlist.MPINo}</text>
                 </td>
                 <td width="100" style="white-space: nowrap;">
-                    <form name="submitCharting${patientlist.hPatientID}" method="GET" action="/emrms/charting">
+                    <form name="submitCharting${patientlist.patientObjectid}" method="GET" action="/emrms/charting">
                         <text>
                             <c:choose>
                                 <c:when test="${patientlist.encStatus == '1'}">
                                     Active
-                                    <input type="hidden" name="hPatientID" value="${patientlist.hPatientID}"/>
-                                    <a href="javascript:document.submitCharting${patientlist.hPatientID}.submit()">
+                                    <input type="hidden" name="patientObjectid" value="${patientlist.patientObjectid}"/>
+                                    <a href="javascript:document.submitCharting${patientlist.patientObjectid}.submit()">
                                         <img src="https://www.webpt.com/sites/default/files/images/icon-documentation.png"
                                              alt="Charting"
                                              style="width: 25px; height:auto; border:0; background-color: white;"/>

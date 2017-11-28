@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class FormatUtilsTest {
     
     @Test
-    public static void formatDate() throws ParseException {
+    public void formatDate() throws ParseException {
     	String expected = "2017-10-04";
     	String inputDate = "2017-10-04 00:00:00.0";
         assertEquals(expected, FormatUtils.formatDate(inputDate));

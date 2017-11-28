@@ -55,6 +55,14 @@ public class LoginController {
     public void setAuditEventService(AuditEventServiceImpl auditEventService) {
     }
 
+    public void setApplicationSessionHelper(ApplicationSessionHelper applicationSessionHelper) {
+        this.sessionHelper = applicationSessionHelper;
+    }
+
+    public void setApplicationAuditHelper(ApplicationAuditHelper applicationAuditHelper) {
+        this.applicationAuditHelper = applicationAuditHelper;
+    }
+
     /**
      * Initialize data binder. Support MM/dd/yyyy dates.
      *

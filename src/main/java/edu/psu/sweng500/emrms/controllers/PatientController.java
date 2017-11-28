@@ -85,7 +85,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/patientDetails", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView patientDetails(HttpServletRequest request, @RequestParam(value = "hPatientID", required = false) Integer hPatientID) {
+    public ModelAndView patientDetails(HttpServletRequest request, @RequestParam(value = "patientObjectid", required = false) Integer hPatientID) {
         HttpSession session = request.getSession(false);
         ModelAndView mav = new ModelAndView("patientDetails");
         HPatient patient = null;
@@ -183,7 +183,7 @@ public class PatientController {
 
         if (CollectionUtils.isNotEmpty(hPatientList)) {
             mav.addObject("hPatientList", hPatientList);
-            sessionHelper.setActivePatient(hPatientList.get(0).gethPatientID());
+            sessionHelper.setActivePatient(hPatientList.get(0).getPatientObjectid());
         }
         applicationAuditHelper.auditEvent(session, "Patient Locator", 4, 0, 0);
 
@@ -268,6 +268,13 @@ public class PatientController {
 
     public void setApplicationAuditHelper(ApplicationAuditHelper applicationAuditHelper) {
         this.applicationAuditHelper = applicationAuditHelper;
+    }
+    public void setApplicationSessionHelper(ApplicationSessionHelper applicationSessionHelper) {
+        this.sessionHelper = applicationSessionHelper;
+    }
+
+    public void setPatientValidator(PatientValidator patientValidator) {
+        this.patientValidator = patientValidator;
     }
 
     private HPatient getPatientDetails(Integer hPatientID) {

@@ -359,5 +359,8 @@ public class ApplicationSessionHelper {
 	public void setPhysicianName(String physicianName) {
 		this.physicianName = physicianName;
 	}
-    
+
+    public void setPatientDemographicsMapper(PatientDemographicsMapper patientDemographicsMapper) {
+        this.patientDemographicsMapper = patientDemographicsMapper;
+    }
 }

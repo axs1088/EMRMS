@@ -2,6 +2,7 @@ package edu.psu.sweng500.emrms.util;
 
 import edu.psu.sweng500.emrms.model.Address;
 import edu.psu.sweng500.emrms.model.ComplexName;
+import edu.psu.sweng500.emrms.model.HPatientId;
 import edu.psu.sweng500.emrms.model.Phone;
 
 import java.sql.Date;
@@ -57,6 +58,8 @@ public class TestingUtilities {
             return address;
         } else if (returnType.equals(Phone.class)) {
             return new Phone(createRandomString());
+        }else if (returnType.equals(HPatientId.class)) {
+            return new HPatientId();
         }
 
         throw new ClassNotFoundException("Could not create object of type: " + returnType.getName());

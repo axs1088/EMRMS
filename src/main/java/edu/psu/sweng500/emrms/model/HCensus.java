@@ -9,7 +9,7 @@ import java.sql.Date;
  * @author vkumar
  */
 public class HCensus {
-	private int hPatientID;
+	private int patientObjectid;
     private String firstName;
     private String lastName;
     private Date birthdate;
@@ -20,12 +20,21 @@ public class HCensus {
     private int encounterObjectID;
     private String encounterLocationName;
 
-    public int gethPatientID() {
-    	return hPatientID;
+    public int getPatientObjectid() {
+        return patientObjectid;
     }
-    public void sethPatientID(int hPatientID) {
-    	this.hPatientID = hPatientID;
+
+    public void setPatientObjectid(int patientObjectid) {
+        this.patientObjectid = patientObjectid;
     }
+    /*
+    public int getHPatientID() {
+    	return patientObjectid;
+    }
+    public void setHPatientID(int hPatientID) {
+    	this.patientObjectid = hPatientID;
+    }
+    */
     public String getFirstName() {
         return firstName;
     }

@@ -28,9 +28,9 @@
         <c:forEach items="${hCensusList}" var="physicianCensus" varStatus="status">
             <tr>
                 <td width="130">
-                    <form name="submitForm${physicianCensus.hPatientID}" method="POST" action="/emrms/patientDetails">
-                        <input type="hidden" name="hPatientID" value="${physicianCensus.hPatientID}"/>
-                        <a href="javascript:document.submitForm${physicianCensus.hPatientID}.submit()">${physicianCensus.lastName}, ${physicianCensus.firstName}</a>
+                    <form name="submitForm${physicianCensus.patientObjectid}" method="POST" action="/emrms/patientDetails">
+                        <input type="hidden" name="patientObjectid" value="${physicianCensus.patientObjectid}"/>
+                        <a href="javascript:document.submitForm${physicianCensus.patientObjectid}.submit()">${physicianCensus.lastName}, ${physicianCensus.firstName}</a>
                     </form>
                 </td>
                 <td width="150">${physicianCensus.birthdate}</td>
@@ -47,13 +47,13 @@
                 <td width="100">${physicianCensus.encounterLocationName}</td>
                 <td width="100">${physicianCensus.MPINo}</td>
                 <td width="100" style="white-space: nowrap;">
-                    <form name="submitCharting${physicianCensus.hPatientID}" method="GET" action="/emrms/charting">
+                    <form name="submitCharting${physicianCensus.patientObjectid}" method="GET" action="/emrms/charting">
                         <text>
                             <c:choose>
                                 <c:when test="${physicianCensus.encStatus == '1'}">
                                     Active
-                                    <input type="hidden" name="hPatientID" value="${physicianCensus.hPatientID}"/>
-                                    <a href="javascript:document.submitCharting${physicianCensus.hPatientID}.submit()">
+                                    <input type="hidden" name="patientObjectid" value="${physicianCensus.patientObjectid}"/>
+                                    <a href="javascript:document.submitCharting${physicianCensus.patientObjectid}.submit()">
                                         <img src="https://www.webpt.com/sites/default/files/images/icon-documentation.png"
                                              alt="Charting"
                                              style="width: 25px; height:auto; border:0; background-color: white;"/>

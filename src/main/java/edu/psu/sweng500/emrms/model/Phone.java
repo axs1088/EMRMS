@@ -35,4 +35,18 @@ public class Phone implements Serializable {
 	public String toString() {
 		return number == null ? "" : number;
 	}
+
+	public boolean equals(Phone other) {
+		if(other == null){
+			return false;
+		}
+		if (!(other instanceof Phone)) {
+			return false;
+		}
+		Phone that = (Phone) other;
+
+		// Custom equality check here.
+		return this.number.equals(that.number)
+				&& this.number.equals(that.number);
+	}
 }
