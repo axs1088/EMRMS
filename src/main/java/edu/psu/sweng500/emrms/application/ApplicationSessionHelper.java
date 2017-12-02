@@ -3,16 +3,10 @@ package edu.psu.sweng500.emrms.application;
 import edu.psu.sweng500.emrms.controllers.annotation.ApplicationFormController;
 import edu.psu.sweng500.emrms.exceptions.PatientNotFoundException;
 import edu.psu.sweng500.emrms.mappers.PatientDemographicsMapper;
-import edu.psu.sweng500.emrms.model.ActiveTabs;
-import edu.psu.sweng500.emrms.model.HEncounter;
-import edu.psu.sweng500.emrms.model.HHealthcareOrganization;
-import edu.psu.sweng500.emrms.model.HName;
-import edu.psu.sweng500.emrms.model.HStaff;
-import edu.psu.sweng500.emrms.model.SiteHeader;
+import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.ManageStaffService;
 import edu.psu.sweng500.emrms.service.UserService;
 import edu.psu.sweng500.emrms.util.Constants;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,19 +55,19 @@ public class ApplicationSessionHelper {
 
     @Autowired
     private PatientDemographicsMapper patientDemographicsMapper;
-    
+
     @Autowired
     private ManageStaffService manageStaffService;
-    
+
     @Autowired
     private UserService userService;
 
     private Integer patientId;
-    
+
     private String physicianName;
 
     ActiveTabs activeTabs;
-    
+
     public ModelAndView addSessionHelperAttributes(ModelAndView mav) {
         mav.addObject("severeAllergyList", getSevereAllergies());
         mav.addObject("primaryDiagnosisList", getPrimaryDiagnoses());
@@ -314,14 +308,14 @@ public class ApplicationSessionHelper {
     }
 
     public String getClinicName() {
-    	String clinicName = "";
-        try {       	
-        	List<HHealthcareOrganization>  hHealthcareOrganizationList = userService.getLoggedinEntityDetails();
-        	if(CollectionUtils.isNotEmpty(hHealthcareOrganizationList)) {
-        		clinicName = hHealthcareOrganizationList.get(0).getName();
-        	}
+        String clinicName = "";
+        try {
+            List<HHealthcareOrganization> hHealthcareOrganizationList = userService.getLoggedinEntityDetails();
+            if (CollectionUtils.isNotEmpty(hHealthcareOrganizationList)) {
+                clinicName = hHealthcareOrganizationList.get(0).getName();
+            }
         } catch (NullPointerException | IndexOutOfBoundsException ex) {
-            ex.printStackTrace();
+            // fine
         }
         return clinicName;
     }
@@ -352,13 +346,13 @@ public class ApplicationSessionHelper {
         getActiveTabs().setEncounter(activeEncounterTab);
     }
 
-	public String getPhysicianName() {
-		return physicianName;
-	}
+    public String getPhysicianName() {
+        return physicianName;
+    }
 
-	public void setPhysicianName(String physicianName) {
-		this.physicianName = physicianName;
-	}
+    public void setPhysicianName(String physicianName) {
+        this.physicianName = physicianName;
+    }
 
     public void setPatientDemographicsMapper(PatientDemographicsMapper patientDemographicsMapper) {
         this.patientDemographicsMapper = patientDemographicsMapper;

@@ -6,10 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LocallyCachedPatientDemographicMapper implements PatientDemographicsMapper {
+    private HPerson person;
+
+    public LocallyCachedPatientDemographicMapper() {
+        person = new HPerson();
+    }
+
+    public void setPersonReturned(HPerson person) {
+        this.person = person;
+    }
 
     @Override
     public HPerson getPersonDetails(int personId) {
-        return new HPerson();
+        return person;
     }
 
     @Override
@@ -52,18 +61,18 @@ public class LocallyCachedPatientDemographicMapper implements PatientDemographic
         return new ArrayList<>();
     }
 
-	@Override
-	public Phone getHomePhone(int personId) {
-		return new Phone();
-	}
+    @Override
+    public Phone getHomePhone(int personId) {
+        return new Phone();
+    }
 
-	@Override
-	public Phone getCellPhone(int personId) {
-		return new Phone();
-	}
+    @Override
+    public Phone getCellPhone(int personId) {
+        return new Phone();
+    }
 
-	@Override
-	public String getEmail(int personId) {
-		return "";
-	}
+    @Override
+    public String getEmail(int personId) {
+        return "";
+    }
 }

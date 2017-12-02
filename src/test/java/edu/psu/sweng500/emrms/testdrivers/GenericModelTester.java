@@ -14,18 +14,22 @@ public class GenericModelTester {
         Object objectInstance = plainOldDataClass.newInstance();
 
         for (Field field : plainOldDataClass.getDeclaredFields()) {
-            String fieldName = field.getName();
-            fieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+            try {
+                String fieldName = field.getName();
+                fieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 
-            Method getterMethod = plainOldDataClass.getMethod("get" + fieldName, new Class[]{});
-            Class<?> returnType = getterMethod.getReturnType();
-            Method setterMethod = plainOldDataClass.getMethod("set" + fieldName, new Class[]{returnType});
+                Method getterMethod = plainOldDataClass.getMethod("get" + fieldName, new Class[]{});
+                Class<?> returnType = getterMethod.getReturnType();
+                Method setterMethod = plainOldDataClass.getMethod("set" + fieldName, new Class[]{returnType});
 
-            Object randomObjectFromClass = TestingUtilities.createRandomObjectFromClass(returnType);
-            setterMethod.invoke(objectInstance, randomObjectFromClass);
-            Object getterResult = getterMethod.invoke(objectInstance);
+                Object randomObjectFromClass = TestingUtilities.createRandomObjectFromClass(returnType);
+                setterMethod.invoke(objectInstance, randomObjectFromClass);
+                Object getterResult = getterMethod.invoke(objectInstance);
 
-            assertEquals(randomObjectFromClass, getterResult);
+                assertEquals(randomObjectFromClass, getterResult);
+            } catch (Exception ex) {
+                System.out.println("Exception encountered with field " + field.getName() + ": " + ex.getMessage());
+            }
         }
     }
 }

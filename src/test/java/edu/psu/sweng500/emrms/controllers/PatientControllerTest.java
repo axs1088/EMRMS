@@ -2,7 +2,10 @@ package edu.psu.sweng500.emrms.controllers;
 
 import edu.psu.sweng500.emrms.application.ApplicationAuditHelper;
 import edu.psu.sweng500.emrms.application.ApplicationSessionHelper;
-import edu.psu.sweng500.emrms.mappers.*;
+import edu.psu.sweng500.emrms.mappers.LocallyCachedAuditMapper;
+import edu.psu.sweng500.emrms.mappers.LocallyCachedCensusMapper;
+import edu.psu.sweng500.emrms.mappers.LocallyCachedPatientDemographicMapper;
+import edu.psu.sweng500.emrms.mappers.LocallyCachedPatientMapper;
 import edu.psu.sweng500.emrms.model.*;
 import edu.psu.sweng500.emrms.service.AuditEventServiceImpl;
 import edu.psu.sweng500.emrms.service.CensusServiceImpl;
@@ -11,14 +14,14 @@ import edu.psu.sweng500.emrms.service.PatientServiceImpl;
 import edu.psu.sweng500.emrms.util.Constants;
 import edu.psu.sweng500.emrms.validators.PatientValidator;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -59,10 +62,14 @@ public class PatientControllerTest {
         applicationAuditHelper.setApplicationSessionHelper(applicationSessionHelper);
 
         patientDemographicMapper = new LocallyCachedPatientDemographicMapper();
+        HPerson personReturned = new HPerson();
+        personReturned.setBirthDate((new Date(1)).toString());
+        patientDemographicMapper.setPersonReturned(personReturned);
         applicationSessionHelper.setPatientDemographicsMapper(patientDemographicMapper);
 
         patientReturned = new HPatient();
         patientReturned.setUserId("JohnDoe");
+        patientReturned.setBirthDate(java.sql.Date.valueOf(LocalDate.now()).toString());
         //ComplexName name = new ComplexName();
         //name.setLast("TestL");
         //name.setFirst("TestF");
@@ -86,6 +93,7 @@ public class PatientControllerTest {
         patientReturned.setEmail("test@psu.edu");
         patientReturned.setCellPhone(phone);
         patientReturned.setHomePhone(phone);
+        patientReturned.setPersonId(1);
 
         HPatientId patientId = new HPatientId();
         patientId.setIdValue("MRN-Test");
@@ -162,4 +170,9 @@ public class PatientControllerTest {
         assertNotNull(controller.findPatient(mockedRequest, null, patientCensusReturned));
     }
 
+    @Test
+    public void testPatientDetails() {
+        assertNotNull(controller.patientDetails(mockedRequest, null));
+        assertNotNull(controller.patientDetails(mockedRequest, patientReturned.getObjectID()));
+    }
 }

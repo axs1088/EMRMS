@@ -94,8 +94,8 @@ public class PatientController {
             patient = getPatientDetails(hPatientID);
             sessionHelper.setActivePatient(hPatientID);
             session.setAttribute(Constants.HPATIENT_ID, hPatientID);
+            applicationAuditHelper.auditEvent(session, "View Patient Details", 9, hPatientID, 0);
         }
-        applicationAuditHelper.auditEvent(session, "View Patient Details", 9, hPatientID, 0);
 
         mav.addObject("showHeader", true);
         mav.addObject("patient", patient);
@@ -269,6 +269,7 @@ public class PatientController {
     public void setApplicationAuditHelper(ApplicationAuditHelper applicationAuditHelper) {
         this.applicationAuditHelper = applicationAuditHelper;
     }
+
     public void setApplicationSessionHelper(ApplicationSessionHelper applicationSessionHelper) {
         this.sessionHelper = applicationSessionHelper;
     }
