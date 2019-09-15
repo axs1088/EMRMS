@@ -30,7 +30,7 @@ public class CallSchemaScript {
 
         // Seefried: We should change this, having the hard-coded username and password is bad
         Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/emrms_test", "root", "emrms2017");
+                "jdbc:mysql://localhost:3306/emrms", "root", "emrms");
         ScriptRunner scriptRunner = new ScriptRunner(connection);
 
         /*
